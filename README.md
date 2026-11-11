@@ -4,7 +4,7 @@
 
 가상 학원·병원 각각 한 곳을 동봉합니다. 사람 출입구를 유지하면서 방문 모드·이용 불가·영상 점유에 따라 차량 도착점이 바뀝니다. 순정 내비 좌표의 실제 승하차 허용 여부나 실제 시설 무단차 경로를 검증한 서비스는 아닙니다.
 
-개발을 이어갈 때는 [다음 개발 실행 프롬프트](docs/09-next-development-prompt.md)를 사용합니다. 주요 진행 절차·실패·후속 작업은 [개발 일지](docs/10-development-log.md), 기능별 완료 증거는 [검증 기록](docs/08-verification.md)에 남깁니다.
+개발을 이어갈 때는 [다음 개발 실행 프롬프트](docs/09-next-development-prompt.md)를 사용합니다. [제출 체크리스트](docs/12-submission-checklist.md)에서 남은 실제 확인 항목을 확인합니다. 주요 진행 절차·실패·후속 작업은 [개발 일지](docs/10-development-log.md), 기능별 완료 증거는 [검증 기록](docs/08-verification.md)에 남깁니다.
 
 ## 빌드와 APK
 
@@ -57,6 +57,20 @@ adb -s "$DOCHAGJARI_SERIAL" shell wm size
 adb -s "$DOCHAGJARI_SERIAL" shell wm density
 adb -s "$DOCHAGJARI_SERIAL" logcat -v time Dochagjari:I DochagjariVehicle:I DochagjariPleosSeat:I '*:S'
 ```
+
+### ADB 준비 실패를 구분하는 방법
+
+준비 helper는 지정한 시리얼의 transport, boot, package, activity 결과를 JSON으로 남기며 성공할 때만 종료 코드 0입니다. 기존 `readiness.json`이나 emulator의 Boot completed 로그만으로 설치하지 않습니다.
+
+| 관찰한 상태 | 다음 확인 |
+| --- | --- |
+| device not found | `adb devices -l`과 emulator 실행 포트·시리얼을 대조합니다. |
+| offline | 해당 AVD의 ADB 연결·부팅 로그를 확인합니다. 다른 기기의 서버나 데이터를 초기화하지 않습니다. |
+| unauthorized | AVD 화면의 정상 디버깅 승인 절차를 확인합니다. 키 파일 편집이나 인증 우회로 해결하지 않습니다. |
+| transport=device, boot가 1이 아님 | 부팅 진행·오류를 수집하고 설치를 보류합니다. |
+| boot=1, package/activity 미준비 | 서비스별 stdout/stderr·종료 코드와 프레임워크 로그를 대조합니다. vendor crash 하나로 원인을 단정하지 않습니다. |
+
+공식 Linux 이미지의 `devices.xml`은 RAM4GiB, `source.properties`는 8192MB를 지정합니다. [읽기 전용 비교](docs/evidence/pleos-profile-comparison.json)를 참고하고 사용한 실제 AVD 값을 기록합니다.
 
 ### 내비 목적지 두 곳
 

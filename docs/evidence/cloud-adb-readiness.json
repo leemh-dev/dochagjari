@@ -1,0 +1,12 @@
+{
+  "serial": "emulator-5554",
+  "ready": false,
+  "checks": {
+    "transport": {
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "error: device 'emulator-5554' not found"
+    }
+  },
+  "reason": "ADB transport is not an authorized online device"
+}

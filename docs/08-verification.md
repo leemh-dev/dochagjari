@@ -2,6 +2,17 @@
 
 2026-11-11 UTC · 기준: [개발계획](07-development-plan.md)
 
+## 후속 ADB 진단 — 2026-11-11 20:33 UTC
+
+- PR#1은 open/미병합이며 기준 `a020643`의 [PR CI](https://github.com/leemh-dev/dochagjari/actions/runs/43062184213)와 push CI가 모두 성공한 것을 이번에 확인했습니다. 아래 Android JVM33·서버14·기기6·프로세스2단계는 이 기존 완료 증거이며 이번에 반복 실행하지 않았습니다.
+- `fcfbfc0`에서 transport/boot/package/activity를 개별 명령·종료 코드·stdout/stderr로 검사하는 `scripts/pleos/adb_readiness.py`를 추가했습니다. 준비 기록이 true여도 설치 직전에 실제 상태를 다시 검사합니다. 미준비면 설치·실행을 차단합니다.
+- 새 진단 검사 **7건 로컬 통과**: [로그](evidence/adb-readiness-tests.txt). 이 중 두 건은 독립 Python 프로세스의 실제 ui_probe를 실행해 과거 성공 JSON + 현재 기기 없음, 과거 실패 JSON에서 설치 명령이 호출되지 않음을 확인합니다. ADB는 대역이며 Pleos 기기 실행 성공이 아닙니다.
+- 현재 Cloud에 KVM/연결 기기가 없고 실제 CLI에서 [device not found](evidence/cloud-adb-readiness.json)를 받았습니다. 설치·소프트웨어 부팅을 실행하지 않았습니다.
+- 누락됐던 ADB 오류를 수집하기 위해 a020643을 [수동 진단 43095641582](https://github.com/leemh-dev/dochagjari/actions/runs/43095641582)으로 요청했습니다. **20:32 UTC 관찰 시 queued, job 0개**였고 새 CI 두 건도 동일했습니다. [API 스냅샷](evidence/followup-actions-queue.json). 새 부팅·설치·기기 검사 결과로 계산하지 않습니다. 다음 작업은 이 실행의 최신 결과를 먼저 읽는 것입니다.
+- [공식 설정 비교](evidence/pleos-profile-comparison.json): devices.xml RAM4GiB/source.properties8192MB가 공존합니다. 원본 userdata 약1.1GB와 별도 빈 테스트 userdata2GiB도 다릅니다. 비교 부팅을 하지 않았고 메모리/데이터 차이를 원인으로 단정하지 않습니다.
+- 이번에는 앱 코드를 바꾸지 않아 APK를 재빌드·재배포하지 않았습니다. v0.2.0 코드 `3a01515`·기존 artifact·아래 해시는 유지됩니다. SMS/수신자 설정·제출 키 환경 변수가 없고 server/.env도 없어 실제 SMS와 제출 서명은 실행하지 않았습니다.
+- [제출 체크리스트](12-submission-checklist.md)와 README의 설치 전 자동 검사·ADB 상태별 재현 절차를 정리했습니다.
+
 ## v0.2.0 복구·설정 저장 보완
 
 - 코드 커밋: `3a01515` (배포 빌드 기준), `5ef9aab` (프로세스 검증), `44f0cb4` (Android 프레임 호환), `702432c` (알림·저장·기기 CI), `6616f01` (서버 계약), `4a40a24` (수정 전 실패 재현).

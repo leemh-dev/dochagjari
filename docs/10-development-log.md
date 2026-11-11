@@ -162,6 +162,14 @@
 - **검사:** 새 준비 검사 5건(정상, unauthorized/offline/없음, 부분 부팅/비정상 종료/유사 문자열, timeout/실행파일 없음, 자격증명 제거) 통과. Python 구문·diff 검사 통과. 이는 명령 대역 검사이며 Pleos 성공이 아니다. 앱 코드는 바꾸지 않아 APK를 재배포하지 않는다.
 - **다음:** 수동 진단의 실제 ADB 상태를 먼저 받아 원인에 맞춰 해결하고, 부팅/두 서비스 준비 후에만 실제 앱 설치·내비/좌석 확인을 진행한다.
 
+## 2026-11-11 20:33 UTC — 설치 차단 회귀·실행 대기와 제출 체크리스트
+
+- **추가 검사:** 실제 ui_probe Python 프로세스를 대역 ADB로 실행해 과거 성공 JSON/현재 미접속과 과거 실패 JSON에서 install/am start를 호출하지 않음을 확인했다. 진단 검사 총7건 통과. [로그](evidence/adb-readiness-tests.txt). 실제 Cloud CLI도 device not found·exit1로 종료했다([JSON](evidence/cloud-adb-readiness.json)).
+- **진행 상태:** [20:32 API 스냅샷](evidence/followup-actions-queue.json)에서 수동 Pleos43095641582와 fcfbfc0 CI43096203840·43096197226이 모두 queued/job0. 저장소 pending deployments0, 공개 GitHub Status Actions operational/미해결 incident 없음. 대기 원인을 단정하지 않으며 부팅/검사 실패로 분류하지 않는다. 새 실행 결과는 아직 없다.
+- **제출 준비:** [체크리스트](12-submission-checklist.md)에 APK코드/버전/서명/다운로드·완료 증거·실연동/서명/영상/폼 대조의 남은 확인을 정리했다. 앱을 변경하지 않아 기존 성공 검사를 수동 반복하거나 APK를 재배포하지 않았다.
+- **외부 조건:** SENS 서비스/접근키/비밀키/발신번호/수신자 매핑과 제출 키 환경 변수 모두 없음, server/.env 없음. 실제 메시지 발송·실제 수신·제출 키 생성/서명을 실행하지 않았다. 실제 병원 동선은 가상 시연으로 유지한다.
+- **다음:** runner 진단 결과를 먼저 확인해 ADB 원인을 해결하고 실제 Pleos 내비·좌석·기기 검사를 진행한다. 반복 부팅 전에 기존 실행 결과를 읽고 새 근거를 기록한다.
+
 ## 이후 기록 양식
 
 ```text
