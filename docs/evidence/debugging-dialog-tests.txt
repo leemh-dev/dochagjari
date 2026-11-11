@@ -1,0 +1,9 @@
+test_ambiguous_allow_and_checkbox_only_never_click (test_debugging_dialog.DebuggingDialogTest.test_ambiguous_allow_and_checkbox_only_never_click) ... ok
+test_korean_normal_debugging_dialog_uses_same_fingerprint_gate (test_debugging_dialog.DebuggingDialogTest.test_korean_normal_debugging_dialog_uses_same_fingerprint_gate) ... ok
+test_normal_allow_requires_matching_host_fingerprint_and_not_checkbox (test_debugging_dialog.DebuggingDialogTest.test_normal_allow_requires_matching_host_fingerprint_and_not_checkbox) ... ok
+test_wrong_host_or_unrelated_permission_never_clicks (test_debugging_dialog.DebuggingDialogTest.test_wrong_host_or_unrelated_permission_never_clicks) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+OK

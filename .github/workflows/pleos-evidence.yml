@@ -4,7 +4,7 @@ on:
 jobs:
   pleos-evidence:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - run: python -m unittest discover -s scripts/pleos/tests -v
@@ -28,8 +28,15 @@ jobs:
             sha256sum app/build/outputs/apk/debug/app-debug.apk
             "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --print-certs app/build/outputs/apk/debug/app-debug.apk
           } > app/build/reports/pleos/verification-apk-identity.txt
+      - name: Install GUI tools for normal test-AVD debugging approval
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb xauth xdotool imagemagick tesseract-ocr tesseract-ocr-kor libxcb-cursor0 libxcb-xinerama0 libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinput0
       - name: Check KVM and boot official Pleos image with isolated test data
         id: boot
+        env:
+          DOCHAGJARI_AVD_GUI: '1'
+          DOCHAGJARI_APPROVE_TEST_ADB: '1'
         run: |
           sudo chmod a+rw /dev/kvm
           python scripts/pleos/prepare_avd.py

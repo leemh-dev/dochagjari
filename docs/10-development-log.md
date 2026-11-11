@@ -196,6 +196,16 @@
 - **기기 검사 준비:** boot 성공 조건 외에 connected 검사 직전에도 live helper로 준비를 재확인한다. SDK 증거를 먼저 저장한 뒤 이 job이 만든 새 전용 AVD의 테스트 앱 데이터만 초기화해 일반 기능 검사 fixture와 분리한다. 기존 사용자 기기를 초기화하는 절차가 아니다.
 - **검사:** Python/Node 구문·actionlint·diff 확인. 현재 실행43105761433은71f34c3이므로 이 보완을 검증한 것으로 표시하지 않는다. 실제 결과가 나오면 별도 기록한다.
 
+## 2026-11-11 22:15 UTC — ADB unauthorized를 확인·정상 화면 승인 준비
+
+- **실제 결과:** [43105761433](https://github.com/leemh-dev/dochagjari/actions/runs/43105761433)에서 진단7건·APK빌드·KVM/공식 이미지61범위·체크섬·에뮬레이터 실행까지 진행했다. transport get-state rc1/stderr `device unauthorized`, devices 목록 emulator-5554 unauthorized를 수집했다. [JSON](evidence/pleos-adb-unauthorized/readiness.json), [정제 요약](evidence/pleos-adb-unauthorized/boot-summary.txt), artifact13894429055.
+- **원인 경계:** 이번 실행에서 속성·서비스 조회가 막힌 직접 원인은 ADB 인증 미승인이다. transport 단계에서 중단되어 boot/package/activity는 조회하지 않았으며 프레임워크 준비 여부는 아직 알 수 없다. vendor profile crash/메모리를 이 접근 실패의 원인으로 단정하지 않는다. 앱 설치/SDK/Console은 생략했다([기록](evidence/pleos-adb-unauthorized/app-probe.json)).
+- **보완:** Xvfb의 정상 AVD 창을 띄우고 USB 디버깅 승인 화면을 관찰하는 경로를 추가했다. 이 job의 새 AVD/미사용 serial 확인 + GitHub Actions 전용 flag에서만 자동 승인하며, 공개 host adbkey.pub의 지문과 화면 RSA 지문이 정확히 일치하고 정상 문구·취소 옆의 유일한 허용 버튼이 확인될 때만 클릭한다. 항상 허용 checkbox·다른 권한·다른 호스트·모호한 화면은 클릭하지 않는다.
+- **비밀/권한:** ADB 키 파일 편집/복사·인증 비활성화·root/privileged 우회는 하지 않는다. 개인키·공개키 본문·X11 cookie는 artifact에 포함하지 않는다. 화면의 공개 지문은 키 본문이나 비밀값이 아니며, 새 테스트 AVD의 화면/판정 booleans만 보존한다. 호스트 OCR은 이 승인 UI 관찰용이고 앱 ML Kit/C12 성공으로 계산하지 않는다.
+- **검사:** 새 화면 판단4건 로컬 통과(정상/호스트 지문 불일치/다른 권한/모호·checkbox/한국어). [로그](evidence/debugging-dialog-tests.txt). Python 구문·actionlint·diff 통과. 기존7건과 합쳐 workflow는11건을 실행한다. 실제 화면 클릭은 아직 미실행이다.
+- **다음 실행 근거:** GitHub 시작 실패의 무근거 반복이 아니라 확인된 unauthorized에 대해 정상 GUI 승인 조건을 추가한 별도 실행이다. 정상 승인/transport=device/boot1/두 서비스 준비가 확인될 때만 설치·SDK·Console·기기 테스트를 진행한다. 승인 화면을 안전하게 식별할 수 없으면 300초 뒤 차단으로 남긴다.
+- **기존 검사와 구분:** [0f21ead 일반 PR CI43106443044](https://github.com/leemh-dev/dochagjari/actions/runs/43106443044)는 전체 성공했다. 실제 Pleos 핀/좌석/실차 성공과 다르다. 앱 코드/배포 APK/서명 키는 변경하지 않았다.
+
 ## 이후 기록 양식
 
 ```text

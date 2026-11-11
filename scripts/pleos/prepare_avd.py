@@ -11,11 +11,13 @@ import os
 import subprocess
 import time
 import threading
+import signal
 import urllib.request
 import xml.etree.ElementTree as ET
 import zipfile
 
 from adb_readiness import diagnostic, probe
+from debugging_dialog import approve_visible_dialog
 
 sdk = Path(os.environ["ANDROID_HOME"])
 work = Path("app/build/pleos-work").resolve()
@@ -158,22 +160,54 @@ disk.dataPartition.size=2G
     with userdata.open("wb") as output: output.truncate(2 * 1024 ** 3)
     subprocess.run([str(sdk / "emulator/bin64/mkfs.ext4"), "-F", str(userdata)], check=True, capture_output=True)
     environment = os.environ | {"ANDROID_AVD_HOME": str(avd)}
-    command(adb, "start-server")
+    server = command(adb, "start-server")
+    existing = command(adb, "devices", "-l")
+    report["adb_server_start"] = {"returncode": server.returncode, "stderr": diagnostic(server.stderr)}
+    if server.returncode != 0 or existing.returncode != 0 or "emulator-5554" in existing.stdout:
+        raise RuntimeError("Cannot establish an unused dedicated ADB serial; no existing device is modified")
     log = (work / "boot.log").open("w")
-    process = subprocess.Popen([str(sdk / "emulator/emulator"), "-avd", "PleosEvidence", "-data", str(userdata),
-                                "-port", "5554", "-no-window", "-no-audio", "-no-boot-anim", "-no-snapshot", "-accel", "on",
-                                "-gpu", "swiftshader", "-feature", "-Vulkan", "-cores", "2", "-memory", "4096", "-show-kernel"],
-                               env=environment, stdout=log, stderr=subprocess.STDOUT)
-    report["emulator_pid"] = process.pid
+    gui = os.getenv("DOCHAGJARI_AVD_GUI") == "1"
+    emulator_arguments = [str(sdk / "emulator/emulator"), "-avd", "PleosEvidence", "-data", str(userdata),
+                          "-port", "5554", "-no-audio", "-no-boot-anim", "-no-snapshot", "-accel", "on",
+                          "-gpu", "swiftshader", "-feature", "-Vulkan", "-cores", "2", "-memory", "4096", "-show-kernel"]
+    gui_environment = environment.copy()
+    if gui:
+        environment["QT_QPA_PLATFORM"] = "xcb"
+        authority = work / "xauthority"
+        authority.touch(mode=0o600)
+        gui_environment.update({"DISPLAY": ":91", "XAUTHORITY": str(authority), "QT_QPA_PLATFORM": "xcb"})
+        emulator_arguments = ["xvfb-run", "--server-num=91", "--auth-file=" + str(authority),
+                              "--server-args=-screen 0 3000x2000x24 -nolisten tcp", *emulator_arguments, "-no-skin"]
+    else:
+        emulator_arguments.append("-no-window")
+    report["gui_enabled"] = gui
+    report["authorization_ui"] = []
+    process = subprocess.Popen(emulator_arguments, env=environment, stdout=log, stderr=subprocess.STDOUT,
+                               start_new_session=True)
+    report["launcher_pid"] = process.pid
+    report["launcher_kind"] = "xvfb-run with emulator child" if gui else "emulator"
     checkpoint("booting")
     if os.getenv("GITHUB_ENV"):
         with open(os.environ["GITHUB_ENV"], "a") as output:
             output.write(f"ANDROID_AVD_HOME={avd}\n")
-    deadline = time.monotonic() + 900
+    boot_started = time.monotonic()
+    deadline = boot_started + 900
+    last_approval = boot_started - 20
+    approval_clicked = False
     last_checkpoint = time.monotonic()
     while time.monotonic() < deadline and process.poll() is None:
         snapshot = probe(adb, "emulator-5554")
         report["adb_probe"] = snapshot
+        unauthorized = "unauthorized" in snapshot["checks"]["transport"]["stderr"].lower()
+        if gui and unauthorized and not approval_clicked and time.monotonic() - last_approval >= 20:
+            if os.getenv("GITHUB_ACTIONS") == "true" and os.getenv("DOCHAGJARI_APPROVE_TEST_ADB") == "1":
+                approval = approve_visible_dialog(work, reports, gui_environment, len(report["authorization_ui"]) + 1)
+                report["authorization_ui"].append(approval)
+                approval_clicked = approval["clicked"]
+            last_approval = time.monotonic()
+        if gui and unauthorized and time.monotonic() - boot_started >= 300:
+            report["authorization_blocked"] = "Normal on-screen debugging approval did not authorize the transport within 300 seconds"
+            break
         if snapshot["ready"]:
             report["boot_completed"] = True
             break
@@ -188,8 +222,11 @@ disk.dataPartition.size=2G
             checkpoint("booting"); last_checkpoint = time.monotonic()
         time.sleep(5)
     if not report["boot_completed"]:
-        process.terminate()
-        raise RuntimeError("Pleos boot/services not ready within 900 seconds")
+        report["emulator_returncode_before_cleanup"] = process.poll()
+        report["boot_wait_seconds"] = round(time.monotonic() - boot_started, 1)
+        if process.poll() is None:
+            os.killpg(process.pid, signal.SIGTERM)
+        raise RuntimeError(report.get("authorization_blocked", "Pleos boot/services not ready within 900 seconds"))
     checkpoint("boot-completed-with-services")
     print("Pleos boot completed with package/activity services", flush=True)
 except Exception as exc:
@@ -200,7 +237,7 @@ finally:
     raw = work / "boot.log"
     if raw.exists():
         selected = [line for line in raw.read_text(errors="replace").splitlines()
-                    if any(term in line for term in ["emulator version", "FATAL", "Failed to set encryption", "Rebooting into recovery", "Fatal signal", "is crashing", "KVM", "Boot completed", "adb", "ADB"])
+                    if any(term in line for term in ["emulator version", "FATAL", "Failed to set encryption", "Rebooting into recovery", "Fatal signal", "is crashing", "KVM", "Boot completed", "adb", "ADB", "qt.qpa", "xcb", "xvfb", "PANIC", "ERROR"])
                     and not any(term in line.lower() for term in ["key", "token", "jwt", "secret", "password"])]
         (reports / "boot-diagnostics.txt").write_text("\n".join(selected[-100:]) + "\n")
     (reports / "readiness.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
