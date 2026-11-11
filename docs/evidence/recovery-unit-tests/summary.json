@@ -1,11 +1,18 @@
 {
-  "environment": "JDK17 / SDK35; Robolectric cases simulate Android API34; no device execution in this report",
-  "total": 31,
+  "environment": "JDK17 / SDK35; Robolectric API34 simulates Android; actual device evidence is separate",
+  "app_code_commit": "44f0cb48a4b4a8ad8f8952d991b8f1aa1e2eb417",
+  "total": 33,
   "failures": 0,
   "suites": [
     {
       "suite": "dev.leemh.dochagjari.ArrivalOutboxTest",
       "tests": 14,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "suite": "dev.leemh.dochagjari.FrameBitmapTest",
+      "tests": 2,
       "failures": 0,
       "errors": 0
     },

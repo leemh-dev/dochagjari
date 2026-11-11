@@ -126,6 +126,14 @@
 - **보완 근거:** 실제 실패가 큰 요청 하나의 연결 종료였으므로 64MB 구간·동시 4개·구간당 최대 3회·연결 10초/전송 60초·전체 전송 10분 제한으로 바꾼다. 모든 범위/크기·마지막 공식 체크섬은 그대로 확인한다. 기존 무가속 Cloud 부팅을 반복하는 것이 아니다.
 - **다음:** 문법·KVM 없는 환경의 사전조건 검사 후 변경한 전송 방식으로 한 번 더 KVM 실행한다. 새 결과도 다운로드·부팅·설치·SDK·핀·Console을 따로 기록한다.
 
+## 2026-11-11 16:18 UTC — 배포 artifact 다운로드·해시·서명 대조 완료
+
+- **결과:** [패키징 CI 43055801516](https://github.com/leemh-dev/dochagjari/actions/runs/43055801516) 성공. [APK 다운로드 artifact](https://github.com/leemh-dev/dochagjari/actions/runs/43055801516/artifacts/13871881801)에 debug/test/unsigned release, apk-metadata.json, SHA256SUMS를 게시했다. Release API 제한은 artifact 경로로 해결했다.
+- **검증:** 연결 도구로 실제 artifact를 다운로드하고 `sha256sum -c SHA256SUMS` 세 파일 OK, debug/test `apksigner verify --print-certs` 성공, `aapt dump badging`에서 0.2.0/2·API34·ARM64/x86_64 확인.
+- **기준 코드/서명:** APK 코드 `3a01515`, 이후 변경은 검증/배포 도구·문서다. runner 개발 서명이며 제출 서명이 아니다. release는 미서명이다. 기존 Cloud 키와 다른 개발 키이므로 새 AVD에 설치한다. 키 자체는 artifact에 없다.
+- **증거:** [배포 metadata](evidence/v0.2-apk-metadata.json), [다운로드 재검증](evidence/v0.2-downloaded-apk-verification.txt). debug SHA-256 `d1a2761d0dac84142b4ff8917f82d6737d3d4e1e30520dd8895e8454e4c85e4d`.
+- **CI:** 설치 전 부팅·package/activity 검사 추가 후 [43054503112](https://github.com/leemh-dev/dochagjari/actions/runs/43054503112)도 전체 성공했다. Pleos의 보완 전송 재시도는 별도 실행 중이며 완료 수준을 섞지 않는다.
+
 ## 이후 기록 양식
 
 ```text

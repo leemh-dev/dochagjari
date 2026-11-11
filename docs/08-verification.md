@@ -2,7 +2,47 @@
 
 2026-11-11 UTC · 기준: [개발계획](07-development-plan.md)
 
-## 코드와 APK
+## v0.2.0 복구·설정 저장 보완
+
+- 코드 커밋: `3a01515` (배포 빌드 기준), `5ef9aab` (프로세스 검증), `44f0cb4` (Android 프레임 호환), `702432c` (알림·저장·기기 CI), `6616f01` (서버 계약), `4a40a24` (수정 전 실패 재현).
+- 현재 버전: **0.2.0 / 2**, API 34+, ARM64·x86_64. [개발용 패키징 artifact 실행](https://github.com/leemh-dev/dochagjari/actions/runs/43055801516/artifacts/13871881801)에 의 `development-release-assets-and-metadata`에 debug·기기 테스트·unsigned release와 metadata·SHA256SUMS를 보관합니다. 제출용 서명 release가 아닙니다. Release API는 Cloud 401·runner 403으로 게시가 제한되어 artifact를 제공합니다. [실패와 해결 증거](evidence/apk-publishing-limits.txt).
+- [APK 메타데이터](evidence/v0.2-apk-metadata.json): 코드 커밋·버전·바이트 크기·각 해시·debug 서명 지문을 기록합니다. debug APK SHA-256은 `d1a2761d0dac84142b4ff8917f82d6737d3d4e1e30520dd8895e8454e4c85e4d`입니다.
+- `:app:testDebugUnitTest :app:assembleDebugAndroidTest :app:lintDebug` — **33건, 실패 0건**. [요약](evidence/recovery-unit-tests/summary.json)과 같은 폴더의 JUnit XML을 제공합니다. Robolectric/API 34 사례는 Android 환경을 시뮬레이션한 JVM 검사이며 실제 기기 검사가 아닙니다.
+- `python -m unittest discover -s server/tests -v` — **14건 통과**, [서버 로그](evidence/recovery-server-tests.txt). 공급자는 테스트 대역이며 실제 SENS 수락·문자 수신을 뜻하지 않습니다.
+- `:app:assembleDebug :app:assembleRelease` — 코드 커밋 후 빌드 성공. debug·기기 테스트 APK 서명 검증 성공, unsigned release 생성. 게시 artifact를 다시 다운로드해 세 해시·APK 버전/ABI·개발 서명도 확인했습니다([재검증 기록](evidence/v0.2-downloaded-apk-verification.txt)). runner 서명은 기존 Cloud 키와 달라 새 테스트 AVD에서 설치합니다. 제출용 키는 제공되지 않았습니다.
+- 이전 AppModel에서 확인 좌표 소실·ViewModel 종료 시 쓰기 취소 두 건을 먼저 재현했습니다. [수정 전 실패](evidence/restart-regression-before.xml)와 수정 후 회귀 검사를 구분해 보존합니다.
+- 구현·검증한 복구 동작: 확정 요청/동의 복원, GET 선조회, 404에서 동일 내용 재개, 응답 유실 후 조회, 동시 복구, 모드·내용 불일치 차단, 관측한 기록 소실 시 중지, 동의 해제, 토큰 미저장, 구형 기록 보존, 저장 실패 시 미전송.
+- 구현·검증한 프로필 동작: 저장 중/완료/실패, 순서 보장, 실패 후 재시도, ViewModel 종료 후 완료, 실제 DataStore를 닫고 새 인스턴스에서 완료 값 재조회. OS 프로세스 강제 종료 검증과는 별도로 기록합니다.
+- 일반 Android API 34 Google APIs/KVM에서 `connectedDebugAndroidTest` **6건 통과**: [실행](https://github.com/leemh-dev/dochagjari/actions/runs/43049645888). 단계 인자가 필요한 별도 프로세스 사례 2건은 이 명령에서 건너뜁니다. 해당 실행의 후속 프로세스 단계는 잘못된 좌표 기대값으로 실패했으며 `5ef9aab`에서 수정했습니다. 최신 실행 결과는 아래에 별도 기록합니다.
+- 최초 Android 실행에서 영상 2건이 ARGB_8888 형식 오류로 실패했습니다. [실패 XML](evidence/android-device-before-bitmap-fix.xml)을 보존했고 프레임 변환 후 같은 앱의 TFLite·ML Kit **C12** 인식·영상 점유 기반 우회가 실제 Android에서 통과했습니다. 호스트 Tesseract 결과를 대체 근거로 쓰지 않았습니다.
+
+### v0.2.0 일반 Android 실제 실행
+
+[전체 통과 CI 43052357723](https://github.com/leemh-dev/dochagjari/actions/runs/43052357723), 코드 `5ef9aab`. 이후 설치 전 boot_completed/package/activity 준비 검사를 추가한 [CI 43054503112](https://github.com/leemh-dev/dochagjari/actions/runs/43054503112)도 전체 성공했습니다. Google APIs API 34 x86_64/KVM이며 Pleos AVD가 아닙니다. [JUnit XML](evidence/android-api34-passed.xml), [프로세스 종료 로그](evidence/android-process-restart-passed.txt), [요약](evidence/android-api34-summary.json), [재실행 화면](evidence/android-api34-app.png)을 보존합니다.
+
+| 기능 | 실제 실행한 범위 | 별도 미검증 |
+| --- | --- | --- |
+| 학원·우회 | Compose UI에서 픽업↔주차·이용 불가 우회, 앱 모델에서 점유→주차→후보 없음 | 순정 내비 목적지 핀 |
+| 병원 | 같은 Android 앱 모델에서 휠체어·동행 후보 변경, 무단차 미확인 후보 제외 | 실제 병원 동선 |
+| 영상 | 앱의 TFLite/ML Kit로 생성 빈/장애물·공개 영상 분석, **C12** 인식. 영상 URI 입력→점유→우회 | 실제 외부 카메라·실차. URI 검사는 공개 샘플을 캐시에 복사해 입력했으며 시스템 파일 선택 UI까지 자동화한 검사는 아님 |
+| 저장 | 실제 DataStore 완료값 대기, 모델 재생성 및 프로세스 종료 후 좌우 옵션·유모차·휠체어·동행·높이 2.2 복원 | 저장 중 종료는 마지막 완료값까지만 보장. 저장 실패/연속 변경은 JVM 대역·실제 DataStore 회귀 검사로 별도 검증 |
+| 알림 | 앱 모의 완료·저널 복원. 토큰 없는 SERVER_MOCK 확정 요청을 PID **7047→7098**에서 복원, 전체 요청 지문 동일 | Android에서 실제 서버·SENS 호출/휴대폰 수신. HTTP 복구/응답 유실/동시성은 JVM HTTP 대역·서버 테스트로 검증 |
+| 주행 제한 | 테스트 신호의 주행/미확인에서 설정·위치·분석 변경 차단 | 실제 차량 속도·기어 신호 |
+| 좌석 | 테스트 입력·프로필 저장 구현 및 일반 Android 실행 | Pleos 초기값·Console 좌우 변화·앱 수신·실차는 각각 별도 확인 |
+
+연결 검사는 **6건 성공**, 단계 없는 프로세스 전용 2건은 skip한 뒤 별도 스크립트에서 **2단계 모두 성공**했습니다. `am force-stop` 전후 서로 다른 PID와 동일한 요청 SHA-256을 확인했으며, 이 시나리오에는 토큰이 없어 서버/공급자 호출은 없습니다. 알림 발송 성공으로 계산하지 않습니다.
+
+복구 계약과 이전 앱/DB 호환 처리는 [자동 알림 복구 계약](11-arrival-recovery.md)을 참조하세요. **Pleos 내비 핀·Virtual Console 좌석 수신·실차·실제 휴대폰 수신은 현재도 미검증**입니다.
+
+### v0.2.0 Pleos 별도 실행
+
+기존 Cloud의 무가속 부팅 실패를 먼저 읽었고, 일반 Android CI에서 KVM 접근이 확인되어 **다른 실행 조건**으로 조사했습니다. [첫 KVM 증거 실행](https://github.com/leemh-dev/dochagjari/actions/runs/43052661853)은 KVM version 12 usable까지 확인한 뒤 공식 이미지 다운로드 8개 구간 중 7개를 완료했으나 남은 연결이 reset되어 종료됐습니다. **에뮬레이터는 시작하지 않았습니다.** [readiness JSON](evidence/pleos-kvm-download-failure/readiness.json), [앱 조사 미실행 JSON](evidence/pleos-kvm-download-failure/app-probe.json).
+
+실패 원인이 구간 전송이므로 `77abd8e`에서 64MB 구간·동시 4개·최대 3회 재시도와 연결/전송/전체 시간 제한을 추가했습니다. 전체 크기·공식 체크섬은 그대로 확인합니다. [보완 전송 실행](https://github.com/leemh-dev/dochagjari/actions/runs/43056602693)의 최종 결과는 별도 기록합니다. 부팅 준비 실패 시 APK 설치·Console 조사도 건너뜁니다. Console 조작·앱 SDK 초기값/변경·저장 옵션 제안·실차는 각각 완료 증거가 필요합니다.
+
+## v0.1.0 최초 코드와 APK (이전 이력)
+
+아래 표와 실행 기록은 첫 APK 개발 당시의 이력입니다. v0.2.0의 최신 확인 범위는 위 절과 이후 기기 결과를 우선합니다.
 
 - Android 구현: `0a04f40` (`feat/android-submission-mvp`). 이후 변경은 서버·호스트 검증·문서입니다.
 - SMS 서버: `ae33591`. 호스트 미디어 검증: `0872124`.
@@ -12,7 +52,7 @@
 - 실행 대상: API 34+, `arm64-v8a`와 `x86_64`. 앱 ID `dev.leemh.dochagjari`, 버전 `0.1.0` / `1`.
 - unsigned release는 `:app:assembleRelease`로 생성했습니다. 제출용 키가 제공되지 않아 서명된 release·새 AVD 설치 검증은 남아 있습니다.
 
-## 검증 수준
+## v0.1 당시 검증 수준 (이전 이력)
 
 | 기능 | 이번에 확인한 내용 | 실제 연동·기기 검증 |
 | --- | --- | --- |
@@ -75,6 +115,6 @@ python scripts/verify_media.py
 
 - Pleos AVD에서 공식 샘플과 앱을 설치해 목적지 두 곳의 실제 핀을 비교합니다.
 - Virtual Console 좌우 좌석 변경과 앱 콜백을 함께 녹화하고, 저장 옵션을 재실행으로 확인합니다.
-- Android 기기 테스트에서 실제 영상·ML Kit OCR을 실행합니다.
+- 일반 Android의 실제 영상·ML Kit OCR은 v0.2에서 통과했습니다. Pleos 순정 카메라·실차 검증은 남아 있습니다.
 - 실제 SMS는 SENS 등록 발신번호·동의 수신자를 설정한 뒤 공급자 수락과 휴대폰 수신을 각각 확인합니다.
 - 실제 시설의 미확인 동선은 계속 가상 데이터와 구분하고 제출용 키로 release APK를 서명합니다.

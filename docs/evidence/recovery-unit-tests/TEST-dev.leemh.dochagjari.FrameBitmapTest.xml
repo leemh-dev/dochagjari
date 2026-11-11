@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="dev.leemh.dochagjari.FrameBitmapTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:30:05" hostname="codex-cloud" time="5.631">
+  <properties />
+  <testcase name="decoderRgb565FrameKeepsPixelsInTensorCompatibleBitmap" classname="dev.leemh.dochagjari.FrameBitmapTest" time="5.561" />
+  <testcase name="compatibleFrameIsNotCopiedOrRecycledPrematurely" classname="dev.leemh.dochagjari.FrameBitmapTest" time="0.07" />
+  </testsuite>

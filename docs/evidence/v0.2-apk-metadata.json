@@ -1,0 +1,36 @@
+{
+  "versionName": "0.2.0",
+  "versionCode": 2,
+  "code_commit": "3a015154a05e7d2861aea1bc190010962313824c",
+  "minimumApi": 34,
+  "abis": [
+    "arm64-v8a",
+    "x86_64"
+  ],
+  "workflow_run": "https://github.com/leemh-dev/dochagjari/actions/runs/43055801516",
+  "artifacts": [
+    {
+      "kind": "debug",
+      "file": "dochagjari-0.2.0-debug.apk",
+      "bytes": 78485636,
+      "sha256": "d1a2761d0dac84142b4ff8917f82d6737d3d4e1e30520dd8895e8454e4c85e4d",
+      "signing": "Android Debug (GitHub runner; differs from Cloud v0.1)",
+      "signer_sha256": "f23aec4da8919c1e92033b50d0a57714f1a6dedd1a3964e65a2dabd122950b89"
+    },
+    {
+      "kind": "androidTest",
+      "file": "dochagjari-0.2.0-androidTest.apk",
+      "bytes": 2250676,
+      "sha256": "6940e3089c1a28042acaa975ebc1bf921b3eff1cc786cfbda49596a86e5181d6",
+      "signing": "Android Debug (GitHub runner; differs from Cloud v0.1)",
+      "signer_sha256": "f23aec4da8919c1e92033b50d0a57714f1a6dedd1a3964e65a2dabd122950b89"
+    },
+    {
+      "kind": "unsigned-release",
+      "file": "dochagjari-0.2.0-release-unsigned.apk",
+      "bytes": 70784945,
+      "sha256": "db41a9cbd69de696ca6d18591b9d8818a3651e007a83bda10dbc265168e7ae0d",
+      "signing": "unsigned; not installable until signed"
+    }
+  ]
+}

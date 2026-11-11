@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<testsuite name="dev.leemh.dochagjari.ProfileRepositoryTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:13:20" hostname="codex-cloud" time="0.025">
+<testsuite name="dev.leemh.dochagjari.ProfileRepositoryTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:30:11" hostname="codex-cloud" time="0.027">
   <properties />
-  <testcase name="loadingOldValueDoesNotOverwriteAnAlreadyQueuedEdit" classname="dev.leemh.dochagjari.ProfileRepositoryTest" time="0.014" />
-  <testcase name="saveFailureIsVisibleAndRetryAcknowledgesOnlyDurableValue" classname="dev.leemh.dochagjari.ProfileRepositoryTest" time="0.004" />
-  <testcase name="queuedEditsAreWrittenInOrderAndOnlyLatestCompletionIsSaved" classname="dev.leemh.dochagjari.ProfileRepositoryTest" time="0.005" />
+  <testcase name="loadingOldValueDoesNotOverwriteAnAlreadyQueuedEdit" classname="dev.leemh.dochagjari.ProfileRepositoryTest" time="0.02" />
+  <testcase name="saveFailureIsVisibleAndRetryAcknowledgesOnlyDurableValue" classname="dev.leemh.dochagjari.ProfileRepositoryTest" time="0.003" />
+  <testcase name="queuedEditsAreWrittenInOrderAndOnlyLatestCompletionIsSaved" classname="dev.leemh.dochagjari.ProfileRepositoryTest" time="0.002" />
   </testsuite>
