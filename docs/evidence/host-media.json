@@ -1,0 +1,38 @@
+{
+  "verification": "HOST CPU ONLY; Android Task Vision and ML Kit instrumentation not executed by this script",
+  "results": [
+    {
+      "input": "generated-empty",
+      "status": "EMPTY",
+      "obstacle_scores": [
+        0.016,
+        0.016,
+        0.016,
+        0.016
+      ],
+      "host_tesseract_text": ""
+    },
+    {
+      "input": "generated-blocked",
+      "status": "OCCUPIED",
+      "obstacle_scores": [
+        0.9,
+        0.9,
+        0.9,
+        0.9
+      ],
+      "host_tesseract_text": "C12"
+    },
+    {
+      "input": "public-obstacles",
+      "status": "OCCUPIED",
+      "obstacle_scores": [
+        0.816,
+        0.758,
+        0.668,
+        0.723
+      ],
+      "host_tesseract_text": "oe ame i ppstllill\n\nae “et : ri Gs\n\na ae a A.\n\n. oe\n\nSe: ] “\nae ; : SS\n\n——_-"
+    }
+  ]
+}

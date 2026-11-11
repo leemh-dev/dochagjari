@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.leemh.dochagjari.RecommendationTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-11T13:40:30" hostname="4976354f8e5a" time="0.125">
+  <properties/>
+  <testcase name="notificationNeedsStopLocationClueAndUnsentSession" classname="dev.leemh.dochagjari.RecommendationTest" time="0.082"/>
+  <testcase name="fictionalAccessibilityIsExplicitlyDemo" classname="dev.leemh.dochagjari.RecommendationTest" time="0.007"/>
+  <testcase name="openingHoursHeightAndPermissionFilter" classname="dev.leemh.dochagjari.RecommendationTest" time="0.005"/>
+  <testcase name="bundledJsonLoadsBothFacilities" classname="dev.leemh.dochagjari.RecommendationTest" time="0.017"/>
+  <testcase name="companionNeverLeavesPassengerAtDropoff" classname="dev.leemh.dochagjari.RecommendationTest" time="0.0"/>
+  <testcase name="blockedAndOccupiedDivertToParking" classname="dev.leemh.dochagjari.RecommendationTest" time="0.007"/>
+  <testcase name="modesChangeVehiclePointKeepPedestrianEntrance" classname="dev.leemh.dochagjari.RecommendationTest" time="0.004"/>
+  <testcase name="realUnknownAccessibilityNeverPassesMandatoryConstraint" classname="dev.leemh.dochagjari.RecommendationTest" time="0.001"/>
+  <testcase name="expiredLowConfidenceAndFutureAreUnknown" classname="dev.leemh.dochagjari.RecommendationTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
