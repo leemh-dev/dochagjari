@@ -2,15 +2,16 @@
 
 2026-11-11 UTC · 기준: [개발계획](07-development-plan.md)
 
-## 최신 진행 — 2026-11-11 23:01 UTC
+## 최신 진행 — 2026-11-11 23:10 UTC
 
-- 시작 실패43095641582의 공개 실행 화면에서 GitHub unexpected error/request ID를 확인했습니다([annotation](evidence/workflow-startup-annotation.json)). 이 새 근거의 재시도43105761433은 실제 runner에서 실행됐습니다. 내부 상세 원인이나 전역 장애를 단정하지 않습니다.
-- **확인된 ADB 접근 차단:** [43105761433](https://github.com/leemh-dev/dochagjari/actions/runs/43105761433)의 get-state rc1/stderr device unauthorized, devices 목록 emulator-5554 unauthorized. [준비 JSON](evidence/pleos-adb-unauthorized/readiness.json). 속성·서비스는 transport 단계에서 중단돼 미조회입니다. vendor crash/RAM을 이 접근 실패의 원인으로 주장하지 않습니다. 설치/SDK/Console은 생략했습니다.
-- 정상 승인 화면을 관찰하는 GUI 경로를 추가했습니다. 새 전용 AVD·현재 호스트 공개 지문·USB 디버깅 문구·명확한 허용 버튼을 확인할 때만 클릭하며 키/인증/권한을 우회하지 않습니다. 새 화면 판단5건은 [로컬 통과](evidence/debugging-dialog-tests.txt). 기존 진단7건과 합계12건이며 Android 기기 테스트와 다릅니다.
-- 첫 GUI43110281026은 launcher rc127/실제 대기5초/승인 시도0으로 끝났습니다([JSON](evidence/pleos-gui-launch-failure/readiness.json)). 타임아웃이나 지문 불일치로 분류하지 않습니다. 이후 loader 메시지 수집·SDK 번들 경로·필수 GUI 라이브러리·이미지 다운로드 전 ldd 검사를 보완했습니다. [Cloud 읽기 검사](evidence/cloud-gui-library-preflight.json)는 성공했지만 VM을 시작한 검사는 아닙니다.
-- [GUI 실행43111928160](https://github.com/leemh-dev/dochagjari/actions/runs/43111928160)은 실제 창/정상 USB 승인 문구/현재 호스트 지문까지 일치했지만 허용 버튼 식별 실패로 클릭0·unauthorized에서 종료됐습니다. [원본 화면](evidence/pleos-normal-ui-blocked/debugging-screen-12.png)에서 안내 모달과 한국어 버튼을 확인해 정상 모달 닫기/부분 OCR을 보완했습니다. [읽기 전용 분석](evidence/observed-dialog-region-check.json)은 기기 승인 성공이 아닙니다. 설치·SDK·Console·Pleos 기기 검사는 아직 미검증입니다. 최신022160c 일반 Android PR43112125115·push43111927279 CI는 모두 성공했습니다.
-- 일반 Android [0f21ead CI43106443044](https://github.com/leemh-dev/dochagjari/actions/runs/43106443044) 및 동일 앱 코드431ffb6의 [push CI43110280035](https://github.com/leemh-dev/dochagjari/actions/runs/43110280035)는 전체 성공했습니다. 같은431ffb6의 PR CI43110288580은 SDK Emulator ZIP 설치 오류로 기기 시작 전에 실패했고 [실패 증거](evidence/generic-ci-sdk-download-failure.txt)를 보존합니다. 앱 테스트 실패나 Pleos 성공으로 계산하지 않습니다.
-- [앱/서버/Gradle 소스 비교](evidence/application-source-unchanged.txt)에 변경이 없어 배포 APK0.2.0/code2·기존 artifact/해시를 유지합니다. CI 검증용 임시 APK는 [별도 identity](evidence/pleos-gui-launch-failure/verification-apk-identity.txt)로 구분합니다. 제출 서명·실제 SMS·실차는 여전히 미검증입니다.
+- **일반 Android:** 앱 코드 변경 없이472b68d [PR CI43116162416](https://github.com/leemh-dev/dochagjari/actions/runs/43116162416)·[push CI43115896326](https://github.com/leemh-dev/dochagjari/actions/runs/43115896326) 전체 성공(JVM33·서버14·lint·일반 Android 기능6·프로세스 복원2단계). a020643의 과거 결과와 이번 자동 CI를 구분합니다. 중간43110288580은 SDK ZIP 설치 오류로 기기 실행 전에 실패했고 [증거](evidence/generic-ci-sdk-download-failure.txt)를 보존합니다.
+- **신규 로컬:** 공통 준비/설치 차단7 + 정상 승인 화면·후속 관찰6 = Python **13건 통과**, 구문·actionlint1.7.7·diff 검사 통과. [로그](evidence/pleos-diagnostic-tests.txt). 기기 검사가 아닙니다. 후속1dfa196의 [PR43117773337](https://github.com/leemh-dev/dochagjari/actions/runs/43117773337)·push43117765439 CI는 확인 시 진행 중이며 성공으로 계산하지 않습니다.
+- **GitHub 시작:** 이전43095641582의 공개 화면에서 unexpected error annotation/request ID를 확보했습니다([증거](evidence/workflow-startup-annotation.json)). 새 근거의43105761433은 실제 KVM runner에서 실행되어 unauthorized rc/stderr/devices를 수집했습니다. 내부 원인·전역 장애·RAM/profile crash와의 인과관계는 단정하지 않습니다.
+- **GUI 진전과 차단:** launcher127 이후 loader 사전 검사/번들 경로를 보완했습니다.43111928160은 실제 창·현재 호스트 지문까지 확인했지만 버튼 인식 실패로 클릭0이었습니다. 원본 화면의 모달/한국어 버튼을 근거로472b68d를 실행했습니다.
+- **최신 Pleos 실제 결과:** [43115895691](https://github.com/leemh-dev/dochagjari/actions/runs/43115895691), artifact13899317062. KVM·공식 이미지61/61·체크섬·GUI 성공. 정상 안내 OK 후 새 화면에서 USB 문구/현재 호스트 지문/취소·허용 쌍을 확인해 X11 허용 입력을 보냈지만,300초 후에도 transport rc1/unauthorized였습니다. **입력 전송 성공은 게스트 승인 완료가 아닙니다.** [요약](evidence/pleos-input-unconfirmed/summary.json) · [원본 화면](evidence/pleos-input-unconfirmed/debugging-screen-2.png) · [전체 준비 JSON](evidence/pleos-input-unconfirmed/readiness.json).
+- **실행하지 못한 것:** transport 단계에서 차단되어 boot 속성·package/activity는 미조회입니다. APK 설치·실제 내비/핀·Console 좌석·앱 SDK 수신·Pleos connected 검사는 생략했습니다. 일반 Android/호스트 OCR로 대체하지 않습니다.
+- **후속 구현:** 1dfa196은 입력2초 뒤 읽기 전용 화면/문구 관찰과 종료 직전 원본 화면 수집을 추가했습니다. 이 보완 이후 Pleos 부팅을 재요청하지 않았으므로 실제 후속 화면은 아직 없습니다. 원인은 미확인이고 키/인증/권한을 우회하지 않습니다.
+- **APK/외부 조건:** 앱/서버/Gradle 소스는3a01515 이후 동일하며 배포0.2.0/code2 artifact13871881801·기존 해시는 유지합니다. artifact 미만료(2027-02-09). 각 runner의 임시 검증 APK는 [별도 identity](evidence/pleos-input-unconfirmed/verification-apk-identity.txt)로 구분합니다. 제출 키·SMS 설정/동의 수신자 미제공, Mac 접근 없음. 실제 SENS 수락/휴대폰 수신·제출 서명·병원 동선·순정 카메라·실차는 미검증입니다.
 
 ## 후속 ADB 진단 — 2026-11-11 20:33 UTC
 

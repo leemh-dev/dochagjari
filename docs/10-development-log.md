@@ -222,7 +222,7 @@
 - **검사:** Python 진단12건(기존7+화면5)·compileall·actionlint1.7.7·diff 검사 통과. 일반 Android 최신022160c PR43112125115/push43111927279 CI 모두 성공. 별도 이전 PR43110288580의 SDK ZIP 실패도 보존했다. 앱/서버/Gradle 코드·기존 배포 APK는 동일하다.
 - **다음 실행 근거:** 실제 모달/버튼 인식 실패라는 새로운 증거와 해당 수정으로 수동 실행을 한 번 요청한다. 정상 승인 이후에도 transport/boot/package/activity 모두 준비되기 전에는 설치하지 않는다. 성공/실패를 artifact로 다시 확인한다.
 
-## 2026-11-11 23:11 UTC — 정상 입력 전송 후에도 unauthorized·후속 관찰 보완
+## 2026-11-11 23:10 UTC — 정상 입력 전송 후에도 unauthorized·후속 관찰 보완
 
 - **실제 종료:** [43115895691](https://github.com/leemh-dev/dochagjari/actions/runs/43115895691), 코드472b68d, artifact13899317062. 진단12건·APK빌드·GUI 라이브러리·KVM·공식61범위/체크섬·실제 GUI까지 성공했다. 1차 정상 안내 OK 입력 후 2차 새 화면에서 USB 문구/현재 호스트 지문/취소·허용 쌍을 확인해 허용 위치에 X11 입력을 전송했다. [원본 화면](evidence/pleos-input-unconfirmed/debugging-screen-2.png).
 - **완료 경계:** clicked=true는 X11 입력 명령 성공이다. 게스트 승인 완료가 아니다. get-state는300초 후에도 rc1/unauthorized, devices도 unauthorized였다. transport에서 멈춰 boot/package/activity는 미조회이며 설치/내비/Console/connected 검사는 생략했다. [준비 기록](evidence/pleos-input-unconfirmed/readiness.json), [요약](evidence/pleos-input-unconfirmed/summary.json). 로그의 profile 서비스 문제를 인증 실패 원인으로 단정하지 않는다.
@@ -230,6 +230,7 @@
 - **검사:** 신규 읽기 전용 관찰 회귀를 포함해 Python13건 통과, 구문·actionlint·diff 검사 통과. [최신472b68d 일반 CI43115896326](https://github.com/leemh-dev/dochagjari/actions/runs/43115896326)는 verify·일반 Android 기기/프로세스 검사 모두 성공했다. 이 결과는 Pleos 성공이 아니다.
 - **제출 자료:** 시연 녹화/증거 수집 순서를 docs/12에 추가했다. docs/08·09·README/PR에 완료/미검증을 정리한다. 배포 APK·앱0.2.0/2·코드3a01515·기존 해시는 유지한다. 임시 검증 APK는 [별도 identity](evidence/pleos-input-unconfirmed/verification-apk-identity.txt)로 보관한다.
 - **환경/명령:** GitHub KVM 수동workflow, gh run view/API/artifact 조회. Cloud는 KVM/연결기기/외부 설정이 없고 Mac에 접근하지 않았다. gh pr edit는 구형 Projects GraphQL 조회 오류로 실패해 동일 본문을 REST PATCH로 갱신했다.
+- **커밋/최신 CI:** 입력 후 관찰 보완1dfa196 푸시. 23:10 확인 시 PR43117773337/push43117765439 진행 중. 직전472b68d PR43116162416도 전체 성공. 최신 대기/진행을 성공으로 계산하지 않는다.
 - **남은 일:** 승인 입력 이후 실제 화면을 확인하고 연결을 복구한 뒤 준비 helper→설치→두 목적지 SDK/핀→Console 좌우/앱 초기값·콜백/옵션 제안→Pleos 기기 검사를 진행한다. 실제 SMS·제출 서명·병원 동선·순정 카메라·실차는 별도 조건/증거가 필요하다. 무근거 재부팅은 하지 않는다.
 
 ## 이후 기록 양식
