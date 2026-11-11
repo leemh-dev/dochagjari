@@ -114,7 +114,9 @@ set +a
 ANDROID_SERIAL="$DOCHAGJARI_SERIAL" ./gradlew :app:connectedDebugAndroidTest
 ```
 
-CI는 단위 테스트·lint·debug APK·서버 테스트를 실행하고 APK와 보고서를 artifact로 보관합니다. 기기 테스트 APK의 빌드와 기기 테스트의 **실행 완료**는 구분해 기록합니다.
+CI는 단위 테스트·lint·debug APK·서버 테스트를 실행하고 APK와 보고서를 artifact로 보관합니다. [첫 PR 검사](https://github.com/leemh-dev/dochagjari/actions/runs/43032862081)가 통과했습니다. 기기 테스트 APK의 빌드와 기기 테스트의 **실행 완료**는 구분해 기록합니다.
+
+Cloud 소프트웨어 AVD에서는 ADB 연결 후에도 `package`·`activity` 서비스 준비와 부팅 완료를 확인하지 못했습니다. APK 설치·내비 핀·Virtual Console 검증은 완료로 표시하지 않았습니다. 자세한 시도와 오류는 [검증 기록](docs/08-verification.md)을 참조하세요. 맥북에서는 위의 공식 ARM64 AVD 생성 절차로 이어서 확인할 수 있습니다.
 
 ## 제출용 release 서명
 

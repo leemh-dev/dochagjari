@@ -47,6 +47,7 @@ BUILD SUCCESSFUL in 4m 27s
 - Android 단위 테스트 **9건, 실패 0건**: [JUnit XML](evidence/android-unit-tests.xml).
 - lint 오류 **0건**. API 34 대상·고정 의존성 버전에 대한 경고는 유지합니다. min/target은 이번 Pleos API 34 검증 범위에 맞췄습니다.
 - `apksigner verify --print-certs`: debug APK 서명 검증 성공, `CN=Android Debug`.
+- GitHub Actions도 [push 검사](https://github.com/leemh-dev/dochagjari/actions/runs/43032847880)와 [PR 검사](https://github.com/leemh-dev/dochagjari/actions/runs/43032862081)가 모두 성공했습니다. 검증 커밋: `2413d22`.
 - Android 기기 테스트는 추천 UI, 모델·OCR, DataStore·알림 저널 재시작을 포함합니다. **테스트 APK 생성은 기기 실행 성공을 뜻하지 않습니다.**
 
 호스트 입력 검증:
@@ -64,8 +65,9 @@ python scripts/verify_media.py
 - 공식 프로필: **2560 × 1440**, 160dpi, RAM 4GB.
 - `/dev/kvm` 없음. [가속 검사](evidence/cloud-acceleration.txt): `KVM requires a CPU that supports vmx or svm`.
 - Emulator 37.2.13에서 `-accel off`, SwiftShader로 소프트웨어 부팅을 시도했습니다. ADB 연결은 관찰했지만 부팅 완료로 판단하지 않았습니다.
-- 연장 부팅의 커널 로그에 `/data/misc` 암호화 정책 설정 실패와 recovery 재부팅이 나타났습니다. 원인을 앱 오류로 단정하지 않습니다. 공식 Emulator 35.2.10과 초기화한 개발 AVD로 비교 검증을 진행합니다.
-- 부팅 완료, 앱 설치·실행, 순정 내비 핀, Virtual Console 좌석 수신은 각각 성공 증거를 확보한 뒤 갱신합니다.
+- 수동 구성한 Cloud AVD의 연장 부팅에서 `/data/misc` 암호화 정책 설정 실패와 recovery 재부팅이 나타났습니다. 공식 Emulator **35.2.10**과 초기화한 개발 AVD에서도 같은 오류를 확인했습니다. 원인을 앱 오류로 단정하지 않습니다.
+- SDK 이미지를 변경하지 않고 별도의 빈 개발 데이터 파티션으로 다시 시도했을 때 앞선 암호화 오류는 나타나지 않았습니다. SurfaceFlinger·zygote·system_server 시작과 ADB 연결은 확인했으나, `package`와 `activity` 서비스가 `not found`였고 `sys.boot_completed=1`은 확인하지 못했습니다. 일부 Pleos vendor 서비스의 반복 종료도 관찰했습니다.
+- 따라서 **앱 설치·실행, Android 기기 테스트, 순정 내비 핀, Virtual Console 좌석 토글 및 앱 수신은 미검증**입니다. ADB의 `device` 표시를 부팅 완료나 앱 설치 성공으로 처리하지 않았습니다. [부팅 진단 요약](evidence/cloud-boot.txt)을 남깁니다.
 
 맥북 M1 재현 명령, ARM64 이미지 설치와 두 목적지·좌우 좌석 확인 순서는 [README](../README.md)에 있습니다.
 
