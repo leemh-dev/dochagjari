@@ -15,7 +15,9 @@ import org.junit.Test
 /** Invoked as two separate instrumentation processes by scripts/process_restart_smoke.py. */
 class ProcessRestartInstrumentedTest {
     private fun phase(expected: String) = assumeTrue(InstrumentationRegistry.getArguments().getString("restartPhase") == expected)
-    private fun report() = InstrumentationRegistry.getInstrumentation().sendStatus(0, Bundle().apply { putInt("arrival_process_pid", Process.myPid()) })
+    private fun report(request: ConfirmedArrival) = InstrumentationRegistry.getInstrumentation().sendStatus(0, Bundle().apply {
+        putInt("arrival_process_pid", Process.myPid()); putString("arrival_request_hash", request.fingerprint())
+    })
     private val expected = Profile(leftDoor = true, rightDoor = true, stroller = true, wheelchair = true, companion = true, heightM = 2.2)
     @Test fun prepareQueuedArrivalAndSavedProfile() = runBlocking {
         phase("prepare")
@@ -34,7 +36,7 @@ class ProcessRestartInstrumentedTest {
         assertEquals(DeliveryStatus.QUEUED, model.state.value.session.notificationStatus)
         assertNotNull(model.state.value.session.position)
         assertEquals(DeliveryChannel.SERVER_MOCK, model.state.value.delivery.record.request!!.channel)
-        report()
+        report(model.state.value.delivery.record.request!!)
         instrumentation.runOnMainSync { store.clear() }
     }
     @Test fun verifyRestoredArrivalAndProfile() = runBlocking {
@@ -47,7 +49,9 @@ class ProcessRestartInstrumentedTest {
         val s = model.state.value
         assertEquals(expected, s.profile)
         val frozen = s.delivery.record.request!!
-        assertEquals(Position(37.48544722, 127.03636666), frozen.position)
+        val facility = FacilityParser.parse(app.assets.open("facilities.json").bufferedReader().use { it.readText() }).first()
+        // The prepared profile requires companion parking, so the expected destination is the parking entrance.
+        assertEquals(facility.points.single { it.id == "academy-parking" }.position, frozen.position)
         assertEquals(frozen.position, s.session.position)
         assertEquals("demo", frozen.recipientId)
         assertEquals(DeliveryChannel.SERVER_MOCK, frozen.channel)
@@ -55,7 +59,7 @@ class ProcessRestartInstrumentedTest {
         assertTrue(s.consent)
         assertEquals("", s.token)
         assertFalse(s.delivery.record.serverObserved)
-        report()
+        report(frozen)
         instrumentation.runOnMainSync { assertFalse(model.newSession()); store.clear() }
     }
 }
