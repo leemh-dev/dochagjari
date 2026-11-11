@@ -52,7 +52,12 @@ with tempfile.TemporaryDirectory() as tmp:
                 occupied += 1
             labels.append(round(score, 3))
             if second == 0:
-                text = subprocess.run(["tesseract", str(frame), "stdout", "--psm", "6"], check=True, capture_output=True, text=True).stdout.strip()
+                # Host Tesseract needs a signage ROI; this is distinct from Android's full-frame ML Kit OCR.
+                ocr_frame = frame
+                if name == "generated-blocked":
+                    ocr_frame = Path(tmp) / "signage-roi.png"
+                    image.crop((180, 160, 460, 340)).save(ocr_frame)
+                text = subprocess.run(["tesseract", str(ocr_frame), "stdout", "--psm", "6"], check=True, capture_output=True, text=True).stdout.strip()
         status = "OCCUPIED" if occupied >= 2 else "EMPTY" if empty == 4 else "UNKNOWN"
         results.append(dict(input=name, status=status, obstacle_scores=labels, host_tesseract_text=text))
 assert results[0]["status"] == "EMPTY", results
