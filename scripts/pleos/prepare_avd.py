@@ -17,7 +17,7 @@ import xml.etree.ElementTree as ET
 import zipfile
 
 from adb_readiness import diagnostic, probe
-from debugging_dialog import approve_visible_dialog
+from debugging_dialog import approve_visible_dialog, capture_desktop
 from gui_runtime import check_gui_libraries, loader_environment
 
 sdk = Path(os.environ["ANDROID_HOME"])
@@ -231,6 +231,12 @@ disk.dataPartition.size=2G
         returncode = process.poll()
         report["launcher_returncode_before_cleanup"] = returncode
         report["boot_wait_seconds"] = round(time.monotonic() - boot_started, 1)
+        if returncode is None and gui:
+            try:
+                capture_desktop(reports / "debugging-final-before-stop.png", gui_environment)
+                report["final_desktop_captured"] = True
+            except (OSError, subprocess.SubprocessError) as capture_error:
+                report["final_desktop_capture_error"] = diagnostic(str(capture_error))
         if returncode is None:
             os.killpg(process.pid, signal.SIGTERM)
         failure = report.get("authorization_blocked") or (

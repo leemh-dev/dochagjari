@@ -1,6 +1,8 @@
 from pathlib import Path
 import sys
 import unittest
+from unittest.mock import patch
+from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).parents[1]))
 import debugging_dialog
@@ -46,6 +48,14 @@ class DebuggingDialogTest(unittest.TestCase):
         self.assertIsNone(permission_button_pair(buttons + [buttons[1]]))
         self.assertIsNone(permission_button_pair([buttons[1]]))
         self.assertIsNone(permission_button_pair([buttons[0], {"label": "allow", "box": (260, 400, 148, 45)}]))
+
+    def test_post_input_observation_never_sends_another_input(self):
+        with patch.object(debugging_dialog.subprocess, "run", return_value=SimpleNamespace(stdout=self.screen())) as run:
+            result = debugging_dialog.observe_after_input(Path("after.png"), {}, self.fingerprint)
+        self.assertTrue(result["dialog_detected"])
+        self.assertTrue(result["host_fingerprint_matches"])
+        self.assertNotIn("click", result)
+        self.assertEqual(["import", "tesseract"], [call.args[0][0] for call in run.call_args_list])
 
 
 if __name__ == "__main__":

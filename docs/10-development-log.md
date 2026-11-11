@@ -214,13 +214,23 @@
 - **임시 APK 구분:** 해당 CI가 만든 debug APK의 소스/버전/해시/공개 개발 서명은 [identity](evidence/pleos-gui-launch-failure/verification-apk-identity.txt)에 있다. 설치하지 못한 검증용 임시 빌드이며 기존 배포0.2 artifact를 바꾸지 않았다.
 - **검사:** actionlint·Python 구문·diff 확인. 이 수정 후 실행은 loader preflight를 먼저 통과해야 SDK 이미지/GUI/정상 승인 단계로 진행한다. 정상 승인을 못 하면 실제 연동 미검증으로 남기며 인증 설정이나 키 파일로 우회하지 않는다.
 
-## 2026-11-11 23:01 UTC — 정상 GUI·일치 지문 확인, 모달/버튼 인식 보완
+## 2026-11-11 22:54 UTC — 정상 GUI·일치 지문 확인, 모달/버튼 인식 보완
 
 - **실제 실행:** [43111928160](https://github.com/leemh-dev/dochagjari/actions/runs/43111928160), 코드022160c, artifact13897640819. GUI ELF 사전 검사 성공·실제 창 표시·USB 디버깅 문구/현재 호스트 공개 지문 일치를 확인했다. 그러나 전체 화면 OCR이 허용 버튼을 식별하지 못해 클릭0/transport unauthorized로 종료됐다. 설치·내비·Console·기기 검사는 실행하지 않았다. [원본 화면](evidence/pleos-normal-ui-blocked/debugging-screen-12.png), [준비 기록](evidence/pleos-normal-ui-blocked/readiness.json).
 - **구체 관찰:** 화면에는 nested virtualization 안내 모달과 그 뒤의 정상 한국어 USB 승인 버튼이 있었다. 전체 화면 OCR 대신 실제 화면의 연결 영역을 분석해 안내문/유일한 OK와 취소·허용 쌍을 읽는다. 알려진 안내만 정상 OK로 닫고 반드시 새 화면을 수집한다. 모호한 모달은 차단하며 USB 승인에는 기존 문구/현재 호스트 지문 조건을 그대로 적용한다. Always allow/인증 설정/키 파일을 건드리지 않는다.
 - **로컬 증거:** 같은 원본 화면을 읽기만 해 안내 OK와 배경 버튼 쌍을 찾는 것을 확인했다([분석 JSON](evidence/observed-dialog-region-check.json)). Cloud에서 클릭·승인·설치를 한 것이 아니다. 임시 OCR crop은 증거 원본을 변경하지 않고 배포하지 않는다. 호스트 UI OCR을 Android ML Kit 성공으로 계산하지 않는다.
 - **검사:** Python 진단12건(기존7+화면5)·compileall·actionlint1.7.7·diff 검사 통과. 일반 Android 최신022160c PR43112125115/push43111927279 CI 모두 성공. 별도 이전 PR43110288580의 SDK ZIP 실패도 보존했다. 앱/서버/Gradle 코드·기존 배포 APK는 동일하다.
 - **다음 실행 근거:** 실제 모달/버튼 인식 실패라는 새로운 증거와 해당 수정으로 수동 실행을 한 번 요청한다. 정상 승인 이후에도 transport/boot/package/activity 모두 준비되기 전에는 설치하지 않는다. 성공/실패를 artifact로 다시 확인한다.
+
+## 2026-11-11 23:11 UTC — 정상 입력 전송 후에도 unauthorized·후속 관찰 보완
+
+- **실제 종료:** [43115895691](https://github.com/leemh-dev/dochagjari/actions/runs/43115895691), 코드472b68d, artifact13899317062. 진단12건·APK빌드·GUI 라이브러리·KVM·공식61범위/체크섬·실제 GUI까지 성공했다. 1차 정상 안내 OK 입력 후 2차 새 화면에서 USB 문구/현재 호스트 지문/취소·허용 쌍을 확인해 허용 위치에 X11 입력을 전송했다. [원본 화면](evidence/pleos-input-unconfirmed/debugging-screen-2.png).
+- **완료 경계:** clicked=true는 X11 입력 명령 성공이다. 게스트 승인 완료가 아니다. get-state는300초 후에도 rc1/unauthorized, devices도 unauthorized였다. transport에서 멈춰 boot/package/activity는 미조회이며 설치/내비/Console/connected 검사는 생략했다. [준비 기록](evidence/pleos-input-unconfirmed/readiness.json), [요약](evidence/pleos-input-unconfirmed/summary.json). 로그의 profile 서비스 문제를 인증 실패 원인으로 단정하지 않는다.
+- **관찰 누락 보완:** 클릭 이후 화면이 없어 실제 버튼 반영/대화상자 종료/재등장 여부를 알 수 없다. 후속 코드에 정상 입력2초 뒤 읽기 전용 화면/문구·지문 관찰과 종료 직전 원본 화면을 추가했다. 새로운 자동 클릭이나 키/인증 설정 변경은 없다. 이 보완으로 부팅을 재요청하지 않았고 실제 Pleos 실행 증거는 아직 없다.
+- **검사:** 신규 읽기 전용 관찰 회귀를 포함해 Python13건 통과, 구문·actionlint·diff 검사 통과. [최신472b68d 일반 CI43115896326](https://github.com/leemh-dev/dochagjari/actions/runs/43115896326)는 verify·일반 Android 기기/프로세스 검사 모두 성공했다. 이 결과는 Pleos 성공이 아니다.
+- **제출 자료:** 시연 녹화/증거 수집 순서를 docs/12에 추가했다. docs/08·09·README/PR에 완료/미검증을 정리한다. 배포 APK·앱0.2.0/2·코드3a01515·기존 해시는 유지한다. 임시 검증 APK는 [별도 identity](evidence/pleos-input-unconfirmed/verification-apk-identity.txt)로 보관한다.
+- **환경/명령:** GitHub KVM 수동workflow, gh run view/API/artifact 조회. Cloud는 KVM/연결기기/외부 설정이 없고 Mac에 접근하지 않았다. gh pr edit는 구형 Projects GraphQL 조회 오류로 실패해 동일 본문을 REST PATCH로 갱신했다.
+- **남은 일:** 승인 입력 이후 실제 화면을 확인하고 연결을 복구한 뒤 준비 helper→설치→두 목적지 SDK/핀→Console 좌우/앱 초기값·콜백/옵션 제안→Pleos 기기 검사를 진행한다. 실제 SMS·제출 서명·병원 동선·순정 카메라·실차는 별도 조건/증거가 필요하다. 무근거 재부팅은 하지 않는다.
 
 ## 이후 기록 양식
 

@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import time
 
 from adb_readiness import diagnostic
 from dialog_regions import inspect_regions
@@ -45,6 +46,22 @@ def approval_plan(tsv, fingerprint):
     return result
 
 
+def capture_desktop(path, environment):
+    subprocess.run(["import", "-window", "root", str(path)], env=environment,
+                   capture_output=True, check=True, timeout=15)
+
+
+def observe_after_input(path, environment, fingerprint):
+    """Read-only observation: input delivery never proves guest approval."""
+    capture_desktop(path, environment)
+    ocr = subprocess.run(["tesseract", str(path), "stdout", "-l", "eng+kor", "--psm", "11", "tsv"],
+                         env=environment, capture_output=True, text=True, check=True, timeout=20)
+    plan = approval_plan(ocr.stdout, fingerprint)
+    return {"screenshot": path.name, "dialog_detected": plan["dialog_detected"],
+            "host_fingerprint_matches": plan["host_fingerprint_matches"],
+            "note": "Read-only post-input observation; ADB transport is authoritative"}
+
+
 def approve_visible_dialog(work, reports, environment, attempt):
     """Read only the public host key; click Allow only after exact fingerprint comparison."""
     result = {"clicked": False, "attempt": attempt, "host_fingerprint_available": False,
@@ -78,6 +95,10 @@ def approve_visible_dialog(work, reports, environment, attempt):
             subprocess.run(["xdotool", "mousemove", "--sync", str(point[0]), str(point[1]), "click", "1"],
                            env=environment, capture_output=True, check=True, timeout=10)
             result["clicked"] = True
+            result["click_input_sent"] = True
+            time.sleep(2)
+            result["post_input_observation"] = observe_after_input(
+                reports / f"debugging-after-input-{attempt}.png", environment, fingerprint)
     except (OSError, ValueError, KeyError, IndexError, subprocess.SubprocessError) as error:
         result["error"] = diagnostic(str(error))
     return result

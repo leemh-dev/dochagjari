@@ -6,12 +6,13 @@ test_unauthorized_offline_missing_device_do_not_query_services (test_adb_readine
 test_ambiguous_allow_and_checkbox_only_never_click (test_debugging_dialog.DebuggingDialogTest.test_ambiguous_allow_and_checkbox_only_never_click) ... ok
 test_korean_normal_debugging_dialog_uses_same_fingerprint_gate (test_debugging_dialog.DebuggingDialogTest.test_korean_normal_debugging_dialog_uses_same_fingerprint_gate) ... ok
 test_normal_allow_requires_matching_host_fingerprint_and_not_checkbox (test_debugging_dialog.DebuggingDialogTest.test_normal_allow_requires_matching_host_fingerprint_and_not_checkbox) ... ok
+test_post_input_observation_never_sends_another_input (test_debugging_dialog.DebuggingDialogTest.test_post_input_observation_never_sends_another_input) ... ok
 test_region_buttons_require_a_unique_cancel_allow_bar (test_debugging_dialog.DebuggingDialogTest.test_region_buttons_require_a_unique_cancel_allow_bar) ... ok
 test_wrong_host_or_unrelated_permission_never_clicks (test_debugging_dialog.DebuggingDialogTest.test_wrong_host_or_unrelated_permission_never_clicks) ... ok
 test_failed_boot_record_does_not_attempt_adb_or_install (test_install_gate.InstallGateTest.test_failed_boot_record_does_not_attempt_adb_or_install) ... ok
 test_prior_success_record_does_not_allow_install_on_missing_device (test_install_gate.InstallGateTest.test_prior_success_record_does_not_allow_install_on_missing_device) ... ok
 
 ----------------------------------------------------------------------
-Ran 12 tests in 0.181s
+Ran 13 tests in 0.180s
 
 OK
