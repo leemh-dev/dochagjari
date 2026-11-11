@@ -1,11 +1,11 @@
-name: Package development APK release
+name: Package development APK artifacts
 on:
   push:
     paths:
       - .github/workflows/package-dev-release.yml
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 jobs:
   package:
     if: github.repository == 'leemh-dev/dochagjari'
@@ -74,13 +74,3 @@ jobs:
         with:
           name: development-release-assets-and-metadata
           path: release-assets/
-      - name: Publish authorized development prerelease
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          if gh release view v0.2.0-dev >/dev/null 2>&1; then
-            gh release upload v0.2.0-dev release-assets/* --clobber
-            gh release edit v0.2.0-dev --notes-file release-notes.md --prerelease
-          else
-            gh release create v0.2.0-dev release-assets/* --target "$APP_CODE_COMMIT" --prerelease --title '도착자리 0.2.0 개발 APK — 알림 복구·설정 저장' --notes-file release-notes.md
-          fi

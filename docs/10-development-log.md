@@ -113,6 +113,12 @@
 - **서명 구분:** runner의 개발 서명은 기존 Cloud 개발 키와 다르므로 새 전용 AVD에서 설치해야 한다. 제출용 키를 생성하거나 기존 키를 저장소/로그로 옮기지 않는다. 배포 파일의 metadata는 실제 업로드 결과로 갱신한다.
 - **다음:** 배포 결과·해시를 확인하고 문서/PR을 갱신한다. 실제 Pleos 증거 수집과 일반 Android 설치 전 서비스 검사도 진행 중이다.
 
+## 2026-11-11 16:11 UTC — GitHub artifact로 APK 제공 경로 확정
+
+- **실제 결과:** [패키징 CI 43054889150](https://github.com/leemh-dev/dochagjari/actions/runs/43054889150)에서 동일 앱 코드의 세 APK 빌드·서명/미서명 확인·해시 계산과 artifact 업로드까지 성공했다. 하지만 Release 생성은 GitHub integration 권한으로 HTTP 403 `Resource not accessible by integration`이 발생했다. Release 게시 완료로 표시하지 않는다.
+- **해결:** 사용자 요청에 포함된 GitHub artifact 제공 경로를 사용한다. 불필요한 Release 쓰기 권한/게시 단계를 제거하고 읽기 권한으로 APK·metadata·SHA256SUMS를 보관하는 패키징 작업으로 정리한다. 기존 실패는 감추지 않고 [인증 제한 증거](evidence/apk-publishing-limits.txt)에 남긴다.
+- **산출물 구분:** 서버/앱 기능 검사 실패가 아니라 배포 API 권한 제한이다. artifact에는 실제 파일과 서명 지문이 있으며 최종 성공 실행의 metadata를 docs/evidence에 반영한다. 소스에 바이너리·서명 키를 추가하지 않는다.
+
 ## 이후 기록 양식
 
 ```text

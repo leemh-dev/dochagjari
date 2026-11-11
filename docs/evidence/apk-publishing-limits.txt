@@ -1,0 +1,9 @@
+2026-11-11 UTC
+Cloud gh release create: uploads.github.com returned HTTP 401 Bad credentials; release lookup: not found.
+GitHub runner packaging run: https://github.com/leemh-dev/dochagjari/actions/runs/43054889150
+Build debug/androidTest/unsigned release: success.
+APK signing checks, hashes and artifact upload: success.
+Optional Release create: HTTP 403 Resource not accessible by integration.
+Published Release: none.
+Resolution: provide APKs + apk-metadata.json + SHA256SUMS through authorized GitHub Actions artifact. Remove Release publication and contents:write from packaging workflow.
+No credentials or private signing keys are included in this evidence.
