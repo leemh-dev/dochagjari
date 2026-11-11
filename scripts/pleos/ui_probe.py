@@ -64,6 +64,11 @@ def screenshot(name):
 
 
 try:
+    readiness = json.loads((reports / "readiness.json").read_text())
+    if not readiness.get("boot_completed"):
+        report["skipped"] = "Pleos boot/services not ready; no installation, navigation, Console or app reception claimed"
+        path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+        sys.exit(0)
     if len(sys.argv) > 1 and sys.argv[1] == "collect":
         logs = command("logcat", "-d", "-v", "brief", "DochagjariPleosSeat:I", "DochagjariVehicle:I", "*:S").decode(errors="replace")
         (reports / "seat-sdk-events.txt").write_text(logs)

@@ -6,11 +6,11 @@ SDK images remain unchanged. A separately formatted test userdata avoids the ear
 from pathlib import Path
 import hashlib
 import concurrent.futures
-import math
 import json
 import os
 import subprocess
 import time
+import threading
 import urllib.request
 import xml.etree.ElementTree as ET
 import zipfile
@@ -56,30 +56,52 @@ try:
     size = int(values["size"])
     report["archive_bytes"] = size
     checkpoint("downloading-image")
-    # The official host supports byte ranges; parallel streams avoid its per-connection cap.
-    with urllib.request.urlopen(urllib.request.Request(url, headers={"Range": "bytes=0-0"}), timeout=90) as response:
-        range_supported = response.status == 206 and response.headers.get("Content-Range") == f"bytes 0-0/{size}"
-    if range_supported:
-        with target.open("wb") as output: output.truncate(size)
-        step = math.ceil(size / 8)
-        def fetch_part(index):
-            start = index * step; end = min(size - 1, start + step - 1)
-            request = urllib.request.Request(url, headers={"Range": f"bytes={start}-{end}"})
-            with urllib.request.urlopen(request, timeout=120) as response, target.open("r+b") as output:
-                if response.status != 206 or response.headers.get("Content-Range") != f"bytes {start}-{end}/{size}":
-                    raise RuntimeError("Unexpected range response")
-                output.seek(start)
-                remaining = end - start + 1
-                while remaining:
-                    block = response.read(min(8 * 1024 * 1024, remaining))
-                    if not block: raise RuntimeError("Incomplete SDK range")
-                    output.write(block); remaining -= len(block)
-            print(f"Pleos archive range {index + 1}/8 complete", flush=True)
-        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
-            list(pool.map(fetch_part, range(8)))
-    else:
-        with urllib.request.urlopen(url, timeout=90) as response, target.open("wb") as output:
-            while block := response.read(8 * 1024 * 1024): output.write(block)
+    # Previous 512MB requests completed 7/8 ranges, then one connection reset before boot.
+    # Smaller independently retried ranges have explicit connection/transfer/overall limits.
+    with target.open("wb") as output: output.truncate(size)
+    step = 64 * 1024 * 1024
+    ranges = [(index, start, min(size - 1, start + step - 1)) for index, start in enumerate(range(0, size, step))]
+    transfer_deadline = time.monotonic() + 600
+    aborted = threading.Event()
+    def fetch_part(spec):
+        index, start, end = spec
+        part = work / f"range-{index}.part"
+        headers = work / f"range-{index}.headers"
+        try:
+            for attempt in range(3):
+                if aborted.is_set() or time.monotonic() >= transfer_deadline:
+                    raise RuntimeError("Image transfer deadline or another range failed")
+                seconds = max(1, min(60, int(transfer_deadline - time.monotonic())))
+                result = subprocess.run(["curl", "-fsS", "--connect-timeout", "10", "--max-time", str(seconds),
+                                         "--range", f"{start}-{end}", "--dump-header", str(headers), "--output", str(part),
+                                         "--write-out", "%{http_code}", url], capture_output=True, text=True, timeout=seconds + 5)
+                content_range = f"content-range: bytes {start}-{end}/{size}"
+                valid = result.returncode == 0 and result.stdout.strip() == "206" and part.exists() and part.stat().st_size == end - start + 1
+                valid = valid and content_range in headers.read_text(errors="replace").lower().splitlines()
+                if valid:
+                    with target.open("r+b") as output, part.open("rb") as source:
+                        output.seek(start)
+                        while block := source.read(4 * 1024 * 1024): output.write(block)
+                    return index
+                print(f"Pleos range {index + 1}/{len(ranges)} attempt {attempt + 1} failed: curl={result.returncode} HTTP={result.stdout.strip()}", flush=True)
+            aborted.set()
+            raise RuntimeError(f"Official image range {index + 1} failed after three bounded attempts")
+        finally:
+            part.unlink(missing_ok=True); headers.unlink(missing_ok=True)
+    report["range_count"] = len(ranges)
+    report["ranges_completed"] = 0
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+        futures = [pool.submit(fetch_part, spec) for spec in ranges]
+        try:
+            for future in concurrent.futures.as_completed(futures):
+                future.result()
+                report["ranges_completed"] += 1
+                checkpoint("downloading-image")
+                print(f"Pleos archive {report['ranges_completed']}/{len(ranges)} ranges complete", flush=True)
+        except Exception:
+            aborted.set()
+            for future in futures: future.cancel()
+            raise
     digest = hashlib.new(checksum_element.attrib.get("type", "sha1") if checksum_element is not None else "sha1")
     with target.open("rb") as downloaded:
         while block := downloaded.read(8 * 1024 * 1024): digest.update(block)
