@@ -20,6 +20,13 @@ import kotlin.math.abs
 data class SceneResult(val observation: Observation, val clue: String, val detail: String)
 interface SceneAnalyzer { fun analyze(uri: Uri?, asset: String?, source: InputSource): SceneResult }
 
+/** MediaMetadataRetriever may return RGB_565 or hardware bitmaps; TensorImage requires ARGB_8888. */
+internal fun modelBitmap(decoded: Bitmap): Bitmap {
+    if (decoded.config == Bitmap.Config.ARGB_8888) return decoded
+    return try { requireNotNull(decoded.copy(Bitmap.Config.ARGB_8888, false)) { "프레임 형식 변환 실패" } }
+    finally { decoded.recycle() }
+}
+
 class VideoSceneAnalyzer(private val context: Context) : SceneAnalyzer {
     override fun analyze(uri: Uri?, asset: String?, source: InputSource): SceneResult {
         val retriever = MediaMetadataRetriever()
@@ -39,7 +46,8 @@ class VideoSceneAnalyzer(private val context: Context) : SceneAnalyzer {
             var occupied = 0; var empty = 0; var peak = 0f; var frames = 0
             val labels = linkedSetOf<String>(); val clues = linkedSetOf<String>()
             for (second in 0 until minOf(8, (duration / 1000).toInt().coerceAtLeast(1))) {
-                val frame = retriever.getScaledFrameAtTime(second * 1_000_000L, MediaMetadataRetriever.OPTION_CLOSEST, 640, 480) ?: continue
+                val decoded = retriever.getScaledFrameAtTime(second * 1_000_000L, MediaMetadataRetriever.OPTION_CLOSEST, 640, 480) ?: continue
+                val frame = modelBitmap(decoded)
                 try {
                     frames++
                     // Registered demo candidate ROI, central 80%; never infers permission to stop.
