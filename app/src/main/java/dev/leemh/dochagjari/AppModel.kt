@@ -2,10 +2,6 @@ package dev.leemh.dochagjari
 
 import android.app.Application
 import android.net.Uri
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.doublePreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -15,9 +11,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
-
-private val Application.profileStore by preferencesDataStore("profile")
 data class AppState(
     val facilities: List<Facility> = emptyList(), val facilityIndex: Int = 0,
     val mode: VisitMode = VisitMode.PICKUP, val profile: Profile = Profile(),
@@ -28,48 +21,68 @@ data class AppState(
     val clue: String = "", val latitude: String = "", val longitude: String = "",
     val analysis: String = "영상을 선택하거나 동봉 샘플을 분석하세요", val analyzing: Boolean = false,
     val useServer: Boolean = false, val serverUrl: String = "http://10.0.2.2:8000", val token: String = "", val recipientId: String = "demo",
-    val consent: Boolean = false, val error: String = "", val log: List<String> = emptyList()
+    val consent: Boolean = false, val error: String = "", val log: List<String> = emptyList(),
+    val sensServer: Boolean = false, val delivery: OutboxState = OutboxState(ArrivalRecord()),
+    val profileSave: ProfileState = ProfileState()
 ) { val facility: Facility get() = facilities[facilityIndex] }
 
-class AppModel(application: Application) : AndroidViewModel(application) {
+class AppModel @JvmOverloads constructor(application: Application, private val services: AppServices = AppServices.get(application)) : AndroidViewModel(application) {
     private val app = application
-    private val journal = app.getSharedPreferences("session-journal", 0)
     private val _state = MutableStateFlow(AppState())
     val state = _state.asStateFlow()
     private var navi: NavigationGateway? = null
     private var vehicleSource: VehicleStateSource? = null
     private var testSource: TestVehicleStateSource? = null
     private var sourceGeneration = 0
+    private var consentedAt = 0L
     private val recommender = Recommender()
     private val analyzer by lazy { VideoSceneAnalyzer(app) }
     init {
         val facilities = FacilityParser.parse(app.assets.open("facilities.json").bufferedReader().use { it.readText() })
-        val restored = journal.getString("session", null)?.let { raw -> runCatching {
-            val j = JSONObject(raw)
-            PickupSession(id = j.getString("id"), notification = j.getString("notification"), clue = j.optString("clue"))
-        }.getOrNull() } ?: PickupSession()
-        _state.update { it.copy(facilities = facilities, session = restored) }
+        _state.update { it.copy(facilities = facilities) }
+        applyOutbox(services.outbox.state.value)
         recompute(); selectVehicle(true); selectNavi(true)
         viewModelScope.launch {
-            app.profileStore.data.collect { p ->
-                _state.update { it.copy(profile = it.profile.copy(leftDoor = p[booleanPreferencesKey("left")] ?: false, rightDoor = p[booleanPreferencesKey("right")] ?: false, stroller = p[booleanPreferencesKey("stroller")] ?: false, wheelchair = p[booleanPreferencesKey("wheelchair")] ?: false, companion = p[booleanPreferencesKey("companion")] ?: false, heightM = p[doublePreferencesKey("height")] ?: 1.8)) }
+            services.profiles.state.collect { saved ->
+                _state.update { it.copy(profile = saved.profile, profileSave = saved) }
                 recompute()
             }
         }
+        viewModelScope.launch { services.outbox.state.collect(::applyOutbox) }
         viewModelScope.launch { while (true) { delay(5_000); recompute() } }
     }
     private fun log(message: String) { _state.update { it.copy(log = (listOf(message) + it.log).take(24)) }; android.util.Log.i("Dochagjari", message) }
     private fun recompute() { _state.update { it.copy(recommendation = recommender.recommend(it.facility, it.mode, it.profile, it.blocked, it.observations)) } }
-    fun chooseFacility(index: Int) { _state.update { it.copy(facilityIndex = index, mode = if (index == 0) VisitMode.PICKUP else VisitMode.DROPOFF, blocked = emptySet(), clue = "", latitude = "", longitude = "") }; newSession(); recompute() }
+    private fun applyOutbox(delivery: OutboxState) {
+        val record = delivery.record; val request = record.request
+        _state.update { s ->
+            val changedSession = s.session.id != record.sessionId
+            val session = if (request != null) PickupSession(record.sessionId, s.vehicle.stopped == true, true, request.position, request.clue, record.status, request.source)
+                else if (changedSession) PickupSession(id = record.sessionId, stopped = s.vehicle.stopped == true, clue = record.legacyClue, notificationStatus = record.status, source = s.vehicle.source)
+                else s.session.copy(notificationStatus = record.status)
+            s.copy(delivery = delivery, session = session,
+                clue = request?.clue ?: if (changedSession) record.legacyClue else s.clue,
+                latitude = request?.position?.latitude?.toString() ?: if (changedSession) "" else s.latitude,
+                longitude = request?.position?.longitude?.toString() ?: if (changedSession) "" else s.longitude,
+                consent = if (request != null) record.consentActive else if (changedSession) false else s.consent,
+                useServer = request?.let { it.channel != DeliveryChannel.LOCAL_MOCK } ?: s.useServer,
+                sensServer = request?.let { it.channel == DeliveryChannel.SENS } ?: s.sensServer,
+                serverUrl = request?.takeIf { it.channel != DeliveryChannel.LOCAL_MOCK }?.endpoint ?: s.serverUrl,
+                recipientId = request?.recipientId ?: s.recipientId)
+        }
+    }
+    fun chooseFacility(index: Int) {
+        if (index !in _state.value.facilities.indices || index == _state.value.facilityIndex) return
+        if (!newSession()) return
+        _state.update { it.copy(facilityIndex = index, mode = if (index == 0) VisitMode.PICKUP else VisitMode.DROPOFF, blocked = emptySet()) }; recompute()
+    }
     fun mode(mode: VisitMode) { _state.update { it.copy(mode = mode) }; recompute() }
     fun profile(profile: Profile) {
         if (_state.value.vehicle.stopped != true) return
-        _state.update { it.copy(profile = profile) }; recompute()
-        viewModelScope.launch { app.profileStore.edit { p ->
-            mapOf("left" to profile.leftDoor, "right" to profile.rightDoor, "stroller" to profile.stroller, "wheelchair" to profile.wheelchair, "companion" to profile.companion).forEach { (k,v) -> p[booleanPreferencesKey(k)] = v }
-            p[doublePreferencesKey("height")] = profile.heightM
-        } }
+        services.profiles.update(profile)
+        _state.update { it.copy(profile = services.profiles.state.value.profile, profileSave = services.profiles.state.value) }; recompute()
     }
+    fun retryProfile() { if (_state.value.vehicle.stopped == true) services.profiles.retry() }
     fun blocked() { _state.value.recommendation.point?.let { p -> _state.update { it.copy(blocked = it.blocked + p.id) }; recompute() } }
     fun resetBlocked() { _state.update { it.copy(blocked = emptySet()) }; recompute() }
     fun selectNavi(test: Boolean) {
@@ -85,7 +98,7 @@ class AppModel(application: Application) : AndroidViewModel(application) {
             viewModelScope.launch {
                 if (generation == sourceGeneration) {
                     val s = _state.value.session
-                    _state.update { it.copy(vehicle = snapshot, session = s.copy(stopped = snapshot.stopped == true, confirmed = if (snapshot.stopped == true) s.confirmed else false, source = snapshot.source)) }
+                    _state.update { it.copy(vehicle = snapshot, session = s.copy(stopped = snapshot.stopped == true, confirmed = if (snapshot.stopped == true) s.confirmed else false, source = services.outbox.state.value.record.request?.source ?: snapshot.source)) }
                     maybeNotify()
                 }
             }
@@ -98,7 +111,7 @@ class AppModel(application: Application) : AndroidViewModel(application) {
     fun testStopped(stopped: Boolean?) { testSource?.set(stopped = stopped) }
     fun testUnavailable(status: String) { testSource?.set(left = Occupancy.UNKNOWN, right = Occupancy.UNKNOWN, stopped = null, status = "테스트 입력 · $status") }
     fun editLocation(clue: String = _state.value.clue, latitude: String = _state.value.latitude, longitude: String = _state.value.longitude) {
-        if (_state.value.vehicle.stopped != true) return
+        if (_state.value.vehicle.stopped != true || services.outbox.state.value.record.request != null) return
         _state.update { it.copy(clue = clue, latitude = latitude, longitude = longitude, session = it.session.copy(confirmed = false)) }
     }
     fun fillDemoPosition() {
@@ -107,37 +120,49 @@ class AppModel(application: Application) : AndroidViewModel(application) {
     }
     fun confirmLocation() {
         val s = _state.value
-        if (s.vehicle.stopped != true) return
+        if (s.vehicle.stopped != true || services.outbox.state.value.record.status != DeliveryStatus.DRAFT) return
         val lat = s.latitude.toDoubleOrNull(); val lon = s.longitude.toDoubleOrNull()
-        if (lat == null || lon == null || !lat.isFinite() || !lon.isFinite() || lat !in -90.0..90.0 || lon !in -180.0..180.0 || s.clue.isBlank()) { _state.update { it.copy(error = "유효한 좌표와 만남 단서를 확인하세요") }; return }
+        if (lat == null || lon == null || !lat.isFinite() || !lon.isFinite() || lat !in -90.0..90.0 || lon !in -180.0..180.0 || s.clue.isBlank() || s.clue.length > 180) { _state.update { it.copy(error = "유효한 좌표와 180자 이내 만남 단서를 확인하세요") }; return }
         _state.update { it.copy(session = it.session.copy(stopped = true, confirmed = true, position = Position(lat, lon), clue = s.clue, source = s.vehicle.source), error = "") }
         maybeNotify()
     }
-    fun configureNotify(useServer: Boolean = _state.value.useServer, url: String = _state.value.serverUrl, token: String = _state.value.token, recipient: String = _state.value.recipientId, consent: Boolean = _state.value.consent) {
+    fun configureNotify(useServer: Boolean = _state.value.useServer, url: String = _state.value.serverUrl, token: String = _state.value.token, recipient: String = _state.value.recipientId, consent: Boolean = _state.value.consent, sensServer: Boolean = _state.value.sensServer) {
         if (_state.value.vehicle.stopped != true) return
-        _state.update { it.copy(useServer = useServer, serverUrl = url, token = token, recipientId = recipient, consent = consent) }
-        maybeNotify()
+        val s = _state.value
+        if (services.outbox.state.value.record.request != null) {
+            _state.update { it.copy(token = token) }
+            if (!consent && s.consent) { services.outbox.revokeConsent(); applyOutbox(services.outbox.state.value) }
+            return
+        }
+        val changedTarget = useServer != s.useServer || url != s.serverUrl || recipient != s.recipientId || sensServer != s.sensServer
+        val acceptedConsent = consent && !changedTarget
+        if (acceptedConsent && !s.consent) consentedAt = System.currentTimeMillis()
+        if (!acceptedConsent) consentedAt = 0
+        _state.update { it.copy(useServer = useServer, serverUrl = url, token = token, recipientId = recipient, consent = acceptedConsent, sensServer = sensServer, session = if (changedTarget) it.session.copy(confirmed = false) else it.session) }
+        if (acceptedConsent && !s.consent) maybeNotify()
     }
-    private fun persist(session: PickupSession): Boolean = journal.edit().putString("session", JSONObject().put("id", session.id).put("notification", session.notification).put("clue", session.clue).toString()).commit()
     private fun maybeNotify() {
         val s = _state.value
-        if (!s.session.eligible || !s.consent) return
-        val pending = s.session.copy(notification = "발송 확인 필요 · 요청 중")
-        if (!persist(pending)) { _state.update { it.copy(error = "발송 기록 저장 실패 · 미발송") }; return }
-        _state.update { it.copy(session = pending) }
-        viewModelScope.launch {
-            val result = withContext(Dispatchers.IO) { runCatching {
-                (if (s.useServer) HttpArrivalNotifier(s.serverUrl, s.token) else MockArrivalNotifier()).notify(pending, s.recipientId)
-            }.getOrElse { "발송 확인 필요 · ${it.javaClass.simpleName}" } }
-            val done = pending.copy(notification = result)
-            // Do not overwrite a newer visit when an old HTTP request finishes.
-            if (_state.value.session.id == done.id) { persist(done); _state.update { it.copy(session = it.session.copy(notification = result)) } }
-            log("알림 ${done.id}: $result")
+        if (!s.session.eligible || !s.consent || consentedAt == 0L || services.outbox.state.value.record.status != DeliveryStatus.DRAFT) return
+        val channel = if (!s.useServer) DeliveryChannel.LOCAL_MOCK else if (s.sensServer) DeliveryChannel.SENS else DeliveryChannel.SERVER_MOCK
+        val request = ConfirmedArrival(s.session.id, s.session.position!!, s.session.clue, s.recipientId, channel,
+            if (s.useServer) s.serverUrl.trim().trimEnd('/') else "", s.session.source, System.currentTimeMillis().coerceAtLeast(consentedAt), consentedAt)
+        if (services.outbox.prepare(request)) {
+            applyOutbox(services.outbox.state.value)
+            services.scope.launch { services.outbox.recover(s.token) }
         }
     }
-    fun newSession() {
-        val session = PickupSession(stopped = _state.value.vehicle.stopped == true, source = _state.value.vehicle.source)
-        if (persist(session)) _state.update { it.copy(session = session, clue = "", latitude = "", longitude = "") }
+    fun recoverNotification() {
+        if (_state.value.vehicle.stopped != true) return
+        val token = _state.value.token
+        services.scope.launch { services.outbox.recover(token) }
+    }
+    fun newSession(): Boolean {
+        if (_state.value.vehicle.stopped != true) return false
+        val result = services.outbox.newSession()
+        applyOutbox(services.outbox.state.value)
+        if (result) { consentedAt = 0; _state.update { it.copy(consent = false, error = "") } }
+        return result
     }
     fun analyze(uri: Uri?, asset: String? = null, source: InputSource = InputSource.VIDEO) {
         val s = _state.value
@@ -147,7 +172,7 @@ class AppModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) { runCatching { analyzer.analyze(uri, asset, source) } }
             result.onSuccess { analysis ->
-                _state.update { it.copy(observations = it.observations + (point.id to analysis.observation), analysis = "${source.label} · ${point.name}\n원본 관측 ${analysis.observation.occupancy} (${analysis.observation.confidence})\n${analysis.detail}", analyzing = false, clue = if (it.vehicle.stopped == true && it.session.id == s.session.id && analysis.clue.isNotBlank()) analysis.clue + " · 사용자 확인 필요" else it.clue, session = it.session.copy(confirmed = false)) }
+                _state.update { it.copy(observations = it.observations + (point.id to analysis.observation), analysis = "${source.label} · ${point.name}\n원본 관측 ${analysis.observation.occupancy} (${analysis.observation.confidence})\n${analysis.detail}", analyzing = false, clue = if (it.delivery.record.request == null && it.vehicle.stopped == true && it.session.id == s.session.id && analysis.clue.isNotBlank()) analysis.clue + " · 사용자 확인 필요" else it.clue, session = if (it.delivery.record.request == null) it.session.copy(confirmed = false) else it.session) }
                 recompute(); log("영상 분석: ${analysis.observation}")
             }.onFailure { e -> _state.update { it.copy(analyzing = false, analysis = "분석 실패 · 미확인: ${e.message}") } }
         }

@@ -77,8 +77,9 @@ object FacilityParser {
 data class PickupSession(
     val id: String = UUID.randomUUID().toString(), val stopped: Boolean = false,
     val confirmed: Boolean = false, val position: Position? = null, val clue: String = "",
-    val notification: String = "대기", val source: InputSource = InputSource.TEST
+    val notificationStatus: DeliveryStatus = DeliveryStatus.DRAFT, val source: InputSource = InputSource.TEST
 ) {
-    val eligible: Boolean get() = stopped && confirmed && position != null && clue.isNotBlank() && notification == "대기"
+    val notification: String get() = notificationStatus.label
+    val eligible: Boolean get() = stopped && confirmed && position != null && clue.isNotBlank() && notificationStatus == DeliveryStatus.DRAFT
     fun shareText(): String = "$clue\nhttps://maps.google.com/?q=${position?.latitude},${position?.longitude}"
 }

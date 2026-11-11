@@ -57,6 +57,16 @@
 - **근거:** [복구 계약](11-arrival-recovery.md), `server/tests/test_app.py`. 최종 검사 로그는 완료 시 evidence에 추가한다.
 - **다음:** 앱 회귀 검사와 기기 테스트 APK 빌드를 마치고 일반 API 34 기기 CI를 실행한다. Pleos 실연동은 별도 미검증으로 유지한다.
 
+## 2026-11-11 15:15 UTC — 앱 복구·저장 보완 및 로컬 검사 통과
+
+- **변경:** enum 상태와 원자적 영속 저널, 고정된 위치/수신자/모드/동의 복원, GET 선조회·동일 요청 재개, 불명·불일치·기록 소실 시 재발송 중단을 구현했다. 토큰은 저장하지 않으며 동의 해제를 영속 반영한다. 미해결 요청의 새 세션 생성·대상 변경을 차단했다.
+- **저장:** 프로필을 애플리케이션 수명의 직렬 큐에서 쓰고 저장 중/완료/실패·revision·실제 저장값을 구분했다. ViewModel 종료 후 쓰기 완료, DataStore를 닫고 새 인스턴스로 값 재조회, 실패·재시도·연속 변경을 검증했다.
+- **실행:** `:app:testDebugUnitTest :app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug` 및 마지막 소규모 변경 후 단위 검사·기기 테스트 APK·lint 재검사 성공. Android/JVM 테스트 31건·서버 14건 통과. HTTP 테스트는 로컬 MockWebServer를 사용한다.
+- **증거:** [수정 후 단위 검사 요약](evidence/recovery-unit-tests/summary.json), 같은 폴더의 JUnit XML, [서버 검사 로그](evidence/recovery-server-tests.txt). XML의 호스트명을 정규화하고 콘솔 출력을 제외했다. 실제 기기 검사 결과가 아니다.
+- **기기 검사 준비:** 일반 API 34 Google APIs 에뮬레이터 CI 작업, 앱 내 영상→우회·병원·주행 제한 검사, 별도 프로세스 강제 종료 스크립트를 추가했다. 이 단계에서 실행 성공은 아직 확인하지 않았다. 스크립트는 전용 테스트 기기에만 사용하며 명시적 앱 데이터 초기화 인자가 필요하다.
+- **버전:** 앱 0.2.0 / versionCode 2. 큰 APK는 이후 artifact/Release로 보관하고 이전 0.1 APK는 이력으로 유지한다. 서명·해시는 최종 빌드 후 기록한다.
+- **다음:** 커밋·푸시 후 CI 기기 작업 실행 결과와 실패를 기록하고 필요한 수정 후 다시 검사한다. Pleos 핀·좌석과 실제 SMS는 여전히 별도 미검증이다.
+
 ## 이후 기록 양식
 
 ```text

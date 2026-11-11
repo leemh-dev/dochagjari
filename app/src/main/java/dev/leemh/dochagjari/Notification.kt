@@ -3,41 +3,50 @@ package dev.leemh.dochagjari
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.Locale
 
-interface ArrivalNotifier { fun notify(session: PickupSession, recipientId: String): String }
-class MockArrivalNotifier : ArrivalNotifier {
-    override fun notify(session: PickupSession, recipientId: String): String {
-        require(session.stopped && session.confirmed && session.position != null)
-        return "모의 발송 완료 · 실제 SMS 미발송"
+/** Each recovery starts with a GET; credentials stay in memory and never follow redirects. */
+class HttpArrivalTransport : ArrivalTransport {
+    override fun lookup(request: ConfirmedArrival, token: String): LookupResult {
+        val (code, body) = exchange(request.endpoint + "/v1/arrivals/${request.sessionId}/${request.recipientId}", "GET", token)
+        if (code == 404) return LookupResult.Missing
+        checkCode(code)
+        return LookupResult.Found(receipt(body))
     }
-}
-class HttpArrivalNotifier(private val endpoint: String, private val token: String) : ArrivalNotifier {
-    override fun notify(session: PickupSession, recipientId: String): String {
-        val url = URL(endpoint.trimEnd('/') + "/v1/arrivals")
-        require(url.protocol == "https" || url.host in listOf("127.0.0.1", "localhost", "10.0.2.2")) { "HTTPS 주소가 필요합니다" }
+    override fun submit(request: ConfirmedArrival, token: String): DeliveryReceipt {
+        val body = JSONObject().put("session_id", request.sessionId).put("recipient_id", request.recipientId)
+            .put("latitude", if (request.position.latitude == 0.0) 0.0 else request.position.latitude)
+            .put("longitude", if (request.position.longitude == 0.0) 0.0 else request.position.longitude)
+            .put("clue", request.clue).put("stopped", true).put("confirmed", true)
+            .put("input_source", request.source.name).put("delivery_mode", request.channel.serverMode)
+        val (code, raw) = exchange(request.endpoint + "/v1/arrivals", "POST", token, body.toString())
+        checkCode(code)
+        return receipt(raw)
+    }
+    private fun checkCode(code: Int) {
+        if (code !in 200..299) throw DeliveryException(when (code) { 401 -> DeliveryIssue.AUTH; 409 -> DeliveryIssue.MISMATCH; in 400..499 -> DeliveryIssue.REJECTED; else -> DeliveryIssue.NETWORK })
+    }
+    private fun receipt(raw: String): DeliveryReceipt = try {
+        val j = JSONObject(raw)
+        DeliveryReceipt(DeliveryStatus.valueOf(j.getString("status").uppercase(Locale.ROOT)), j.getString("request_hash"), j.getString("delivery_mode"), InputSource.valueOf(j.getString("input_source")))
+    } catch (_: Exception) { throw DeliveryException(DeliveryIssue.MISMATCH) }
+
+    private fun exchange(endpoint: String, method: String, token: String, body: String? = null): Pair<Int, String> {
+        val url = URL(endpoint)
+        require(url.userInfo == null && (url.protocol == "https" || url.protocol == "http" && url.host in setOf("127.0.0.1", "localhost", "10.0.2.2")))
         val connection = url.openConnection() as HttpURLConnection
         try {
-            connection.requestMethod = "POST"; connection.connectTimeout = 10_000; connection.readTimeout = 15_000
+            connection.requestMethod = method; connection.connectTimeout = 10_000; connection.readTimeout = 15_000
             connection.instanceFollowRedirects = false
             connection.setRequestProperty("Authorization", "Bearer $token")
-            connection.setRequestProperty("Content-Type", "application/json")
-            connection.doOutput = true
-            val payload = JSONObject().put("session_id", session.id).put("recipient_id", recipientId)
-                .put("latitude", session.position!!.latitude).put("longitude", session.position.longitude)
-                .put("clue", session.clue).put("stopped", session.stopped).put("confirmed", session.confirmed)
-                .put("input_source", session.source.name)
-            connection.outputStream.use { it.write(payload.toString().toByteArray(Charsets.UTF_8)) }
+            if (body != null) {
+                connection.setRequestProperty("Content-Type", "application/json")
+                connection.doOutput = true
+                connection.outputStream.use { it.write(body.toByteArray(Charsets.UTF_8)) }
+            }
             val code = connection.responseCode
             val raw = (if (code in 200..299) connection.inputStream else connection.errorStream)?.bufferedReader()?.use { it.readText() }.orEmpty()
-            if (code !in 200..299) return "발송 확인 필요 · 서버 HTTP $code · 같은 세션 ID로 서버 기록을 확인하세요"
-            val result = JSONObject(raw)
-            return when (result.optString("status")) {
-                "mock" -> "서버 모의 발송 완료 · 실제 SMS 미발송"
-                "accepted" -> "공급자 수락 · 휴대폰 수신 미확인"
-                "received" -> "휴대폰 수신 확인"
-                "failed" -> "발송 실패 · 서버 기록 확인 필요"
-                else -> "발송 확인 필요 · 서버 처리 중 또는 결과 불명"
-            }
+            return code to raw
         } finally { connection.disconnect() }
     }
 }

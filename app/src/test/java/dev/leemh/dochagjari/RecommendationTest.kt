@@ -59,7 +59,7 @@ class RecommendationTest {
         assertFalse(s.copy(confirmed=false).eligible)
         assertFalse(s.copy(position=null).eligible)
         assertFalse(s.copy(clue="").eligible)
-        assertFalse(s.copy(notification="모의 발송 완료").eligible)
+        assertFalse(s.copy(notificationStatus=DeliveryStatus.MOCK).eligible)
         assertTrue(s.shareText().contains("37.48,127.03"))
         assertFalse(s.shareText().contains(s.id))
     }

@@ -92,8 +92,10 @@ private val scheme = darkColorScheme(primary = Mint, background = Color(0xFF0912
                             Text("뒷좌석 왼쪽 ${state.vehicle.left}   /   오른쪽 ${state.vehicle.right}", fontSize = 22.sp)
                             Text(state.vehicle.status)
                             if (state.vehicle.left == Occupancy.OCCUPIED || state.vehicle.right == Occupancy.OCCUPIED) Text("탑승 좌석의 저장된 문 여유·유모차 옵션을 확인해 적용하세요.", color = Mint)
-                            val enabled = state.vehicle.stopped == true
+                            val enabled = state.vehicle.stopped == true && state.profileSave.status != ProfileSaveStatus.LOADING
                             if (!enabled) Text("정차 상태가 확인되면 설정할 수 있습니다.")
+                            Text(state.profileSave.status.label, color = if (state.profileSave.status == ProfileSaveStatus.ERROR) scheme.error else Mint)
+                            if (state.profileSave.status == ProfileSaveStatus.ERROR) OutlinedButton(model::retryProfile, enabled = enabled) { Text("설정 다시 저장") }
                             Toggle("왼쪽 카시트 문 여유", state.profile.leftDoor, enabled) { model.profile(state.profile.copy(leftDoor = it)) }
                             Toggle("오른쪽 카시트 문 여유", state.profile.rightDoor, enabled) { model.profile(state.profile.copy(rightDoor = it)) }
                             Toggle("유모차 · 무단차 필요", state.profile.stroller, enabled) { model.profile(state.profile.copy(stroller = it)) }
@@ -101,8 +103,8 @@ private val scheme = darkColorScheme(primary = Mint, background = Color(0xFF0912
                             Toggle("보호자 동행 유지", state.profile.companion, enabled) { model.profile(state.profile.copy(companion = it)) }
                             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 Text("차량 높이 ${"%.1f".format(state.profile.heightM)}m · 추가 장비 포함", modifier = Modifier.padding(top = 12.dp))
-                                OutlinedButton({ model.profile(state.profile.copy(heightM = (state.profile.heightM - .1).coerceAtLeast(1.0))) }, enabled = enabled) { Text("− 0.1m") }
-                                OutlinedButton({ model.profile(state.profile.copy(heightM = (state.profile.heightM + .1).coerceAtMost(4.0))) }, enabled = enabled) { Text("+ 0.1m") }
+                                OutlinedButton({ model.profile(state.profile.copy(heightM = (kotlin.math.round(state.profile.heightM * 10 - 1) / 10).coerceAtLeast(1.0))) }, enabled = enabled) { Text("− 0.1m") }
+                                OutlinedButton({ model.profile(state.profile.copy(heightM = (kotlin.math.round(state.profile.heightM * 10 + 1) / 10).coerceAtMost(4.0))) }, enabled = enabled) { Text("+ 0.1m") }
                             }
                             Text("설정은 이 단말에 저장됩니다. 좌석 점유로 탑승자의 신원·보조기구를 추론하지 않습니다.")
                         }
@@ -125,19 +127,26 @@ private val scheme = darkColorScheme(primary = Mint, background = Color(0xFF0912
                         }
                         3 -> {
                             val enabled = state.vehicle.stopped == true
+                            val locked = state.delivery.record.request != null
+                            val editable = enabled && !locked && state.session.notificationStatus == DeliveryStatus.DRAFT
                             Text("04  실제 만남 위치 확인", color = Mint, fontSize = 24.sp)
                             Text("세션 ${state.session.id}", fontSize = 12.sp)
                             Text("좌표와 층·구역·기둥을 확인하면 사전 동의 설정에 따라 자동 알림이 한 번 실행됩니다.")
-                            OutlinedTextField(state.clue, { model.editLocation(clue = it) }, label = { Text("만남 단서 · 영상 제안은 직접 확인") }, enabled = enabled, modifier = Modifier.fillMaxWidth())
+                            Text("알림 대상 ID: ${state.recipientId} · ${if (!state.useServer) DeliveryChannel.LOCAL_MOCK.label else if (state.sensServer) DeliveryChannel.SENS.label else DeliveryChannel.SERVER_MOCK.label}", color = Mint)
+                            if (locked) Text("저장된 확정 요청 · 위치/대상/발송 방식 고정", color = Mint)
+                            OutlinedTextField(state.clue, { model.editLocation(clue = it) }, label = { Text("만남 단서 · 영상 제안은 직접 확인") }, enabled = editable, modifier = Modifier.fillMaxWidth())
                             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                OutlinedTextField(state.latitude, { model.editLocation(latitude = it) }, label = { Text("실제 정차점 위도") }, enabled = enabled, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), modifier = Modifier.weight(1f))
-                                OutlinedTextField(state.longitude, { model.editLocation(longitude = it) }, label = { Text("실제 정차점 경도") }, enabled = enabled, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), modifier = Modifier.weight(1f))
+                                OutlinedTextField(state.latitude, { model.editLocation(latitude = it) }, label = { Text("실제 정차점 위도") }, enabled = editable, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), modifier = Modifier.weight(1f))
+                                OutlinedTextField(state.longitude, { model.editLocation(longitude = it) }, label = { Text("실제 정차점 경도") }, enabled = editable, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), modifier = Modifier.weight(1f))
                             }
-                            TextButton(model::fillDemoPosition, enabled = enabled) { Text("시연용 추천 좌표 채우기 · 실제 위치 아님") }
-                            Toggle("테스트 수신자 알림 사전 동의", state.consent, enabled) { model.configureNotify(consent = it) }
+                            TextButton(model::fillDemoPosition, enabled = editable) { Text("시연용 추천 좌표 채우기 · 실제 위치 아님") }
+                            Toggle("테스트 수신자 알림 사전 동의", state.consent, enabled && (!locked || state.consent)) { model.configureNotify(consent = it) }
                             Text(if (state.useServer) "SMS 서버 사용 · 설정된 수신자 ID로 요청" else "모의 발송 · 실제 문자는 전송하지 않습니다", color = Mint)
-                            Button(model::confirmLocation, enabled = enabled && state.session.notification == "대기") { Text("여기서 만나요 · 위치 확인") }
+                            Button(model::confirmLocation, enabled = editable) { Text("여기서 만나요 · 위치 확인") }
                             Text(state.session.notification, fontSize = 20.sp)
+                            if (state.delivery.issue != DeliveryIssue.NONE) Text(state.delivery.issue.label, color = scheme.error)
+                            if (locked) OutlinedButton(model::recoverNotification, enabled = enabled && !state.delivery.busy) { Text("발송 결과 확인·복구") }
+                            if (state.delivery.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
                             if (state.error.isNotBlank()) Text(state.error, color = scheme.error)
                             if (state.session.confirmed && enabled) {
                                 val text = state.session.shareText()
@@ -147,7 +156,7 @@ private val scheme = darkColorScheme(primary = Mint, background = Color(0xFF0912
                                 val context = androidx.compose.ui.platform.LocalContext.current
                                 OutlinedButton({ context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text), "만남 위치 공유")) }) { Text("이 기기 공유 앱 열기 · 수신 미확인") }
                             }
-                            OutlinedButton(model::newSession, enabled = enabled) { Text("새 픽업 세션 시작") }
+                            OutlinedButton({ model.newSession() }, enabled = enabled && !state.delivery.busy && state.delivery.storageHealthy && (state.session.notificationStatus == DeliveryStatus.DRAFT || state.session.notificationStatus.terminal)) { Text("새 픽업 세션 시작") }
                         }
                         4 -> {
                             Text("개발·연동 상태", color = Mint, fontSize = 24.sp)
@@ -171,16 +180,18 @@ private val scheme = darkColorScheme(primary = Mint, background = Color(0xFF0912
                             }
                             HorizontalDivider()
                             val enabled = state.vehicle.stopped == true
-                            Toggle("알림 서버 사용", state.useServer, enabled) { model.configureNotify(useServer = it) }
-                            OutlinedTextField(state.serverUrl, { model.configureNotify(url = it) }, enabled = enabled, label = { Text("서버 URL · 운영 연결은 HTTPS") }, modifier = Modifier.fillMaxWidth())
+                            val configure = enabled && state.delivery.record.request == null && state.session.notificationStatus == DeliveryStatus.DRAFT
+                            Toggle("알림 서버 사용", state.useServer, configure) { model.configureNotify(useServer = it) }
+                            if (state.useServer) Toggle("실제 SENS 서버 모드 · 기본은 서버 모의 발송", state.sensServer, configure) { model.configureNotify(sensServer = it) }
+                            OutlinedTextField(state.serverUrl, { model.configureNotify(url = it) }, enabled = configure, label = { Text("서버 URL · 운영 연결은 HTTPS") }, modifier = Modifier.fillMaxWidth())
                             OutlinedTextField(state.token, { model.configureNotify(token = it) }, enabled = enabled, label = { Text("서버 접근 토큰 · 메모리에만 유지") }, visualTransformation = PasswordVisualTransformation(), modifier = Modifier.fillMaxWidth())
-                            OutlinedTextField(state.recipientId, { model.configureNotify(recipient = it) }, enabled = enabled, label = { Text("사전 등록 수신자 ID") })
+                            OutlinedTextField(state.recipientId, { model.configureNotify(recipient = it) }, enabled = configure, label = { Text("사전 등록 수신자 ID") })
                             Text("설정 변경 전 수신자 동의를 확인하세요. 공급자 수락과 실제 휴대폰 수신은 다릅니다.")
                             state.log.forEach { Text(it, fontSize = 12.sp) }
                         }
                     }
                 }
-                Text("시연 입력은 실차 검증과 구분됩니다  •  v0.1.0", fontSize = 12.sp, color = scheme.secondary, modifier = Modifier.padding(top = 8.dp))
+                Text("시연 입력은 실차 검증과 구분됩니다  •  v${BuildConfig.VERSION_NAME}", fontSize = 12.sp, color = scheme.secondary, modifier = Modifier.padding(top = 8.dp))
             }
         }
     }

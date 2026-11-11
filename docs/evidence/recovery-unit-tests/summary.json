@@ -1,0 +1,37 @@
+{
+  "environment": "JDK17 / SDK35; Robolectric cases simulate Android API34; no device execution in this report",
+  "total": 31,
+  "failures": 0,
+  "suites": [
+    {
+      "suite": "dev.leemh.dochagjari.ArrivalOutboxTest",
+      "tests": 14,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "suite": "dev.leemh.dochagjari.HttpArrivalTransportTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "suite": "dev.leemh.dochagjari.ProfileRepositoryTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "suite": "dev.leemh.dochagjari.RecommendationTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "suite": "dev.leemh.dochagjari.RestartRegressionTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    }
+  ]
+}
