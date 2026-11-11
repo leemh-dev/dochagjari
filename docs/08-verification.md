@@ -8,7 +8,9 @@
 - `fcfbfc0`에서 transport/boot/package/activity를 개별 명령·종료 코드·stdout/stderr로 검사하는 `scripts/pleos/adb_readiness.py`를 추가했습니다. 준비 기록이 true여도 설치 직전에 실제 상태를 다시 검사합니다. 미준비면 설치·실행을 차단합니다.
 - 새 진단 검사 **7건 로컬 통과**: [로그](evidence/adb-readiness-tests.txt). 이 중 두 건은 독립 Python 프로세스의 실제 ui_probe를 실행해 과거 성공 JSON + 현재 기기 없음, 과거 실패 JSON에서 설치 명령이 호출되지 않음을 확인합니다. ADB는 대역이며 Pleos 기기 실행 성공이 아닙니다.
 - 현재 Cloud에 KVM/연결 기기가 없고 실제 CLI에서 [device not found](evidence/cloud-adb-readiness.json)를 받았습니다. 설치·소프트웨어 부팅을 실행하지 않았습니다.
-- 누락됐던 ADB 오류를 수집하기 위해 a020643을 [수동 진단 43095641582](https://github.com/leemh-dev/dochagjari/actions/runs/43095641582)으로 요청했습니다. **20:32 UTC 관찰 시 queued, job 0개**였고 새 CI 두 건도 동일했습니다. [API 스냅샷](evidence/followup-actions-queue.json). 새 부팅·설치·기기 검사 결과로 계산하지 않습니다. 다음 작업은 이 실행의 최신 결과를 먼저 읽는 것입니다.
+- 누락됐던 ADB 오류를 수집하려고 a020643을 [수동 진단 43095641582](https://github.com/leemh-dev/dochagjari/actions/runs/43095641582)으로 요청했습니다. 20:32에는 queued/job0였으나 **20:35:56 UTC에 startup_failure**로 종료됐습니다. job0·artifact0이며 `--log-failed`도 log not found입니다. [대기 스냅샷](evidence/followup-actions-queue.json)과 [종료 증거](evidence/followup-actions-startup-failure.json)를 구분합니다. 이번 새 에뮬레이터 실행·다운로드·설치·SDK 조사는 없었습니다.
+- GitHub CLI의 “workflow file issue일 가능성” 안내는 일반 힌트입니다. 공식 actionlint1.7.7로 이전 a020643 workflow와 현재 workflow 전체를 검사해 둘 다 exit0/진단0을 확인했습니다([검사 기록](evidence/workflow-static-check.txt)). 정적 검사가 실행 권한/스케줄링/런타임 성공을 보장하지 않으며 startup 원인은 아직 미확인입니다. 같은 부팅을 재요청하지 않았습니다.
+- 별도 [준비 기록 회귀 재현](evidence/adb-stale-record-regression.txt)에서 실제 이전/현재 ui_probe Python 프로세스와 대역 ADB를 실행했습니다. 이전은 과거 true JSON만 보고 install을 시도했고, 수정 후는 get-state 실패에서 설치를 차단했습니다. 이 버그를 기존 Pleos 연결 실패의 원인으로 주장하지 않습니다. 새 CI는 아직 queued이므로 새 HEAD의 CI 성공으로 표시하지 않습니다.
 - [공식 설정 비교](evidence/pleos-profile-comparison.json): devices.xml RAM4GiB/source.properties8192MB가 공존합니다. 원본 userdata 약1.1GB와 별도 빈 테스트 userdata2GiB도 다릅니다. 비교 부팅을 하지 않았고 메모리/데이터 차이를 원인으로 단정하지 않습니다.
 - 이번에는 앱 코드를 바꾸지 않아 APK를 재빌드·재배포하지 않았습니다. v0.2.0 코드 `3a01515`·기존 artifact·아래 해시는 유지됩니다. SMS/수신자 설정·제출 키 환경 변수가 없고 server/.env도 없어 실제 SMS와 제출 서명은 실행하지 않았습니다.
 - [제출 체크리스트](12-submission-checklist.md)와 README의 설치 전 자동 검사·ADB 상태별 재현 절차를 정리했습니다.

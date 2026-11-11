@@ -170,6 +170,15 @@
 - **외부 조건:** SENS 서비스/접근키/비밀키/발신번호/수신자 매핑과 제출 키 환경 변수 모두 없음, server/.env 없음. 실제 메시지 발송·실제 수신·제출 키 생성/서명을 실행하지 않았다. 실제 병원 동선은 가상 시연으로 유지한다.
 - **다음:** runner 진단 결과를 먼저 확인해 ADB 원인을 해결하고 실제 Pleos 내비·좌석·기기 검사를 진행한다. 반복 부팅 전에 기존 실행 결과를 읽고 새 근거를 기록한다.
 
+## 2026-11-11 20:41 UTC — 수동 workflow 시작 실패·정적 검사·회귀 재현
+
+- **실제 종료:** 수동43095641582는 20:35:56 UTC startup_failure로 종료됐다. job0/check-run0/artifact0, `gh run view --log-failed` log not found. [API 증거](evidence/followup-actions-startup-failure.json). 이번 에뮬레이터/이미지 전송/설치/SDK가 시작된 것은 아니다.
+- **원인 경계:** CLI의 “workflow file issue일 가능성” 일반 힌트를 확인했다. 실행 권한·dispatch 조건·스케줄링 등 실제 원인은 확인하지 못했다. 인프라 문제나 YAML 문제라고 단정하지 않는다. 새 근거 없는 수동 부팅 재요청은 하지 않았다. 다른 새 CI는 queued 상태로 결과가 없다.
+- **추가 검사:** /usr/bin/go가 Go 컴파일러가 아니어서 install/version이 거부됐다. 공식 actionlint1.7.7 바이너리와 체크섬을 내려받아 SHA256 확인 후 이전 a020643 workflow 및 현재 전체 workflow를 검사했고 exit0/진단0. [정적 검사 기록](evidence/workflow-static-check.txt). GitHub 실행 성공을 뜻하지 않는다.
+- **독립 버그 재현:** 이전 a020643 ui_probe와 현재 ui_probe를 실제 Python 프로세스/대역 ADB로 실행했다. stale true JSON에서 이전 코드는 install 명령을 호출했고, 현재는 get-state 실패에서 멈췄다. [전후 명령 기록](evidence/adb-stale-record-regression.txt). 실제 설치나 기존 Pleos 연결 실패의 원인 입증은 아니다.
+- **완료/차단:** 새 준비·설치 차단7건 로컬 통과, 실제 Cloud CLI 미접속 검증, 워크플로 정적 검사·구문·diff 확인. 앱/서버 기존 완료 증거·APK코드3a01515·버전0.2.0·해시는 유지한다. 새 실제 Pleos 부팅/설치·내비 핀·좌석 수신·SMS/실차/서명은 미검증이다.
+- **다음:** workflow 시작 실패의 구체 근거를 먼저 확보하고 실행 조건을 해결한 뒤 실제 ADB/서비스→설치→핀/Console/앱 수신을 검증한다. README/제출 체크리스트/다음 프롬프트를 갱신했다. 프롬프트는 최종 채팅에도 직접 제공한다.
+
 ## 이후 기록 양식
 
 ```text

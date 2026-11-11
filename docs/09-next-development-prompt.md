@@ -26,10 +26,13 @@ PR #1이 열려 있으면 feat/android-submission-mvp에서 이어가고,
   이전 빈 테스트2GiB도 달라. 이 차이를 실패 원인으로 단정하지 마.
 
 우선 할 일
-1. 수동 Pleos 실행43095641582의 최신 상태·로그·artifact를 먼저 확인해줘.
-   20:32 UTC 기록 당시 queued/job0였어. 이는 부팅 실패가 아니라 실행 전 대기야.
-   이 요청은 a020643의 포트/ADB 진단 코드이며 새 공통 helper 변경 이전 코드야.
-   현재 HEAD의 새 CI도 확인하고 기존 대기 실행을 읽기 전에 같은 부팅을 중복 요청하지 마.
+1. 수동 Pleos 실행43095641582와 현재 HEAD CI를 먼저 확인해줘.
+   해당 수동 요청은 a020643 코드이며 20:35:56 UTC startup_failure, job0/artifact0,
+   log not found로 종료됐어. 새 부팅·다운로드·설치는 실행되지 않았어.
+   GitHub CLI는 workflow file issue 가능성을 안내했지만 actionlint1.7.7로 이전/현재
+   workflow는 모두 정적 오류0이었어. 실행 계층 원인은 아직 미확인이야.
+   실행 화면/권한/정책/dispatch 조건을 조사하고 새 근거 없이 같은 부팅을 재요청하지 마.
+   새 공통 helper는 이 수동 실행 이후 변경이며 실제 Pleos 실행 증거는 아직 없어.
 2. 실제 ADB rc/stderr/devices로 연결 문제와 프레임워크 미준비를 구분해줘.
    과거 emulator Boot completed31초 로그만으로 설치 성공을 선언하지 마.
    접근 가능한 기기부터 확인하고, transport=device·sys.boot_completed=1·package/activity

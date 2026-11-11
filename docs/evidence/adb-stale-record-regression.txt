@@ -1,0 +1,6 @@
+before-a020643: exit=1
+-s emulator-5554 install -r app/build/outputs/apk/debug/app-debug.apk
+after-current: exit=1
+-s emulator-5554 get-state
+PASS: old successful JSON alone permitted an install attempt; current live gate queries transport and blocks installation.
+Scope: actual Python scripts + fake ADB/missing-device response. No real installation/device/SDK success; independent from the unresolved Pleos connection cause.

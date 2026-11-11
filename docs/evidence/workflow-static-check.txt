@@ -1,0 +1,6 @@
+Actionlint 1.7.7, official release SHA256 verified.
+Current .github/workflows/: exit 0, no diagnostics.
+a020643 .github/workflows/pleos-evidence.yml: exit 0, no diagnostics.
+No optional shellcheck/pyflakes executable was installed for this check.
+Scope: static workflow validation only; does not prove GitHub scheduling/permissions/runtime readiness.
+Installer fallback: /usr/bin/go was not the Go compiler and rejected install/version; downloaded the official pinned actionlint binary instead.
