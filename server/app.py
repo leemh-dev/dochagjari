@@ -7,6 +7,7 @@ import hmac
 import json
 import os
 import sqlite3
+import struct
 import time
 import uuid
 from dataclasses import dataclass, field
@@ -53,6 +54,20 @@ class Arrival(BaseModel):
     stopped: bool
     confirmed: bool
     input_source: Literal["VEHICLE", "TEST"]
+    delivery_mode: Literal["mock", "sens"] = "mock"
+
+
+def arrival_digest(value: Arrival) -> str:
+    """arrival-v2 shared with Kotlin: byte-length-prefixed UTF-8; IEEE754 coordinates."""
+    def bits(number):
+        return struct.pack(">d", 0.0 if number == 0 else number).hex()
+    fields = ["arrival-v2", str(value.session_id), value.recipient_id, bits(value.latitude), bits(value.longitude),
+              value.clue, str(value.stopped).lower(), str(value.confirmed).lower(), value.input_source, value.delivery_mode]
+    digest = hashlib.sha256()
+    for text in fields:
+        encoded = text.encode("utf-8")
+        digest.update(str(len(encoded)).encode("ascii") + b":" + encoded)
+    return digest.hexdigest()
 
 
 def sens_send(settings: Settings, phone: str, content: str) -> str:
@@ -105,6 +120,9 @@ def create_app(settings: Settings, sender: Callable = sens_send) -> FastAPI:
             session_id TEXT NOT NULL, recipient_id TEXT NOT NULL, digest TEXT NOT NULL,
             status TEXT NOT NULL, created_at REAL NOT NULL, provider_id TEXT,
             input_source TEXT NOT NULL, PRIMARY KEY(session_id, recipient_id))""")
+        # Preserve old rows without claiming their mode or payload has been verified.
+        if "delivery_mode" not in {row[1] for row in connection.execute("PRAGMA table_info(arrivals)")}:
+            connection.execute("ALTER TABLE arrivals ADD COLUMN delivery_mode TEXT")
     application = FastAPI(title="도착자리 arrival outbox", docs_url=None, redoc_url=None)
 
     def authorized(authorization: str = Header(default="")):
@@ -119,7 +137,7 @@ def create_app(settings: Settings, sender: Callable = sens_send) -> FastAPI:
     @application.get("/v1/arrivals/{session_id}/{recipient_id}", dependencies=[Depends(authorized)])
     def status(session_id: uuid.UUID, recipient_id: str):
         with db() as connection:
-            row = connection.execute("SELECT status, provider_id, input_source FROM arrivals WHERE session_id=? AND recipient_id=?", (str(session_id), recipient_id)).fetchone()
+            row = connection.execute("SELECT status, provider_id, input_source, delivery_mode, digest AS request_hash FROM arrivals WHERE session_id=? AND recipient_id=?", (str(session_id), recipient_id)).fetchone()
         if row is None:
             raise HTTPException(404, "Session not found")
         return dict(row)
@@ -131,21 +149,26 @@ def create_app(settings: Settings, sender: Callable = sens_send) -> FastAPI:
             raise HTTPException(403, "Recipient is not pre-registered with consent")
         if not value.stopped or not value.confirmed or not value.clue.strip():
             raise HTTPException(409, "Stopped state and confirmed meeting location required")
+        if value.delivery_mode != settings.mode:
+            raise HTTPException(409, "Delivery mode changed; do not resend under another mode")
         if settings.mode == "sens" and value.input_source == "TEST" and not settings.allow_test_sms:
             raise HTTPException(403, "Real SMS for test inputs is disabled")
-        digest = hashlib.sha256(value.model_dump_json().encode()).hexdigest()
+        digest = arrival_digest(value)
         key = (str(value.session_id), value.recipient_id)
+        def receipt(status, duplicate):
+            return {"status": status, "duplicate": duplicate, "request_hash": digest,
+                    "delivery_mode": settings.mode, "input_source": value.input_source}
         with db() as connection:
             connection.execute("BEGIN IMMEDIATE")
-            existing = connection.execute("SELECT status, digest FROM arrivals WHERE session_id=? AND recipient_id=?", key).fetchone()
+            existing = connection.execute("SELECT status, digest, recipient_id FROM arrivals WHERE session_id=?", (key[0],)).fetchone()
             if existing:
-                if existing["digest"] != digest:
+                if existing["digest"] != digest or existing["recipient_id"] != value.recipient_id:
                     raise HTTPException(409, "Session payload changed; inspect original record")
-                return {"status": existing["status"], "duplicate": True}
+                return receipt(existing["status"], True)
             recent = connection.execute("SELECT count(*) FROM arrivals WHERE recipient_id=? AND created_at>?", (value.recipient_id, time.time() - 86400)).fetchone()[0]
             if recent >= 5:
                 raise HTTPException(429, "Daily test recipient limit reached")
-            connection.execute("INSERT INTO arrivals VALUES (?, ?, ?, 'pending', ?, NULL, ?)", (*key, digest, time.time(), value.input_source))
+            connection.execute("INSERT INTO arrivals (session_id, recipient_id, digest, status, created_at, provider_id, input_source, delivery_mode) VALUES (?, ?, ?, 'pending', ?, NULL, ?, ?)", (*key, digest, time.time(), value.input_source, settings.mode))
             connection.commit()  # Reserve before any network I/O; pending survives process death.
         provider_id = None
         if settings.mode == "mock":
@@ -161,7 +184,7 @@ def create_app(settings: Settings, sender: Callable = sens_send) -> FastAPI:
                 result = "unknown"
         with db() as connection:
             connection.execute("UPDATE arrivals SET status=?, provider_id=? WHERE session_id=? AND recipient_id=?", (result, provider_id, *key))
-        return {"status": result, "duplicate": False}
+        return receipt(result, False)
 
     return application
 
