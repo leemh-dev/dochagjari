@@ -30,7 +30,7 @@ Linux에서는 설치된 SDK와 JDK 경로로 `ANDROID_HOME`, `JAVA_HOME`을 지
 
 1. [공식 설치 가이드](https://document.pleos.ai/docs/connect/guide/getting-started/application-development/setup-connect-sdk-emulator)에 따라 Android Studio → SDK Manager → SDK Update Sites에 아래 **Mac ARM64** 주소를 추가합니다.
    `https://nexus-playground.pleos.ai/repository/raw-releases/connect-avd/2.x/crp-arm64-sys-img.xml`
-2. SDK Platforms의 **Show Package Details**를 켜고 API 34의 Pleos 이미지를 설치합니다. Device Manager → Automotive → **Pleos Connect v2.1.0**, API 34를 선택합니다. RAM 4GB, Cold boot로 설정합니다. 화면은 제공되는 Pleos 장치 프로필을 사용합니다.
+2. SDK Platforms의 **Show Package Details**를 켜고 API 34의 Pleos 이미지를 설치합니다. Device Manager → Automotive → **Pleos Connect v2.1.0**, API 34를 선택합니다. 선택한 이미지의 공식 기본 메모리·장치 프로필을 유지하고 Cold boot로 설정합니다. 이번 Linux x86_64 이미지의 source.properties 기본 RAM은 8192MB였으므로 호스트 여유 메모리도 확인합니다. 화면은 제공되는 Pleos 장치 프로필을 사용합니다.
 3. VS Code를 맥북에서 로컬로 열고 터미널에서 실행합니다.
 
 ```bash
@@ -140,18 +140,29 @@ python3 scripts/process_restart_smoke.py --serial "$DOCHAGJARI_SERIAL" --reset-t
 
 CI는 단위 테스트·lint·debug APK·서버 테스트와 별도의 **일반 Android API 34 에뮬레이터** 작업을 정의하고 APK·기기 보고서·프로세스 검사·화면을 artifact로 보관합니다. 실제 성공 여부와 실행 링크는 [검증 기록](docs/08-verification.md)을 확인하세요. 일반 Android의 모의 입력 검증은 Pleos SDK·Virtual Console·실차 연동 검증과 다릅니다. 기기 테스트 APK의 빌드와 기기 테스트의 **실행 완료**도 구분합니다.
 
-Cloud 소프트웨어 AVD에서는 ADB 연결 후에도 `package`·`activity` 서비스 준비와 부팅 완료를 확인하지 못했습니다. APK 설치·내비 핀·Virtual Console 검증은 완료로 표시하지 않았습니다. KVM이 있는 GitHub runner의 별도 조사도 시작했으며 최초 시도는 이미지 전송 중 연결 종료로 에뮬레이터 시작 전에 막혔습니다. 보완 재시도의 최종 결과는 검증 기록을 우선합니다. 자세한 시도와 오류는 [검증 기록](docs/08-verification.md)을 참조하세요. 맥북에서는 위의 공식 ARM64 AVD 생성 절차로 이어서 확인할 수 있습니다.
+Cloud 소프트웨어 AVD에서는 ADB 연결 후에도 `package`·`activity` 서비스 준비와 부팅 완료를 확인하지 못했습니다. APK 설치·내비 핀·Virtual Console 검증은 완료로 표시하지 않았습니다. GitHub KVM의 보완 실행에서는 공식 이미지 전송·체크섬 검증·에뮬레이터 시작과 `Boot completed` 로그를 확인했지만, ADB의 부팅 속성·package/activity 준비를 확인하지 못해 설치하지 않았습니다. 첫 진단이 ADB 오류 출력을 누락해 원인을 구분할 수 없으며 후속 진단 코드를 보완했습니다. Pleos workflow는 수동 실행으로 전환했고 추가 부팅은 실행하지 않았습니다. 자세한 시도와 오류는 [검증 기록](docs/08-verification.md)을 참조하세요. 맥북에서는 위의 공식 ARM64 AVD 생성 절차로 이어서 확인할 수 있습니다.
 
 ## 제출용 release 서명
 
+이미 보관 중인 제출 키가 있으면 그 키를 사용합니다. 처음 키를 만드는 경우 사용자 맥북의 개인 경로에서 아래 명령을 실행하고 비밀번호는 대화형으로 입력합니다. 키와 비밀번호는 저장소·artifact에 넣지 않고 이후 업데이트용으로 보관합니다. 이번 Cloud 작업에서는 제출 키 생성·아래 서명을 실행하지 않았습니다.
+
 ```bash
-export DOCHAGJARI_KEYSTORE=/absolute/private/path/submission.jks
-export DOCHAGJARI_KEY_ALIAS=your-key-alias
+mkdir -p "$HOME/.dochagjari-private"
+chmod 700 "$HOME/.dochagjari-private"
+"$JAVA_HOME/bin/keytool" -genkeypair \
+  -keystore "$HOME/.dochagjari-private/submission.jks" \
+  -alias dochagjari-submission -keyalg RSA -keysize 3072 -validity 10000
+```
+
+```bash
+export DOCHAGJARI_KEYSTORE="$HOME/.dochagjari-private/submission.jks"
+export DOCHAGJARI_KEY_ALIAS=dochagjari-submission
 # DOCHAGJARI_STORE_PASSWORD, DOCHAGJARI_KEY_PASSWORD는 비밀 환경 변수로 제공
 ./gradlew :app:assembleRelease
 "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose app/build/outputs/apk/release/app-release.apk
+shasum -a 256 app/build/outputs/apk/release/app-release.apk
 ```
 
-키가 없으면 `app-release-unsigned.apk`만 생성합니다. 이를 서명된 제출 APK로 부르지 않습니다. 제출 전 새 Pleos AVD에서 서명 APK를 설치하고 목적지 핀·좌석·영상·휴대폰 수신을 다시 검증해야 합니다.
+키가 없으면 `app-release-unsigned.apk`만 생성합니다. 이를 서명된 제출 APK로 부르지 않습니다. 서명 후 새 해시·키 지문·코드 커밋·버전을 기록하고 제출 전 새 Pleos AVD에서 서명 APK를 설치해 목적지 핀·좌석·영상·휴대폰 수신을 다시 검증해야 합니다.
 
 [기획 문서](docs/01-product-plan.md) · [개발계획](docs/07-development-plan.md) · [검증 기록](docs/08-verification.md) · [알림 복구 계약](docs/11-arrival-recovery.md) · [외부 모델·영상 출처](THIRD_PARTY_NOTICES.md)

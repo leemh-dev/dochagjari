@@ -1,9 +1,5 @@
 name: Pleos KVM evidence collection
 on:
-  push:
-    paths:
-      - scripts/pleos/**
-      - .github/workflows/pleos-evidence.yml
   workflow_dispatch:
 jobs:
   pleos-evidence:

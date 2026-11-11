@@ -1,0 +1,166 @@
+Run: https://github.com/leemh-dev/dochagjari/actions/runs/43056602693
+Code: 77abd8e; artifact: 13873542737
+2026-11-11T16:24:44.1282496Z Pleos evidence stage: verified-kvm
+2026-11-11T16:24:44.9377661Z Pleos evidence stage: downloading-image
+2026-11-11T16:24:48.3683772Z Pleos evidence stage: downloading-image
+2026-11-11T16:24:48.3684165Z Pleos archive 1/61 ranges complete
+2026-11-11T16:24:48.4833252Z Pleos evidence stage: downloading-image
+2026-11-11T16:24:48.4833789Z Pleos archive 2/61 ranges complete
+2026-11-11T16:24:49.0465325Z Pleos evidence stage: downloading-image
+2026-11-11T16:24:49.0465858Z Pleos archive 3/61 ranges complete
+2026-11-11T16:24:51.6273113Z Pleos evidence stage: downloading-image
+2026-11-11T16:24:51.6273675Z Pleos archive 4/61 ranges complete
+2026-11-11T16:24:52.7428594Z Pleos evidence stage: downloading-image
+2026-11-11T16:24:52.7429132Z Pleos archive 5/61 ranges complete
+2026-11-11T16:24:54.8124090Z Pleos evidence stage: downloading-image
+2026-11-11T16:24:54.8124623Z Pleos archive 6/61 ranges complete
+2026-11-11T16:24:54.8692765Z Pleos evidence stage: downloading-image
+2026-11-11T16:24:54.8693355Z Pleos archive 7/61 ranges complete
+2026-11-11T16:24:56.2455881Z Pleos evidence stage: downloading-image
+2026-11-11T16:24:56.2456427Z Pleos archive 8/61 ranges complete
+2026-11-11T16:24:58.2334340Z Pleos evidence stage: downloading-image
+2026-11-11T16:24:58.2334855Z Pleos archive 9/61 ranges complete
+2026-11-11T16:24:59.7404684Z Pleos range 10/61 attempt 1 failed: curl=56 HTTP=206
+2026-11-11T16:25:03.2608828Z Pleos evidence stage: downloading-image
+2026-11-11T16:25:03.2609402Z Pleos archive 10/61 ranges complete
+2026-11-11T16:25:04.1942216Z Pleos evidence stage: downloading-image
+2026-11-11T16:25:04.1942762Z Pleos archive 11/61 ranges complete
+2026-11-11T16:25:04.3530005Z Pleos evidence stage: downloading-image
+2026-11-11T16:25:04.3530536Z Pleos archive 12/61 ranges complete
+2026-11-11T16:25:07.5314564Z Pleos evidence stage: downloading-image
+2026-11-11T16:25:07.5315135Z Pleos archive 13/61 ranges complete
+2026-11-11T16:25:07.7076201Z Pleos evidence stage: downloading-image
+2026-11-11T16:25:07.7076845Z Pleos archive 14/61 ranges complete
+2026-11-11T16:25:10.8637532Z Pleos evidence stage: downloading-image
+2026-11-11T16:25:10.8638076Z Pleos archive 15/61 ranges complete
+2026-11-11T16:25:14.1693708Z Pleos evidence stage: downloading-image
+2026-11-11T16:25:14.1694272Z Pleos archive 16/61 ranges complete
+2026-11-11T16:25:22.3325281Z Pleos evidence stage: downloading-image
+2026-11-11T16:25:22.3325686Z Pleos archive 17/61 ranges complete
+2026-11-11T16:25:26.1512394Z Pleos evidence stage: downloading-image
+2026-11-11T16:25:26.1512785Z Pleos archive 18/61 ranges complete
+2026-11-11T16:25:44.9521684Z Pleos range 4/61 attempt 1 failed: curl=28 HTTP=206
+2026-11-11T16:25:48.8444770Z Pleos evidence stage: downloading-image
+2026-11-11T16:25:48.8445165Z Pleos archive 19/61 ranges complete
+2026-11-11T16:25:53.3733165Z Pleos evidence stage: downloading-image
+2026-11-11T16:25:53.3734107Z Pleos archive 20/61 ranges complete
+2026-11-11T16:25:56.8961267Z Pleos evidence stage: downloading-image
+2026-11-11T16:25:56.8961696Z Pleos archive 21/61 ranges complete
+2026-11-11T16:25:57.3784532Z Pleos range 18/61 attempt 1 failed: curl=56 HTTP=206
+2026-11-11T16:26:00.7798280Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:00.7799622Z Pleos archive 22/61 ranges complete
+2026-11-11T16:26:01.5055882Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:01.5056440Z Pleos archive 23/61 ranges complete
+2026-11-11T16:26:03.2699784Z Pleos range 14/61 attempt 1 failed: curl=28 HTTP=206
+2026-11-11T16:26:04.3652081Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:04.3652683Z Pleos archive 24/61 ranges complete
+2026-11-11T16:26:04.9697613Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:04.9698179Z Pleos archive 25/61 ranges complete
+2026-11-11T16:26:07.7555538Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:07.7556102Z Pleos archive 26/61 ranges complete
+2026-11-11T16:26:07.9476581Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:07.9477132Z Pleos archive 27/61 ranges complete
+2026-11-11T16:26:09.1033409Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:09.1033815Z Pleos archive 28/61 ranges complete
+2026-11-11T16:26:11.4514421Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:11.4515226Z Pleos archive 29/61 ranges complete
+2026-11-11T16:26:26.1475724Z Pleos range 22/61 attempt 1 failed: curl=28 HTTP=206
+2026-11-11T16:26:29.1293780Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:29.1294318Z Pleos archive 30/61 ranges complete
+2026-11-11T16:26:31.9500526Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:31.9501227Z Pleos archive 31/61 ranges complete
+2026-11-11T16:26:33.0079754Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:33.0080335Z Pleos archive 32/61 ranges complete
+2026-11-11T16:26:37.0373501Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:37.0373936Z Pleos archive 33/61 ranges complete
+2026-11-11T16:26:41.2213742Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:41.2214144Z Pleos archive 34/61 ranges complete
+2026-11-11T16:26:41.3370612Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:41.3371253Z Pleos archive 35/61 ranges complete
+2026-11-11T16:26:45.3648191Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:45.3648591Z Pleos archive 36/61 ranges complete
+2026-11-11T16:26:49.7650476Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:49.7651191Z Pleos archive 37/61 ranges complete
+2026-11-11T16:26:53.4598926Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:53.4599323Z Pleos archive 38/61 ranges complete
+2026-11-11T16:26:56.9576320Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:56.9577051Z Pleos archive 39/61 ranges complete
+2026-11-11T16:26:57.3194671Z Pleos evidence stage: downloading-image
+2026-11-11T16:26:57.3195201Z Pleos archive 40/61 ranges complete
+2026-11-11T16:27:05.7254871Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:05.7255566Z Pleos archive 41/61 ranges complete
+2026-11-11T16:27:09.1335771Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:09.1336615Z Pleos archive 42/61 ranges complete
+2026-11-11T16:27:10.2732915Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:10.2733320Z Pleos archive 43/61 ranges complete
+2026-11-11T16:27:11.3931976Z Pleos range 33/61 attempt 1 failed: curl=28 HTTP=206
+2026-11-11T16:27:16.4943125Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:16.4943522Z Pleos archive 44/61 ranges complete
+2026-11-11T16:27:20.1536735Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:20.1537275Z Pleos archive 45/61 ranges complete
+2026-11-11T16:27:22.8681276Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:22.8681756Z Pleos archive 46/61 ranges complete
+2026-11-11T16:27:23.9024230Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:23.9024689Z Pleos archive 47/61 ranges complete
+2026-11-11T16:27:28.8582975Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:28.8583922Z Pleos archive 48/61 ranges complete
+2026-11-11T16:27:32.9692927Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:32.9693487Z Pleos archive 49/61 ranges complete
+2026-11-11T16:27:36.9538180Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:36.9538678Z Pleos archive 50/61 ranges complete
+2026-11-11T16:27:41.1601507Z Pleos range 38/61 attempt 1 failed: curl=28 HTTP=206
+2026-11-11T16:27:42.3514359Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:42.3514806Z Pleos archive 51/61 ranges complete
+2026-11-11T16:27:45.1097135Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:45.1097653Z Pleos archive 52/61 ranges complete
+2026-11-11T16:27:47.0133993Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:47.0134565Z Pleos archive 53/61 ranges complete
+2026-11-11T16:27:49.5978700Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:49.5979103Z Pleos archive 54/61 ranges complete
+2026-11-11T16:27:51.0692955Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:51.0693467Z Pleos archive 55/61 ranges complete
+2026-11-11T16:27:53.5332174Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:53.5332563Z Pleos archive 56/61 ranges complete
+2026-11-11T16:27:57.8094924Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:57.8095382Z Pleos archive 57/61 ranges complete
+2026-11-11T16:27:59.9874498Z Pleos evidence stage: downloading-image
+2026-11-11T16:27:59.9874904Z Pleos archive 58/61 ranges complete
+2026-11-11T16:28:00.9880223Z Pleos evidence stage: downloading-image
+2026-11-11T16:28:00.9880782Z Pleos archive 59/61 ranges complete
+2026-11-11T16:28:01.5755221Z Pleos evidence stage: downloading-image
+2026-11-11T16:28:01.5755781Z Pleos archive 60/61 ranges complete
+2026-11-11T16:28:37.5198279Z Pleos evidence stage: downloading-image
+2026-11-11T16:28:37.5198680Z Pleos archive 61/61 ranges complete
+2026-11-11T16:28:39.9985265Z Pleos evidence stage: extracting-verified-image
+2026-11-11T16:29:37.8703057Z Pleos evidence stage: formatting-isolated-test-data
+2026-11-11T16:29:39.6392100Z Pleos evidence stage: booting
+2026-11-11T16:30:09.6793086Z Pleos evidence stage: booting
+2026-11-11T16:30:39.7063499Z Pleos evidence stage: booting
+2026-11-11T16:31:09.7292947Z Pleos evidence stage: booting
+2026-11-11T16:31:39.7516018Z Pleos evidence stage: booting
+2026-11-11T16:32:09.7744630Z Pleos evidence stage: booting
+2026-11-11T16:32:39.7977822Z Pleos evidence stage: booting
+2026-11-11T16:33:09.8202607Z Pleos evidence stage: booting
+2026-11-11T16:33:39.8426725Z Pleos evidence stage: booting
+2026-11-11T16:34:09.8906382Z Pleos evidence stage: booting
+2026-11-11T16:34:39.9141547Z Pleos evidence stage: booting
+2026-11-11T16:35:09.9350617Z Pleos evidence stage: booting
+2026-11-11T16:35:39.9594834Z Pleos evidence stage: booting
+2026-11-11T16:36:09.9822066Z Pleos evidence stage: booting
+2026-11-11T16:36:40.0047258Z Pleos evidence stage: booting
+2026-11-11T16:37:10.0252004Z Pleos evidence stage: booting
+2026-11-11T16:37:40.0490220Z Pleos evidence stage: booting
+2026-11-11T16:38:10.0709089Z Pleos evidence stage: booting
+2026-11-11T16:38:40.0930327Z Pleos evidence stage: booting
+2026-11-11T16:39:10.1140790Z Pleos evidence stage: booting
+2026-11-11T16:39:40.1361299Z Pleos evidence stage: booting
+2026-11-11T16:40:10.1596800Z Pleos evidence stage: booting
+2026-11-11T16:40:40.1806174Z Pleos evidence stage: booting
+2026-11-11T16:41:10.2011919Z Pleos evidence stage: booting
+2026-11-11T16:41:40.2234401Z Pleos evidence stage: booting
+2026-11-11T16:42:10.2476365Z Pleos evidence stage: booting
+2026-11-11T16:42:40.2705593Z Pleos evidence stage: booting
+2026-11-11T16:43:10.2950374Z Pleos evidence stage: booting
+2026-11-11T16:43:40.3111404Z Pleos evidence stage: booting
+2026-11-11T16:44:10.3269426Z Pleos evidence stage: booting
+2026-11-11T16:44:40.3413756Z Pleos evidence stage: failed

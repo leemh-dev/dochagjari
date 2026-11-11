@@ -134,6 +134,24 @@
 - **증거:** [배포 metadata](evidence/v0.2-apk-metadata.json), [다운로드 재검증](evidence/v0.2-downloaded-apk-verification.txt). debug SHA-256 `d1a2761d0dac84142b4ff8917f82d6737d3d4e1e30520dd8895e8454e4c85e4d`.
 - **CI:** 설치 전 부팅·package/activity 검사 추가 후 [43054503112](https://github.com/leemh-dev/dochagjari/actions/runs/43054503112)도 전체 성공했다. Pleos의 보완 전송 재시도는 별도 실행 중이며 완료 수준을 섞지 않는다.
 
+## 2026-11-11 16:22 UTC — 전송 재시도 프로토콜 검사·중복 CI 정리
+
+- **검사:** 실제 `fetch_part`를 로컬 HTTP 서버·실제 curl로 실행했다. HTTP500 후 동일 범위 재시도 성공/정확한 bytes, 잘못된 Content-Range 세 번 거부/파일 미반영, 전체 기한 초과 시 네트워크 요청 중단을 확인했다. [실행 로그](evidence/pleos-range-transfer-check.txt). 이는 공식 이미지/부팅/SDK 성공 증거가 아니다.
+- **사전조건:** 현재 Cloud에서 `prepare_avd.py`를 실행해 KVM 없음이면 이미지 다운로드·에뮬레이터 시작을 모두 생략함을 재확인했다.
+- **CI 정리:** 앱 코드와 설정 검사 수준이 같은 이전/중복 generic 실행 43057135514, 43056615550, 43056602467, 43055814944, 43055801721은 자원을 절약하기 위해 취소했다. 실패를 성공 처리한 것이 아니다. 이미 전체 성공한 43052357723·43054503112·43054889390은 그대로 보존하고 최신 PR 실행 43057154160 및 보완 Pleos 실행 43056602693을 유지한다.
+- **현황:** Pleos 보완 실행은 runner를 배정받아 빌드 중이다. 최종 부팅/설치/SDK/Console 결과는 별도 확인한다.
+
+## 2026-11-11 16:49 UTC — KVM Pleos 최종 결과·검증 경계 확정
+
+- **전송 해결:** [43056602693](https://github.com/leemh-dev/dochagjari/actions/runs/43056602693)에서 61/61 범위 완료·공식 체크섬 검증·추출·빈 개발 데이터 포맷 후 KVM emulator를 시작했다. [단계 로그](evidence/pleos-kvm-readiness/transfer-and-boot-stages.txt). 전송 연결 종료 문제는 보완 실행에서 해결됐다.
+- **관찰/미확인 구분:** emulator log에는 `Boot completed in 31156 ms`와 `ai.pleos.hardware.profile` native crash가 있다. 하지만 900초 동안 ADB 부팅 속성/서비스 확인은 성공하지 않았고 stdout은 비어 있었다. **부팅 로그 관찰**과 **ADB 서비스 준비 미확인**을 구분한다. vendor crash가 원인인지 단정하지 않는다.
+- **진단 한계/보완:** 기존 스크립트가 ADB returncode/stderr·devices 목록을 기록하지 않아 연결 문제인지 프레임워크 문제인지 구분할 수 없다. 이를 추가하고 emulator 포트 5554를 명시했다. 보완 후 부팅은 실행하지 않았다. 같은 실패의 자동 반복을 막기 위해 Pleos workflow는 workflow_dispatch로 전환했다.
+- **구성 차이:** 테스트 AVD 4GB/2core/SwiftShader/빈 별도 데이터, Linux 이미지 기본 source.properties RAM8192MB. 공식 프로필/데이터 구성 차이를 후속 확인 항목으로 남기며 실패 원인이라고 주장하지 않는다.
+- **증거:** [readiness](evidence/pleos-kvm-readiness/readiness.json), [선별 boot 로그](evidence/pleos-kvm-readiness/boot-diagnostics.txt), [미실행 기록](evidence/pleos-kvm-readiness/app-probe.json), artifact 13873542737. 이미지·키는 공개하지 않았다.
+- **미실행:** APK 설치/Pleos connected test/내비 SDK 요청·실제 두 핀/Console 좌우 조작/앱 좌석 초기값·콜백·제안. 맥북·실차·실제 SMS에도 접근하지 않았다. README 설치·검증·제출 키 생성/서명 명령을 정리했지만 키 생성·서명을 실행하지 않았다.
+- **완료:** 복구/저장 구현과 JVM33·서버14·lint·세 APK 빌드, 일반 Android6+프로세스2단계, 게시 APK 재다운로드 해시·개발 서명 대조. [최신 검증 PR CI 43057154160](https://github.com/leemh-dev/dochagjari/actions/runs/43057154160) 전체 성공. 이후 변경은 진단/문서이며 APK 코드 `3a01515`는 그대로다.
+- **다음:** 실제 접근 가능한 공식 AVD에서 ADB 상태·원래 프로필·두 서비스부터 확인하고 내비 두 핀과 Console/앱 수신을 대조한다. 실제 SMS는 자격증명·등록 번호·동의 수신자 준비 시, 제출 서명은 키 준비 시에만 검증한다.
+
 ## 이후 기록 양식
 
 ```text

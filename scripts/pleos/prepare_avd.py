@@ -21,7 +21,7 @@ reports = Path("app/build/reports/pleos").resolve()
 reports.mkdir(parents=True, exist_ok=True)
 work.mkdir(parents=True, exist_ok=True)
 adb = str(sdk / "platform-tools/adb")
-report = {"environment": "GitHub KVM / official Pleos 2.1.0 API34 x86_64 / separate test userdata", "boot_completed": False}
+report = {"serial": "emulator-5554", "environment": "GitHub KVM / official Pleos 2.1.0 API34 x86_64 / separate test userdata", "boot_completed": False}
 
 
 def checkpoint(stage):
@@ -32,6 +32,11 @@ def checkpoint(stage):
 
 def command(*args, timeout=20):
     return subprocess.run(args, capture_output=True, text=True, timeout=timeout)
+
+
+def diagnostic(value):
+    return "\n".join(line if not any(term in line.lower() for term in ["key", "token", "jwt", "secret", "password"])
+                     else "[credential diagnostic omitted]" for line in value.splitlines())[:1500]
 
 
 try:
@@ -159,7 +164,7 @@ disk.dataPartition.size=2G
     command(adb, "start-server")
     log = (work / "boot.log").open("w")
     process = subprocess.Popen([str(sdk / "emulator/emulator"), "-avd", "PleosEvidence", "-data", str(userdata),
-                                "-no-window", "-no-audio", "-no-boot-anim", "-no-snapshot", "-accel", "on",
+                                "-port", "5554", "-no-window", "-no-audio", "-no-boot-anim", "-no-snapshot", "-accel", "on",
                                 "-gpu", "swiftshader", "-feature", "-Vulkan", "-cores", "2", "-memory", "4096", "-show-kernel"],
                                env=environment, stdout=log, stderr=subprocess.STDOUT)
     report["emulator_pid"] = process.pid
@@ -173,12 +178,21 @@ disk.dataPartition.size=2G
         try:
             result = command(adb, "-s", "emulator-5554", "shell", "getprop sys.boot_completed; service check package; service check activity", timeout=12)
             report["last_readiness"] = result.stdout.strip()
+            report["adb_readiness_returncode"] = result.returncode
+            report["adb_readiness_stderr"] = diagnostic(result.stderr.strip())
             if result.stdout.startswith("1") and "Service package: found" in result.stdout and "Service activity: found" in result.stdout:
                 report["boot_completed"] = True
                 break
         except subprocess.TimeoutExpired:
             report["last_readiness"] = "ADB shell timeout"
         if time.monotonic() - last_checkpoint >= 30:
+            try:
+                devices = command(adb, "devices", "-l", timeout=10)
+                report["adb_devices"] = devices.stdout.strip()
+                report["adb_devices_returncode"] = devices.returncode
+                report["adb_devices_stderr"] = diagnostic(devices.stderr.strip())
+            except subprocess.TimeoutExpired:
+                report["adb_devices_error"] = "ADB device discovery timed out"
             checkpoint("booting"); last_checkpoint = time.monotonic()
         time.sleep(5)
     if not report["boot_completed"]:
@@ -194,7 +208,7 @@ finally:
     raw = work / "boot.log"
     if raw.exists():
         selected = [line for line in raw.read_text(errors="replace").splitlines()
-                    if any(term in line for term in ["emulator version", "FATAL", "Failed to set encryption", "Rebooting into recovery", "Fatal signal", "is crashing", "KVM", "Boot completed"])
-                    and not any(term in line.lower() for term in ["pubkey", "token", "jwks"])]
+                    if any(term in line for term in ["emulator version", "FATAL", "Failed to set encryption", "Rebooting into recovery", "Fatal signal", "is crashing", "KVM", "Boot completed", "adb", "ADB"])
+                    and not any(term in line.lower() for term in ["key", "token", "jwt", "secret", "password"])]
         (reports / "boot-diagnostics.txt").write_text("\n".join(selected[-100:]) + "\n")
     (reports / "readiness.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")

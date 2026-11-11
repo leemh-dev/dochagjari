@@ -5,7 +5,7 @@
 ## v0.2.0 복구·설정 저장 보완
 
 - 코드 커밋: `3a01515` (배포 빌드 기준), `5ef9aab` (프로세스 검증), `44f0cb4` (Android 프레임 호환), `702432c` (알림·저장·기기 CI), `6616f01` (서버 계약), `4a40a24` (수정 전 실패 재현).
-- 현재 버전: **0.2.0 / 2**, API 34+, ARM64·x86_64. [개발용 패키징 artifact 실행](https://github.com/leemh-dev/dochagjari/actions/runs/43055801516/artifacts/13871881801)에 의 `development-release-assets-and-metadata`에 debug·기기 테스트·unsigned release와 metadata·SHA256SUMS를 보관합니다. 제출용 서명 release가 아닙니다. Release API는 Cloud 401·runner 403으로 게시가 제한되어 artifact를 제공합니다. [실패와 해결 증거](evidence/apk-publishing-limits.txt).
+- 현재 버전: **0.2.0 / 2**, API 34+, ARM64·x86_64. [개발용 패키징 artifact 실행](https://github.com/leemh-dev/dochagjari/actions/runs/43055801516/artifacts/13871881801)인 `development-release-assets-and-metadata`에 debug·기기 테스트·unsigned release와 metadata·SHA256SUMS를 보관합니다. 제출용 서명 release가 아닙니다. Release API는 Cloud 401·runner 403으로 게시가 제한되어 artifact를 제공합니다. [실패와 해결 증거](evidence/apk-publishing-limits.txt).
 - [APK 메타데이터](evidence/v0.2-apk-metadata.json): 코드 커밋·버전·바이트 크기·각 해시·debug 서명 지문을 기록합니다. debug APK SHA-256은 `d1a2761d0dac84142b4ff8917f82d6737d3d4e1e30520dd8895e8454e4c85e4d`입니다.
 - `:app:testDebugUnitTest :app:assembleDebugAndroidTest :app:lintDebug` — **33건, 실패 0건**. [요약](evidence/recovery-unit-tests/summary.json)과 같은 폴더의 JUnit XML을 제공합니다. Robolectric/API 34 사례는 Android 환경을 시뮬레이션한 JVM 검사이며 실제 기기 검사가 아닙니다.
 - `python -m unittest discover -s server/tests -v` — **14건 통과**, [서버 로그](evidence/recovery-server-tests.txt). 공급자는 테스트 대역이며 실제 SENS 수락·문자 수신을 뜻하지 않습니다.
@@ -13,12 +13,12 @@
 - 이전 AppModel에서 확인 좌표 소실·ViewModel 종료 시 쓰기 취소 두 건을 먼저 재현했습니다. [수정 전 실패](evidence/restart-regression-before.xml)와 수정 후 회귀 검사를 구분해 보존합니다.
 - 구현·검증한 복구 동작: 확정 요청/동의 복원, GET 선조회, 404에서 동일 내용 재개, 응답 유실 후 조회, 동시 복구, 모드·내용 불일치 차단, 관측한 기록 소실 시 중지, 동의 해제, 토큰 미저장, 구형 기록 보존, 저장 실패 시 미전송.
 - 구현·검증한 프로필 동작: 저장 중/완료/실패, 순서 보장, 실패 후 재시도, ViewModel 종료 후 완료, 실제 DataStore를 닫고 새 인스턴스에서 완료 값 재조회. OS 프로세스 강제 종료 검증과는 별도로 기록합니다.
-- 일반 Android API 34 Google APIs/KVM에서 `connectedDebugAndroidTest` **6건 통과**: [실행](https://github.com/leemh-dev/dochagjari/actions/runs/43049645888). 단계 인자가 필요한 별도 프로세스 사례 2건은 이 명령에서 건너뜁니다. 해당 실행의 후속 프로세스 단계는 잘못된 좌표 기대값으로 실패했으며 `5ef9aab`에서 수정했습니다. 최신 실행 결과는 아래에 별도 기록합니다.
+- 일반 Android API 34 Google APIs/KVM에서 `connectedDebugAndroidTest` **6건 통과**, 별도 프로세스 종료/복구 **2단계 통과**: [최신 검증 PR CI](https://github.com/leemh-dev/dochagjari/actions/runs/43057154160). 연결 명령에서 건너뛰는 단계 전용 2건은 별도 스크립트가 각각 실행했습니다. 이전 오류와 테스트 기대값 수정은 개발 일지에 보존합니다.
 - 최초 Android 실행에서 영상 2건이 ARGB_8888 형식 오류로 실패했습니다. [실패 XML](evidence/android-device-before-bitmap-fix.xml)을 보존했고 프레임 변환 후 같은 앱의 TFLite·ML Kit **C12** 인식·영상 점유 기반 우회가 실제 Android에서 통과했습니다. 호스트 Tesseract 결과를 대체 근거로 쓰지 않았습니다.
 
 ### v0.2.0 일반 Android 실제 실행
 
-[전체 통과 CI 43052357723](https://github.com/leemh-dev/dochagjari/actions/runs/43052357723), 코드 `5ef9aab`. 이후 설치 전 boot_completed/package/activity 준비 검사를 추가한 [CI 43054503112](https://github.com/leemh-dev/dochagjari/actions/runs/43054503112)도 전체 성공했습니다. Google APIs API 34 x86_64/KVM이며 Pleos AVD가 아닙니다. [JUnit XML](evidence/android-api34-passed.xml), [프로세스 종료 로그](evidence/android-process-restart-passed.txt), [요약](evidence/android-api34-summary.json), [재실행 화면](evidence/android-api34-app.png)을 보존합니다.
+[전체 통과 CI 43052357723](https://github.com/leemh-dev/dochagjari/actions/runs/43052357723), 코드 `5ef9aab`. 이후 설치 전 boot_completed/package/activity 준비 검사를 추가한 [CI 43054503112](https://github.com/leemh-dev/dochagjari/actions/runs/43054503112), 최신 문서 커밋 `8827d3c`의 [PR CI 43057154160](https://github.com/leemh-dev/dochagjari/actions/runs/43057154160)도 전체 성공했습니다. Google APIs API 34 x86_64/KVM이며 Pleos AVD가 아닙니다. [JUnit XML](evidence/android-api34-passed.xml), [프로세스 종료 로그](evidence/android-process-restart-passed.txt), [요약](evidence/android-api34-summary.json), [재실행 화면](evidence/android-api34-app.png)을 보존합니다.
 
 | 기능 | 실제 실행한 범위 | 별도 미검증 |
 | --- | --- | --- |
@@ -38,7 +38,16 @@
 
 기존 Cloud의 무가속 부팅 실패를 먼저 읽었고, 일반 Android CI에서 KVM 접근이 확인되어 **다른 실행 조건**으로 조사했습니다. [첫 KVM 증거 실행](https://github.com/leemh-dev/dochagjari/actions/runs/43052661853)은 KVM version 12 usable까지 확인한 뒤 공식 이미지 다운로드 8개 구간 중 7개를 완료했으나 남은 연결이 reset되어 종료됐습니다. **에뮬레이터는 시작하지 않았습니다.** [readiness JSON](evidence/pleos-kvm-download-failure/readiness.json), [앱 조사 미실행 JSON](evidence/pleos-kvm-download-failure/app-probe.json).
 
-실패 원인이 구간 전송이므로 `77abd8e`에서 64MB 구간·동시 4개·최대 3회 재시도와 연결/전송/전체 시간 제한을 추가했습니다. 전체 크기·공식 체크섬은 그대로 확인합니다. [보완 전송 실행](https://github.com/leemh-dev/dochagjari/actions/runs/43056602693)의 최종 결과는 별도 기록합니다. 부팅 준비 실패 시 APK 설치·Console 조사도 건너뜁니다. Console 조작·앱 SDK 초기값/변경·저장 옵션 제안·실차는 각각 완료 증거가 필요합니다.
+실패 원인이 구간 전송이므로 `77abd8e`에서 64MB 구간·동시 4개·제한된 재시도를 추가했습니다. [보완 실행 43056602693](https://github.com/leemh-dev/dochagjari/actions/runs/43056602693)의 결과:
+
+- **전송·실행 확인:** 61/61 구간 완료, 공식 크기/체크섬 검증 후 추출·별도 테스트 데이터 포맷·KVM 에뮬레이터 시작. [단계 로그](evidence/pleos-kvm-readiness/transfer-and-boot-stages.txt).
+- **부팅 로그 관찰:** Emulator 37.2.13이 `Boot completed in 31156 ms`를 출력했습니다. `ai.pleos.hardware.profile` native process crash도 관찰했습니다. 이것이 ADB 확인 실패의 원인인지는 확인하지 못했습니다. [선별 부팅 로그](evidence/pleos-kvm-readiness/boot-diagnostics.txt).
+- **ADB 준비 미확인:** 900초 동안 `sys.boot_completed=1`·package/activity 서비스 준비를 확인하지 못했고 마지막 stdout은 비어 있었습니다. 이 버전의 진단은 ADB returncode/stderr/devices 목록을 누락했으므로 **프레임워크 미준비와 ADB 연결 실패를 구분할 수 없습니다.** [readiness JSON](evidence/pleos-kvm-readiness/readiness.json).
+- **설치·연동 미실행:** APK 설치·Pleos 기기 검사·SDK 목적지 요청·실제 내비 핀·Console 조작·앱 좌석 초기값/변경/옵션 제안은 실행하지 않았습니다. [조사 생략 기록](evidence/pleos-kvm-readiness/app-probe.json). 일반 Android 결과로 대체하지 않습니다.
+- **후속 진단 보완:** 준비 검사에 ADB returncode/stderr·devices 목록을 추가하고 포트 5554를 명시했습니다. 이 보완 후 추가 부팅은 실행하지 않았습니다. 반복 자동 실행을 막기 위해 Pleos workflow는 수동 실행으로 전환했습니다.
+- **환경 차이:** 이번 AVD는 4GB/2core/SwiftShader·별도 빈 테스트 데이터입니다. 내려받은 Linux 이미지 source.properties의 RAM 기본값은 8192MB였습니다. 원인으로 단정하지 않고 공식 기본 프로필·원본 데이터 구성을 확인할 후속 항목으로 남깁니다.
+
+맥북에 접근할 수 없어 실행하지 않았습니다. [README](../README.md)의 공식 ARM64 AVD에서 실제 부팅 속성·ADB 오류/devices·두 서비스를 확인한 뒤 설치/내비/좌석 검증을 이어가야 합니다. 실차·실제 문자 수신·제출 서명은 여전히 미검증입니다.
 
 ## v0.1.0 최초 코드와 APK (이전 이력)
 

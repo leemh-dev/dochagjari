@@ -29,6 +29,10 @@ PR #1이 열려 있으면 feat/android-submission-mvp에서 이어가고, 병합
 남은 우선순위
 1. Pleos 증거에서 부팅 완료/package/activity, SDK 요청 결과, 순정 내비 핀,
    Virtual Console 조작, 앱 초기값/좌우 변경 콜백을 각각 확인해줘.
+   마지막 KVM 실행은 Boot completed 로그가 있지만 ADB 속성/서비스 준비는 미확인이야.
+   ADB returncode/stderr/devices 진단 누락을 보완했지만 보완 후 부팅은 실행하지 않았어.
+   공식 기본 RAM(내려받은 Linux 이미지 8192MB)과 이전 수동 4096MB·빈 데이터 구성 차이도
+   원인으로 단정하지 말고 확인해줘. Pleos workflow는 반복 실행을 막기 위해 수동으로 바꿨어.
    미확인 부분만 실제 접근 가능한 공식 AVD에서 보완해줘.
    기존 Cloud는 KVM이 없었고 별도 GitHub KVM 증거 수집도 있으니 기존 로그를 먼저 읽고
    같은 실패를 근거 없이 반복하지 마. 맥북에 접근할 수 없으면 실행했다고 주장하지 마.
