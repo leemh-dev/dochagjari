@@ -1,0 +1,86 @@
+name: Package development APK release
+on:
+  push:
+    paths:
+      - .github/workflows/package-dev-release.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  package:
+    if: github.repository == 'leemh-dev/dochagjari'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      APP_CODE_COMMIT: 3a015154a05e7d2861aea1bc190010962313824c
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.APP_CODE_COMMIT }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
+      - run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+      - uses: gradle/actions/setup-gradle@v4
+      - run: ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease
+      - name: Collect APKs and public signing metadata
+        shell: python
+        run: |
+          import os, pathlib, shutil, hashlib, json, subprocess
+          output = pathlib.Path('release-assets'); output.mkdir()
+          items = []
+          for kind, source, name in [
+            ('debug', 'debug/app-debug.apk', 'dochagjari-0.2.0-debug.apk'),
+            ('androidTest', 'androidTest/debug/app-debug-androidTest.apk', 'dochagjari-0.2.0-androidTest.apk'),
+            ('unsigned-release', 'release/app-release-unsigned.apk', 'dochagjari-0.2.0-release-unsigned.apk')]:
+              target = output / name
+              shutil.copyfile(pathlib.Path('app/build/outputs/apk') / source, target)
+              item = dict(kind=kind, file=name, bytes=target.stat().st_size, sha256=hashlib.sha256(target.read_bytes()).hexdigest())
+              check = subprocess.run([os.environ['ANDROID_HOME']+'/build-tools/35.0.0/apksigner', 'verify', '--print-certs', str(target)], text=True, capture_output=True)
+              if kind == 'unsigned-release':
+                  assert check.returncode != 0, 'Release must remain unsigned without a submission key'
+                  item['signing'] = 'unsigned; not installable until signed'
+              else:
+                  assert check.returncode == 0, check.stderr
+                  item['signing'] = 'Android Debug (GitHub runner; differs from Cloud v0.1)'
+                  item['signer_sha256'] = next(line.split(': ', 1)[1] for line in check.stdout.splitlines() if 'certificate SHA-256 digest:' in line)
+              items.append(item)
+          assert items[0]['signer_sha256'] == items[1]['signer_sha256']
+          metadata = dict(versionName='0.2.0', versionCode=2, code_commit=os.environ['APP_CODE_COMMIT'], minimumApi=34, abis=['arm64-v8a','x86_64'], workflow_run='https://github.com/'+os.environ['GITHUB_REPOSITORY']+'/actions/runs/'+os.environ['GITHUB_RUN_ID'], artifacts=items)
+          (output/'apk-metadata.json').write_text(json.dumps(metadata, indent=2)+'\n')
+          (output/'SHA256SUMS').write_text(''.join(f"{i['sha256']}  {i['file']}\n" for i in items))
+          pathlib.Path('release-notes.md').write_text('''도착자리 0.2.0 개발 APK · versionCode 2 · API34+ ARM64/x86_64
+
+          코드: 3a015154a05e7d2861aea1bc190010962313824c
+          알림 요청 영속 저장·동일 세션 복구·DataStore 저장 완료·Android 영상 Bitmap 호환 수정.
+          JVM33·서버14·lint 통과. 일반 Android API34에서 기능6건과 실제 프로세스 종료/재시작2단계 통과:
+          https://github.com/leemh-dev/dochagjari/actions/runs/43052357723
+
+          debug/test APK는 이번 GitHub runner의 동일한 Android Debug 키로 서명했습니다. Cloud v0.1 APK와 서명이 다르므로 새 테스트 AVD에서 설치하세요. 기존 기록이 있는 기기의 앱을 임의 삭제하지 마세요.
+          release-unsigned는 미서명으로 그대로 설치할 수 없습니다. 제출용 서명 완료가 아닙니다.
+          실제 배포 파일의 해시/서명 지문은 동봉 apk-metadata.json과 SHA256SUMS를 확인하세요.
+
+          Pleos 내비 핀·Virtual Console 앱 수신·실차·실제 SMS 수신·병원 실측·제출 서명은 별도 검증합니다.
+          최신 증거: https://github.com/leemh-dev/dochagjari/blob/feat/android-submission-mvp/docs/08-verification.md
+          PR: https://github.com/leemh-dev/dochagjari/pull/1
+          ''')
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: development-release-assets-and-metadata
+          path: release-assets/
+      - name: Publish authorized development prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view v0.2.0-dev >/dev/null 2>&1; then
+            gh release upload v0.2.0-dev release-assets/* --clobber
+            gh release edit v0.2.0-dev --notes-file release-notes.md --prerelease
+          else
+            gh release create v0.2.0-dev release-assets/* --target "$APP_CODE_COMMIT" --prerelease --title '도착자리 0.2.0 개발 APK — 알림 복구·설정 저장' --notes-file release-notes.md
+          fi

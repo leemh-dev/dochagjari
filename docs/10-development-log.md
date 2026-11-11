@@ -105,6 +105,14 @@
 - **추가:** 다음 일반 Android CI에서도 설치 전에 `sys.boot_completed=1`·package·activity 서비스 준비를 명시적으로 검사하도록 했다. 기존 검사 실행/설치 성공과 구분해 이 검사 결과는 해당 후속 실행에서 확인한다.
 - **범위:** 실제 Android의 생성/공개 영상·ML Kit·설정/알림 복구가 확인됐으며 Pleos 실제 SDK·Virtual Console·실차·실제 SMS·제출 서명 성공을 뜻하지 않는다. Pleos KVM 실행은 진행 중이다.
 
+## 2026-11-11 16:07 UTC — APK 패키징·Release 전송 인증 제한
+
+- **로컬 결과:** 코드 `3a01515` 기준 `:app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease` 성공. debug/test 개발 서명 검증 성공, release는 미서명임을 확인했다. 이 로컬 파일을 배포 성공으로 기록하지 않는다.
+- **실패:** `gh release create ... --prerelease --target 3a01515`의 uploads.github.com 파일 전송이 HTTP 401 Bad credentials로 거부됐다. Release 조회도 not found였다. 자격증명은 출력하거나 문서에 남기지 않았다.
+- **해결 방향:** GitHub runner의 제한된 `contents: write` 토큰으로 **동일 코드 커밋을 새로 빌드**하여 개발 prerelease를 게시하는 별도 workflow를 추가했다. 앱 버전은 0.2.0/2이며 APK·테스트 APK·미서명 release·실제 해시·공개 개발 서명 지문을 함께 제공한다. 아직 게시 성공으로 기록하지 않는다.
+- **서명 구분:** runner의 개발 서명은 기존 Cloud 개발 키와 다르므로 새 전용 AVD에서 설치해야 한다. 제출용 키를 생성하거나 기존 키를 저장소/로그로 옮기지 않는다. 배포 파일의 metadata는 실제 업로드 결과로 갱신한다.
+- **다음:** 배포 결과·해시를 확인하고 문서/PR을 갱신한다. 실제 Pleos 증거 수집과 일반 Android 설치 전 서비스 검사도 진행 중이다.
+
 ## 이후 기록 양식
 
 ```text
