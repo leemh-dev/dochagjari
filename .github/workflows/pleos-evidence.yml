@@ -19,7 +19,17 @@ jobs:
       - run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
       - uses: gradle/actions/setup-gradle@v4
       - run: ./gradlew :app:assembleDebug
+      - name: Record identity of the temporary verification APK
+        run: |
+          mkdir -p app/build/reports/pleos
+          {
+            printf 'workflow_source_commit=%s\n' "$GITHUB_SHA"
+            cat app/build/outputs/apk/debug/output-metadata.json
+            sha256sum app/build/outputs/apk/debug/app-debug.apk
+            "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --print-certs app/build/outputs/apk/debug/app-debug.apk
+          } > app/build/reports/pleos/verification-apk-identity.txt
       - name: Check KVM and boot official Pleos image with isolated test data
+        id: boot
         run: |
           sudo chmod a+rw /dev/kvm
           python scripts/pleos/prepare_avd.py
@@ -32,11 +42,22 @@ jobs:
       - name: Collect SDK seat events and app screen
         if: always()
         run: python scripts/pleos/ui_probe.py collect
+      - name: Run Android tests on the prepared Pleos device
+        if: ${{ !cancelled() && steps.boot.outcome == 'success' }}
+        env:
+          ANDROID_SERIAL: emulator-5554
+        run: |
+          ./gradlew :app:connectedDebugAndroidTest
+          adb -s "$ANDROID_SERIAL" install -r app/build/outputs/apk/debug/app-debug.apk
+          adb -s "$ANDROID_SERIAL" install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+          python scripts/process_restart_smoke.py --serial "$ANDROID_SERIAL" --reset-test-data --output app/build/reports/pleos/process-restart.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: pleos-kvm-readiness-sdk-console-evidence
-          path: app/build/reports/pleos/
+          path: |
+            app/build/reports/pleos/
+            app/build/outputs/androidTest-results/connected/debug/TEST-*.xml
       - name: Stop dedicated emulator
         if: always()
         run: adb -s emulator-5554 emu kill || true

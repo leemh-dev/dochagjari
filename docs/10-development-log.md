@@ -179,6 +179,16 @@
 - **완료/차단:** 새 준비·설치 차단7건 로컬 통과, 실제 Cloud CLI 미접속 검증, 워크플로 정적 검사·구문·diff 확인. 앱/서버 기존 완료 증거·APK코드3a01515·버전0.2.0·해시는 유지한다. 새 실제 Pleos 부팅/설치·내비 핀·좌석 수신·SMS/실차/서명은 미검증이다.
 - **다음:** workflow 시작 실패의 구체 근거를 먼저 확보하고 실행 조건을 해결한 뒤 실제 ADB/서비스→설치→핀/Console/앱 수신을 검증한다. README/제출 체크리스트/다음 프롬프트를 갱신했다. 프롬프트는 최종 채팅에도 직접 제공한다.
 
+## 2026-11-11 21:49 UTC — 실행 화면 annotation 확인·근거 있는 단일 재시도
+
+- **최신 상태:** PR#1 open/미병합, 로컬/원격71f34c3 동일. Cloud에 KVM/연결 기기/설정 자격증명 없음. APK artifact13871881801 유효. 기존 API의 queued 상태와 이전 기록을 이번 실행 결과로 계산하지 않는다.
+- **새 증거:** 공개 실행 HTML에서 수동43095641582 annotation “An unexpected error has occurred and we've been automatically notified”와 request ID `7e7e1f38-de0f-11f1-8cbe-50cc47e59582`를 확인했다. [정제 annotation](evidence/workflow-startup-annotation.json). 일반 gh CLI의 workflow file issue 힌트와 구분한다. 내부 원인·전역 장애를 단정하지 않는다.
+- **단일 재시도:** GitHub가 일시적 unexpected error를 보고한 새 근거로 최신 진단71f34c3의 [43105761433](https://github.com/leemh-dev/dochagjari/actions/runs/43105761433)을 수동 요청했다. 이번에는 runner job 생성·진단7건 단계 통과·APK 빌드 시작을 확인했다. 아직 부팅/설치/SDK 성공으로 표시하지 않는다. 앱 코드/배포 APK를 바꾸거나 실제 SMS를 보내지 않았다.
+- **자동화 보완:** 이후 workflow에 boot step 성공을 조건으로 connectedDebugAndroidTest와 전용 AVD 프로세스 복원 검사를 연결했다. SDK/Console 조사 실패 시에도 준비된 기기의 독립 검사는 실행할 수 있게 한다. 진단용 임시 APK의 코드/버전/해시/개발 서명도 기록한다. 이 변경은 현재 실행71f34c3에는 포함되지 않는다.
+- **좌석 초기값 증거:** 변경 이벤트 수집을 위해 logcat을 비우기 전에 실제 SDK 초기 로그를 별도 보존하도록 보완했다. 초기값·변경·화면/Console을 각각 대조하기 위한 변경이며 실제 수신 성공을 선언하지 않는다.
+- **검사:** actionlint1.7.7과 Python 구문 검사 통과. 이미 통과한 앱/JVM/서버 검사를 수동 반복하지 않았다. 새 자동화의 실제 실행은 후속 조건 충족 시 확인한다.
+- **다음:** 이번 runner의 실제 transport·boot·package/activity 결과를 확인하고, 준비 성공 시만 설치/두 목적지·Console 좌우/앱 수신을 검증한다.
+
 ## 이후 기록 양식
 
 ```text

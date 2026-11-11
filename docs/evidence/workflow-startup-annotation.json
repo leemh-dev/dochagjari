@@ -1,0 +1,9 @@
+{
+  "observed_at_utc": "2026-11-11T21:44:49.091096+00:00",
+  "source_url": "https://github.com/leemh-dev/dochagjari/actions/runs/43095641582",
+  "method": "Public GitHub run HTML, visible text; no authenticated browser or private logs",
+  "visible_status": "Startup failure",
+  "annotation": "Annotations\n1 error\nError\nAn unexpected error has occurred and we've been automatically notified. Errors are sometimes temporary, so please try again.\n\nIf the problem persists, please check whether the Actions service is operating normally at\nhttps://githubstatus.com\n. If not, please try again once the outage has been resolved.\n\nShould you need to contact Support, please visit\nhttps://support.github.com/contact\nand include request ID: 7e7e1f38-de0f-11f1-8cbe-50cc47e59582",
+  "request_id": "7e7e1f38-de0f-11f1-8cbe-50cc47e59582",
+  "interpretation": "GitHub reports an unexpected error during run startup. This is a new specific observation beyond the generic gh YAML hint; no global outage or detailed root cause is established."
+}

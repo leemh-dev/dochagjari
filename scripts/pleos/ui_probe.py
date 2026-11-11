@@ -104,6 +104,9 @@ try:
             report["navigation"].append(attempt)
         start_app(); tap_text("연동·테스트"); disable_switch("차량 신호 테스트 입력")
         tap_text("좌석·조건"); command("forward", "tcp:8088", "tcp:8088")
+        initial = command("logcat", "-d", "-v", "brief", "DochagjariPleosSeat:I", "DochagjariVehicle:I", "*:S").decode(errors="replace")
+        (reports / "seat-initial-sdk-events.txt").write_text(initial)
+        report["initial_vehicle_source_logged"] = any("source=VEHICLE" in line for line in initial.splitlines())
         command("logcat", "-c")
         report["ready_for_console_probe"] = True
         screenshot("seat-before-console.png")
