@@ -55,6 +55,9 @@ jobs:
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
+            test "$(adb shell getprop sys.boot_completed | tr -d '\r')" = "1"
+            adb shell service check package | grep -q ': found'
+            adb shell service check activity | grep -q ': found'
             adb shell wm size 1280x800
             adb shell wm density 160
             ./gradlew :app:connectedDebugAndroidTest

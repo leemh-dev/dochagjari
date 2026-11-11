@@ -1,0 +1,25 @@
+{
+  "code_commit": "5ef9aabec3c73da4fcc74b091f6c8aea9b024739",
+  "workflow_run": "https://github.com/leemh-dev/dochagjari/actions/runs/43052357723",
+  "artifact_id": 13870457689,
+  "environment": "Generic Android API34 Google APIs x86_64, GitHub KVM; not Pleos",
+  "connected": {
+    "passed": 6,
+    "failed": 0,
+    "skipped_process_only": 2
+  },
+  "force_stop": {
+    "phases_passed": 2,
+    "prepare_pid": 7047,
+    "verify_pid": 7098,
+    "request_sha256": "cb4f68a9ac22cf9708a0ba8441b2732215a1629cd0b0ecc383e786fbede38104",
+    "provider_called": false
+  },
+  "unverified": [
+    "Pleos navigation pins",
+    "Virtual Console seat events",
+    "real car",
+    "actual SMS receipt",
+    "production release signature"
+  ]
+}

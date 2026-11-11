@@ -91,11 +91,19 @@
 - **수정:** 등록된 주차장 지점을 기대값으로 사용하고, 강제 종료 전후 서로 다른 PID와 전체 확정 요청의 SHA-256 지문 일치를 함께 비교한다. 로컬 스크립트 구문·기기 테스트 APK 컴파일을 확인한 뒤 다시 CI를 실행한다.
 - **미검증:** 전체 프로세스 검사의 최종 PASS와 별도 KVM Pleos 결과는 아직 확인하지 않았다. 실제 휴대폰 수신은 계속 미검증이다.
 
-## 2026-11-11 15:54 UTC — Pleos 대용량 전송·진행 증거 보완
+## 2026-11-11 15:52 UTC — Pleos 대용량 전송·진행 증거 보완
 
 - **변경:** 약 4GB 공식 이미지의 Range 지원을 먼저 확인하고 8개 구간으로 내려받은 뒤 전체 크기·공식 체크섬을 검증한다. 전송·추출·포맷·부팅 단계와 30초 주기의 준비 상태를 즉시 JSON/로그로 남겨 종료 시에도 진행 근거를 보존한다. SDK 내용은 변경하지 않는다.
 - **근거:** 이전 Cloud 전송에서 단일 연결 속도가 병목이었고 같은 공식 호스트의 범위 요청으로 다운로드를 완료한 이력이 있다. 이전 CI의 이미지 준비 단계를 이 전송 방식으로 교체하며, 취소한 실행을 Pleos 부팅 실패로 기록하지 않는다.
 - **검사:** Python 구문 검사와 KVM 없는 현재 Cloud에서의 사전조건 검사를 통과했다. 이 경우 이미지 다운로드·에뮬레이터 실행을 모두 생략했음을 확인했다. KVM에서의 실제 SDK·Console 결과는 여전히 별도 확인 대상이다.
+
+## 2026-11-11 16:03 UTC — 실제 Android 프로세스 종료·재시작 검증 통과
+
+- **환경/명령:** GitHub KVM의 일반 Google APIs API 34 x86_64, `:app:connectedDebugAndroidTest`와 `python scripts/process_restart_smoke.py --serial emulator-5554 --reset-test-data`. 전용 테스트 AVD의 앱 데이터만 초기화했다.
+- **실제 결과:** [CI 43052357723](https://github.com/leemh-dev/dochagjari/actions/runs/43052357723) 전체 성공. 연결 검사 여섯 건 통과, 별도 단계 케이스 두 건은 연결 검사에서 skip 후 각각 실행하여 통과했다. 프로세스 PID 7047→7098, 확정 요청 지문 일치, 양쪽 좌석 옵션·유모차·휠체어·동행·높이 2.2와 좌표/수신자/모드/동의 복원 확인. 토큰·공급자 호출은 없었다.
+- **증거:** [Android XML](evidence/android-api34-passed.xml), [프로세스 로그](evidence/android-process-restart-passed.txt), [요약](evidence/android-api34-summary.json), [재실행 화면](evidence/android-api34-app.png). artifact 13870457689의 실제 결과를 다운로드해 공개 가능한 증거만 보존했다.
+- **추가:** 다음 일반 Android CI에서도 설치 전에 `sys.boot_completed=1`·package·activity 서비스 준비를 명시적으로 검사하도록 했다. 기존 검사 실행/설치 성공과 구분해 이 검사 결과는 해당 후속 실행에서 확인한다.
+- **범위:** 실제 Android의 생성/공개 영상·ML Kit·설정/알림 복구가 확인됐으며 Pleos 실제 SDK·Virtual Console·실차·실제 SMS·제출 서명 성공을 뜻하지 않는다. Pleos KVM 실행은 진행 중이다.
 
 ## 이후 기록 양식
 
