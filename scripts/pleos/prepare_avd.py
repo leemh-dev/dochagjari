@@ -18,6 +18,7 @@ import zipfile
 
 from adb_readiness import diagnostic, probe
 from debugging_dialog import approve_visible_dialog
+from gui_runtime import check_gui_libraries, loader_environment
 
 sdk = Path(os.environ["ANDROID_HOME"])
 work = Path("app/build/pleos-work").resolve()
@@ -46,6 +47,11 @@ try:
     if acceleration.returncode != 0:
         raise RuntimeError("Acceleration probe failed; image download skipped")
     checkpoint("verified-kvm")
+    if os.getenv("DOCHAGJARI_AVD_GUI") == "1":
+        report["gui_runtime"] = check_gui_libraries(sdk, os.environ.copy())
+        if not report["gui_runtime"]["ready"]:
+            raise RuntimeError("GUI runtime dependency check failed; image download skipped")
+        checkpoint("verified-gui-runtime")
     manifest_url = "https://nexus-playground.pleos.ai/repository/raw-releases/connect-avd/2.x/crp-sys-img.xml"
     with urllib.request.urlopen(manifest_url, timeout=60) as response:
         root = ET.fromstring(response.read())
@@ -172,7 +178,7 @@ disk.dataPartition.size=2G
                           "-gpu", "swiftshader", "-feature", "-Vulkan", "-cores", "2", "-memory", "4096", "-show-kernel"]
     gui_environment = environment.copy()
     if gui:
-        environment["QT_QPA_PLATFORM"] = "xcb"
+        environment = loader_environment(sdk, environment)
         authority = work / "xauthority"
         authority.touch(mode=0o600)
         gui_environment.update({"DISPLAY": ":91", "XAUTHORITY": str(authority), "QT_QPA_PLATFORM": "xcb"})
@@ -222,11 +228,15 @@ disk.dataPartition.size=2G
             checkpoint("booting"); last_checkpoint = time.monotonic()
         time.sleep(5)
     if not report["boot_completed"]:
-        report["emulator_returncode_before_cleanup"] = process.poll()
+        returncode = process.poll()
+        report["launcher_returncode_before_cleanup"] = returncode
         report["boot_wait_seconds"] = round(time.monotonic() - boot_started, 1)
-        if process.poll() is None:
+        if returncode is None:
             os.killpg(process.pid, signal.SIGTERM)
-        raise RuntimeError(report.get("authorization_blocked", "Pleos boot/services not ready within 900 seconds"))
+        failure = report.get("authorization_blocked") or (
+            f"Emulator launcher exited with code {returncode} before readiness" if returncode is not None
+            else "Pleos boot/services not ready within 900 seconds")
+        raise RuntimeError(failure)
     checkpoint("boot-completed-with-services")
     print("Pleos boot completed with package/activity services", flush=True)
 except Exception as exc:
@@ -237,7 +247,7 @@ finally:
     raw = work / "boot.log"
     if raw.exists():
         selected = [line for line in raw.read_text(errors="replace").splitlines()
-                    if any(term in line for term in ["emulator version", "FATAL", "Failed to set encryption", "Rebooting into recovery", "Fatal signal", "is crashing", "KVM", "Boot completed", "adb", "ADB", "qt.qpa", "xcb", "xvfb", "PANIC", "ERROR"])
+                    if any(term in line.lower() for term in ["emulator version", "fatal", "failed to set encryption", "rebooting into recovery", "is crashing", "kvm", "boot completed", "adb", "qt.qpa", "xcb", "xvfb", "panic", "error", "cannot open shared", "no such file", "not found"])
                     and not any(term in line.lower() for term in ["key", "token", "jwt", "secret", "password"])]
         (reports / "boot-diagnostics.txt").write_text("\n".join(selected[-100:]) + "\n")
     (reports / "readiness.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")

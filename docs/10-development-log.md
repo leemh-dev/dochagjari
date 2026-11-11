@@ -206,6 +206,14 @@
 - **다음 실행 근거:** GitHub 시작 실패의 무근거 반복이 아니라 확인된 unauthorized에 대해 정상 GUI 승인 조건을 추가한 별도 실행이다. 정상 승인/transport=device/boot1/두 서비스 준비가 확인될 때만 설치·SDK·Console·기기 테스트를 진행한다. 승인 화면을 안전하게 식별할 수 없으면 300초 뒤 차단으로 남긴다.
 - **기존 검사와 구분:** [0f21ead 일반 PR CI43106443044](https://github.com/leemh-dev/dochagjari/actions/runs/43106443044)는 전체 성공했다. 실제 Pleos 핀/좌석/실차 성공과 다르다. 앱 코드/배포 APK/서명 키는 변경하지 않았다.
 
+## 2026-11-11 22:27 UTC — GUI launcher127·선행 라이브러리 검사 보완
+
+- **실제 결과:** [GUI43110281026](https://github.com/leemh-dev/dochagjari/actions/runs/43110281026)에서 진단11건·빌드·GUI도구 설치·공식 이미지 검증 후 Xvfb launcher가 약5초/rc127로 종료됐다. authorization_ui는 빈 배열이며 정상 승인 화면 판단·클릭은 실행되지 않았다. [증거](evidence/pleos-gui-launch-failure/readiness.json), artifact13895588943. unauthorized 이후 정상 승인 성공으로 표시하지 않는다.
+- **진단 한계 수정:** 기존 필터가 loader의 소문자 error/shared library 메시지를 놓칠 수 있어 대소문자 무관 오류·공유 라이브러리·파일 없음도 수집하도록 했다. 초기에 종료된 launcher를 900초 timeout처럼 표시하지 않도록 rc/실제 대기 시간에 맞춰 오류 문구를 분리했다.
+- **선행 확인:** SDK GUI qemu ELF의 실제 의존성에서 libpulse·번들 Qt 라이브러리를 확인했다. libpulse0 명시 설치와 SDK 번들 LD_LIBRARY_PATH를 GUI 프로세스에만 추가하고, 다운로드 전에 ldd로 누락을 검사하도록 했다. GitHub의 정확한 누락 라이브러리는 이전 로그에 없어 단정하지 않는다. [Cloud 읽기 전용 사전 검사](evidence/cloud-gui-library-preflight.json)는 준비 성공이며 VM/부팅을 실행한 검사가 아니다.
+- **임시 APK 구분:** 해당 CI가 만든 debug APK의 소스/버전/해시/공개 개발 서명은 [identity](evidence/pleos-gui-launch-failure/verification-apk-identity.txt)에 있다. 설치하지 못한 검증용 임시 빌드이며 기존 배포0.2 artifact를 바꾸지 않았다.
+- **검사:** actionlint·Python 구문·diff 확인. 이 수정 후 실행은 loader preflight를 먼저 통과해야 SDK 이미지/GUI/정상 승인 단계로 진행한다. 정상 승인을 못 하면 실제 연동 미검증으로 남기며 인증 설정이나 키 파일로 우회하지 않는다.
+
 ## 이후 기록 양식
 
 ```text

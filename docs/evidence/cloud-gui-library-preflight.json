@@ -1,0 +1,9 @@
+{
+  "environment": "Cloud installed SDK37, read-only ldd; no AVD started",
+  "result": {
+    "ready": true,
+    "returncode": 0,
+    "missing": [],
+    "stderr": ""
+  }
+}
