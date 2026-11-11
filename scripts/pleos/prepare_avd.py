@@ -5,6 +5,8 @@ SDK images remain unchanged. A separately formatted test userdata avoids the ear
 """
 from pathlib import Path
 import hashlib
+import concurrent.futures
+import math
 import json
 import os
 import subprocess
@@ -22,6 +24,12 @@ adb = str(sdk / "platform-tools/adb")
 report = {"environment": "GitHub KVM / official Pleos 2.1.0 API34 x86_64 / separate test userdata", "boot_completed": False}
 
 
+def checkpoint(stage):
+    report["stage"] = stage
+    (reports / "readiness.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+    print("Pleos evidence stage: " + stage, flush=True)
+
+
 def command(*args, timeout=20):
     return subprocess.run(args, capture_output=True, text=True, timeout=timeout)
 
@@ -33,6 +41,7 @@ try:
     report["acceleration"] = acceleration.stdout.strip()
     if acceleration.returncode != 0:
         raise RuntimeError("Acceleration probe failed; image download skipped")
+    checkpoint("verified-kvm")
     manifest_url = "https://nexus-playground.pleos.ai/repository/raw-releases/connect-avd/2.x/crp-sys-img.xml"
     with urllib.request.urlopen(manifest_url, timeout=60) as response:
         root = ET.fromstring(response.read())
@@ -44,14 +53,41 @@ try:
     if not url.startswith("https://nexus-playground.pleos.ai/"):
         raise RuntimeError("Unexpected official archive host")
     target = work / "pleos.zip"
+    size = int(values["size"])
+    report["archive_bytes"] = size
+    checkpoint("downloading-image")
+    # The official host supports byte ranges; parallel streams avoid its per-connection cap.
+    with urllib.request.urlopen(urllib.request.Request(url, headers={"Range": "bytes=0-0"}), timeout=90) as response:
+        range_supported = response.status == 206 and response.headers.get("Content-Range") == f"bytes 0-0/{size}"
+    if range_supported:
+        with target.open("wb") as output: output.truncate(size)
+        step = math.ceil(size / 8)
+        def fetch_part(index):
+            start = index * step; end = min(size - 1, start + step - 1)
+            request = urllib.request.Request(url, headers={"Range": f"bytes={start}-{end}"})
+            with urllib.request.urlopen(request, timeout=120) as response, target.open("r+b") as output:
+                if response.status != 206 or response.headers.get("Content-Range") != f"bytes {start}-{end}/{size}":
+                    raise RuntimeError("Unexpected range response")
+                output.seek(start)
+                remaining = end - start + 1
+                while remaining:
+                    block = response.read(min(8 * 1024 * 1024, remaining))
+                    if not block: raise RuntimeError("Incomplete SDK range")
+                    output.write(block); remaining -= len(block)
+            print(f"Pleos archive range {index + 1}/8 complete", flush=True)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
+            list(pool.map(fetch_part, range(8)))
+    else:
+        with urllib.request.urlopen(url, timeout=90) as response, target.open("wb") as output:
+            while block := response.read(8 * 1024 * 1024): output.write(block)
     digest = hashlib.new(checksum_element.attrib.get("type", "sha1") if checksum_element is not None else "sha1")
-    with urllib.request.urlopen(url, timeout=90) as response, target.open("wb") as output:
-        while block := response.read(8 * 1024 * 1024):
-            output.write(block); digest.update(block)
-    if target.stat().st_size != int(values["size"]):
+    with target.open("rb") as downloaded:
+        while block := downloaded.read(8 * 1024 * 1024): digest.update(block)
+    if target.stat().st_size != size:
         raise RuntimeError("Incomplete SDK image download")
     if checksum_element is not None and digest.hexdigest().lower() != checksum_element.text.strip().lower():
         raise RuntimeError("SDK image checksum mismatch")
+    checkpoint("extracting-verified-image")
     image = work / "system-image"
     image.mkdir(exist_ok=True)
     with zipfile.ZipFile(target) as bundle:
@@ -94,6 +130,7 @@ target=android-34
 disk.dataPartition.size=2G
 """)
     userdata = work / "test-userdata.img"
+    checkpoint("formatting-isolated-test-data")
     with userdata.open("wb") as output: output.truncate(2 * 1024 ** 3)
     subprocess.run([str(sdk / "emulator/bin64/mkfs.ext4"), "-F", str(userdata)], check=True, capture_output=True)
     environment = os.environ | {"ANDROID_AVD_HOME": str(avd)}
@@ -104,10 +141,12 @@ disk.dataPartition.size=2G
                                 "-gpu", "swiftshader", "-feature", "-Vulkan", "-cores", "2", "-memory", "4096", "-show-kernel"],
                                env=environment, stdout=log, stderr=subprocess.STDOUT)
     report["emulator_pid"] = process.pid
+    checkpoint("booting")
     if os.getenv("GITHUB_ENV"):
         with open(os.environ["GITHUB_ENV"], "a") as output:
             output.write(f"ANDROID_AVD_HOME={avd}\n")
     deadline = time.monotonic() + 900
+    last_checkpoint = time.monotonic()
     while time.monotonic() < deadline and process.poll() is None:
         try:
             result = command(adb, "-s", "emulator-5554", "shell", "getprop sys.boot_completed; service check package; service check activity", timeout=12)
@@ -117,13 +156,17 @@ disk.dataPartition.size=2G
                 break
         except subprocess.TimeoutExpired:
             report["last_readiness"] = "ADB shell timeout"
+        if time.monotonic() - last_checkpoint >= 30:
+            checkpoint("booting"); last_checkpoint = time.monotonic()
         time.sleep(5)
     if not report["boot_completed"]:
         process.terminate()
         raise RuntimeError("Pleos boot/services not ready within 900 seconds")
+    checkpoint("boot-completed-with-services")
     print("Pleos boot completed with package/activity services", flush=True)
 except Exception as exc:
     report["error"] = str(exc)
+    checkpoint("failed")
     raise
 finally:
     raw = work / "boot.log"
