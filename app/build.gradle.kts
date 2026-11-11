@@ -32,6 +32,7 @@ android {
     composeOptions { kotlinCompilerExtensionVersion = "1.5.10" }
     androidResources { noCompress += "tflite" }
     packaging { resources.excludes += "/META-INF/{AL2.0,LGPL2.1}" }
+    testOptions { unitTests.isIncludeAndroidResources = true }
 }
 dependencies {
     implementation("androidx.core:core-ktx:1.13.1")
@@ -50,6 +51,8 @@ dependencies {
     implementation("com.google.zxing:core:3.5.3")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.json:json:20240303")
+    testImplementation("org.robolectric:robolectric:4.14.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2024.04.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
