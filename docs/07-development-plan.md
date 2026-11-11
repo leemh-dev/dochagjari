@@ -21,6 +21,37 @@
 - **SMS** — 테스트 수신자 동의, SMS 발송 계정, 등록 발신번호를 첫날 확인한다. 발송 API 키는 서버에만 두고, 접근을 인증한 뒤 사전 등록 수신자만 허용한다. 세션 ID로 요청을 중복 제거한다. 공급자 수락과 휴대폰 수신을 별도로 확인한다. 카카오톡 공유는 휴대폰에서 사용자가 대상을 선택한다. [네이버 클라우드 SENS SMS](https://guide.ncloud-docs.com/docs/sens-smsmessage) · [카카오톡 공유](https://developers.kakao.com/docs/ko/kakaotalk-share/common)
 - **병원 데이터** — 용인세브란스 공개 시설 안내를 바탕으로 검증 가능한 필드를 수집한다. 하차 허용점과 무단차 전체 경로를 확인하지 못하면 해당 부분을 가상 병원으로 시연한다. [데이터 확보·검증 계획](03-data-plan.md)
 
+## 첫 개발 작업
+
+1. **맥북에서 Pleos AVD와 공식 NaviHelper 샘플을 실행한다.** 공식 샘플 APK 설치와 내비 목적지 요청을 확인한다. 앱 코드가 없어도 먼저 시작할 수 있다. 같은 세션에서 Virtual Console을 열어 좌석 상태를 바꿀 수 있는지 확인한다.
+2. **도착자리의 첫 APK를 만든다.** Kotlin Android 프로젝트와 Gradle Wrapper를 추가한다. 첫 화면에 가상 학원 한 곳, 사람 출입구 하나, 차량 접근점 두 곳을 넣는다. 바로 태우기와 주차하고 데리러 가기 선택에 따라 차량 접근점이 달라지는지 확인하고, debug APK를 같은 AVD에 설치한다.
+3. **앱에서 내비·좌석을 확인한다.** 앱에서 두 내비 목적지 요청을 재현하고 순정 내비 핀을 비교한다. 좌석은 앱에서 접근 가능한 차량 API와 권한을 확인한 뒤 뒷좌석 좌우 변경 이벤트를 읽어 화면에 표시한다. Virtual Console 조작 성공과 앱 수신 성공은 각각 기록한다.
+4. **나머지 기능의 준비를 첫날부터 함께 진행한다.** 병원 데이터는 이용 허용·무단차 근거를 확인하고, 영상은 빈 후보와 점유 후보 및 표지판이 포함된 테스트 입력을 준비한다. SMS는 발신번호 등록 상태와 테스트 수신 동의를 확인한다. 내비·좌석 연동이 막히는 동안에는 앱의 모의 입력으로 추천·영상 분석·알림 조건을 구현하고 진행 상황을 기록한다.
+
+첫 작업의 완료 기준은 **도착자리 debug APK 설치, 픽업 모드에 따른 후보 변경, 공식 샘플 내비 핀 확인, 좌석 변경 이벤트 수신 여부 기록**이다.
+
+## VS Code에서 에뮬레이터와 좌석 테스트 실행
+
+맥북 M1의 Android Studio에서 SDK Manager에 Pleos ARM64 시스템 이미지를 추가한다. Device Manager에서 Automotive의 Pleos Connect v2.1.0과 API 34 이미지를 선택해 AVD를 만든다. VS Code는 맥북에서 로컬로 열고, 이후 실행과 설치는 VS Code 통합 터미널에서 할 수 있다. [Pleos 공식 설치 가이드](https://document.pleos.ai/docs/connect/guide/getting-started/application-development/setup-connect-sdk-emulator) · [Android Emulator 명령줄](https://developer.android.com/studio/run/emulator-commandline)
+
+VS Code 터미널 탭 하나에서 AVD 이름을 확인하고 실행한다. 아래 경로는 macOS 기본 SDK 위치이며, 다른 위치에 설치했다면 SDK Manager에 표시된 위치를 사용한다.
+
+```bash
+"$HOME/Library/Android/sdk/emulator/emulator" -list-avds
+"$HOME/Library/Android/sdk/emulator/emulator" -avd "PLEOS_AVD_NAME" -no-snapshot-load
+```
+
+부팅 후 두 번째 탭에서 장치를 확인하고 앱을 설치한다. Gradle 명령과 경로는 도착자리의 `app` 모듈을 만든 후 사용하는 예시다. 공식 샘플을 확인할 때는 해당 샘플에서 빌드한 APK 경로를 사용한다.
+
+```bash
+"$HOME/Library/Android/sdk/platform-tools/adb" devices
+./gradlew :app:assembleDebug
+"$HOME/Library/Android/sdk/platform-tools/adb" -e install -r app/build/outputs/apk/debug/app-debug.apk
+"$HOME/Library/Android/sdk/platform-tools/adb" -e forward tcp:8088 tcp:8088
+```
+
+맥북 브라우저에서 [Virtual Console](http://127.0.0.1:8088/)을 열고 **Emulation Controls → Convenience → Seat Occupancy**에서 뒷좌석을 `Empty`에서 `Occupied`로 바꾼다. 도착자리 화면 또는 개발 로그에서 같은 좌석의 상태가 갱신되는지 확인하고, 앱을 재실행했을 때 초기값도 확인한다. 기기가 여러 대 실행 중이면 `adb -s <시리얼>`로 Pleos AVD를 지정한다. [Virtual Console 설정](https://document.pleos.ai/docs/connect/guide/getting-started/application-development/use-vehicle-emulator) · [센서 조작 가이드](https://document.pleos.ai/docs/pleos-only/app-test-guide/virtual-console-guide) · [ADB 명령](https://developer.android.com/tools/adb)
+
 ## 일정(KST)
 
 | 시점 | 작업 | 완료 확인 |
@@ -34,7 +65,7 @@
 ## 구현과 테스트
 
 - Kotlin Android 앱에서 시설 JSON, 추천, 내비, 좌석, 영상 분석, 공유 UI를 분리한다. 학원 한 곳과 병원 한 곳의 대표 데이터만 동봉한다. SMS 발송에만 서버를 둔다.
-- Codex Cloud는 앱과 공식 샘플 빌드 및 추천·알림 중복 방지 테스트에 사용한다. Pleos AVD는 Cloud의 가속 지원을 확인하고, 실행이 지연되면 맥북의 공식 Automotive 이미지에서 검증한다.
+- 맥북의 VS Code와 공식 Pleos AVD를 주 개발·검증 환경으로 사용한다. Codex Cloud는 필요할 때 추천·알림 서버 개발, 단위 테스트와 빌드에 사용한다.
 - 내비 테스트는 두 후보의 요청 결과와 도착 핀을 대조한다. 좌석은 점유·비점유·알 수 없음, 카메라는 빈 후보·점유 후보·미확인, 알림은 정차 전 미발송·정차 후 1회 발송·중복 이벤트·실패 상태를 재현한다.
 - 확인된 SDK 접근이 없거나 승인·장비가 없어 연동이 막힌 경우에도 해당 기능의 흐름과 대체 입력은 출품 APK에서 시연할 수 있게 구현한다. 좌석 모의 입력, 사전 영상, 모의 발송은 각각 해당 방식으로 표시하며 실제 센서 연동, 순정 카메라 연동, 문자 수신의 완료 증거와 구분한다.
 
