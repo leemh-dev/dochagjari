@@ -1,0 +1,42 @@
+{
+  "source_run": 43111928160,
+  "artifact_id": 13897640819,
+  "original_screenshot": "debugging-screen-12.png",
+  "scope": "Read-only actual screenshot analysis; no input/ADB approval/install executed on Cloud. Original evidence unchanged. Derived OCR crops are temporary.",
+  "controller_result": {
+    "notice_click": [
+      1389,
+      675
+    ],
+    "desktop_panel_blocked": true,
+    "permission_click": null,
+    "buttons": []
+  },
+  "underlying_button_analysis": {
+    "buttons": [
+      {
+        "box": [
+          2170,
+          329,
+          148,
+          45
+        ],
+        "label": "cancel"
+      },
+      {
+        "box": [
+          2329,
+          329,
+          148,
+          45
+        ],
+        "label": "allow"
+      }
+    ],
+    "point": [
+      2403,
+      351
+    ],
+    "note": "Controller blocks guest approval while the desktop notice exists."
+  }
+}

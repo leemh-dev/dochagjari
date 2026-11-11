@@ -2,6 +2,16 @@
 
 2026-11-11 UTC · 기준: [개발계획](07-development-plan.md)
 
+## 최신 진행 — 2026-11-11 23:01 UTC
+
+- 시작 실패43095641582의 공개 실행 화면에서 GitHub unexpected error/request ID를 확인했습니다([annotation](evidence/workflow-startup-annotation.json)). 이 새 근거의 재시도43105761433은 실제 runner에서 실행됐습니다. 내부 상세 원인이나 전역 장애를 단정하지 않습니다.
+- **확인된 ADB 접근 차단:** [43105761433](https://github.com/leemh-dev/dochagjari/actions/runs/43105761433)의 get-state rc1/stderr device unauthorized, devices 목록 emulator-5554 unauthorized. [준비 JSON](evidence/pleos-adb-unauthorized/readiness.json). 속성·서비스는 transport 단계에서 중단돼 미조회입니다. vendor crash/RAM을 이 접근 실패의 원인으로 주장하지 않습니다. 설치/SDK/Console은 생략했습니다.
+- 정상 승인 화면을 관찰하는 GUI 경로를 추가했습니다. 새 전용 AVD·현재 호스트 공개 지문·USB 디버깅 문구·명확한 허용 버튼을 확인할 때만 클릭하며 키/인증/권한을 우회하지 않습니다. 새 화면 판단5건은 [로컬 통과](evidence/debugging-dialog-tests.txt). 기존 진단7건과 합계12건이며 Android 기기 테스트와 다릅니다.
+- 첫 GUI43110281026은 launcher rc127/실제 대기5초/승인 시도0으로 끝났습니다([JSON](evidence/pleos-gui-launch-failure/readiness.json)). 타임아웃이나 지문 불일치로 분류하지 않습니다. 이후 loader 메시지 수집·SDK 번들 경로·필수 GUI 라이브러리·이미지 다운로드 전 ldd 검사를 보완했습니다. [Cloud 읽기 검사](evidence/cloud-gui-library-preflight.json)는 성공했지만 VM을 시작한 검사는 아닙니다.
+- [GUI 실행43111928160](https://github.com/leemh-dev/dochagjari/actions/runs/43111928160)은 실제 창/정상 USB 승인 문구/현재 호스트 지문까지 일치했지만 허용 버튼 식별 실패로 클릭0·unauthorized에서 종료됐습니다. [원본 화면](evidence/pleos-normal-ui-blocked/debugging-screen-12.png)에서 안내 모달과 한국어 버튼을 확인해 정상 모달 닫기/부분 OCR을 보완했습니다. [읽기 전용 분석](evidence/observed-dialog-region-check.json)은 기기 승인 성공이 아닙니다. 설치·SDK·Console·Pleos 기기 검사는 아직 미검증입니다. 최신022160c 일반 Android PR43112125115·push43111927279 CI는 모두 성공했습니다.
+- 일반 Android [0f21ead CI43106443044](https://github.com/leemh-dev/dochagjari/actions/runs/43106443044) 및 동일 앱 코드431ffb6의 [push CI43110280035](https://github.com/leemh-dev/dochagjari/actions/runs/43110280035)는 전체 성공했습니다. 같은431ffb6의 PR CI43110288580은 SDK Emulator ZIP 설치 오류로 기기 시작 전에 실패했고 [실패 증거](evidence/generic-ci-sdk-download-failure.txt)를 보존합니다. 앱 테스트 실패나 Pleos 성공으로 계산하지 않습니다.
+- [앱/서버/Gradle 소스 비교](evidence/application-source-unchanged.txt)에 변경이 없어 배포 APK0.2.0/code2·기존 artifact/해시를 유지합니다. CI 검증용 임시 APK는 [별도 identity](evidence/pleos-gui-launch-failure/verification-apk-identity.txt)로 구분합니다. 제출 서명·실제 SMS·실차는 여전히 미검증입니다.
+
 ## 후속 ADB 진단 — 2026-11-11 20:33 UTC
 
 - PR#1은 open/미병합이며 기준 `a020643`의 [PR CI](https://github.com/leemh-dev/dochagjari/actions/runs/43062184213)와 push CI가 모두 성공한 것을 이번에 확인했습니다. 아래 Android JVM33·서버14·기기6·프로세스2단계는 이 기존 완료 증거이며 이번에 반복 실행하지 않았습니다.

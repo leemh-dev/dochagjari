@@ -1,0 +1,9 @@
+Run https://github.com/leemh-dev/dochagjari/actions/runs/43110288580 / code431ffb6
+Verify job succeeded; device job failed before emulator launch / connected tests.
+2026-11-11T22:21:15.9848917Z Installing latest emulator.
+2026-11-11T22:21:15.9864187Z [command]/usr/bin/sh -c \sdkmanager --install emulator --channel=0 > /dev/null
+2026-11-11T22:21:23.2066466Z Warning: An error occurred while preparing SDK package Android Emulator: Error reading Zip content from a SeekableByteChannel.
+2026-11-11T22:21:24.1179835Z error: could not connect to TCP port 5554: Connection refused
+2026-11-11T22:21:24.1187632Z The process '/usr/local/lib/android/sdk/platform-tools/adb' failed with exit code 1
+2026-11-11T22:21:24.1193944Z ##[error]The process '/usr/bin/sh' failed with exit code 1
+This is SDK package preparation evidence, not an app test failure.

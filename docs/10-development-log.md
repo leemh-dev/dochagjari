@@ -214,6 +214,14 @@
 - **임시 APK 구분:** 해당 CI가 만든 debug APK의 소스/버전/해시/공개 개발 서명은 [identity](evidence/pleos-gui-launch-failure/verification-apk-identity.txt)에 있다. 설치하지 못한 검증용 임시 빌드이며 기존 배포0.2 artifact를 바꾸지 않았다.
 - **검사:** actionlint·Python 구문·diff 확인. 이 수정 후 실행은 loader preflight를 먼저 통과해야 SDK 이미지/GUI/정상 승인 단계로 진행한다. 정상 승인을 못 하면 실제 연동 미검증으로 남기며 인증 설정이나 키 파일로 우회하지 않는다.
 
+## 2026-11-11 23:01 UTC — 정상 GUI·일치 지문 확인, 모달/버튼 인식 보완
+
+- **실제 실행:** [43111928160](https://github.com/leemh-dev/dochagjari/actions/runs/43111928160), 코드022160c, artifact13897640819. GUI ELF 사전 검사 성공·실제 창 표시·USB 디버깅 문구/현재 호스트 공개 지문 일치를 확인했다. 그러나 전체 화면 OCR이 허용 버튼을 식별하지 못해 클릭0/transport unauthorized로 종료됐다. 설치·내비·Console·기기 검사는 실행하지 않았다. [원본 화면](evidence/pleos-normal-ui-blocked/debugging-screen-12.png), [준비 기록](evidence/pleos-normal-ui-blocked/readiness.json).
+- **구체 관찰:** 화면에는 nested virtualization 안내 모달과 그 뒤의 정상 한국어 USB 승인 버튼이 있었다. 전체 화면 OCR 대신 실제 화면의 연결 영역을 분석해 안내문/유일한 OK와 취소·허용 쌍을 읽는다. 알려진 안내만 정상 OK로 닫고 반드시 새 화면을 수집한다. 모호한 모달은 차단하며 USB 승인에는 기존 문구/현재 호스트 지문 조건을 그대로 적용한다. Always allow/인증 설정/키 파일을 건드리지 않는다.
+- **로컬 증거:** 같은 원본 화면을 읽기만 해 안내 OK와 배경 버튼 쌍을 찾는 것을 확인했다([분석 JSON](evidence/observed-dialog-region-check.json)). Cloud에서 클릭·승인·설치를 한 것이 아니다. 임시 OCR crop은 증거 원본을 변경하지 않고 배포하지 않는다. 호스트 UI OCR을 Android ML Kit 성공으로 계산하지 않는다.
+- **검사:** Python 진단12건(기존7+화면5)·compileall·actionlint1.7.7·diff 검사 통과. 일반 Android 최신022160c PR43112125115/push43111927279 CI 모두 성공. 별도 이전 PR43110288580의 SDK ZIP 실패도 보존했다. 앱/서버/Gradle 코드·기존 배포 APK는 동일하다.
+- **다음 실행 근거:** 실제 모달/버튼 인식 실패라는 새로운 증거와 해당 수정으로 수동 실행을 한 번 요청한다. 정상 승인 이후에도 transport/boot/package/activity 모두 준비되기 전에는 설치하지 않는다. 성공/실패를 artifact로 다시 확인한다.
+
 ## 이후 기록 양식
 
 ```text

@@ -9,6 +9,7 @@ import re
 import subprocess
 
 from adb_readiness import diagnostic
+from dialog_regions import inspect_regions
 
 
 def approval_plan(tsv, fingerprint):
@@ -61,6 +62,18 @@ def approve_visible_dialog(work, reports, environment, attempt):
         plan = approval_plan(ocr.stdout, fingerprint)
         point = plan.pop("click")
         result.update(plan)
+        regions = inspect_regions(screenshot, work, environment)
+        result["region_observation"] = regions
+        if regions["notice_click"]:
+            nx, ny = regions["notice_click"]
+            subprocess.run(["xdotool", "mousemove", "--sync", str(nx), str(ny), "click", "1"],
+                           env=environment, capture_output=True, check=True, timeout=10)
+            result["nested_notice_dismissed"] = True
+            return result
+        if regions["desktop_panel_blocked"]:
+            return result
+        if not point and plan["dialog_detected"] and plan["host_fingerprint_matches"]:
+            point = regions["permission_click"]
         if point:
             subprocess.run(["xdotool", "mousemove", "--sync", str(point[0]), str(point[1]), "click", "1"],
                            env=environment, capture_output=True, check=True, timeout=10)

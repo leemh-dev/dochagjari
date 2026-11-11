@@ -4,6 +4,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).parents[1]))
 import debugging_dialog
+from dialog_regions import permission_button_pair
 
 
 class DebuggingDialogTest(unittest.TestCase):
@@ -37,6 +38,14 @@ class DebuggingDialogTest(unittest.TestCase):
         screen = self.screen(title="USB 디버깅을 허용하시겠습니까?", buttons=[["취소", "허용"]])
         screen = screen.replace("\tkey\n", "\t키\n").replace("\tfingerprint\n", "\t지문\n")
         self.assertIsNotNone(debugging_dialog.approval_plan(screen, self.fingerprint)["click"])
+
+    def test_region_buttons_require_a_unique_cancel_allow_bar(self):
+        buttons = [{"label": "cancel", "box": (100, 200, 148, 45)},
+                   {"label": "allow", "box": (260, 200, 148, 45)}]
+        self.assertEqual((334, 222), permission_button_pair(buttons))
+        self.assertIsNone(permission_button_pair(buttons + [buttons[1]]))
+        self.assertIsNone(permission_button_pair([buttons[1]]))
+        self.assertIsNone(permission_button_pair([buttons[0], {"label": "allow", "box": (260, 400, 148, 45)}]))
 
 
 if __name__ == "__main__":

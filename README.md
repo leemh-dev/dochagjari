@@ -72,6 +72,24 @@ adb -s "$DOCHAGJARI_SERIAL" logcat -v time Dochagjari:I DochagjariVehicle:I Doch
 
 공식 Linux 이미지의 `devices.xml`은 RAM4GiB, `source.properties`는 8192MB를 지정합니다. [읽기 전용 비교](docs/evidence/pleos-profile-comparison.json)를 참고하고 사용한 실제 AVD 값을 기록합니다.
 
+이번 KVM 진단에서는 `emulator-5554 unauthorized`가 실제로 확인됐습니다. 이 상태에서는 부팅 속성·서비스를 조회하지 못하므로 프레임워크 미준비로 단정하지 않습니다. 맥북에서는 AVD 창을 열고 USB 디버깅 승인 화면의 호스트 지문을 확인한 뒤 정상 **허용**을 선택합니다. 아래는 이 Mac에서 비교할 공개 지문만 출력하는 명령이며 개인키를 읽거나 바꾸지 않습니다. 이번 Cloud 작업에서 맥북 명령을 실행한 것은 아닙니다.
+
+```bash
+adb start-server
+python3 - <<'PY'
+import base64, hashlib, os
+from pathlib import Path
+root = Path(os.environ.get("ANDROID_USER_HOME", str(Path.home() / ".android")))
+public = (root / "adbkey.pub").read_text().split()[0]
+value = hashlib.md5(base64.b64decode(public), usedforsecurity=False).hexdigest().upper()
+print(":".join(value[i:i+2] for i in range(0, len(value), 2)))
+PY
+python3 scripts/pleos/adb_readiness.py --serial "$DOCHAGJARI_SERIAL" \
+  --output /tmp/dochagjari-adb-readiness.json
+```
+
+GUI CI는 이 job이 만든 새 AVD에서만 정상 USB 디버깅 문구·일치하는 공개 호스트 지문·취소 옆의 명확한 허용 버튼을 확인해 클릭합니다. 지문이 다르거나 UI가 모호하면 클릭하지 않으며, 실제 transport/device와 부팅/서비스가 확인돼야 다음 단계로 갑니다. 키 파일 편집·복사, 인증 비활성화, 권한 우회는 하지 않습니다. 호스트 OCR은 이 승인 화면 관찰에만 사용하며 앱 ML Kit 분석 성공으로 계산하지 않습니다.
+
 ### 내비 목적지 두 곳
 
 - 앱 **연동·테스트 → 내비 모의 요청 끄기**. **도착 안내 → 학원 → 바로 태우기 → 내비로 안내**를 실행합니다.
