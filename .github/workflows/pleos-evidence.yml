@@ -47,6 +47,11 @@ jobs:
         env:
           ANDROID_SERIAL: emulator-5554
         run: |
+          python scripts/pleos/adb_readiness.py --serial "$ANDROID_SERIAL" --output app/build/reports/pleos/pre-test-adb-readiness.json
+          # Only this job's newly-created AVD: SDK evidence is captured before test-data reset.
+          if adb -s "$ANDROID_SERIAL" shell pm path dev.leemh.dochagjari | grep -q '^package:'; then
+            adb -s "$ANDROID_SERIAL" shell pm clear dev.leemh.dochagjari
+          fi
           ./gradlew :app:connectedDebugAndroidTest
           adb -s "$ANDROID_SERIAL" install -r app/build/outputs/apk/debug/app-debug.apk
           adb -s "$ANDROID_SERIAL" install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk

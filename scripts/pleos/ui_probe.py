@@ -8,7 +8,7 @@ import sys
 import time
 import xml.etree.ElementTree as ET
 
-from adb_readiness import probe
+from adb_readiness import diagnostic, probe
 
 adb = str(Path(os.environ["ANDROID_HOME"]) / "platform-tools/adb")
 reports = Path("app/build/reports/pleos")
@@ -43,7 +43,7 @@ def tap_text(text):
     command("shell", "input", "tap", str(x), str(y)); time.sleep(1)
 
 
-def disable_switch(label):
+def switch_node(label):
     tree = nodes()
     name = next((n for n in tree if n.attrib.get("text") == label), None)
     if name is None:
@@ -52,8 +52,22 @@ def disable_switch(label):
     switches = [n for n in tree if "Switch" in n.attrib.get("class", "") and abs(bounds(n)[1] - y) < 60]
     if len(switches) != 1:
         raise RuntimeError("Cannot safely identify source switch: " + label)
-    if switches[0].attrib.get("checked") == "true":
-        x, sy = bounds(switches[0]); command("shell", "input", "tap", str(x), str(sy)); time.sleep(2)
+    return switches[0]
+
+
+def set_switch(label, enabled):
+    switch = switch_node(label)
+    if switch.attrib.get("checked") != str(enabled).lower():
+        if switch.attrib.get("enabled") != "true":
+            raise RuntimeError("App control is disabled: " + label)
+        x, y = bounds(switch)
+        command("shell", "input", "tap", str(x), str(y)); time.sleep(2)
+    if switch_node(label).attrib.get("checked") != str(enabled).lower():
+        raise RuntimeError("Switch state was not acknowledged: " + label)
+
+
+def disable_switch(label):
+    set_switch(label, False)
 
 
 def start_app():
@@ -87,6 +101,8 @@ try:
         report["apk_installed"] = True
         grant = subprocess.run([adb, "-s", "emulator-5554", "shell", "pm", "grant", package, "android.car.permission.CAR_SPEED"], capture_output=True)
         report["car_speed_permission_granted"] = grant.returncode == 0
+        report["car_speed_permission_result"] = {"returncode": grant.returncode,
+                                                 "stderr": diagnostic(grant.stderr.decode(errors="replace"))}
         command("emu", "geo", "fix", "127.034", "37.484")
         for mode, position in [("바로 태우기", [37.48544722, 127.03636666]), ("주차하고 데리러 가기", [37.48615, 127.03715])]:
             attempt = {"mode": mode, "requested_coordinate": position, "pin_verified": False}
@@ -102,7 +118,31 @@ try:
             except Exception as exc:
                 attempt["error"] = str(exc)
             report["navigation"].append(attempt)
-        start_app(); tap_text("연동·테스트"); disable_switch("차량 신호 테스트 입력")
+        start_app(); tap_text("좌석·조건")
+        saved_options = ["왼쪽 카시트 문 여유", "오른쪽 카시트 문 여유", "유모차 · 무단차 필요"]
+        for option in saved_options:
+            set_switch(option, True)
+        deadline = time.monotonic() + 15
+        while time.monotonic() < deadline:
+            if any(n.attrib.get("text") == "설정 저장 완료" for n in nodes()):
+                break
+            time.sleep(1)
+        else:
+            raise RuntimeError("DataStore save acknowledgement missing")
+        screenshot("profile-saved.png")
+        # This fresh dedicated AVD contains only this probe's test settings.
+        before_pid = command("shell", "pidof", package).decode().strip()
+        command("shell", "am", "force-stop", package)
+        start_app(); tap_text("좌석·조건")
+        after_pid = command("shell", "pidof", package).decode().strip()
+        restored = {option: switch_node(option).attrib.get("checked") == "true" for option in saved_options}
+        acknowledged = any(n.attrib.get("text") == "설정 저장 완료" for n in nodes())
+        report["profile_restart"] = {"options": restored, "save_acknowledged": acknowledged,
+                                     "before_pid": before_pid, "after_pid": after_pid}
+        if not all(restored.values()) or not acknowledged or not before_pid or not after_pid or before_pid == after_pid:
+            raise RuntimeError("Saved options were not restored after process restart")
+        screenshot("profile-restored.png")
+        tap_text("연동·테스트"); disable_switch("차량 신호 테스트 입력")
         tap_text("좌석·조건"); command("forward", "tcp:8088", "tcp:8088")
         initial = command("logcat", "-d", "-v", "brief", "DochagjariPleosSeat:I", "DochagjariVehicle:I", "*:S").decode(errors="replace")
         (reports / "seat-initial-sdk-events.txt").write_text(initial)

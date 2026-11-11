@@ -1,9 +1,12 @@
 // Scope all writes to the official Seat Occupancy card; never guess unrelated controls.
 const fs = require('fs');
+const {execFileSync} = require('child_process');
+const adb = process.env.ANDROID_HOME + '/platform-tools/adb';
+function device(args) { return execFileSync(adb, ['-s', 'emulator-5554', ...args], {timeout: 15000, maxBuffer: 16 * 1024 * 1024}); }
 const {chromium} = require(process.cwd() + '/app/build/pleos-browser/node_modules/playwright');
 const directory = 'app/build/reports/pleos/';
 (async () => {
-  const result = {source: 'Official Pleos Virtual Console browser UI', toggles: [], ui_toggled: false};
+  const result = {source: 'Official Pleos Virtual Console browser UI', toggles: [], app_observations: [], ui_toggled: false};
   const browser = await chromium.launch({executablePath: process.env.CHROME_BIN || '/usr/bin/google-chrome', headless: true,
     args: ['--no-sandbox', '--disable-dev-shm-usage', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader']});
   const page = await browser.newPage({viewport: {width: 1440, height: 1000}});
@@ -60,6 +63,15 @@ const directory = 'app/build/reports/pleos/';
       for (const value of ['Empty', 'Occupied', 'Empty']) {
         await setOccupancy(value); result.toggles.push({side, value, timestamp: new Date().toISOString()});
         await page.waitForTimeout(1200);
+        const observation = {side, requested_value: value, timestamp: new Date().toISOString()};
+        try {
+          device(['shell', 'uiautomator', 'dump', '/sdcard/dochagjari-console-observe.xml']);
+          const xml = device(['exec-out', 'cat', '/sdcard/dochagjari-console-observe.xml']).toString();
+          observation.app_seat_text = (xml.match(/text="(뒷좌석 왼쪽 [^"]+)"/) || [])[1] || null;
+          observation.saved_option_prompt_visible = xml.includes('탑승 좌석의 저장된 문 여유·유모차 옵션을 확인해 적용하세요.');
+          fs.writeFileSync(directory + 'seat-' + side + '-' + value + '-' + result.toggles.length + '.png', device(['exec-out', 'screencap', '-p']));
+        } catch (error) { observation.error = error.message.split('\n')[0]; }
+        result.app_observations.push(observation);
       }
     }
     result.ui_toggled = true;
