@@ -152,6 +152,16 @@
 - **완료:** 복구/저장 구현과 JVM33·서버14·lint·세 APK 빌드, 일반 Android6+프로세스2단계, 게시 APK 재다운로드 해시·개발 서명 대조. [최신 검증 PR CI 43057154160](https://github.com/leemh-dev/dochagjari/actions/runs/43057154160) 전체 성공. 이후 변경은 진단/문서이며 APK 코드 `3a01515`는 그대로다.
 - **다음:** 실제 접근 가능한 공식 AVD에서 ADB 상태·원래 프로필·두 서비스부터 확인하고 내비 두 핀과 Console/앱 수신을 대조한다. 실제 SMS는 자격증명·등록 번호·동의 수신자 준비 시, 제출 서명은 키 준비 시에만 검증한다.
 
+## 2026-11-11 20:27 UTC — 후속 개발 시작·ADB 준비 검사 분리
+
+- **최신 확인:** PR#1 open/미병합, 로컬/원격 a020643 동일. 해당 PR/push CI 43062184213·43062171171 모두 성공. APK artifact13871881801 유효, 기존 v0.2 코드/해시/개발 서명은 유지한다.
+- **환경:** 현재 Cloud /dev/kvm 없음·연결 기기 없음. 기본 sandbox의 ADB listener/네트워크가 거부돼 같은 읽기 검사를 승인된 외부 실행에서 재시도했고 기기 없음 확인. 무가속 부팅은 반복하지 않았다. SMS/제출 키 자격증명은 준비되지 않았다.
+- **수동 진단:** 이전에 실행하지 않은 포트/ADB 진단 보완 a020643으로 [43095641582](https://github.com/leemh-dev/dochagjari/actions/runs/43095641582)를 수동 요청했다. 현재 runner 배정 대기이며 실행 완료/설치 성공으로 표시하지 않는다.
+- **비교:** [공식 메타데이터](evidence/pleos-profile-comparison.json)에서 devices.xml RAM4GiB와 source.properties8192MB가 공존함을 확인했다. 4GB를 원인으로 단정하지 않는다. 원본 userdata 약1.1GB와 기존 빈 별도 2GiB도 구분한다. 비교 부팅은 실행하지 않았다.
+- **변경:** ADB transport/boot/package/activity를 개별 명령·종료 코드·stdout/stderr로 검사하는 공통 helper/CLI를 추가했다. 이전 JSON이 true여도 설치 직전에 다시 검사한다. 준비 실패하면 설치/SDK/Console 단계가 진행되지 않게 했다. README의 설치도 같은 gate를 사용한다.
+- **검사:** 새 준비 검사 5건(정상, unauthorized/offline/없음, 부분 부팅/비정상 종료/유사 문자열, timeout/실행파일 없음, 자격증명 제거) 통과. Python 구문·diff 검사 통과. 이는 명령 대역 검사이며 Pleos 성공이 아니다. 앱 코드는 바꾸지 않아 APK를 재배포하지 않는다.
+- **다음:** 수동 진단의 실제 ADB 상태를 먼저 받아 원인에 맞춰 해결하고, 부팅/두 서비스 준비 후에만 실제 앱 설치·내비/좌석 확인을 진행한다.
+
 ## 이후 기록 양식
 
 ```text

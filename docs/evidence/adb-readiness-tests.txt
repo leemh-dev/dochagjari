@@ -1,0 +1,10 @@
+test_all_checks_must_succeed_for_selected_serial (test_adb_readiness.AdbReadinessTest.test_all_checks_must_succeed_for_selected_serial) ... ok
+test_credentials_are_not_written_to_diagnostics (test_adb_readiness.AdbReadinessTest.test_credentials_are_not_written_to_diagnostics) ... ok
+test_partial_boot_nonzero_exit_and_false_positive_text_fail (test_adb_readiness.AdbReadinessTest.test_partial_boot_nonzero_exit_and_false_positive_text_fail) ... ok
+test_timeout_and_missing_client_are_reported (test_adb_readiness.AdbReadinessTest.test_timeout_and_missing_client_are_reported) ... ok
+test_unauthorized_offline_missing_device_do_not_query_services (test_adb_readiness.AdbReadinessTest.test_unauthorized_offline_missing_device_do_not_query_services) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+OK

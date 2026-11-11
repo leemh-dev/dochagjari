@@ -45,13 +45,12 @@ emulator -avd "PLEOS_AVD_NAME" -no-snapshot-load
 ```bash
 adb devices -l
 export DOCHAGJARI_SERIAL=emulator-5554
-adb -s "$DOCHAGJARI_SERIAL" shell getprop sys.boot_completed
-# 출력이 1인지 확인한 뒤 다음 두 서비스가 모두 found인지 확인합니다.
-adb -s "$DOCHAGJARI_SERIAL" shell service check package
-adb -s "$DOCHAGJARI_SERIAL" shell service check activity
-# device 표시만으로 설치하지 않습니다. 위 조건이 충족되지 않으면 부팅 진단을 수집합니다.
 ./gradlew :app:assembleDebug
-adb -s "$DOCHAGJARI_SERIAL" install -r app/build/outputs/apk/debug/app-debug.apk
+# transport=device, boot=1, package/activity found와 각각의 종료 코드를 확인합니다.
+# 실패하면 아래 && 연결이 설치·실행을 중단합니다. stderr는 JSON에 기록합니다.
+python3 scripts/pleos/adb_readiness.py --serial "$DOCHAGJARI_SERIAL" \
+  --output /tmp/dochagjari-adb-readiness.json && \
+adb -s "$DOCHAGJARI_SERIAL" install -r app/build/outputs/apk/debug/app-debug.apk && \
 adb -s "$DOCHAGJARI_SERIAL" shell am start -n dev.leemh.dochagjari/.MainActivity
 adb -s "$DOCHAGJARI_SERIAL" forward tcp:8088 tcp:8088
 adb -s "$DOCHAGJARI_SERIAL" shell wm size

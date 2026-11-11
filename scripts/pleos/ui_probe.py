@@ -8,6 +8,8 @@ import sys
 import time
 import xml.etree.ElementTree as ET
 
+from adb_readiness import probe
+
 adb = str(Path(os.environ["ANDROID_HOME"]) / "platform-tools/adb")
 reports = Path("app/build/reports/pleos")
 reports.mkdir(parents=True, exist_ok=True)
@@ -68,7 +70,11 @@ try:
     if not readiness.get("boot_completed"):
         report["skipped"] = "Pleos boot/services not ready; no installation, navigation, Console or app reception claimed"
         path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
-        sys.exit(0)
+        sys.exit(0 if len(sys.argv) > 1 and sys.argv[1] == "collect" else 1)
+    report["live_adb_probe"] = probe(adb, "emulator-5554")
+    if not report["live_adb_probe"]["ready"]:
+        report["skipped"] = "Live ADB readiness no longer matches prior boot record"
+        sys.exit(0 if len(sys.argv) > 1 and sys.argv[1] == "collect" else 1)
     if len(sys.argv) > 1 and sys.argv[1] == "collect":
         logs = command("logcat", "-d", "-v", "brief", "DochagjariPleosSeat:I", "DochagjariVehicle:I", "*:S").decode(errors="replace")
         (reports / "seat-sdk-events.txt").write_text(logs)

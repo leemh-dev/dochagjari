@@ -15,6 +15,8 @@ import urllib.request
 import xml.etree.ElementTree as ET
 import zipfile
 
+from adb_readiness import diagnostic, probe
+
 sdk = Path(os.environ["ANDROID_HOME"])
 work = Path("app/build/pleos-work").resolve()
 reports = Path("app/build/reports/pleos").resolve()
@@ -32,11 +34,6 @@ def checkpoint(stage):
 
 def command(*args, timeout=20):
     return subprocess.run(args, capture_output=True, text=True, timeout=timeout)
-
-
-def diagnostic(value):
-    return "\n".join(line if not any(term in line.lower() for term in ["key", "token", "jwt", "secret", "password"])
-                     else "[credential diagnostic omitted]" for line in value.splitlines())[:1500]
 
 
 try:
@@ -175,16 +172,11 @@ disk.dataPartition.size=2G
     deadline = time.monotonic() + 900
     last_checkpoint = time.monotonic()
     while time.monotonic() < deadline and process.poll() is None:
-        try:
-            result = command(adb, "-s", "emulator-5554", "shell", "getprop sys.boot_completed; service check package; service check activity", timeout=12)
-            report["last_readiness"] = result.stdout.strip()
-            report["adb_readiness_returncode"] = result.returncode
-            report["adb_readiness_stderr"] = diagnostic(result.stderr.strip())
-            if result.stdout.startswith("1") and "Service package: found" in result.stdout and "Service activity: found" in result.stdout:
-                report["boot_completed"] = True
-                break
-        except subprocess.TimeoutExpired:
-            report["last_readiness"] = "ADB shell timeout"
+        snapshot = probe(adb, "emulator-5554")
+        report["adb_probe"] = snapshot
+        if snapshot["ready"]:
+            report["boot_completed"] = True
+            break
         if time.monotonic() - last_checkpoint >= 30:
             try:
                 devices = command(adb, "devices", "-l", timeout=10)
