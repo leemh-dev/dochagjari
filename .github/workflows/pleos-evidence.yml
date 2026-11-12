@@ -31,7 +31,7 @@ jobs:
       - name: Install GUI tools for normal test-AVD debugging approval
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb xauth xdotool imagemagick tesseract-ocr tesseract-ocr-kor libpulse0 libxcb-cursor0 libxcb-xinerama0 libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinput0
+          sudo apt-get install -y xvfb xauth xdotool x11-utils imagemagick tesseract-ocr tesseract-ocr-kor libpulse0 libxcb-cursor0 libxcb-xinerama0 libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinput0
       - name: Check KVM and boot official Pleos image with isolated test data
         id: boot
         env:

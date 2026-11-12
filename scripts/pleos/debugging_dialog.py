@@ -11,6 +11,7 @@ import time
 
 from adb_readiness import diagnostic
 from dialog_regions import inspect_regions
+from x11_context import observe_pointer
 
 
 def approval_plan(tsv, fingerprint):
@@ -94,6 +95,9 @@ def approve_visible_dialog(work, reports, environment, attempt):
         if not point and plan["dialog_detected"] and plan["host_fingerprint_matches"]:
             point = regions["permission_click"]
         if point:
+            subprocess.run(["xdotool", "mousemove", "--sync", str(point[0]), str(point[1])],
+                           env=environment, capture_output=True, check=True, timeout=10)
+            result["x11_before_input"] = observe_pointer(environment, point)
             subprocess.run(["xdotool", "mousemove", "--sync", str(point[0]), str(point[1]),
                             "mousedown", "1", "sleep", "0.2", "mouseup", "1"],
                            env=environment, capture_output=True, check=True, timeout=10)
@@ -101,6 +105,7 @@ def approve_visible_dialog(work, reports, environment, attempt):
             result["click_input_sent"] = True
             result["input_method"] = "Normal visible Allow button: mouse down, 200ms hold, mouse up"
             time.sleep(2)
+            result["x11_after_input"] = observe_pointer(environment, point)
             result["post_input_observation"] = observe_after_input(
                 reports / f"debugging-after-input-{attempt}.png", environment, fingerprint)
     except (OSError, ValueError, KeyError, IndexError, subprocess.SubprocessError) as error:
