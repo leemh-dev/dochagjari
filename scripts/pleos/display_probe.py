@@ -13,10 +13,13 @@ def collect(adb,serial,reports):
         'display':r'DisplayDeviceInfo|DisplayInfo\{|mDisplayId|displayId|mDisplayState|state=|uniqueId=',
         'activity':r'Display #|displayId=|mDisplayId=|ResumedActivity|topResumedActivity|dev\.leemh\.dochagjari',
         'window':r'mCurrentFocus|mFocusedApp|mDisplayId|Window\{|isOnScreen|mHasSurface|mViewVisibility',
-        'power':r'mWakefulness|mInteractive|mDisplayReady|Display Power|mScreenOn|mUserActivitySummary'}
+        'power':r'mWakefulness|mInteractive|mDisplayReady|Display Power|mScreenOn|mUserActivitySummary',
+        'input':r'dev\.leemh|Focused|focused|name=|touchable|frame=|transform=|displayId',
+        'app_errors':r'dev\.leemh\.dochagjari|ANR in|FATAL EXCEPTION'}
     for name,args in [('size',['wm','size']),('density',['wm','density']),('current_user',['am','get-current-user']),
                       ('display',['dumpsys','display']),('activity',['dumpsys','activity','activities']),
                       ('window',['dumpsys','window','windows']),('power',['dumpsys','power']),
+                      ('input',['dumpsys','input']),('app_errors',['logcat','-d','-v','brief','ActivityManager:I','ActivityTaskManager:I','AndroidRuntime:E','*:S']),
                       ('physical_ids',['dumpsys','SurfaceFlinger','--display-id']),('uiautomator_help',['uiautomator','help'])]:
         try:
             r=subprocess.run([adb,'-s',serial,'shell',*args],capture_output=True,text=True,timeout=20)

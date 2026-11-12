@@ -39,15 +39,19 @@ def main():
     try:
         report['readiness']=probe(adb,args.serial)
         if not report['readiness']['ready']:raise RuntimeError('Live boot/services not ready')
-        if not run('shell','pm','path',package).stdout.strip().startswith('package:'):
+        user=run('shell','am','get-current-user').stdout.strip()
+        if not user.isdigit():raise RuntimeError('Foreground Android user is unknown')
+        report['android_user']=int(user)
+        if not run('shell','pm','path','--user',user,package).stdout.strip().startswith('package:'):
             raise RuntimeError('Target APK is absent; no instrumentation attempted')
         report['device_build_fingerprint']=run('shell','getprop','ro.build.fingerprint').stdout.strip()
         report['device_api_level']=run('shell','getprop','ro.build.version.sdk').stdout.strip()
-        run('install','--no-streaming','-t','-r','app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk',timeout=180)
+        run('install','--no-streaming','--user',user,'-t','-r','app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk',timeout=180)
         if target := os.getenv('GITHUB_OUTPUT'):
             with Path(target).open('a') as stream:stream.write('test_apk_installed=true\n')
-        run('shell','pm','clear',package)
-        result=run('shell','am','instrument','-w','-r','-e','class',package+'.AppInstrumentedTest',
+        if run('shell','pm','clear','--user',user,package).stdout.strip()!='Success':
+            raise RuntimeError('Target test data was not cleared for the active user')
+        result=run('shell','am','instrument','--user',user,'-w','-r','-e','class',package+'.AppInstrumentedTest',
                    package+'.test/androidx.test.runner.AndroidJUnitRunner',timeout=600)
         report['completed_test_statuses']=len(re.findall(r'^INSTRUMENTATION_STATUS_CODE: 0\s*$',result.stdout,re.M))
         report['success']=suite_passed(result.returncode,result.stdout)

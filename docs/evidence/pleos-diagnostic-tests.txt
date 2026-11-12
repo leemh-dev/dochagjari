@@ -20,6 +20,8 @@ test_small_label_miss_requires_matching_original_and_header_identity (test_dialo
 test_failed_or_truncated_instrumentation_is_not_a_pass (test_direct_instrumentation.CompleteSuiteEvidenceTest.test_failed_or_truncated_instrumentation_is_not_a_pass) ... ok
 test_only_complete_six_case_success_is_accepted (test_direct_instrumentation.CompleteSuiteEvidenceTest.test_only_complete_six_case_success_is_accepted) ... ok
 test_reset_cannot_start_without_both_explicit_fresh_device_guards (test_direct_instrumentation.CompleteSuiteEvidenceTest.test_reset_cannot_start_without_both_explicit_fresh_device_guards) ... ok
+test_actual_viewport_and_pleos_xml_coordinates_project_to_expected_point (test_host_touch.ObservedViewportProjectionTest.test_actual_viewport_and_pleos_xml_coordinates_project_to_expected_point) ... ok
+test_unknown_or_inconsistent_geometry_is_rejected (test_host_touch.ObservedViewportProjectionTest.test_unknown_or_inconsistent_geometry_is_rejected) ... ok
 test_failed_boot_record_does_not_attempt_adb_or_install (test_install_gate.InstallGateTest.test_failed_boot_record_does_not_attempt_adb_or_install) ... ok
 test_prior_success_record_does_not_allow_install_on_missing_device (test_install_gate.InstallGateTest.test_prior_success_record_does_not_allow_install_on_missing_device) ... ok
 test_actual_native_emulator_target_overrides_false_zero_from_xdotool (test_native_target.ActualNativeTargetTest.test_actual_native_emulator_target_overrides_false_zero_from_xdotool) ... ok
@@ -33,6 +35,6 @@ test_missing_tool_and_failure_preserve_return_codes (test_x11_context.X11Context
 test_readonly_records_actual_pointer_target_focus_and_geometry (test_x11_context.X11ContextTest.test_readonly_records_actual_pointer_target_focus_and_geometry) ... ok
 
 ----------------------------------------------------------------------
-Ran 33 tests in 0.470s
+Ran 35 tests in 0.410s
 
 OK

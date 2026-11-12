@@ -28,17 +28,19 @@ def run(*command, timeout=120):
 
 try:
     assert run("shell", "getprop", "sys.boot_completed").strip() == "1", "Device must finish booting"
-    run("shell", "pm", "clear", package)
+    user=run("shell","am","get-current-user").strip()
+    assert user.isdigit(), "Foreground Android user must be known; never switch users"
+    assert run("shell", "pm", "clear", "--user",user,package).strip()=="Success", "Active-user test data reset must succeed"
     pids = []
     hashes = []
     for phase, method in [("prepare", "prepareQueuedArrivalAndSavedProfile"), ("verify", "verifyRestoredArrivalAndProfile")]:
-        output = run("shell", "am", "instrument", "-w", "-e", "restartPhase", phase, "-e", "class",
+        output = run("shell", "am", "instrument", "--user",user,"-w", "-e", "restartPhase", phase, "-e", "class",
                      package + ".ProcessRestartInstrumentedTest#" + method,
                      package + ".test/androidx.test.runner.AndroidJUnitRunner", timeout=180)
         assert "OK (1 test)" in output, output
         pids.append(int(re.search(r"arrival_process_pid=(\d+)", output).group(1)))
         hashes.append(re.search(r"arrival_request_hash=([0-9a-f]{64})", output).group(1))
-        run("shell", "am", "force-stop", package)
+        run("shell", "am", "force-stop", "--user",user,package)
     assert pids[0] != pids[1], "Verification must run in a new Android process"
     assert hashes[0] == hashes[1], "Frozen payload must remain identical across process termination"
     transcript.append(f"PASS: process restart {pids[0]} -> {pids[1]}; unchanged request {hashes[0]}; frozen payload and acknowledged profile restored; no token/provider call")

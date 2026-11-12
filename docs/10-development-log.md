@@ -383,6 +383,15 @@
 - **정상 대체 경로 선택:**기존5a6ed1b의 ADB driver에서 단일 test APK를 `adb install --no-streaming -t -r`로 설치하도록 해 AGP split 설치 경로와 구분한다. Android 정상 설치 검사·서명·권한·인증은 유지한다. 승인된 ADB에서 build fingerprint/API level도 읽어 환경을 기록한다. 설치가 실패하면 instrumentation 통과로 계산하지 않는다. 실제 실행은 아직 미검증이고 현재 display 관찰 결과를 먼저 기다린다.
 - **검사/후속:**구문/actionlint/diff 통과. 진단33건 통과는5a6ed1b의 실제 로컬 완료 증거이며 이번 단일 정상 install 옵션/환경 메타데이터 변경을 새 기기 성공으로 표시하지 않는다. 앱/배포 APK/버전/서명/디자인은 그대로다. display/activity 관찰43151137564는 준비 통과 후 UI probe 진행 중이며 기기 검사 중복은 껐다.
 
+## 2026-11-12 04:12 UTC — 실제 Pleos 앱 표시 확인·현재 user/정상 터치·전환 확인 보완
+
+- **실제 결과:**8d12198 수동43151137564/조기13913959543/최종13914083961. 실제 앱 설치/launch/물리화면을 확보 즉시 채팅에 표시했다. 첫 am start는 rc0이지만 Status timeout, 첫 캡처는 순정 지도 로딩이었다. 이후 원본에는 도착자리 앱의 픽업·모의 내비/테스트 입력 화면이 보인다. display0/물리1개·Awake·foreground user10이며 MainActivity는 focused/visible/multi-window였다. 다른 display 가설은 지지되지 않으므로 display 정책을 바꾸지 않는다([원본/JSON/XML](evidence/pleos-first-app-display/summary.json)).
+- **아직 미검증:**SDK 요청/결과/핀·Console·좌석 수신은 없다. 기존 ADB 탭 후 XML은 도착 안내에 남고 내비 모의/좌석 옵션 라벨이 없었다. 계기 화면만으로 앱 crash/디스플레이 오류를 주장하지 않는다. 이 관찰 실행은 중복 기기 검사를 껐으며 전체 success가 아니다.
+- **새 구현:**실제 foreground user를 읽어 install/launch/정상 권한/고정 앱 데이터 초기화/instrumentation/force-stop에 명시한다. user를 전환하거나 다른 계정에 접근하지 않는다. UI dump는 매번 새 진단 XML 경로를 사용하고 rc0이어도 ERROR면 거절해 이전 XML을 소비하지 않는다. 앱 root/탭 전환의 실제 라벨 확인 후에만 다음 조작을 한다.
+- **정상 터치 비교:**현재 ADB 좌표 입력으로 전환 확인이 되지 않았으므로 이번 비교는 실제 앱 포커스/물리1개/동일 종횡비 viewport/기하정보·native 입력 영역·정상 창 포커스를 모두 확인한 private X11 에뮬레이터 창에 정상200ms 터치1회를 보낸다. 개인키/인증/Android 입력·display·주행 제한 정책을 바꾸지 않으며 대상 모르면 입력을 차단한다. 제스처/전후 원본/전환 acknowledgement를 따로 기록한다. 전체 화면 비율/포인터 불일치는 거절한다.
+- **검사/다음 근거:**실제 viewport/앱 XML 좌표 투영 및 불일치 거절2건을 추가해 진단35건 통과. 구문/actionlint/diff 통과. 현재 실패의 실제 XML/원본과 user10을 근거로 정상 터치/명시적 현재-user 및 표준 단일 ADB test APK 경로의 단일 실행을 진행한다. 새 driver 결과를 Gradle connected 통과로 표시하지 않는다. App/main·서버·배포0.2.0/code2·3a01515/기존 artifact/서명/디자인은 그대로다.
+- **맥북:**사용자가 원격 맥북이 아직 꺼져 있다고 답했다. Mac 접근/자원 검증은 하지 않고 Cloud 진단을 계속한다. README 자원/설치/화면/정상 ADB 검사 명령은 재현용이다.
+
 ## 이후 기록 양식
 
 ```text
