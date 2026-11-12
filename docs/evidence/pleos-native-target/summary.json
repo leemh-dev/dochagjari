@@ -1,0 +1,9 @@
+{
+  "run": 43141423229,
+  "artifact": 13910466262,
+  "source": "0accb78",
+  "result": "unauthorized; old xdotool-window guard blocked approval",
+  "new_evidence": "At2403,351 xdotool WINDOW0 but direct XQueryPointer child4194311. Same window is Emulator, IsViewable/InputOutput, full input and bounding areas include the requested point, errors0.",
+  "scope": "Actual native snapshot collected. This proves a false negative in the target guard for this state; it does not prove ADB consent/installation success or the sole cause of earlier failures.",
+  "next": "Use strict native target checks; normal host window activation only; no input-shape/auth/key changes."
+}

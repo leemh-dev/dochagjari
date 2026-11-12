@@ -1,0 +1,197 @@
+{
+  "readonly": true,
+  "expected_point": [
+    2403,
+    351
+  ],
+  "checks": {
+    "pointer": {
+      "returncode": 0,
+      "stdout": "X=2403\nY=351\nSCREEN=0\nWINDOW=0",
+      "stderr": ""
+    },
+    "display": {
+      "returncode": 0,
+      "stdout": "3000 2000",
+      "stderr": ""
+    },
+    "focus": {
+      "returncode": 0,
+      "stdout": "543",
+      "stderr": ""
+    },
+    "root_tree": {
+      "returncode": 0,
+      "stdout": "{'root_id': 543, 'windows': [{'id': 4194332, 'width': 700, 'height': 21, 'x': 950, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 4194314, 'width': 54, 'height': 506, 'x': 2500, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 4194313, 'width': 1, 'height': 1, 'x': 0, 'y': 0, 'classes': []}, {'id': 4194311, 'width': 2400, 'height': 1350, 'x': 100, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 10485766, 'width': 2400, 'height': 1350, 'x': 100, 'y': 100, 'classes': []}, {'id': 4194309, 'width': 3, 'height': 3, 'x': 0, 'y': 0, 'classes': []}]}",
+      "stderr": ""
+    },
+    "native_state": {
+      "returncode": 0,
+      "stdout": "Structured numeric snapshot stored separately",
+      "stderr": ""
+    }
+  },
+  "pointer": {
+    "X": 2403,
+    "Y": 351,
+    "SCREEN": 0,
+    "WINDOW": 0
+  },
+  "pointer_coordinates_match": true,
+  "display_size": [
+    3000,
+    2000
+  ],
+  "focus_window": 543,
+  "window_inventory": {
+    "root_id": 543,
+    "windows": [
+      {
+        "id": 4194332,
+        "width": 700,
+        "height": 21,
+        "x": 950,
+        "y": 100,
+        "classes": [
+          "qemu-system-x86_64",
+          "Emulator"
+        ]
+      },
+      {
+        "id": 4194314,
+        "width": 54,
+        "height": 506,
+        "x": 2500,
+        "y": 100,
+        "classes": [
+          "qemu-system-x86_64",
+          "Emulator"
+        ]
+      },
+      {
+        "id": 4194313,
+        "width": 1,
+        "height": 1,
+        "x": 0,
+        "y": 0,
+        "classes": []
+      },
+      {
+        "id": 4194311,
+        "width": 2400,
+        "height": 1350,
+        "x": 100,
+        "y": 100,
+        "classes": [
+          "qemu-system-x86_64",
+          "Emulator"
+        ]
+      },
+      {
+        "id": 10485766,
+        "width": 2400,
+        "height": 1350,
+        "x": 100,
+        "y": 100,
+        "classes": []
+      },
+      {
+        "id": 4194309,
+        "width": 3,
+        "height": 3,
+        "x": 0,
+        "y": 0,
+        "classes": []
+      }
+    ]
+  },
+  "native_state": {
+    "readonly": true,
+    "root": 543,
+    "shape_version": [
+      1,
+      1
+    ],
+    "direct_pointer": {
+      "same_screen": true,
+      "child": 4194311,
+      "x": 2403,
+      "y": 351
+    },
+    "windows": [
+      {
+        "id": 4194311,
+        "attributes_available": true,
+        "map_state": 2,
+        "map_state_name": "IsViewable",
+        "window_class": 1,
+        "width": 2400,
+        "height": 1350,
+        "override_redirect": false,
+        "requested_point_local": [
+          2303,
+          251
+        ],
+        "input_rectangles_count": 1,
+        "input_rectangles": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 2400,
+            "height": 1350
+          }
+        ],
+        "input_regions_complete": true,
+        "point_in_input_region": true,
+        "bounding_rectangles_count": 1,
+        "bounding_rectangles": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 2400,
+            "height": 1350
+          }
+        ],
+        "bounding_regions_complete": true,
+        "point_in_bounding_region": true
+      },
+      {
+        "id": 10485766,
+        "attributes_available": true,
+        "map_state": 2,
+        "map_state_name": "IsViewable",
+        "window_class": 1,
+        "width": 2400,
+        "height": 1350,
+        "override_redirect": false,
+        "requested_point_local": [
+          2303,
+          251
+        ],
+        "input_rectangles_count": 1,
+        "input_rectangles": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 2400,
+            "height": 1350
+          }
+        ],
+        "input_regions_complete": true,
+        "point_in_input_region": true,
+        "bounding_rectangles_count": 1,
+        "bounding_rectangles": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 2400,
+            "height": 1350
+          }
+        ],
+        "bounding_regions_complete": true,
+        "point_in_bounding_region": true
+      }
+    ],
+    "x11_errors": []
+  }
+}

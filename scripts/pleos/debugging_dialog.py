@@ -10,20 +10,16 @@ import subprocess
 import time
 
 from adb_readiness import diagnostic
-from dialog_regions import inspect_regions
-from x11_context import observe_pointer, input_target_known
+from dialog_regions import inspect_regions, crop_ocr
+from dialog_identity import identity, same_frame_header_confirms
+from x11_context import observe_pointer, input_target_known, native_input_target
 
 
 def approval_plan(tsv, fingerprint):
     rows = [r for r in csv.DictReader(io.StringIO(tsv), delimiter="\t") if r.get("text", "").strip()]
     text = " ".join(r["text"] for r in rows).casefold()
-    compact = "".join(text.split())
-    title = ("allow usb debugging" in text or ("usb" in compact and "디버깅" in compact and "허용" in compact))
-    rsa = "rsa" in text
-    fingerprint_label = "fingerprint" in text or "지문" in text
-    dialog = title and rsa and fingerprint_label
-    fingerprints = re.findall(r"(?<![0-9A-F:])(?:[0-9A-F]{2}\s*[:;]\s*){15}[0-9A-F]{2}(?![0-9A-F:])", text.upper())
-    matches = len(fingerprints) == 1 and re.sub(r"\s", "", fingerprints[0]).replace(";", ":") == fingerprint.upper()
+    observed=identity(text,fingerprint)
+    dialog=observed['dialog_detected'];matches=observed['host_fingerprint_matches']
     lines = {}
     for row in rows:
         lines.setdefault(tuple(row.get(k) for k in ("block_num", "par_num", "line_num")), []).append(row)
@@ -42,10 +38,7 @@ def approval_plan(tsv, fingerprint):
                                          for r in rows)
                 if cancel_on_same_bar:
                     candidates.append((x, y))
-    result = {"dialog_detected": dialog, "title_detected": title, "rsa_marker_detected": rsa,
-              "fingerprint_label_detected": fingerprint_label, "fingerprint_count": len(fingerprints),
-              "host_fingerprint_matches": matches,
-              "unambiguous_allow_button": len(candidates) == 1, "click": None}
+    result = observed | {"unambiguous_allow_button":len(candidates)==1,"click":None}
     if dialog and matches and len(candidates) == 1 and all(v > 0 for v in candidates[0]):
         result["click"] = candidates[0]
     return result
@@ -92,6 +85,26 @@ def approve_visible_dialog(work, reports, environment, attempt):
         if observation_point:
             # Read-only window evidence must survive a title OCR miss. This never moves/clicks.
             result["x11_observation"] = observe_pointer(environment, observation_point)
+        if (not plan["dialog_detected"] and plan.get("title_detected") and plan["host_fingerprint_matches"]
+                and not regions["desktop_panel_blocked"] and regions["permission_click"]):
+            observation=result.get("x11_observation",{})
+            cx,cy=regions["permission_click"]
+            views={ (w['x'],w['y'],w['width'],w['height'])
+                    for w in observation.get('window_inventory',{}).get('windows',[])
+                    if any(c.casefold()=='emulator' for c in w['classes']) and w['width']>400 and w['height']>300
+                    and w['x']<=cx<w['x']+w['width'] and w['y']<=cy<w['y']+w['height'] }
+            if len(views)==1:
+                x,y,width,height=next(iter(views))
+                tops=[b['box'][1] for b in regions['buttons'] if b['label'] in {'allow','cancel'}]
+                band=min(450,min(tops)-y) if tops else 0
+                if x>=0 and y>=0 and 80<=band<=height:
+                    header=identity(crop_ocr(screenshot,work,(x,y,min(width,1200),band),environment,6),fingerprint)
+                    result['focused_header_identity']=header
+                    result['full_frame_dialog_detected']=plan['dialog_detected']
+                    if same_frame_header_confirms(plan,header):
+                        plan['dialog_detected']=True
+                        result['dialog_detected']=True
+                        result['dialog_confirmed_by']='same original full title and two matching fingerprints, header labels'
         if regions["notice_click"]:
             nx, ny = regions["notice_click"]
             subprocess.run(["xdotool", "mousemove", str(nx), str(ny), "click", "1"],
@@ -110,6 +123,24 @@ def approve_visible_dialog(work, reports, environment, attempt):
                 result["input_blocked"] = "X11 pointer target is unknown; no approval gesture emitted"
                 capture_desktop(reports / f"debugging-target-unknown-{attempt}.png", environment)
                 return result
+            native_target=native_input_target(result["x11_before_input"])
+            if native_target:
+                # Normal host window activation, after strict scene/host/native target verification.
+                # Never alters input shapes, Android permissions, keys or ADB authentication.
+                focus=subprocess.run(["xdotool","windowfocus",str(native_target)],env=environment,
+                                     capture_output=True,text=True,timeout=5)
+                result['window_activation']={'target':native_target,'returncode':focus.returncode,
+                                             'stderr':diagnostic(focus.stderr)}
+                if focus.returncode:
+                    result['input_blocked']='Normal emulator window activation failed'
+                    return result
+                time.sleep(.2)
+                after=observe_pointer(environment,point)
+                result['x11_after_activation']=after
+                if (native_input_target(after)!=native_target or
+                    after.get('native_state',{}).get('direct_focus',{}).get('window')!=native_target):
+                    result['input_blocked']='Fresh native target/focus not confirmed after normal activation'
+                    return result
             subprocess.run(["xdotool", "mousedown", "1", "sleep", "0.2", "mouseup", "1"],
                            env=environment, capture_output=True, check=True, timeout=10)
             result["clicked"] = True

@@ -21,8 +21,30 @@ def window_inventory(raw):
     return {'root_id':int(root[1],16) if root else None, 'windows':windows[:50]}
 
 
+def native_input_target(context):
+    native=context.get('native_state',{})
+    pointer=native.get('direct_pointer',{})
+    point=context.get('expected_point')
+    if (not context.get('pointer_coordinates_match') or not isinstance(point,(list,tuple)) or len(point)!=2
+            or pointer.get('same_screen') is not True or [pointer.get('x'),pointer.get('y')]!=list(point)
+            or native.get('x11_errors') or native.get('root')!=context.get('window_inventory',{}).get('root_id')):
+        return None
+    target=pointer.get('child',0)
+    if not target or target==native.get('root'):return None
+    candidates=[w for w in context.get('window_inventory',{}).get('windows',[]) if w['id']==target and
+                any(name.casefold()=='emulator' for name in w['classes']) and
+                w['x']<=point[0]<w['x']+w['width'] and w['y']<=point[1]<w['y']+w['height']]
+    states=[w for w in native.get('windows',[]) if w['id']==target and w.get('attributes_available') is True and
+            w.get('map_state')==2 and w.get('window_class')==1 and w.get('point_in_input_region') is True and
+            w.get('point_in_bounding_region') is True and w.get('input_regions_complete') is True and
+            w.get('bounding_regions_complete') is True]
+    return target if len(candidates)==1 and len(states)==1 else None
+
+
 def input_target_known(context):
-    return context.get('pointer_coordinates_match') is True and context.get('pointer', {}).get('WINDOW', 0) > 0
+    if 'native_state' in context:
+        return native_input_target(context) is not None
+    return context.get('pointer_coordinates_match') is True and context.get('pointer', {}).get('WINDOW',0)>0
 
 
 def observe_pointer(environment, expected, runner=subprocess.run):

@@ -332,6 +332,14 @@
 - **검사:**Python22건 통과·구문/actionlint/diff 통과. 실제 원본의 호스트 OCR 재분석에서는 title은 인식되지만 RSA/지문 라벨이 읽히지 않는 경우가 있었다. 이것은 Android ML Kit 검사가 아니고 인증 성공도 아니다. 키/영역/포커스는 바꾸지 않았다.
 - **다음 실행 근거:**실제 missing snapshot의 구현 오류를 수정했으므로 같은 가설의 속성을 이제 수집할 수 있는 단일 실행으로 재확인한다. 앱0.2.0/2와 배포 APK는 유지한다. 새 일반CI c610c10은 시작 확인 시 verify 성공/기기 실행 중이다. artifact가 제공되면 새 화면을 채팅에 표시한다.
 
+## 2026-11-12 — native 대상 판정의 false negative 재현·정상 창 활성화 준비
+
+- **실제 근거:**0accb78 수동43141423229/artifact13910466262에서 read-only native 관찰을 확보했다. legacy xdotool은 WINDOW0이지만 직접 XQueryPointer는 child4194311, 같은 Emulator 창은 IsViewable/InputOutput·완전한 input/bounding 영역 안에 요청점이 있었고 X11오류0이었다. 기존 guard가 이 실제 창을 잘못 차단하는 회귀 실패를 재현했다([원본/요약](evidence/pleos-native-target/summary.json), [수정 전 실패](evidence/native-target-guard-before.txt)). unauthorized이며 설치/SDK/Console 검사는 실행되지 않았다.
+- **수정:**root/좌표/직접 child/Emulator class/MapState/InputOutput/완전한 두 영역/오류0을 모두 요구하는 native 판정으로 교체했다. 확인된 창에만 표준 windowfocus를 보내고 직접 XGetInputFocus와 대상을 다시 확인한 뒤 정상 Allow 버튼 입력을 허용한다. 에뮬레이터 입력 영역·키·Android 권한·인증 설정은 변경하지 않는다. 자체 합성 창에서만 정상 포커스/빈 입력 영역/Unmap을 비교했다.
+- **OCR 보완:**기존 원본에서 전체 OCR의 RSA/지문 라벨 오독을 확인했다. 같은 원본의 확대 header에서 라벨과 동일 지문을 재확인하는 방법을 추가했다. 전체 USB 제목+정확한 현재 호스트 공개 지문1개, header의 RSA/라벨+동일 지문1개를 모두 요구한다. 이전 이미지 재분석은 새 호스트 인증 성공이 아니다([정제 결과](evidence/focused-header-ocr-check.json)).
+- **검사/실행 근거:**Python28건·실제 host 합성3상태/정상 포커스·구문/actionlint/diff 통과. 원래 없던 native 근거로 판정 오류를 재현·수정했으므로 최신 수정의 효과를 확인하는 단일 수동 실행을 진행한다. transport=device/boot1/package/activity/각rc0 및 설치 직전 재확인이 없으면 설치하지 않는다. 배포0.2.0/2·3a01515·artifact13871881801·해시/서명은 유지한다.
+- **독립 작업:**c610c10 PR43139267182 일반 CI 전체 성공/artifact13910000313에서 새 픽업 화면과 실제 HTTP 모의 복구 완료 화면을 확보하자마자 채팅 이미지로 표시했다. 일반 Android/테스트 입력/SERVER_MOCK이며 실제 SENS·휴대폰·Pleos 연동 증거로 대체하지 않는다.
+
 ## 이후 기록 양식
 
 ```text

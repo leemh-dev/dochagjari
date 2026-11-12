@@ -33,6 +33,7 @@ class NativeDisplay:
         self.lib.XSync.argtypes=[C.c_void_p,C.c_int]
         self.lib.XFree.argtypes=[C.c_void_p]
         self.lib.XDefaultRootWindow.argtypes=[C.c_void_p]; self.lib.XDefaultRootWindow.restype=C.c_ulong
+        self.lib.XGetInputFocus.argtypes=[C.c_void_p,C.POINTER(C.c_ulong),C.POINTER(C.c_int)]
         self.lib.XGetWindowAttributes.argtypes=[C.c_void_p,C.c_ulong,C.POINTER(Attributes)]
         self.lib.XTranslateCoordinates.argtypes=[C.c_void_p,C.c_ulong,C.c_ulong,C.c_int,C.c_int,
                                                  C.POINTER(C.c_int),C.POINTER(C.c_int),C.POINTER(C.c_ulong)]
@@ -69,7 +70,10 @@ class NativeDisplay:
         rx,ry,wx,wy=C.c_int(),C.c_int(),C.c_int(),C.c_int();mask=C.c_uint()
         same_screen=self.lib.XQueryPointer(self.display,self.root,C.byref(root),C.byref(child),
             C.byref(rx),C.byref(ry),C.byref(wx),C.byref(wy),C.byref(mask))
+        focused,revert=C.c_ulong(),C.c_int()
+        self.lib.XGetInputFocus(self.display,C.byref(focused),C.byref(revert))
         report={'readonly':True,'root':self.root,'shape_version':[major.value,minor.value],
+                'direct_focus':{'window':focused.value,'revert_to':revert.value},
                 'direct_pointer':{'same_screen':bool(same_screen),'child':child.value,'x':rx.value,'y':ry.value},'windows':[]}
         for window in dict.fromkeys(windows):
             item={'id':window};attrs=Attributes()

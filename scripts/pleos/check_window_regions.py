@@ -38,7 +38,10 @@ def check():
                 window=lib.XCreateSimpleWindow(d,display.root,100,100,240,120,0,0,0x447788)
                 lib.XMapWindow(d,window);lib.XSync(d,0)
                 subprocess.run(['xdotool','mousemove','200','150'],env=environment,capture_output=True,check=True,timeout=3)
+                lib.XSetInputFocus.argtypes=[C.c_void_p,C.c_ulong,C.c_int,C.c_ulong]
+                lib.XSetInputFocus(d,window,2,0);lib.XSync(d,0)
                 normal=display.snapshot([window],(200,150))
+                assert normal['direct_focus']['window']==window
                 # Only this newly-created toy window: reproduce empty input shape without hiding it.
                 shape.XShapeCombineRectangles(d,window,2,0,0,None,0,0,0);lib.XSync(d,0)
                 empty=display.snapshot([window],(200,150))

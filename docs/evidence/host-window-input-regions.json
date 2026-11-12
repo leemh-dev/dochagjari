@@ -8,6 +8,10 @@
       1,
       1
     ],
+    "direct_focus": {
+      "window": 2097153,
+      "revert_to": 2
+    },
     "direct_pointer": {
       "same_screen": true,
       "child": 2097153,
@@ -61,6 +65,10 @@
       1,
       1
     ],
+    "direct_focus": {
+      "window": 2097153,
+      "revert_to": 2
+    },
     "direct_pointer": {
       "same_screen": true,
       "child": 0,
@@ -107,6 +115,10 @@
       1,
       1
     ],
+    "direct_focus": {
+      "window": 543,
+      "revert_to": 0
+    },
     "direct_pointer": {
       "same_screen": true,
       "child": 0,
