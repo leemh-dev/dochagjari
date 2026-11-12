@@ -2,11 +2,17 @@
 
 2026-11-12 UTC · 기준: [개발계획](07-development-plan.md)
 
-## 최신 Pleos 실제 화면 — 앱 표시 확인·정상 터치/현재-user 검사 진행
+## 최신 실행 종료 — 승인 불안정 재발·새 driver 미실행
+
+9430b7d [수동43154848171](https://github.com/leemh-dev/dochagjari/actions/runs/43154848171)/artifact13914939268은 정확한 현재호스트 지문/문구·native 대상/정상 포커스 후 Allow 입력1회에도 승인창이 남고 transport rc1/unauthorized였습니다([최신 원본/JSON](evidence/pleos-approval-unconfirmed-latest/summary.json)). devices rc0/transport_id1이지만 전후 이력이 없어 reconnect 원인도 미확인입니다. boot/package/activity 미조회, 설치·새 host 터치·SDK/Console·ADB 기기/복원 driver는 생략됐습니다. 이후 추가 부팅은 요청하지 않았습니다. 앞선 설치/앱 표시 성공과 구분합니다.
+
+9430b7d [PR CI43154858975](https://github.com/leemh-dev/dochagjari/actions/runs/43154858975)는 전체 성공(JVM33·서버14·lint·진단35·일반 Android 기능6·프로세스2·UI13장·HTTP 모의 복구). 로컬35·구문/actionlint/diff 통과. d6fa66f 현재-user 명시 보완/최종 문서 CI의 상태는 PR/Actions에서 별도로 확인하며 진행 중 검사를 성공으로 계산하지 않습니다. 맥북은 사용자 확인으로 아직 꺼져 있고 접근/자원 검증은 하지 않았습니다. 실제 SMS/제출 서명·실차는 여전히 미검증입니다.
+
+## 이전 성공 증거 — 앱 표시 확인·정상 터치/현재-user 검사 준비
 
 8d12198 [수동43151137564](https://github.com/leemh-dev/dochagjari/actions/runs/43151137564)/artifact13914083961에서 실제 앱 표시를 확보했습니다([원본/요약](evidence/pleos-first-app-display/summary.json)). 첫 launch rc0/Status timeout·순정 지도 로딩과 이후 도착자리 표시를 구분해 채팅에 직접 보여 주었습니다. 실제 display0/물리1개·Awake·foreground user10·앱 focused/visible/multi-window입니다. 다른 display 추정은 지지되지 않아 정책을 바꾸지 않습니다. 앱은 차량/내비 테스트·모의 상태여서 SDK 실제 연동 성공이 아닙니다.
 
-9430b7d는 현재 foreground user를 명시하고 새 XML/앱 root/탭 전환 확인·정상 창 터치의 엄격한 대상/기하정보/포커스 guard를 추가했습니다. 진단35건·구문/actionlint/diff 통과. 표준 단일 ADB test APK/현재user instrumentation과 별도 두 프로세스 복원을 수동43154848171에서 확인 중입니다. 실제 driver 성공/SDK·핀·Console·좌석 수신은 아직 미검증입니다.7b3cd2d PR43152685967/push43152553047 일반 CI는 진단33 포함 전체 성공,9430b7d CI는 진행 중입니다.
+9430b7d는 현재 foreground user를 명시하고 새 XML/앱 root/탭 전환 확인·정상 창 터치의 엄격한 대상/기하정보/포커스 guard를 추가했습니다. 진단35건·구문/actionlint/diff 통과. 표준 단일 ADB test APK/현재user instrumentation과 별도 두 프로세스 복원을 수동43154848171에서 확인하려 했으나 승인 차단으로 실행하지 못했습니다. 실제 driver 성공/SDK·핀·Console·좌석 수신은 아직 미검증입니다.7b3cd2d PR43152685967/push43152553047 일반 CI는 진단33 포함 전체 성공,9430b7d PR43154858975는 진단35 포함 전체 성공입니다.
 
 ## 최신 Pleos 실제 결과 — APK 설치 성공·UI 차단/테스트 APK 설치 실패
 

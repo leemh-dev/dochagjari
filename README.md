@@ -58,6 +58,8 @@ adb -s "$DOCHAGJARI_SERIAL" shell wm density
 adb -s "$DOCHAGJARI_SERIAL" logcat -v time Dochagjari:I DochagjariVehicle:I DochagjariPleosSeat:I '*:S'
 ```
 
+최신9430b7d/수동43154848171에서는 정상 Allow 입력 후에도 승인창/unauthorized가 남았습니다([최신 원본](docs/evidence/pleos-approval-unconfirmed-latest/summary.json)). 이전 실제 설치/앱 표시 성공과 별도로 기록하며 새 정상 host 터치·ADB driver는 실행되지 못했습니다. 이후 부팅을 추가 요청하지 않았습니다. 새 진단 근거 또는 접근 가능한 정상 승인 기기부터 확인합니다.
+
 ### 맥북 자원·공간·원본 화면 재현 확인
 
 아래는 맥북에서 실행할 읽기 전용 명령입니다. 이번 Cloud에서 맥북 자원 안정성을 검증한 결과가 아닙니다. 공식 ARM64 이미지/AVD 프로필을 선택한 뒤 실제 메모리 압력과 이미지·AVD·빌드가 사용할 디스크 여유를 확인합니다.

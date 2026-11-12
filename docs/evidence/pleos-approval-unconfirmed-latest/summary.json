@@ -1,0 +1,18 @@
+{
+  "run": 43154848171,
+  "source": "9430b7d",
+  "early_artifact": 13915193424,
+  "final_artifact": 13914939268,
+  "result": "unauthorized after normal Allow input; dialog still present in original after input",
+  "identity": "exact current-host fingerprint/title/RSA/label matched; native window/input/focus verified; no Always allow/key/auth/policy changes",
+  "adb": "transport rc1; final devices rc0 reports unauthorized transport_id1; boot/package/activity not queried",
+  "not_executed": [
+    "installation",
+    "new host UI gesture driver",
+    "native navigation request/pin",
+    "Console/app seat reception",
+    "standard ADB instrumentation/restart driver"
+  ],
+  "scope": "Earlier successful approval/install/app display in other runs remains separate; this run does not verify new drivers. No further boot requested.",
+  "cause": "Unknown; no before/after transport history, do not assert reconnect/RAM/profile crash or missing private keys as cause"
+}

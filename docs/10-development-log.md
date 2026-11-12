@@ -403,6 +403,19 @@
 - 정상 ADB driver/두 프로세스 복원에 이어 UI profile force-stop과 Gradle 전 고정 앱 데이터 초기화에도 읽은 foreground user를 명시했다. user 전환은 하지 않으며 app이 해당 현재user에 없으면 connected task를 시작하지 않는다. 새 job의 전용 AVD에서만 이 고정 패키지를 다룬다.
 - 구문/actionlint/diff 통과. 이 명시성 보완은 이미 실행 중인9430b7d 수동43154848171에 포함되지 않는다. 해당 실행의 실제 APK/스크린샷/검사 결과는9430b7d 기준으로만 기록한다. 앱/서버/Gradle 런타임과 배포 APK는 동일하다. 같은 새 AVD의 profile PID/저장값 검증과 표준 ADB driver 결과를 기다리며 보완만을 이유로 부팅을 반복하지 않는다.
 
+## 2026-11-12 — 최신 정상 허용 입력 후 unauthorized 재발·추가 부팅 중단
+
+- **실제 결과:**9430b7d 수동43154848171/조기13915193424/최종13914939268. 현재 호스트 지문/USB·RSA·라벨/버튼·native 입력 영역/정상 창 포커스를 확인해 Allow 입력1회를 보냈으나2초 뒤 원본에도 승인창이 있었고300초 뒤 transport rc1/unauthorized였다. devices rc0·마지막 transport_id1을 기록했지만 전후 history가 없어 reconnect를 원인으로 단정하지 않는다. [원본/JSON/요약](evidence/pleos-approval-unconfirmed-latest/summary.json). 새 원본을 확보 즉시 채팅에 표시하고 앱 화면과 구분했다.
+- **실행 경계:**transport에서 막혀 boot/package/activity는 미조회, 설치·정상 host 앱 터치·SDK/핀·Console·표준 ADB 기기/복원 검사는 생략됐다. 새35건/driver가 실제 Pleos에서 통과했다고 쓰지 않는다. 앞선 정상 승인·설치·앱 표시 성공 원본은 별도 증거로 유지한다. 원인은 미확인이며 키/인증/Always allow/user/display/주행 제한 정책을 바꾸지 않았다. 이후 추가 부팅을 요청하지 않았다.
+- **완료 검사:**9430b7d PR43154858975 일반 Android CI 전체 성공(JVM33·서버14·lint·진단35·기능6·프로세스2단계·UI13장·HTTP 모의 복구). 로컬35건/구문/actionlint/diff 통과도 기록했다. 후속d6fa66f는 남은 profile stop/Gradle 초기화의 현재-user 명시 보완이며 해당 CI는 별도 확인한다. 앱/서버/Gradle 런타임 diff0·배포0.2.0/2·3a01515·artifact13871881801·기존 해시/서명은 유지한다.
+- **전체 상태/다음:**①최신/기기 확인 완료,②실제 승인/설치/앱 표시 성공 증거는 있으나 최신 승인 차단 재발,③실제 SDK/핀·Console/좌석 수신 차단·미검증,④일반 Android 회귀/HTTP 복구 성공·Pleos Gradle tests0설치실패/새 ADB 경로 미실행,⑤문서/증거/다음 프롬프트 정리·디자인 유보·서명/SMS/실차 미검증이다. 맥북은 사용자 확인으로 아직 꺼져 있다. 다음에는 안정적으로 승인된 접근 가능 기기 또는 새 승인/입력/transport 근거를 먼저 확보하고, 같은 실패의 근거 없는 부팅·키 복사/권한 우회는 하지 않는다.
+
+## 2026-11-12 04:48 UTC — 최종 경계/소스 대조·기록 마무리
+
+- [CI 상태 snapshot](evidence/ci-final-status.json):9430b7d PR43154858975 전체 성공, d6fa66f PR43156134619 verify 성공/기기 작업 진행 중. 최종 문서 push의 CI는 별도 실행이며 진행 상태를 성공으로 합산하지 않는다. actual native latest9430b7d는 승인 차단/driver 생략이며 추가 부팅 없음이다.
+- [실제 runtime 소스 대조](evidence/runtime-source-comparison.json)에서 app/server/Gradle 관련 경로가3a01515와 diff0·버전0.2.0/code2임을 확인했다. CI 임시 검증 APK의 바이트/서명 동일성 주장이 아니고 배포 artifact13871881801/기존 metadata·해시는 그대로다. unsigned release를 제출 서명 완료로 표시하지 않는다.
+- docs/08·09·10·12/README·최신 승인 실패 원본과 PR의 성공/실패/미검증 경계를 정리했다. 구문/actionlint/diff 검사 통과. 키/전화번호/개인 경로·서버DB를 추가하지 않았다. 최종 채팅에는 PR·APK·실제 화면·검증/일지 링크와 다음 프롬프트 본문을 직접 제공한다. PR은 open/미병합이고 Mac은 미접근이다.
+
 ## 이후 기록 양식
 
 ```text

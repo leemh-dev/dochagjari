@@ -1,0 +1,23 @@
+{
+  "checked_at_utc": "2026-11-12 04:48 UTC",
+  "complete_generic_ci": {
+    "source": "9430b7d",
+    "run": 43154858975,
+    "conclusion": "success",
+    "checks": "JVM33/server14/lint/diagnostics35/API34functions6/processRestart2/UI13/HTTP_SERVER_MOCK_recovery"
+  },
+  "followup_ci": {
+    "source": "d6fa66f",
+    "run": 43156134619,
+    "status": "in_progress",
+    "verify": "success",
+    "android_device": "in_progress"
+  },
+  "latest_pleos": {
+    "source": "9430b7d",
+    "run": 43154848171,
+    "conclusion": "failure",
+    "blocker": "unauthorized after normal Allow input; new UI/direct instrumentation driver skipped"
+  },
+  "scope": "Snapshot only; final documentation push triggers separate CI. See current PR checks for subsequent status."
+}

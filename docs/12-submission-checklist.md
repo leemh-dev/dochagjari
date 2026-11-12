@@ -11,15 +11,17 @@
 | APK | [artifact13871881801](https://github.com/leemh-dev/dochagjari/actions/runs/43055801516/artifacts/13871881801), debug/test/unsigned release·SHA256SUMS·metadata. GitHub 로그인 필요. 확인 시 만료 전(2027-02-09 만료 예정) |
 | 해시·서명 | [실제 파일 metadata](evidence/v0.2-apk-metadata.json), [다운로드 대조](evidence/v0.2-downloaded-apk-verification.txt). debug/test는 동일 runner 개발 서명, 이전 Cloud 서명과 다르므로 새 테스트 AVD 사용 |
 | 제출 release 서명 | **미완료**. unsigned release 제공. 키·비밀번호 없음. [README](../README.md)의 사용자 로컬 키 생성/서명/해시 절차를 실행하고 실제 서명 후 기록 갱신 필요 |
-| 코드 검사 | 3c0ad6e [PR43145276876](https://github.com/leemh-dev/dochagjari/actions/runs/43145276876), f670f13 PR43146879923/push43146873320 전체 성공. 진단30/UI13장/실제HTTP 복구 포함. 이후 CI는 별도 확인 |
+| 코드 검사 | 9430b7d [PR43154858975](https://github.com/leemh-dev/dochagjari/actions/runs/43154858975) 전체 성공. JVM33/서버14/lint/진단35/기능6/프로세스2/UI13장/실제HTTP 복구. 이후 현재-user/최종 문서 CI는 별도 확인 |
 | 신규 진단 검사 | native 대상 실제 회귀/동일 원본 독립 확대 identity·ADB 완료 판정/fresh-device guard 포함 35건 로컬 통과. [로그](evidence/pleos-diagnostic-tests.txt). 실제 기기 성공과 구분 |
 | 설치 전 확인 | `python3 scripts/pleos/adb_readiness.py --serial <전용AVD> --output /tmp/dochagjari-adb-readiness.json` 종료0일 때만 설치. transport/device + boot1 + package/activity found·각 종료0 필요 |
 
 ## 최신 환경 진단
 
-[8d12198 실제 앱 표시](evidence/pleos-first-app-display/summary.json)를 확보했습니다. display0/물리1개·user10·focused/visible/multi-window이며 다른 display 추정은 지지되지 않습니다. 차량/내비는 테스트/모의 상태입니다.9430b7d는 정상 창 터치/새 XML·전환 확인/현재user·표준 ADB 검사를 수동43154848171에서 확인 중입니다. 로컬 진단35건 통과, 실제 SDK/핀/Console·driver 통과는 아직 미검증입니다.
+[최신9430b7d 수동43154848171](evidence/pleos-approval-unconfirmed-latest/summary.json)은 정상 Allow 입력에도 승인창/unauthorized가 남아 새 host 터치·SDK/Console·표준 ADB 기기/복원 driver를 실행하지 못했습니다. 추가 부팅은 요청하지 않았습니다. 이전 정상 승인/설치/앱 표시 성공과 구분하며 실제 연동은 미완료입니다.9430b7d PR43154858975 일반 CI는 진단35 포함 전체 성공, 이후 현재-user/문서 CI는 별도로 확인합니다.
 
-[실제 a8c91d2 Pleos](evidence/pleos-installed-ui-blocked/summary.json): 정상 승인/device·boot1·package/activity·각rc0·설치 직전 재확인·APK 설치 성공. 새8GiB guest `/data`여유약5.3GiB/NORMAL, 이전 설치 공간 오류는 재발하지 않았습니다. UI dump timeout/계기 영역만 표시로 실제 앱 화면·SDK/핀/Console는 미검증입니다. display/activity 원본 관찰은8d12198 수동43151137564에서 진행 중입니다.
+[8d12198 실제 앱 표시](evidence/pleos-first-app-display/summary.json)를 확보했습니다. display0/물리1개·user10·focused/visible/multi-window이며 다른 display 추정은 지지되지 않습니다. 차량/내비는 테스트/모의 상태입니다.9430b7d는 정상 창 터치/새 XML·전환 확인/현재user·표준 ADB 검사를 수동43154848171에서 확인하려 했으나 승인 차단으로 실행하지 못했습니다. 로컬 진단35건 통과, 실제 SDK/핀/Console·driver 통과는 아직 미검증입니다.
+
+[실제 a8c91d2 Pleos](evidence/pleos-installed-ui-blocked/summary.json): 정상 승인/device·boot1·package/activity·각rc0·설치 직전 재확인·APK 설치 성공. 새8GiB guest `/data`여유약5.3GiB/NORMAL, 이전 설치 공간 오류는 재발하지 않았습니다. UI dump timeout/계기 영역만 표시로 실제 앱 화면·SDK/핀/Console는 미검증입니다. 8d12198 관찰에서 실제 앱 표시와 display0/현재user10을 확인했습니다.
 
 [connected 최종 결과](evidence/pleos-installed-ui-blocked/connected-final-summary.json)는 test APK 설치 commit 응답 없음으로 tests0/실패입니다. 기능6건 실패가 아니며 console 경고를 원인으로 확정하지 않습니다.5a6ed1b의 정상 ADB instrumentation 대체 driver는 준비/로컬 진단33건 통과, 실제 실행은 아직 미검증입니다. 기존 기기/서버DB/저장 정책/인증/배포 APK를 바꾸지 않습니다.
 
