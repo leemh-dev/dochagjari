@@ -53,6 +53,12 @@ jobs:
       - name: Collect SDK seat events and app screen
         if: always()
         run: python scripts/pleos/ui_probe.py collect
+      - name: Publish app and readiness evidence before connected tests
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pleos-before-connected-tests
+          path: app/build/reports/pleos/
       - name: Run Android tests on the prepared Pleos device
         if: ${{ !cancelled() && steps.boot.outcome == 'success' }}
         env:
