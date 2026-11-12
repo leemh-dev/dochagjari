@@ -377,6 +377,12 @@
 - **격리:**DOCHAGJARI_FRESH_TEST_AVD=1과 --reset-test-data가 모두 있어야 고정된 이 앱만 초기화한다. 사용자 기기/서버DB에 사용하지 않는다. 앱 테스트 입력/모의 알림/사전 영상 검증이며 실제 NaviHelper/좌석/실차/SENS 성공과 다르다. driver 결과를 connectedDebugAndroidTest 통과로 표시하지 않는다.
 - **검사/경계:**실제 완료 판정2건과 fresh-device guard1건을 추가해 진단Python33건 통과. 구문/actionlint/diff 통과. 정상 ADB driver의 실제 Pleos 실행은 아직 미검증이며 현재 display 관찰 실행에는 포함되지 않았다. 새 부팅은 실제 display/기기 검사 원본을 읽고 필요 근거를 기록한 뒤 결정한다. 앱 런타임/배포APK/버전/서명은 유지한다.
 
+## 2026-11-12 04:04 UTC — connected 최종 tests0·test APK 설치 commit 응답 없음 확인
+
+- **최종 결과:**a8c91d2 수동43148832528은 failure로 종료/최종artifact13913448564. `connectedDebugAndroidTest`14m35s 후 AndroidTestApkInstallerPlugin의 test APK split install commit에서 ShellCommandUnresponsiveException이 발생했다. [실제 XML](evidence/pleos-installed-ui-blocked/connected-result.xml)은 tests0이며 기능6개가 실행돼 실패한 결과가 아니다. [정제 단계 로그/요약](evidence/pleos-installed-ui-blocked/connected-final-summary.json). Console5554 경고는 별도로 존재하지만 설치 commit 실패의 원인으로 확정하지 않는다.
+- **정상 대체 경로 선택:**기존5a6ed1b의 ADB driver에서 단일 test APK를 `adb install --no-streaming -t -r`로 설치하도록 해 AGP split 설치 경로와 구분한다. Android 정상 설치 검사·서명·권한·인증은 유지한다. 승인된 ADB에서 build fingerprint/API level도 읽어 환경을 기록한다. 설치가 실패하면 instrumentation 통과로 계산하지 않는다. 실제 실행은 아직 미검증이고 현재 display 관찰 결과를 먼저 기다린다.
+- **검사/후속:**구문/actionlint/diff 통과. 진단33건 통과는5a6ed1b의 실제 로컬 완료 증거이며 이번 단일 정상 install 옵션/환경 메타데이터 변경을 새 기기 성공으로 표시하지 않는다. 앱/배포 APK/버전/서명/디자인은 그대로다. display/activity 관찰43151137564는 준비 통과 후 UI probe 진행 중이며 기기 검사 중복은 껐다.
+
 ## 이후 기록 양식
 
 ```text

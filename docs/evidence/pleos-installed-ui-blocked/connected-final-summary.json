@@ -1,0 +1,11 @@
+{
+  "run": 43148832528,
+  "final_artifact": 13913448564,
+  "run_conclusion": "failure",
+  "connected_task": "failed after14m35s before suite execution",
+  "tests": 0,
+  "cause_reported": "AndroidTestApkInstallerPlugin: test APK split install commit raised ShellCommandUnresponsiveException",
+  "scope": "Test infrastructure install failure, not six functional test failures; no native SDK/Console pass",
+  "console_warning": "Present but not established as cause",
+  "next": "Standard adb install -t/-r and am instrument driver prepared; live execution not yet verified"
+}

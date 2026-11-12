@@ -27,7 +27,7 @@ def main():
     adb=str(Path(sdk)/'platform-tools/adb') if sdk else 'adb'
     output=Path(args.output);output.parent.mkdir(parents=True,exist_ok=True)
     report={'driver':'Standard adb shell am instrument; not connectedDebugAndroidTest',
-            'input_scope':'Pleos AVD runs existing tests with app test vehicle/navigation/mock notifications and prerecorded video; not native SDK/car/SMS proof',
+            'input_scope':'Existing tests use app test vehicle/navigation/mock notifications and prerecorded video; device identity is recorded separately, not native SDK/car/SMS proof',
             'success':False,'commands':[]}
     transcript=[];package='dev.leemh.dochagjari'
     def run(*command,timeout=120):
@@ -41,7 +41,9 @@ def main():
         if not report['readiness']['ready']:raise RuntimeError('Live boot/services not ready')
         if not run('shell','pm','path',package).stdout.strip().startswith('package:'):
             raise RuntimeError('Target APK is absent; no instrumentation attempted')
-        run('install','-t','-r','app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk',timeout=180)
+        report['device_build_fingerprint']=run('shell','getprop','ro.build.fingerprint').stdout.strip()
+        report['device_api_level']=run('shell','getprop','ro.build.version.sdk').stdout.strip()
+        run('install','--no-streaming','-t','-r','app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk',timeout=180)
         if target := os.getenv('GITHUB_OUTPUT'):
             with Path(target).open('a') as stream:stream.write('test_apk_installed=true\n')
         run('shell','pm','clear',package)
