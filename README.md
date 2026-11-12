@@ -90,7 +90,9 @@ python3 scripts/pleos/adb_readiness.py --serial "$DOCHAGJARI_SERIAL" \
 
 GUI CI는 이 job이 만든 새 AVD에서만 정상 USB 디버깅 문구·일치하는 공개 호스트 지문·취소 옆의 명확한 허용 버튼을 확인해 클릭합니다. 지문이 다르거나 UI가 모호하면 클릭하지 않으며, 실제 transport/device와 부팅/서비스가 확인돼야 다음 단계로 갑니다. 키 파일 편집·복사, 인증 비활성화, 권한 우회는 하지 않습니다. 호스트 OCR은 이 승인 화면 관찰에만 사용하며 앱 ML Kit 분석 성공으로 계산하지 않습니다.
 
-최신 KVM 실행43115895691은 정상 화면의 현재 호스트 지문을 확인해 허용 입력을 보냈지만 ADB가 계속 unauthorized였습니다. 입력 명령 성공을 승인 완료로 간주하지 않습니다. [실제 결과](docs/evidence/pleos-input-unconfirmed/summary.json)를 먼저 읽습니다. 후속 진단에는 입력 직후와 종료 직전의 화면 수집을 추가했으며 아직 Pleos에서 실행하지 않았습니다. Mac에서는 허용 후 대화상자 종료/재등장을 관찰하고 helper가 성공하는지 확인합니다. 화면·해당 호스트·시리얼·ADB 상태를 대조하고, 무관한 기기나 인증 설정을 변경하지 않습니다.
+최신 KVM 진단43128107467과 정상200ms 누름·떼기 비교43129699644 모두 unauthorized로 종료됐습니다. 원본 입력 후 화면에는 승인창이 남아 있습니다. [실제 비교 결과](docs/evidence/pleos-sustained-input/summary.json)를 먼저 읽습니다. OCR이 문구를 읽지 못한 false는 창 종료를 증명하지 않으며, 후속 코드는 이를 unknown으로 명시합니다. 입력 명령 성공이나 검정 화면도 승인 성공이 아닙니다. Mac에서는 정상 허용 후 대화상자 종료/재등장을 관찰하고 helper 성공 여부를 확인합니다. 화면·해당 호스트·시리얼·ADB 상태를 대조하며 무관한 기기나 인증 설정을 변경하지 않습니다.
+
+[일반 Android에서 직접 실행한 원본13장](docs/evidence/android-ui-screens/README.md)은 앱 테스트 입력/생성 영상의 실제 실행 증거입니다. Pleos 실제 연동 검증과 구분합니다. 실제 XML에서 확인한 Compose 스위치는 클래스명이 아닌 라벨/행/checkable·clickable로 선택하도록 수정했습니다.
 
 ### 내비 목적지 두 곳
 

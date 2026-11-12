@@ -1,3 +1,3 @@
-Compared APK source3a01515 with 1dfa1969100dd4463cb7eca4bf2b0af6e198efe8
+Compared APK source3a01515 with ffa7fcf
 app/, server/, gradle/, root build/settings/properties: no differences (git diff exit0).
-Only diagnostic/automation/documentation changed; published version0.2.0/code2 artifact is retained.
+Only UI/ADB diagnostics, automation and documentation changed. Published0.2.0/code2 artifact retained.

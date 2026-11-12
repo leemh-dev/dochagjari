@@ -1,6 +1,6 @@
 # 11월 15일 제출 준비 체크리스트
 
-2026-11-11 23:10 UTC · 기준 [개발계획](07-development-plan.md) · [최신 검증](08-verification.md)
+2026-11-12 UTC · 기준 [개발계획](07-development-plan.md) · [최신 검증](08-verification.md)
 
 ## 제출 후보와 재현 자료
 
@@ -11,8 +11,8 @@
 | APK | [artifact13871881801](https://github.com/leemh-dev/dochagjari/actions/runs/43055801516/artifacts/13871881801), debug/test/unsigned release·SHA256SUMS·metadata. GitHub 로그인 필요. 확인 시 만료 전(2027-02-09 만료 예정) |
 | 해시·서명 | [실제 파일 metadata](evidence/v0.2-apk-metadata.json), [다운로드 대조](evidence/v0.2-downloaded-apk-verification.txt). debug/test는 동일 runner 개발 서명, 이전 Cloud 서명과 다르므로 새 테스트 AVD 사용 |
 | 제출 release 서명 | **미완료**. unsigned release 제공. 키·비밀번호 없음. [README](../README.md)의 사용자 로컬 키 생성/서명/해시 절차를 실행하고 실제 서명 후 기록 갱신 필요 |
-| 코드 검사 | 472b68d [PR CI](https://github.com/leemh-dev/dochagjari/actions/runs/43116162416)·push43115896326 전체 성공. 후속1dfa196 CI는 진행 중 |
-| 신규 진단 검사 | 준비/설치 차단7 + 정상 승인/후속 관찰6 = 13건 로컬 통과. [로그](evidence/pleos-diagnostic-tests.txt). 실제 기기 성공과 구분 |
+| 코드 검사 | cc1c19e [PR CI](https://github.com/leemh-dev/dochagjari/actions/runs/43128321081)·push43128313393 전체 성공. UI13장 포함. 이후 선택기/진단 수정 CI는 별도 확인 |
+| 신규 진단 검사 | 준비/설치7 + 승인/관찰7 + 실제 Compose XML3 = 17건 로컬 통과. [로그](evidence/pleos-diagnostic-tests.txt). 실제 기기 성공과 구분 |
 | 설치 전 확인 | `python3 scripts/pleos/adb_readiness.py --serial <전용AVD> --output /tmp/dochagjari-adb-readiness.json` 종료0일 때만 설치. transport/device + boot1 + package/activity found·각 종료0 필요 |
 
 ## 출품 범위별 완료 경계
@@ -24,7 +24,7 @@
 | 병원 | 가상 병원에서 동행·휠체어·무단차 미확인 제외 | 실제 동선 근거가 없으므로 가상 표시 유지 |
 | 영상 | 실제 일반 Android TFLite/ML Kit C12·생성/공개 영상·점유→우회 | Pleos 순정 외부 카메라·실차 미검증. 사전 영상 결과로 대체하지 않음 |
 | 자동 알림 | 같은 세션 요청/상태 복원, 중복 방지·서버 대역, 앱 모의 완료 | Android 실제 서버 통신·SENS 수락·휴대폰 수신은 별도 검증. 자격증명/등록 발신번호/동의 수신자 없으면 모의 유지 |
-| Pleos 환경 | 과거 KVM boot 로그 관찰, ADB 서비스 준비 미확인 | 43115895691에서 정상 안내/일치 지문·허용 입력 전송, 그러나 unauthorized 지속. 승인 후 화면 미수집으로 원인 미확인. 1dfa196에 후속 화면 수집 추가, 미실행. 준비 성공 시만 설치 |
+| Pleos 환경 | 과거 KVM boot 로그 관찰, ADB 서비스 준비 미확인 | 43128107467 및 정상200ms 입력 비교43129699644 모두 unauthorized. 원본 화면에 승인창이 남음. OCR false는 종료 증거가 아니므로 unknown 처리. 원인 미확인/추가 부팅 없음. 준비 성공 시만 설치 |
 
 새 AVD에서 실제 서명 APK를 설치한 뒤 두 내비 핀·좌석·영상·설정 유지·주행 제한·알림 결과를 시연하고 녹화합니다. 이번 작업에서 맥북·실차·실제 SMS·제출 서명을 실행한 것으로 표시하지 않습니다.
 
@@ -42,3 +42,9 @@
 6. 동의/확정 위치/정차 조건의 모의 알림과 같은 세션 복구를 보여 줍니다. 실제 SENS를 사용하지 않았으면 모의로 표기합니다. 실제 공급자 수락·휴대폰 수신은 별도 증거가 있을 때만 추가하며 수신번호/토큰은 노출하지 않습니다.
 
 최종 증거 목록에는 `항목 / 실제 실행 환경 / 입력 방식 / 결과 / 실행 시각 / 코드·APK 해시 / 로그·원본 화면 링크 / 미검증 경계`를 남깁니다. 영상·공식 접수양식·공개 저장소·설치 APK의 버전/링크를 제출 직전에 대조합니다. 실제 제출은 아직 실행하지 않았습니다.
+
+## 11월 12일 화면/오류 우선 점검 추가
+
+- [실제 원본13장/검사 요약](evidence/android-ui-screens/README.md): cc1c19e PR43128321081/push43128313393 전체 성공. 앱 테스트 입력/가상 병원/생성 영상이며 Pleos 실연동과 구분합니다.
+- 실제 Compose XML에서 클래스 기반 스위치 선택 오류를 재현·수정했습니다(900ae4c). 로컬 Python17건 통과, 실제 Pleos 선택기 조작은 아직 미검증입니다.
+- Pleos055bdea 수동43128107467은 허용 후에도 승인창이 남고 unauthorized였습니다. 정상 누름·떼기 비교43129699644도 unauthorized였습니다. OCR 미인식은 unknown이며 원본/ADB를 대조합니다. 키/인증/항상 허용 설정은 변경하지 않습니다.

@@ -2,6 +2,15 @@
 
 2026-11-11 UTC · 기준: [개발계획](07-development-plan.md)
 
+## 최신 진행 — 2026-11-12: 실제 앱 화면·오류 수정
+
+- **새 실제 실행:**cc1c19e [PR43128321081](https://github.com/leemh-dev/dochagjari/actions/runs/43128321081)·push43128313393 모두 성공. JVM33·서버14·lint·당시 Python13·일반 Android 기능6·프로세스 복원2단계에 더해 **새 UI 조작 검사10개 확인/원본 화면13장**을 확보했습니다. [화면·XML·출처](evidence/android-ui-screens/README.md) · [실제 요약](evidence/android-ui-screens/summary.json). 픽업/주차/우회/후보 없음/가상 병원/저장 완료 표시/실제 Android 생성 영상 EMPTY·OCCUPIED/C12/점유 우회/알림 좌표 입력/주행 잠금·영상 숨김입니다. 알림 캡처 자체는 발송 완료 증거가 아닙니다.
+- **구분:**새 전용 Generic Android API34 Google APIs/x86_64 KVM입니다. 앱 차량/내비/알림은 테스트 입력/모의이며 앱 내 영상 모델·ML Kit는 실제 Android 실행입니다. Pleos 순정 내비 핀·실제 좌석·순정 카메라·실차 성공으로 대체하지 않습니다.
+- **재현/수정:**기존 Pleos UI 조작기가 Switch 클래스만 찾았으나 실제 앱 XML에는0개이며 Compose 스위치는 checkable/clickable android.view.View였습니다.900ae4c에서 정확한 라벨·행·오른쪽 위치·유일한 체크 노드로 수정했습니다. [전후 증거](evidence/compose-toggle-regression.json). 실제 XML 회귀3건을 추가해 Python **17건 로컬 통과**(실제 XML3 + 기존13 + OCR 누락1), 구문·actionlint·diff 통과. 주행 중 disabled 검사와 변경 후 checked 확인을 유지합니다. 이 선택기 수정의 실제 Pleos 기기 실행은 아직 미검증입니다.900ae4c PR43130278797/push43130268157·후속ffa7fcf PR43131230889/push43131223889 CI는 확인 시 진행 중입니다. 직전 d661520 push43129700273도 일반 Android 전체 성공했습니다.
+- **Pleos 관찰 보완 실제 실행:**055bdea 수동43128107467/artifact13904930954에서 허용 직후와 종료 직전에도 같은 승인창이 남고 unauthorized임을 확인했습니다. [입력 후 원본](evidence/pleos-post-input-dialog/debugging-after-input-2.png) · [JSON](evidence/pleos-post-input-dialog/readiness.json). 입력 명령 성공을 승인 성공으로 계산하지 않습니다. transport 차단으로 boot/package/activity 미조회, 설치/SDK/Console/기기 검사는 생략했습니다.
+- **비교 결과:**d661520 수동43129699644/artifact13904479034는 정상 down→200ms→up에도 unauthorized로 종료됐습니다. [실제 결과](evidence/pleos-sustained-input/summary.json). 원본 입력 후 화면에는 승인창이 남아 있는데 OCR은 false였습니다. 후속 ffa7fcf에서 미인식을 unknown/absence_verified=false로 명시했습니다. 종료 직전 검정 화면도 승인 증거가 아닙니다. 정확한 원인은 미확인이고 추가 부팅은 요청하지 않았습니다. 이 실행에는 이후900ae4c 선택기 수정은 포함되지 않습니다. 인증/키/항상 허용 설정은 변경하지 않았습니다.
+- **산출물:**Kotlin 앱 런타임·배포0.2.0/code2·코드3a01515·기존 APK 해시/서명은 동일합니다. 앱 기능 오류가 새로 재현됐다고 주장하지 않습니다. 이번에 재현·수정한 것은 UI 조작기 오류입니다. Cloud KVM/ADB기기/VPN 없음, Mac 미접근. SMS/제출 키가 없어 실제 발송·휴대폰 수신·제출 서명은 미검증입니다.
+
 ## 최신 진행 — 2026-11-11 23:10 UTC
 
 - **일반 Android:** 앱 코드 변경 없이472b68d [PR CI43116162416](https://github.com/leemh-dev/dochagjari/actions/runs/43116162416)·[push CI43115896326](https://github.com/leemh-dev/dochagjari/actions/runs/43115896326) 전체 성공(JVM33·서버14·lint·일반 Android 기능6·프로세스 복원2단계). a020643의 과거 결과와 이번 자동 CI를 구분합니다. 중간43110288580은 SDK ZIP 설치 오류로 기기 실행 전에 실패했고 [증거](evidence/generic-ci-sdk-download-failure.txt)를 보존합니다.
