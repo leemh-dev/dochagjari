@@ -59,7 +59,9 @@ def observe_after_input(path, environment, fingerprint):
     plan = approval_plan(ocr.stdout, fingerprint)
     return {"screenshot": path.name, "dialog_detected": plan["dialog_detected"],
             "host_fingerprint_matches": plan["host_fingerprint_matches"],
-            "note": "Read-only post-input observation; ADB transport is authoritative"}
+            "dialog_state": "present" if plan["dialog_detected"] else "unknown",
+            "absence_verified": False,
+            "note": "OCR misses do not prove dismissal; inspect the original image and ADB transport"}
 
 
 def approve_visible_dialog(work, reports, environment, attempt):

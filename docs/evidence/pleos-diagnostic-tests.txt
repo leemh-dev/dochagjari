@@ -7,6 +7,7 @@ test_ambiguous_allow_and_checkbox_only_never_click (test_debugging_dialog.Debugg
 test_korean_normal_debugging_dialog_uses_same_fingerprint_gate (test_debugging_dialog.DebuggingDialogTest.test_korean_normal_debugging_dialog_uses_same_fingerprint_gate) ... ok
 test_normal_allow_requires_matching_host_fingerprint_and_not_checkbox (test_debugging_dialog.DebuggingDialogTest.test_normal_allow_requires_matching_host_fingerprint_and_not_checkbox) ... ok
 test_post_input_observation_never_sends_another_input (test_debugging_dialog.DebuggingDialogTest.test_post_input_observation_never_sends_another_input) ... ok
+test_post_input_ocr_miss_does_not_prove_dialog_dismissal (test_debugging_dialog.DebuggingDialogTest.test_post_input_ocr_miss_does_not_prove_dialog_dismissal) ... ok
 test_region_buttons_require_a_unique_cancel_allow_bar (test_debugging_dialog.DebuggingDialogTest.test_region_buttons_require_a_unique_cancel_allow_bar) ... ok
 test_wrong_host_or_unrelated_permission_never_clicks (test_debugging_dialog.DebuggingDialogTest.test_wrong_host_or_unrelated_permission_never_clicks) ... ok
 test_failed_boot_record_does_not_attempt_adb_or_install (test_install_gate.InstallGateTest.test_failed_boot_record_does_not_attempt_adb_or_install) ... ok
@@ -16,6 +17,6 @@ test_ambiguous_and_missing_controls_are_rejected (test_ui_nodes.ActualComposeTog
 test_profile_switch_retains_actual_disabled_state_while_driving (test_ui_nodes.ActualComposeToggleTest.test_profile_switch_retains_actual_disabled_state_while_driving) ... ok
 
 ----------------------------------------------------------------------
-Ran 16 tests in 0.130s
+Ran 17 tests in 0.153s
 
 OK

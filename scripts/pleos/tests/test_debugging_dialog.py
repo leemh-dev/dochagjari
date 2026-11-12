@@ -57,6 +57,12 @@ class DebuggingDialogTest(unittest.TestCase):
         self.assertNotIn("click", result)
         self.assertEqual(["import", "tesseract"], [call.args[0][0] for call in run.call_args_list])
 
+    def test_post_input_ocr_miss_does_not_prove_dialog_dismissal(self):
+        with patch.object(debugging_dialog.subprocess, "run", return_value=SimpleNamespace(stdout="")):
+            result = debugging_dialog.observe_after_input(Path("after.png"), {}, self.fingerprint)
+        self.assertEqual("unknown", result["dialog_state"])
+        self.assertFalse(result["absence_verified"])
+
 
 if __name__ == "__main__":
     unittest.main()

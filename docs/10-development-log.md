@@ -254,6 +254,13 @@
 - **수정:**클래스명 대신 정확한 라벨/같은 행/라벨 오른쪽의 유일한 checkable·clickable 노드를 찾도록 ui_nodes.py로 분리했다. 기존 set_switch의 enabled 검사와 변경 후 checked 확인을 유지한다. 탭·다른 스위치·중복/미존재는 선택하지 않는다. 주행 화면의 실제 disabled 상태도 검증했다.
 - **검사:**새 실제 XML 회귀3건 추가, Python16건 통과. compileall·actionlint·diff 통과. Kotlin 앱/배포 APK 버전·해시는 변경하지 않았다. 새 스위치 선택기의 실제 Pleos 조작 검증은 아직 남아 있다. 정상 누름·떼기 Pleos43129699644는 별도로 진행 중이다.
 
+## 2026-11-12 00:58 UTC — 정상 누름·떼기도 unauthorized·OCR 음성 판정 경계 수정
+
+- **실제 비교 결과:**d661520 수동43129699644/artifact13904479034. 검증된 허용 버튼에 down→200ms→up을 보냈으나304초 후에도 get-state rc1/unauthorized였다. 설치/SDK/Console/Pleos 기기 검사는 생략했다. [요약](evidence/pleos-sustained-input/summary.json) · [원본 입력 후 화면](evidence/pleos-sustained-input/debugging-after-input-2.png). 정상 입력 길이 변경으로 인증 문제가 해결됐다고 주장하지 않는다. 이후 추가 부팅을 요청하지 않았다.
+- **추가 재현된 진단 오류:**입력 후 OCR dialog_detected=false였지만 원본 PNG를 직접 보면 승인창이 남아 있다. false는 문구 인식 실패이며 창 종료 증거가 아니다. 종료 직전 화면은 검정이었고 이 역시 승인/연결 성공이 아니다. GUI/게스트 입력의 정확한 내부 원인은 미확인이다.
+- **수정/검사:**후속 관찰에 dialog_state=present/unknown과 absence_verified=false를 명시했다. 미인식은 unknown으로 기록하고 원본/ADB 상태를 보도록 했다. OCR 누락 회귀를 추가해 Python17건 로컬 통과, 구문·actionlint·diff 통과. 수정 후 실제 Pleos 재실행은 하지 않았다.
+- **완료/미완료:**실제 일반 Android 화면13장·기기 검사 성공과 Compose 선택기 수정은 완료 증거를 보존했다. 인증 성공·실제 내비 핀/좌석·Mac/실차/SMS/제출 서명은 미검증이다. Kotlin 런타임/배포 APK는 동일하다. 다음에는 기기 접근부터 확인하고 같은 실패를 근거 없이 재요청하지 않는다.
+
 ## 이후 기록 양식
 
 ```text
