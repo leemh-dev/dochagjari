@@ -1,0 +1,78 @@
+{
+  "scope": "Own private host Xvfb; no emulator, ADB or app execution",
+  "display_size": [
+    800,
+    600
+  ],
+  "before": {
+    "readonly": true,
+    "expected_point": [
+      200,
+      200
+    ],
+    "checks": {
+      "pointer": {
+        "returncode": 0,
+        "stdout": "X=400\nY=300\nSCREEN=0\nWINDOW=543",
+        "stderr": ""
+      },
+      "display": {
+        "returncode": 0,
+        "stdout": "800 600",
+        "stderr": ""
+      },
+      "focus": {
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "XGetInputFocus returned the focused window of 1. This is likely a bug in the X server.\nX Error of failed request:  BadWindow (invalid Window parameter)\n  Major opcode of failed request:  20 (X_GetProperty)\n  Resource id in failed request:  0x1\n  Serial number of failed request:  20\n  Current serial number in output stream:  20"
+      },
+      "target_class": {
+        "returncode": 0,
+        "stdout": "WM_CLASS:  not found.",
+        "stderr": ""
+      },
+      "target_tree": {
+        "returncode": 0,
+        "stdout": "{'root': 543, 'parent': 0}",
+        "stderr": ""
+      },
+      "target_geometry": {
+        "returncode": 0,
+        "stdout": "  Absolute upper-left X:  0\n  Absolute upper-left Y:  0\n  Width: 800\n  Height: 600\n  Map State: IsViewable",
+        "stderr": ""
+      }
+    },
+    "pointer": {
+      "X": 400,
+      "Y": 300,
+      "SCREEN": 0,
+      "WINDOW": 543
+    },
+    "pointer_coordinates_match": false,
+    "display_size": [
+      800,
+      600
+    ],
+    "focus_window": null,
+    "target_class": "WM_CLASS:  not found.",
+    "target_ancestors": {
+      "root": 543,
+      "parent": 0
+    },
+    "target_geometry": {
+      "x": 0,
+      "y": 0,
+      "width": 800,
+      "height": 600
+    }
+  },
+  "old": {
+    "timed_out": false,
+    "returncode": 0,
+    "seconds": 0.23
+  },
+  "fixed": {
+    "returncode": 0,
+    "seconds": 0.23
+  }
+}

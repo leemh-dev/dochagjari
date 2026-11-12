@@ -11,7 +11,7 @@ import time
 
 from adb_readiness import diagnostic
 from dialog_regions import inspect_regions
-from x11_context import observe_pointer
+from x11_context import observe_pointer, input_target_known
 
 
 def approval_plan(tsv, fingerprint):
@@ -86,7 +86,7 @@ def approve_visible_dialog(work, reports, environment, attempt):
         result["region_observation"] = regions
         if regions["notice_click"]:
             nx, ny = regions["notice_click"]
-            subprocess.run(["xdotool", "mousemove", "--sync", str(nx), str(ny), "click", "1"],
+            subprocess.run(["xdotool", "mousemove", str(nx), str(ny), "click", "1"],
                            env=environment, capture_output=True, check=True, timeout=10)
             result["nested_notice_dismissed"] = True
             return result
@@ -95,11 +95,14 @@ def approve_visible_dialog(work, reports, environment, attempt):
         if not point and plan["dialog_detected"] and plan["host_fingerprint_matches"]:
             point = regions["permission_click"]
         if point:
-            subprocess.run(["xdotool", "mousemove", "--sync", str(point[0]), str(point[1])],
+            subprocess.run(["xdotool", "mousemove", str(point[0]), str(point[1])],
                            env=environment, capture_output=True, check=True, timeout=10)
             result["x11_before_input"] = observe_pointer(environment, point)
-            subprocess.run(["xdotool", "mousemove", "--sync", str(point[0]), str(point[1]),
-                            "mousedown", "1", "sleep", "0.2", "mouseup", "1"],
+            if not input_target_known(result["x11_before_input"]):
+                result["input_blocked"] = "X11 pointer target is unknown; no approval gesture emitted"
+                capture_desktop(reports / f"debugging-target-unknown-{attempt}.png", environment)
+                return result
+            subprocess.run(["xdotool", "mousedown", "1", "sleep", "0.2", "mouseup", "1"],
                            env=environment, capture_output=True, check=True, timeout=10)
             result["clicked"] = True
             result["click_input_sent"] = True

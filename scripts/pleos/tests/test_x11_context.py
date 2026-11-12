@@ -4,7 +4,7 @@ import sys
 from types import SimpleNamespace
 import unittest
 sys.path.insert(0, str(Path(__file__).parents[1]))
-from x11_context import observe_pointer
+from x11_context import observe_pointer, window_inventory, input_target_known
 
 
 class X11ContextTest(unittest.TestCase):
@@ -41,6 +41,16 @@ class X11ContextTest(unittest.TestCase):
         self.assertEqual(1,result['checks']['pointer']['returncode'])
         self.assertIsNone(result['checks']['focus']['returncode'])
         self.assertFalse(result['pointer_coordinates_match'])
+
+    def test_inventory_omits_titles_and_unknown_target_cannot_emit_input(self):
+        raw = 'xwininfo: Window id: 0x21f (the root window)\n 0x40000b "private title omitted" ("qemu" "Emulator")  2400x1350+100+100  +100+100'
+        result = window_inventory(raw)
+        self.assertEqual(543, result['root_id'])
+        self.assertEqual(['qemu','Emulator'],result['windows'][0]['classes'])
+        self.assertNotIn('private title',str(result))
+        self.assertFalse(input_target_known({'pointer_coordinates_match':True,'pointer':{'WINDOW':0}}))
+        self.assertFalse(input_target_known({'pointer_coordinates_match':False,'pointer':{'WINDOW':42}}))
+        self.assertTrue(input_target_known({'pointer_coordinates_match':True,'pointer':{'WINDOW':42}}))
 
 
 if __name__ == '__main__': unittest.main()

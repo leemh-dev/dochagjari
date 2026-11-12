@@ -15,11 +15,12 @@ test_prior_success_record_does_not_allow_install_on_missing_device (test_install
 test_actual_compose_source_switch_has_no_switch_class (test_ui_nodes.ActualComposeToggleTest.test_actual_compose_source_switch_has_no_switch_class) ... ok
 test_ambiguous_and_missing_controls_are_rejected (test_ui_nodes.ActualComposeToggleTest.test_ambiguous_and_missing_controls_are_rejected) ... ok
 test_profile_switch_retains_actual_disabled_state_while_driving (test_ui_nodes.ActualComposeToggleTest.test_profile_switch_retains_actual_disabled_state_while_driving) ... ok
+test_inventory_omits_titles_and_unknown_target_cannot_emit_input (test_x11_context.X11ContextTest.test_inventory_omits_titles_and_unknown_target_cannot_emit_input) ... ok
 test_missing_target_and_clamped_coordinates_are_not_positive_evidence (test_x11_context.X11ContextTest.test_missing_target_and_clamped_coordinates_are_not_positive_evidence) ... ok
 test_missing_tool_and_failure_preserve_return_codes (test_x11_context.X11ContextTest.test_missing_tool_and_failure_preserve_return_codes) ... ok
 test_readonly_records_actual_pointer_target_focus_and_geometry (test_x11_context.X11ContextTest.test_readonly_records_actual_pointer_target_focus_and_geometry) ... ok
 
 ----------------------------------------------------------------------
-Ran 20 tests in 0.147s
+Ran 21 tests in 0.152s
 
 OK

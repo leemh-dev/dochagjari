@@ -4,6 +4,24 @@ import subprocess
 from adb_readiness import diagnostic
 
 
+def window_inventory(raw):
+    root = re.search(r'xwininfo: Window id:\s*(0x[0-9a-fA-F]+)', raw)
+    windows = []
+    for line in raw.splitlines():
+        match = re.search(r'^\s*(0x[0-9a-fA-F]+).*?\s(\d+)x(\d+)[+-]\d+[+-]\d+\s+([+-]\d+)([+-]\d+)\s*$', line)
+        if not match:
+            continue
+        classes = re.search(r'\("([^"\n]*)"\s+"([^"\n]*)"\)', line)
+        windows.append({'id':int(match[1],16), 'width':int(match[2]), 'height':int(match[3]),
+                        'x':int(match[4]), 'y':int(match[5]),
+                        'classes':list(classes.groups()) if classes else []})
+    return {'root_id':int(root[1],16) if root else None, 'windows':windows[:50]}
+
+
+def input_target_known(context):
+    return context.get('pointer_coordinates_match') is True and context.get('pointer', {}).get('WINDOW', 0) > 0
+
+
 def observe_pointer(environment, expected, runner=subprocess.run):
     result = {'readonly': True, 'expected_point': list(expected), 'checks': {}}
 
@@ -25,6 +43,9 @@ def observe_pointer(environment, expected, runner=subprocess.run):
     result['display_size'] = [int(value) for value in geometry.split()] if re.fullmatch(r'\d+ \d+', geometry) else None
     focus = read('focus', ['xdotool', 'getwindowfocus'])
     result['focus_window'] = int(focus) if focus.isdigit() else None
+    inventory = window_inventory(read('root_tree', ['xwininfo', '-root', '-tree']))
+    result['window_inventory'] = inventory
+    result['checks']['root_tree']['stdout'] = str(inventory)
     window = values.get('WINDOW')
     if window and window > 0:
         # No window titles or arbitrary properties: only class and numeric geometry.

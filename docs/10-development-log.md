@@ -287,6 +287,14 @@
 - **코드 검토 사실:**AppModel 기본 수신자 ID가 demo인데 신규 mock fixture는 demo-family여서 실제 앱 요청이403이 될 구성 불일치를 발견했다. 아직 Android에서 이 실패를 재현한 것은 아니며 앱 기능 오류가 아니다. fixture를 앱 기본 demo에 맞췄다.
 - **검사:**수정된 ID와 소유 서버 PID 헤더 조건으로 호스트 HTTP 응답 보류/동일DB 재시작 GET을 재확인해 통과했다. 구문·actionlint·diff 통과. 불일치가 있는 이전24a7d2c의 내 CI43133592127/43133585377은 취소 요청해 불필요한 기기 실행을 줄이고 수정 코드의 CI로 확인한다. 취소 요청/완료를 성공 결과로 계산하지 않는다. Pleos X11 근거 수집 실행은 유지한다.
 
+## 2026-11-12 01:32 UTC — X11 실제 대상 미확인·별도 호스트 비교 후 입력 차단 보완
+
+- **새 실제 증거:**93b4c16 수동43132924010/artifact13906886041은 unauthorized 종료. 입력 전 좌표는 요청/실제 모두2403,351이고 display3000x2000이지만 pointer WINDOW=0, focus543이었다. 입력 명령은10초 timeout으로 완료되지 않았다. 설치/속성·서비스/앱 SDK/Console/기기 검사는 생략했다. [요약](evidence/pleos-x11-input/summary.json) · [원본/JSON](evidence/pleos-x11-input/readiness.json).
+- **가설 비교:**시스템 설치 helper/sudo가 없어 설치할 수 없었다. 공식 Debian trixie 패키지 메타데이터의 SHA256을 검증해 Xvfb/xdotool/libxdo3를 /workspace/tools/x11-isolated에만 추출했다. 시스템/키/인증 설정은 변경하지 않았다. 개인 Xauthority·TCP 비활성 자체 Xvfb에서 동일좌표 --sync 명령과 분리 입력 모두 약0.23초에 성공했다([기록](evidence/x11-pointer-repeat-check.json)). 따라서 반복 --sync만으로 기존 실패를 설명할 수 없다. KVM/Android는 이 호스트 비교에서 실행하지 않았다.
+- **보완:**중복 이동을 제거해 이동→대상 관찰→정상 누름/떼기를 분리했다. WINDOW=0 등 대상 미확인이면 입력을 보내지 않고 즉시 새 원본을 수집한다. 제목을 제외한 root 창 목록/좌표/class를 추가해 실제 창이 존재하는지 확인한다. 같은 인증 실패를 반복하는 목적이 아니라 새 근거인 실제 대상0의 의미를 좁히는 진단이다.
+- **선행 검사:**새 check_pointer_runtime.py로 에뮬레이터 없이 호스트 포인터 동작을 먼저 확인하고 실패 시 이미지 다운로드 단계로 가지 않게 했다. Cloud 사용자 경로 런타임에서 실제 사전 검사 성공([JSON](evidence/host-pointer-preflight.json)). 정상 X11 인증은 유지하고 cookie를 출력하지 않는다.
+- **검사/후속:**새 inventory/대상 차단 회귀 포함 Python21건·구문·actionlint·diff 통과. 새 창 목록/차단 직전 원본 근거 수집 목적의 단일 후속 실행으로 비교한다. 앱0.2.0/2·기존 APK는 유지한다. Android 실제 HTTP 복구2c2feb0은 verify 성공·기기 단계 진행 중이다.
+
 ## 이후 기록 양식
 
 ```text
