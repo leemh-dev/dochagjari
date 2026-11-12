@@ -1,6 +1,7 @@
 from pathlib import Path
 import sys
 import unittest
+import base64
 from unittest.mock import patch
 from types import SimpleNamespace
 
@@ -62,6 +63,22 @@ class DebuggingDialogTest(unittest.TestCase):
             result = debugging_dialog.observe_after_input(Path("after.png"), {}, self.fingerprint)
         self.assertEqual("unknown", result["dialog_state"])
         self.assertFalse(result["absence_verified"])
+
+    def test_native_observation_is_not_skipped_when_title_ocr_misses(self):
+        public = base64.b64encode(b'synthetic public host fixture').decode()
+        plan = dict(dialog_detected=False,host_fingerprint_matches=True,unambiguous_allow_button=False,click=None)
+        regions = dict(notice_click=None,desktop_panel_blocked=False,permission_click=(2403,351),buttons=[])
+        observed = dict(readonly=True,native_state={'windows':[]})
+        with patch.object(debugging_dialog.Path,'read_text',return_value=public), \
+             patch.object(debugging_dialog.subprocess,'run',return_value=SimpleNamespace(stdout='',returncode=0,stderr='')) as run, \
+             patch.object(debugging_dialog,'approval_plan',return_value=plan), \
+             patch.object(debugging_dialog,'inspect_regions',return_value=regions), \
+             patch.object(debugging_dialog,'observe_pointer',return_value=observed) as observe:
+            result=debugging_dialog.approve_visible_dialog(Path('/tmp'),Path('/tmp'),{},1)
+        observe.assert_called_once_with({},(2403,351))
+        self.assertEqual(observed,result['x11_observation'])
+        self.assertFalse(result['clicked'])
+        self.assertEqual(['import','tesseract'],[call.args[0][0] for call in run.call_args_list])
 
 
 if __name__ == "__main__":

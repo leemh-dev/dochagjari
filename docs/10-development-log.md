@@ -325,6 +325,13 @@
 - **새 구현:**별도 subprocess에서 XGetWindowAttributes/직접 XQueryPointer/XShape 입력·bounding 영역/요청점 포함 여부/숫자 X11오류를 read-only 수집한다. 창 제목/키/clipboard는 읽지 않는다. X11 대상 미확인 입력 차단·정상 지문/문구/버튼·live 설치 gate를 유지한다. DLL/ABI/창 변경 오류는 available=false로 처리하고 주 진단 프로세스를 보호한다.
 - **검사/다음:**실제 합성3상태 및 host pointer 사전 검사 통과, 기존 Python21건/구문/actionlint/diff 통과. 새 가설을 실제 Pleos의 read-only 속성과 대조하는 단일 수동 실행을 요청한다. 같은 실패의 부팅 반복이 아니라 이전에 빠진 MapState/입력 영역 근거를 확보하는 목적이다. 테스트/앱 화면은 얻는 즉시 환경·범위를 붙여 채팅에 공유한다. 앱0.2.0/code2·APK/해시/서명/디자인은 유지한다.
 
+## 2026-11-12 02:26 UTC — OCR 실패 시 native 관찰까지 생략되는 진단 오류 수정
+
+- **실제 결과:**c610c10 수동43139256982/artifact13908664722은 unauthorized로 종료했다. host 합성 native 검사/포인터 검사는 성공했으나 실제 기기 native 속성은 수집하지 못했다. 첫 전체화면 OCR20초 timeout 후 모달을 정상 닫았고, 이후 지문/버튼은 인식해도 문구 판정이false여서 승인 입력과 함께 native 관찰 코드까지 건너뛰었다. 설치/SDK/Console/기기 검사는 생략했다. [원본/요약](evidence/pleos-native-ocr-gate/summary.json). 실제 Pleos MapState/입력 영역이 확인됐다고 쓰지 않는다.
+- **재현/수정:**제목 OCR miss + 지문/버튼 인식 조건에서 observe_pointer가 호출0인 문제를 회귀 검사로 재현했다([수정 전 실패](evidence/native-observation-gate-before.txt)). read-only 관찰은 승인 판정 앞에서 독립적으로 수행하도록 분리했다. 이 경로는 포인터도 움직이지 않는다. 실제 허용 입력에는 기존 정확한 호스트 지문/문구/버튼과 대상 확인 조건을 그대로 요구한다. OCR 판정의 title/RSA/지문 라벨/지문 개수 boolean도 추가해 원문/키를 기록하지 않고 실패 부분을 구분한다.
+- **검사:**Python22건 통과·구문/actionlint/diff 통과. 실제 원본의 호스트 OCR 재분석에서는 title은 인식되지만 RSA/지문 라벨이 읽히지 않는 경우가 있었다. 이것은 Android ML Kit 검사가 아니고 인증 성공도 아니다. 키/영역/포커스는 바꾸지 않았다.
+- **다음 실행 근거:**실제 missing snapshot의 구현 오류를 수정했으므로 같은 가설의 속성을 이제 수집할 수 있는 단일 실행으로 재확인한다. 앱0.2.0/2와 배포 APK는 유지한다. 새 일반CI c610c10은 시작 확인 시 verify 성공/기기 실행 중이다. artifact가 제공되면 새 화면을 채팅에 표시한다.
+
 ## 이후 기록 양식
 
 ```text

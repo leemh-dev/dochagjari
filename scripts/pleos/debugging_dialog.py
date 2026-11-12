@@ -19,7 +19,9 @@ def approval_plan(tsv, fingerprint):
     text = " ".join(r["text"] for r in rows).casefold()
     compact = "".join(text.split())
     title = ("allow usb debugging" in text or ("usb" in compact and "디버깅" in compact and "허용" in compact))
-    dialog = title and "rsa" in text and ("fingerprint" in text or "지문" in text)
+    rsa = "rsa" in text
+    fingerprint_label = "fingerprint" in text or "지문" in text
+    dialog = title and rsa and fingerprint_label
     fingerprints = re.findall(r"(?<![0-9A-F:])(?:[0-9A-F]{2}\s*[:;]\s*){15}[0-9A-F]{2}(?![0-9A-F:])", text.upper())
     matches = len(fingerprints) == 1 and re.sub(r"\s", "", fingerprints[0]).replace(";", ":") == fingerprint.upper()
     lines = {}
@@ -40,7 +42,9 @@ def approval_plan(tsv, fingerprint):
                                          for r in rows)
                 if cancel_on_same_bar:
                     candidates.append((x, y))
-    result = {"dialog_detected": dialog, "host_fingerprint_matches": matches,
+    result = {"dialog_detected": dialog, "title_detected": title, "rsa_marker_detected": rsa,
+              "fingerprint_label_detected": fingerprint_label, "fingerprint_count": len(fingerprints),
+              "host_fingerprint_matches": matches,
               "unambiguous_allow_button": len(candidates) == 1, "click": None}
     if dialog and matches and len(candidates) == 1 and all(v > 0 for v in candidates[0]):
         result["click"] = candidates[0]
@@ -84,6 +88,10 @@ def approve_visible_dialog(work, reports, environment, attempt):
         result.update(plan)
         regions = inspect_regions(screenshot, work, environment)
         result["region_observation"] = regions
+        observation_point = point or regions["permission_click"]
+        if observation_point:
+            # Read-only window evidence must survive a title OCR miss. This never moves/clicks.
+            result["x11_observation"] = observe_pointer(environment, observation_point)
         if regions["notice_click"]:
             nx, ny = regions["notice_click"]
             subprocess.run(["xdotool", "mousemove", str(nx), str(ny), "click", "1"],

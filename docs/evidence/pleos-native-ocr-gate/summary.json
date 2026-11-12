@@ -1,0 +1,10 @@
+{
+  "run": 43139256982,
+  "artifact": 13908664722,
+  "source": "c610c10",
+  "result": "unauthorized; no installation",
+  "host_native_preflight": "passed on synthetic window",
+  "actual_emulator_native_snapshot": "not collected: title OCR miss prevented the observation block",
+  "scope": "Fingerprint/buttons detected but dialog title false after notice dismissal. No approval click sent. This does not establish actual emulator MapState or input region.",
+  "followup_fix": "Read-only observation before approval gate; matching-host/title/button conditions still required for any approval gesture."
+}

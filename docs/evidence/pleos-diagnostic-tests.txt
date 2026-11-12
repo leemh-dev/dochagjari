@@ -5,6 +5,7 @@ test_timeout_and_missing_client_are_reported (test_adb_readiness.AdbReadinessTes
 test_unauthorized_offline_missing_device_do_not_query_services (test_adb_readiness.AdbReadinessTest.test_unauthorized_offline_missing_device_do_not_query_services) ... ok
 test_ambiguous_allow_and_checkbox_only_never_click (test_debugging_dialog.DebuggingDialogTest.test_ambiguous_allow_and_checkbox_only_never_click) ... ok
 test_korean_normal_debugging_dialog_uses_same_fingerprint_gate (test_debugging_dialog.DebuggingDialogTest.test_korean_normal_debugging_dialog_uses_same_fingerprint_gate) ... ok
+test_native_observation_is_not_skipped_when_title_ocr_misses (test_debugging_dialog.DebuggingDialogTest.test_native_observation_is_not_skipped_when_title_ocr_misses) ... ok
 test_normal_allow_requires_matching_host_fingerprint_and_not_checkbox (test_debugging_dialog.DebuggingDialogTest.test_normal_allow_requires_matching_host_fingerprint_and_not_checkbox) ... ok
 test_post_input_observation_never_sends_another_input (test_debugging_dialog.DebuggingDialogTest.test_post_input_observation_never_sends_another_input) ... ok
 test_post_input_ocr_miss_does_not_prove_dialog_dismissal (test_debugging_dialog.DebuggingDialogTest.test_post_input_ocr_miss_does_not_prove_dialog_dismissal) ... ok
@@ -21,6 +22,6 @@ test_missing_tool_and_failure_preserve_return_codes (test_x11_context.X11Context
 test_readonly_records_actual_pointer_target_focus_and_geometry (test_x11_context.X11ContextTest.test_readonly_records_actual_pointer_target_focus_and_geometry) ... ok
 
 ----------------------------------------------------------------------
-Ran 21 tests in 0.252s
+Ran 22 tests in 0.152s
 
 OK
