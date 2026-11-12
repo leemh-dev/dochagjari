@@ -282,6 +282,11 @@
 - **호스트 사전 확인:**실제 local HTTP에서 응답 보류 중 DB mock 저장·서버 재시작 후 동일 행/지문 GET·공급자 호출0을 확인했다([JSON](evidence/mock-http-fixture-self-check.json)). 호스트 fixture 검사이며 Android 성공을 뜻하지 않는다. Python 구문·actionlint·diff 검사 통과. 다음 CI에서 실제 앱 결과/실패를 확인한다.
 - **자료 보존:**기존 화면 캡처 함수를 import 시 자동 실행하지 않도록 main guard로 옮겨 재사용한다. 새 검사는 이전 화면13장/기기 검사를 대체하지 않는다. 실제 SENS 수락·휴대폰 수신·Pleos 실연동과 구분한다.
 
+## 2026-11-12 01:22 UTC — 기기 실행 전 fixture 수신자 기본값 대조 수정
+
+- **코드 검토 사실:**AppModel 기본 수신자 ID가 demo인데 신규 mock fixture는 demo-family여서 실제 앱 요청이403이 될 구성 불일치를 발견했다. 아직 Android에서 이 실패를 재현한 것은 아니며 앱 기능 오류가 아니다. fixture를 앱 기본 demo에 맞췄다.
+- **검사:**수정된 ID와 소유 서버 PID 헤더 조건으로 호스트 HTTP 응답 보류/동일DB 재시작 GET을 재확인해 통과했다. 구문·actionlint·diff 통과. 불일치가 있는 이전24a7d2c의 내 CI43133592127/43133585377은 취소 요청해 불필요한 기기 실행을 줄이고 수정 코드의 CI로 확인한다. 취소 요청/완료를 성공 결과로 계산하지 않는다. Pleos X11 근거 수집 실행은 유지한다.
+
 ## 이후 기록 양식
 
 ```text

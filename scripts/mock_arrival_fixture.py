@@ -19,7 +19,7 @@ def forbid_provider(*args):
 
 
 app = create_app(Settings(token=(work / 'token').read_text(), database=str(work / 'outbox.sqlite3'),
-                          mode='mock', recipients={'demo-family': {'phone': '0', 'consented': True}}),
+                          mode='mock', recipients={'demo': {'phone': '0', 'consented': True}}),
                  sender=forbid_provider)
 
 
