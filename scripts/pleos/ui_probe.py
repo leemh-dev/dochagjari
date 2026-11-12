@@ -11,6 +11,7 @@ import xml.etree.ElementTree as ET
 from adb_readiness import diagnostic, probe
 from ui_nodes import labeled_toggle
 from storage_probe import collect as collect_storage
+from display_probe import collect as collect_displays
 
 adb = str(Path(os.environ["ANDROID_HOME"]) / "platform-tools/adb")
 reports = Path("app/build/reports/pleos")
@@ -28,8 +29,17 @@ def command(*args, timeout=45):
 
 
 def nodes():
-    command("shell", "uiautomator", "dump", "/sdcard/dochagjari-probe.xml")
-    return list(ET.fromstring(command("exec-out", "cat", "/sdcard/dochagjari-probe.xml")).iter("node"))
+    try:
+        command("shell", "uiautomator", "dump", "/sdcard/dochagjari-probe.xml")
+    except subprocess.TimeoutExpired as error:
+        def partial(value):
+            return diagnostic(value.decode(errors="replace") if isinstance(value,bytes) else value or "")
+        (reports/"ui-dump-timeout.json").write_text(json.dumps({"timeout_seconds":error.timeout,
+            "stdout":partial(error.stdout),"stderr":partial(error.stderr)},indent=2)+"\n")
+        raise
+    xml=command("exec-out", "cat", "/sdcard/dochagjari-probe.xml")
+    (reports/"last-ui.xml").write_bytes(xml)
+    return list(ET.fromstring(xml).iter("node"))
 
 
 def bounds(node):
@@ -65,8 +75,17 @@ def disable_switch(label):
 
 
 def start_app():
-    command("shell", "am", "start", "-W", "-n", package + "/.MainActivity", timeout=90)
+    launches=report.setdefault("launches",[])
+    output=command("shell", "am", "start", "-W", "-n", package + "/.MainActivity", timeout=90)
     time.sleep(3)
+    filename="app-launch-"+str(len(launches))+".png"
+    launch={"am_start_stdout":diagnostic(output.decode(errors="replace")),"screenshot":None,
+            "note":"Launch command/capture alone does not prove correct display or app UI"}
+    launches.append(launch)
+    path.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
+    screenshot(filename);launch["screenshot"]=filename
+    path.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
+    if len(launches)==1:collect_displays(adb,"emulator-5554",reports)
 
 
 def screenshot(name):
@@ -100,7 +119,7 @@ try:
         if output := os.environ.get("GITHUB_OUTPUT"):
             with Path(output).open("a") as stream:
                 stream.write("apk_installed=true\n")
-        grant = subprocess.run([adb, "-s", "emulator-5554", "shell", "pm", "grant", package, "android.car.permission.CAR_SPEED"], capture_output=True)
+        grant = subprocess.run([adb, "-s", "emulator-5554", "shell", "pm", "grant", package, "android.car.permission.CAR_SPEED"], capture_output=True, timeout=20)
         report["car_speed_permission_granted"] = grant.returncode == 0
         report["car_speed_permission_result"] = {"returncode": grant.returncode,
                                                  "stderr": diagnostic(grant.stderr.decode(errors="replace"))}
@@ -153,6 +172,8 @@ try:
         screenshot("seat-before-console.png")
 except Exception as exc:
     report["probe_error"] = str(exc)
+    if report.get("apk_installed") and not (reports/"display-activity.json").exists():
+        collect_displays(adb,"emulator-5554",reports)
     raise
 finally:
     path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")

@@ -1,0 +1,12 @@
+{
+  "scope": "Official image filesystem metadata only, read-only; no files/keys inspected or copied",
+  "file_bytes": 1153433600,
+  "tune2fs_rc": 0,
+  "filesystem": {
+    "Block count": "281600",
+    "Reserved block count": "2816",
+    "Free blocks": "264542",
+    "Block size": "4096",
+    "Filesystem features": "has_journal ext_attr dir_index filetype extent sparse_super large_file huge_file uninit_bg dir_nlink extra_isize"
+  }
+}

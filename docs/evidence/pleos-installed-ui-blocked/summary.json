@@ -1,0 +1,13 @@
+{
+  "run": 43148832528,
+  "source": "a8c91d2",
+  "early_artifact": 13914340256,
+  "readiness": "actual device/boot1/package/activity eachrc0 and immediate pre-install recheck ready",
+  "installation": "APK installed; CAR_SPEED normal permission grant rc0",
+  "storage": "/data total8107484KiB available5548684KiB, monitor NORMAL, auto install location; no threshold changes",
+  "ui": "uiautomator dump timed out45s twice, later seat option missing; image shows speed/gear cluster, not app UI",
+  "sdk_requests": "not confirmed; requested_coordinate is planned UI probe input, not proof of NaviHelper invocation",
+  "console": "skipped",
+  "connected": "running at early artifact capture; final result separate",
+  "next": "Read-only display/activity/power/physical screenshot and first launch stdout/XML diagnostics; do not assume display/profile/root cause"
+}

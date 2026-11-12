@@ -362,6 +362,14 @@
 - **독립 검사/다음:**자체 임시8GiB sparse ext4 생성/tune2fs0으로 크기 일치를 확인했다([JSON](evidence/host-eight-gib-ext4-check.json)). 구문/actionlint/diff 통과. Python30건과3c0ad6e PR43145276876 전체 일반 Android CI 성공은 별도 완료 증거다. 새 원본의 실제 설치 실패를 근거로 공간 관찰/크기 변경을 검증하는 단일 실행을 진행한다. 배포 APK/앱 런타임/버전/서명/디자인은 유지한다.
 - **환경 제약 추가 확인:**Cloud Desktop 스킬로 현재 환경을 확인했으나 enabled/unknown이며 cua_repl.js/open_in_codex 도구가 없어 실행 화면 제어를 할 수 없었다([환경ID/결과](evidence/cloud-desktop-status.json)). GitHub 실행 중 API blob은 미생성/공개 개별 로그404였고 종료 후 정상 로그를 회수했다. Mac에는 접근하지 않았다. 우회하지 않고 기기 증거만 사용했다.
 
+## 2026-11-12 03:50 UTC — 실제 APK 설치 성공·계기 영역/앱 UI 조작 차단 진단 준비
+
+- **실제 결과:**a8c91d2 수동43148832528의 조기 artifact13914340256을 기기 검사 도중 회수했다. 정상 승인/실제 readiness·설치 직전 재확인 모두 성공했고 APK 설치 true, CAR_SPEED 정상 권한 부여rc0이다. `/data`8107484KiB/여유5548684KiB, storage monitor NORMAL·저장 위치auto였다. 새8GiB 구성에서 설치 공간 오류가 해결된 것을 실제 확인했다. 이전 guest 수치가 없으므로 용량 차이가 과거 모든 실패의 원인이라고 소급 단정하지 않는다([원본/요약](evidence/pleos-installed-ui-blocked/summary.json)).
+- **새 UI 차단:**두 내비 시도는 uiautomator dump45초 timeout으로 SDK 호출을 확인하지 못했고 이후 왼쪽 카시트 옵션 라벨이 없었다. screenshot에는0km/h·P/기어 계기 영역만 보이고 도착자리 UI는 없다. 확보 즉시 채팅에 표시하고 설치/앱 표시/실제 SDK를 구분했다. 좌표 배열은 계획한 입력일 뿐 SDK 요청 증거가 아니다. Console는 생략됐고 connected는 조기 artifact 시점 진행 중이다.
+- **새 진단 목적/변경:**am start 응답·최초/각 launch 원본·display/활성 activity/window·전원 상태·현재 user·SurfaceFlinger 물리display ID·물리별 원본·uiautomator help/timeout부분출력·마지막XML을 read-only 기록한다. 실제 display 정책/포커스/앱 crash를 아직 구분하지 못했으며 계기 화면만으로 단정하지 않는다. 앱 코드/공식 이미지/디스플레이 설정/인증/키를 바꾸지 않는다. 소스 검토상 무제한이던 permission grant를20초로 제한했지만 이번에는rc0이므로 현재 실패 원인이라고 주장하지 않는다. UI probe 전체12분 INT 제한도 추가한다.
+- **검사/다음 실행 근거:**구문/actionlint/diff 통과, 새 진단 모듈의 실제 결과는 아직 미검증이다. 현재 같은 앱의 기기 검사가 이미 실행 중이므로 다음 read-only 관찰 실행은 run_connected_tests=false로 중복 검사하지 않는다. 새 실제 화면/UI dump 실패와 누락된 display 근거를 확보하는 단일 진단 목적이다. 배포 APK/앱 런타임/디자인/버전/서명은 유지한다.
+- **공식 데이터 비교:**원본 userdata ext41153433600bytes/메타데이터만 읽었고 파일 내용/키를 읽거나 복사하지 않았다([JSON](evidence/official-userdata-filesystem.json)). source.properties에는 multi_display_window/hotplug_multi_display=no가 있으나 수동 config에는 명시되지 않은 차이가 있다. 이 차이 또는 vendor profile crash를 원인으로 확정하지 않고 먼저 실제 display/activity를 관찰한다.
+
 ## 이후 기록 양식
 
 ```text
