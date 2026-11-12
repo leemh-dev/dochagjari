@@ -1,6 +1,46 @@
 # 구현·검증 기록
 
-2026-11-11 UTC · 기준: [개발계획](07-development-plan.md)
+2026-11-12 UTC · 기준: [개발계획](07-development-plan.md)
+
+## 최신 Pleos 실제 화면 — 앱 표시 확인·정상 터치/현재-user 검사 진행
+
+8d12198 [수동43151137564](https://github.com/leemh-dev/dochagjari/actions/runs/43151137564)/artifact13914083961에서 실제 앱 표시를 확보했습니다([원본/요약](evidence/pleos-first-app-display/summary.json)). 첫 launch rc0/Status timeout·순정 지도 로딩과 이후 도착자리 표시를 구분해 채팅에 직접 보여 주었습니다. 실제 display0/물리1개·Awake·foreground user10·앱 focused/visible/multi-window입니다. 다른 display 추정은 지지되지 않아 정책을 바꾸지 않습니다. 앱은 차량/내비 테스트·모의 상태여서 SDK 실제 연동 성공이 아닙니다.
+
+9430b7d는 현재 foreground user를 명시하고 새 XML/앱 root/탭 전환 확인·정상 창 터치의 엄격한 대상/기하정보/포커스 guard를 추가했습니다. 진단35건·구문/actionlint/diff 통과. 표준 단일 ADB test APK/현재user instrumentation과 별도 두 프로세스 복원을 수동43154848171에서 확인 중입니다. 실제 driver 성공/SDK·핀·Console·좌석 수신은 아직 미검증입니다.7b3cd2d PR43152685967/push43152553047 일반 CI는 진단33 포함 전체 성공,9430b7d CI는 진행 중입니다.
+
+## 최신 Pleos 실제 결과 — APK 설치 성공·UI 차단/테스트 APK 설치 실패
+
+a8c91d2 [수동43148832528](https://github.com/leemh-dev/dochagjari/actions/runs/43148832528) 조기artifact13914340256/최종13913448564: 실제 readiness/설치 직전 재확인 성공, APK 설치true·CAR_SPEED 정상권한rc0. guest `/data`약7.7GiB/여유5.3GiB·NORMAL·auto 설치 위치였습니다. **새8GiB 구성에서 앱 설치 성공을 확인했습니다.** [실제 원본/요약](evidence/pleos-installed-ui-blocked/summary.json).
+
+두 UI dump45초 timeout과 좌석 옵션 라벨 누락이 있었고 화면에는 계기 영역만 보였습니다. 확보 즉시 채팅에 직접 표시했으며 앱 표시 성공으로 계산하지 않습니다. SDK 요청·핀·Console·실제 좌석 수신은 미검증입니다. display/activity/power/physical ID·launch 응답/원본/XML 관찰을8d12198 수동43151137564에서 진행 중입니다. 설정/앱 코드/공식 이미지/키/인증은 바꾸지 않습니다.
+
+connected task는14m35s 뒤 **test APK split install commit ShellCommandUnresponsiveException**으로 실패했습니다. [실제 XML](evidence/pleos-installed-ui-blocked/connected-result.xml)은 tests=0이며 기능6건 실패가 아닙니다([최종 요약/로그](evidence/pleos-installed-ui-blocked/connected-final-summary.json)).3c0ad6e 실행 취소와 구분합니다.5a6ed1b는 정상 ADB 단일 test APK 설치/am instrument 및 별도 프로세스 복원 driver를 준비했고 완료 판정/fresh-device guard를 포함한 진단33건이 로컬 통과했습니다. 실제 driver 실행은 아직 미검증입니다.
+
+## 최신 Pleos 실제 결과 — 정상 승인/서비스 준비 성공·설치 공간 부족
+
+3c0ad6e [수동43145130375](https://github.com/leemh-dev/dochagjari/actions/runs/43145130375)/artifact13912507873에서 정확한 현재 호스트 지문·정상 창 포커스 후 Allow1회로 transport=device·boot1·package/activity found·각rc0을 실제 확인했습니다. 설치 직전 live 재확인도 통과했습니다. [실제 readiness/요약](evidence/pleos-storage-blocked/summary.json). 키·권한·인증·Always allow·에뮬레이터 입력 영역을 변경하지 않았습니다.
+
+앱 설치는 `INSTALL_FAILED_INSUFFICIENT_STORAGE`로 실패했습니다. 당시 guest df를 수집하지 않아 정확한 여유 공간/내부 원인은 미확인입니다. 검정 화면은 앱 실행 증거가 아닙니다. SDK·핀·Console·앱 좌석 수신은 실행되지 않았습니다. connected task가 약20분 종료되지 않아 취소했고 always artifact를 회수했습니다. 완료 XML이 없어 통과로 계산하지 않습니다([정제 로그](evidence/pleos-storage-step-log.txt)). Console5554 경고를 정체 원인으로 단정하지 않습니다.
+
+a8c91d2는 새 job의 자체 빈 userdata만8GiB로 생성하고 설치 전 host/guest 공간·저장 임계값을 읽습니다. 그 뒤 live 준비 재확인, 설치 성공 output이 있을 때만 connected 검사, 검사20분 제한/검사 전 artifact를 추가했습니다. [host 임시 ext4 크기 확인](evidence/host-eight-gib-ext4-check.json)·구문/actionlint/diff 통과. 실제 공간 오류를 근거로 수동43148832528에서 효과를 확인 중입니다. 기존 기기/DB/저장 정책/배포 APK는 바꾸지 않습니다.
+
+## 최신 일반 Android CI — 3c0ad6e
+
+[PR43145276876](https://github.com/leemh-dev/dochagjari/actions/runs/43145276876) 전체 성공: JVM33·서버14·lint·진단30·일반 Android 기능6·프로세스2단계·UI13장·실제 HTTP SERVER_MOCK 복구. [새 가상 병원/주행 제한 원본](evidence/android-current-3c/README.md)을 확보 즉시 채팅에 표시했습니다. 앱/배포 APK/디자인은 유지합니다. 별도 Pleos 결과는 위 실제 readiness/설치 공간 오류/검사 취소 기록을 따릅니다.
+
+## 최신 진행 — 2026-11-12 확대 지문 OCR 보완
+
+- **실제 최신 Pleos:**ebfa349 수동43143551458/artifact13910264896은 전체화면 지문 OCR0개로 정확한 현재 호스트 조건이false여서 승인 입력0회·unauthorized였습니다. native 활성화·boot/package/activity·설치·SDK/Console·기기 검사는 실행되지 않았습니다. [새 승인창/JSON](evidence/pleos-header-ocr-blocked/summary.json)을 확보 즉시 채팅에 앱 화면과 구분해 표시했습니다.
+- **재현·수정:**같은 원본의 두 확대 방식이 제목/RSA/라벨/동일 지문을 모두 인식함을 재현했습니다.3c0ad6e는 전체 제목+지문0개 조건에서 두 확대 결과 각각이 모든 문구와 정확한 현재 호스트 지문1개를 확인할 때만 보완합니다. 다른/중복 지문·문구 누락은 거절하고 native 대상/정상 포커스/live 준비 gate는 유지합니다. Python30건·실제 원본 offline OCR·구문/actionlint/diff 통과. offline 이미지 기준 일치는 당시 호스트 인증 성공이 아닙니다.
+- **독립 Android:**ebfa349 [push43143551075](https://github.com/leemh-dev/dochagjari/actions/runs/43143551075) 전체 성공. 새 영상 C12/점유 우회 화면2장을 확보 즉시 채팅에 표시했습니다([원본/범위](evidence/android-current-ebfa/README.md)). 일반 Android 앱 내 사전 영상/ML Kit 및 차량·내비 테스트 입력이며 Pleos 성공이 아닙니다.
+- **현재:**3c0ad6e 수동43145130375로 이번 재현 오류 수정의 실제 효과를 확인 중입니다. 결과 미확인 상태를 성공으로 기록하지 않습니다.
+
+## 최신 진행 — 2026-11-12 native X11 판정 수정
+
+- **실제 재현:**0accb78 [수동43141423229](https://github.com/leemh-dev/dochagjari/actions/runs/43141423229)/artifact13910466262에서 legacy WINDOW0과 달리 직접 XQueryPointer child4194311·Emulator class·IsViewable/InputOutput·완전한 input/bounding 영역 내 요청점·X11오류0을 수집했습니다. 기존 guard의 false negative를 재현했고 엄격한 native 대조로 수정했습니다. [원본/JSON](evidence/pleos-native-target/summary.json). 이는 정상 표시/입력 대상 확인이며 게스트 승인 완료나 이전 실패의 단일 원인 증명이 아닙니다.
+- **새 검증:**Python28건 로컬·자체 Xvfb 합성3상태와 정상 포커스·구문/actionlint/diff 통과. 전체 USB 제목/정확한 호스트 지문 및 같은 원본 header의 RSA/지문 라벨/동일 지문을 함께 요구하는 OCR 보완과 정상 windowfocus 뒤 직접 포커스 재확인을 추가했습니다. 실제 에뮬레이터 입력 영역/권한/키/인증 설정은 바꾸지 않습니다.
+- **기존 새 CI 확인:**c610c10 PR43139267182 및0accb78 PR43141431200/push43141422428 일반 CI 전체 성공. [이번에 확보한 새 일반 Android 화면/HTTP 추적](evidence/android-current-c610/README.md)을 채팅에도 표시했습니다. JVM33·서버14·lint·기능6·프로세스2단계·UI13장·HTTP 모의 복구 성공이며 실제 공급자/휴대폰/Pleos 성공이 아닙니다.
+- **진행 중:**수정 ebfa349의 수동43143551458으로 실제 native 대상/포커스/승인 효과를 확인 중입니다. 이전 c610c10 수동43139256982는 OCR gate 때문에 native 관찰까지 생략해 unauthorized([근거](evidence/pleos-native-ocr-gate/summary.json)), 이를0accb78에서 분리했습니다. 현재 설치/SDK·핀/Console/좌석/Pleos connected는 미검증입니다. 아래 과거 기록의 '추가 부팅 없음'은 당시 상태입니다.
 
 ## 최신 진행 — 2026-11-12 실제 HTTP 복구·입력 전달 진단
 

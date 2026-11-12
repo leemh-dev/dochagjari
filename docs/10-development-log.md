@@ -392,6 +392,12 @@
 - **검사/다음 근거:**실제 viewport/앱 XML 좌표 투영 및 불일치 거절2건을 추가해 진단35건 통과. 구문/actionlint/diff 통과. 현재 실패의 실제 XML/원본과 user10을 근거로 정상 터치/명시적 현재-user 및 표준 단일 ADB test APK 경로의 단일 실행을 진행한다. 새 driver 결과를 Gradle connected 통과로 표시하지 않는다. App/main·서버·배포0.2.0/code2·3a01515/기존 artifact/서명/디자인은 그대로다.
 - **맥북:**사용자가 원격 맥북이 아직 꺼져 있다고 답했다. Mac 접근/자원 검증은 하지 않고 Cloud 진단을 계속한다. README 자원/설치/화면/정상 ADB 검사 명령은 재현용이다.
 
+## 2026-11-12 — 진행 문서·새 일반 Android 원본·재현 명령 정리
+
+- docs/08·12에 Pleos 실제 설치/앱 표시와 UI/SDK 미검증, Gradle test APK 설치 단계 tests0/실패, 정상 ADB driver 준비 및9430b7d 진행 상태를 나눠 반영했다. docs/09 다음 프롬프트도 실제 원본/현재user/정상 터치/전환 guard·기기 driver 경계를 유지해 갱신했다. 최종 결과는 후속 기록에 반영하고 마지막 채팅에 프롬프트 본문을 직접 제공한다.
+- 새 일반 Android 원본(이미 확보 즉시 채팅에 표시)을 source별 c610c10 픽업/HTTP복구, ebfa349 영상C12/점유우회,3c0ad6e 가상병원/주행제한으로 따로 보관했다. 이전 원본을 덮어쓰지 않았고 실제 SDK/병원/차량/SMS 성공으로 대체하지 않는다.
+- README에 맥북 읽기 전용 메모리 압력/공간·guest df·화면 캡처와 정상 ADB instrumentation 재현 명령을 추가했다. Mac 미실행/새 AVD 한정·키/서명/정책 경계를 명시했다. 배포 APK artifact13871881801 미만료, 앱/서버/Gradle 런타임 diff0·버전/해시/서명은 유지한다. 문서는 diff 검사로 확인하고 이미 완료한 앱 검사를 수동 반복하지 않았다. PR#1은 open/미병합이다.
+
 ## 이후 기록 양식
 
 ```text

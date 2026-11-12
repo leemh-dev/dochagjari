@@ -58,6 +58,29 @@ adb -s "$DOCHAGJARI_SERIAL" shell wm density
 adb -s "$DOCHAGJARI_SERIAL" logcat -v time Dochagjari:I DochagjariVehicle:I DochagjariPleosSeat:I '*:S'
 ```
 
+### 맥북 자원·공간·원본 화면 재현 확인
+
+아래는 맥북에서 실행할 읽기 전용 명령입니다. 이번 Cloud에서 맥북 자원 안정성을 검증한 결과가 아닙니다. 공식 ARM64 이미지/AVD 프로필을 선택한 뒤 실제 메모리 압력과 이미지·AVD·빌드가 사용할 디스크 여유를 확인합니다.
+
+```bash
+uname -m
+sysctl -n hw.memsize
+memory_pressure
+df -h "$HOME"
+# ADB가 정상 승인/준비된 후 guest 공간과 현재 설치 위치를 확인합니다.
+adb -s "$DOCHAGJARI_SERIAL" shell df -k /data /data/local/tmp
+adb -s "$DOCHAGJARI_SERIAL" shell pm get-install-location
+```
+
+기대 결과는 host RAM/메모리 압력/여유 디스크와 guest `/data` 크기·사용량의 실제 수치입니다. 파일 크기나 boot 로그만으로 공간 충분/앱 설치 성공을 판단하지 않습니다. 설치 오류가 나면 원본 오류와 수치를 보관하고 기존 기기 데이터를 삭제하거나 Android 저장 임계값을 낮춰 해결하지 않습니다. 이번 Linux CI의8GiB는 **새 테스트 데이터 파일 크기**이며 RAM 요구량이 아닙니다.
+
+앱이 실제 표시된 후 다른 터미널에서 최초 화면과 주요 기능 전환마다 원본 PNG를 저장합니다. 승인창/검정 화면이면 앱 실행 완료로 기록하지 않습니다.
+
+```bash
+adb -s "$DOCHAGJARI_SERIAL" exec-out screencap -p > /tmp/dochagjari-first-launch.png
+# 이후 기능명·실행 시각을 구분한 파일명으로 같은 명령을 반복합니다.
+```
+
 ### ADB 준비 실패를 구분하는 방법
 
 준비 helper는 지정한 시리얼의 transport, boot, package, activity 결과를 JSON으로 남기며 성공할 때만 종료 코드 0입니다. 기존 `readiness.json`이나 emulator의 Boot completed 로그만으로 설치하지 않습니다.
@@ -72,7 +95,7 @@ adb -s "$DOCHAGJARI_SERIAL" logcat -v time Dochagjari:I DochagjariVehicle:I Doch
 
 공식 Linux 이미지의 `devices.xml`은 RAM4GiB, `source.properties`는 8192MB를 지정합니다. [읽기 전용 비교](docs/evidence/pleos-profile-comparison.json)를 참고하고 사용한 실제 AVD 값을 기록합니다.
 
-이번 KVM 진단에서는 `emulator-5554 unauthorized`가 실제로 확인됐습니다. 이 상태에서는 부팅 속성·서비스를 조회하지 못하므로 프레임워크 미준비로 단정하지 않습니다. 맥북에서는 AVD 창을 열고 USB 디버깅 승인 화면의 호스트 지문을 확인한 뒤 정상 **허용**을 선택합니다. 아래는 이 Mac에서 비교할 공개 지문만 출력하는 명령이며 개인키를 읽거나 바꾸지 않습니다. 이번 Cloud 작업에서 맥북 명령을 실행한 것은 아닙니다.
+이전 KVM 진단들에서는 `emulator-5554 unauthorized`가 실제로 확인됐습니다. 이 상태에서는 부팅 속성·서비스를 조회하지 못하므로 프레임워크 미준비로 단정하지 않습니다. 맥북에서는 AVD 창을 열고 USB 디버깅 승인 화면의 호스트 지문을 확인한 뒤 정상 **허용**을 선택합니다. 아래는 이 Mac에서 비교할 공개 지문만 출력하는 명령이며 개인키를 읽거나 바꾸지 않습니다. 이번 Cloud 작업에서 맥북 명령을 실행한 것은 아닙니다.
 
 ```bash
 adb start-server
@@ -90,7 +113,7 @@ python3 scripts/pleos/adb_readiness.py --serial "$DOCHAGJARI_SERIAL" \
 
 GUI CI는 이 job이 만든 새 AVD에서만 정상 USB 디버깅 문구·일치하는 공개 호스트 지문·취소 옆의 명확한 허용 버튼을 확인해 클릭합니다. 지문이 다르거나 UI가 모호하면 클릭하지 않으며, 실제 transport/device와 부팅/서비스가 확인돼야 다음 단계로 갑니다. 키 파일 편집·복사, 인증 비활성화, 권한 우회는 하지 않습니다. 호스트 OCR은 이 승인 화면 관찰에만 사용하며 앱 ML Kit 분석 성공으로 계산하지 않습니다.
 
-최신 KVM 진단43135246535는 원본에 승인창이 보이고 창 목록에 Emulator 기하정보도 있지만 pointer WINDOW0/focus=root여서 허용 입력을 차단했습니다. [새 실제 근거](docs/evidence/pleos-window-target-blocked/summary.json)를 먼저 읽습니다. 창 목록·화면 표시·좌표 일치는 실제 입력 전달 증거가 아닙니다. 이전 정상200ms 입력 비교도 unauthorized였습니다. OCR false/검정 화면 역시 승인창 종료나 승인 성공을 증명하지 않습니다. 같은 실패로 부팅을 재요청하지 말고 X11/Qt 입력·포커스/창 상태나 접근 가능한 정상 승인 기기부터 확인합니다. Mac 명령은 실제 접근했을 때만 실행 결과로 기록합니다.
+최신a8c91d2/수동43148832528에서는 정상 승인 후 실제 ADB device·boot1·package/activity·각rc0·설치 직전 재확인과 **APK 설치가 성공**했습니다([실제 근거](docs/evidence/pleos-installed-ui-blocked/summary.json)). 새8GiB userdata의 guest 여유약5.3GiB/NORMAL을 읽었고 저장 정책/기존 기기/DB는 변경하지 않았습니다. 8d12198의 실제 display/activity 관찰과 원본에서 앱 표시까지 확인했습니다. display0/물리1개·user10·multi-window이며 다른 display 추정은 지지되지 않습니다. 기존 ADB 탭 전환과 SDK·핀/Console는 아직 미검증이며, 현재user·정상 창 터치·새 XML/전환 확인을 보완했습니다. Gradle connected 검사는 test APK split install commit 응답 없음으로 tests0/실패이며 기능6건 실패가 아닙니다. display/activity/원본 관찰과 정상 ADB instrumentation 경로를 따로 준비했습니다. 과거 WINDOW0/OCR false/검정 화면은 승인 성공을 뜻하지 않습니다. 새 근거 없이 부팅을 반복하지 말고 [최신 검증](docs/08-verification.md)을 먼저 확인합니다. Mac 명령은 실제 접근했을 때만 결과로 기록합니다.
 
 [일반 Android에서 직접 실행한 원본13장](docs/evidence/android-ui-screens/README.md)은 앱 테스트 입력/생성 영상의 실제 실행 증거입니다. Pleos 실제 연동 검증과 구분합니다. 실제 XML에서 확인한 Compose 스위치는 클래스명이 아닌 라벨/행/checkable·clickable로 선택하도록 수정했습니다.
 
@@ -175,7 +198,7 @@ python3 scripts/process_restart_smoke.py --serial "$DOCHAGJARI_SERIAL" --reset-t
 
 CI는 단위 테스트·lint·debug APK·서버 테스트와 별도의 **일반 Android API 34 에뮬레이터** 작업을 정의하고 APK·기기 보고서·프로세스 검사·화면을 artifact로 보관합니다. 실제 성공 여부와 실행 링크는 [검증 기록](docs/08-verification.md)을 확인하세요. 일반 Android의 모의 입력 검증은 Pleos SDK·Virtual Console·실차 연동 검증과 다릅니다. 기기 테스트 APK의 빌드와 기기 테스트의 **실행 완료**도 구분합니다.
 
-Cloud 소프트웨어 AVD에서는 ADB 연결 후에도 `package`·`activity` 서비스 준비와 부팅 완료를 확인하지 못했습니다. APK 설치·내비 핀·Virtual Console 검증은 완료로 표시하지 않았습니다. GitHub KVM의 보완 실행에서는 공식 이미지 전송·체크섬 검증·에뮬레이터 시작과 `Boot completed` 로그를 확인했지만, ADB의 부팅 속성·package/activity 준비를 확인하지 못해 설치하지 않았습니다. 첫 진단이 ADB 오류 출력을 누락해 원인을 구분할 수 없으며 후속 진단 코드를 보완했습니다. Pleos workflow는 수동 실행으로 전환했고 추가 부팅은 실행하지 않았습니다. 자세한 시도와 오류는 [검증 기록](docs/08-verification.md)을 참조하세요. 맥북에서는 위의 공식 ARM64 AVD 생성 절차로 이어서 확인할 수 있습니다.
+Cloud 자체의 무가속 AVD에서는 서비스 준비를 확인하지 못했습니다. 이후 GitHub KVM에서는 정상 승인/서비스 준비와 새8GiB 구성의 APK 설치를 실제 확인했습니다. UI dump·계기 영역/앱 표시와 test APK 설치 단계가 후속 차단이며 실제 SDK/핀/Virtual Console 완료는 아닙니다. Pleos workflow는 새 목적/근거가 있을 때만 수동 실행합니다. 상세 원본·취소/실패·후속 결과는 [최신 검증](docs/08-verification.md)과 [개발 일지](docs/10-development-log.md)에 기록합니다. 맥북은 실제 접근하지 않았으며 위 공식 ARM64 AVD 절차는 재현용입니다.
 
 ## 제출용 release 서명
 
@@ -209,3 +232,25 @@ shasum -a 256 app/build/outputs/apk/release/app-release.apk
 CI가 만든 새 전용 AVD와 모의 fixture에서만 `DOCHAGJARI_FRESH_TEST_AVD=1 python scripts/android_server_smoke.py`를 실행합니다. 실제 사용자 기기에서 이 명령을 실행하지 않습니다. 임시 토큰/DB는 artifact 밖에 보관하며 외부 공급자는 호출하지 않습니다.
 
 에뮬레이터 없이 호스트 X11 입력만 확인하려면 Xvfb/xdotool/xauth/x11-utils가 준비된 Linux에서 `python scripts/pleos/check_pointer_runtime.py --output /tmp/dochagjari-pointer-check.json`을 실행합니다. 별도 private Xauthority를 쓰고 Android/ADB를 실행하지 않습니다. 호스트 성공이 Pleos 승인 성공을 뜻하지 않습니다.
+
+호스트 native 관찰을 독립 확인하려면 같은 Linux 도구 환경에서 `python scripts/pleos/check_window_regions.py --output /tmp/dochagjari-native-window-check.json`을 실행합니다. 별도 private Xvfb의 자체 합성 창만 사용해 정상 포커스·표시/입력 영역·Unmap을 구분합니다. 실제 에뮬레이터의 입력 영역/인증/키를 변경하지 않으며 Pleos 성공 증거로 대신하지 않습니다.
+
+### Gradle 설치 계층과 구분하는 표준 ADB 기기 검사
+
+GitHub 수동 Pleos workflow에서 `device_test_driver=adb`를 선택하면 정상 ADB로 단일 test APK를 설치하고 기존6개 검사를 실행합니다. `gradle`은 기존 connected task, `none` 또는 `run_connected_tests=false`(gradle 모드)는 관찰용입니다. driver 결과는 서로 구분합니다. 정상 ADB driver는 준비 단계이며 실제 최신 결과는 docs/08을 확인합니다.
+
+다음은 **새 전용 AVD에서만** 실행할 재현 명령이며 기존 사용자 기기에는 사용하지 않습니다. 앞의 명령으로 동일 로컬 개발 키의 debug APK를 설치한 뒤 test APK를 빌드합니다. 두 명시적 guard가 없으면 데이터 초기화/검사를 시작하지 않습니다.
+
+```bash
+./gradlew :app:assembleDebugAndroidTest
+DOCHAGJARI_FRESH_TEST_AVD=1 python3 scripts/pleos/direct_instrumentation.py \
+  --serial "$DOCHAGJARI_SERIAL" --reset-test-data \
+  --output /tmp/dochagjari-direct-instrumentation
+# 기능 검사 결과와 별도로 프로필/알림 저널의 두 프로세스 복원을 확인합니다.
+python3 scripts/pleos/adb_readiness.py --serial "$DOCHAGJARI_SERIAL" \
+  --output /tmp/dochagjari-restart-readiness.json && \
+python3 scripts/process_restart_smoke.py --serial "$DOCHAGJARI_SERIAL" \
+  --reset-test-data --output /tmp/dochagjari-direct-restart.txt
+```
+
+완료된 test status0 6개·OK(6 tests)·최종 instrumentation code-1·오류 없음이 모두 있어야 기능 검사 통과입니다. 별도 복원 검사는 PID 변경·같은 확정 요청 지문·저장 완료 프로필을 확인합니다. 앱 차량/내비/알림은 테스트 입력/모의이며 사전 영상 분석을 사용합니다. 실제 Pleos SDK/실차/SENS 수락이나 `connectedDebugAndroidTest` 통과로 대체하지 않습니다.

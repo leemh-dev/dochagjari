@@ -11,9 +11,17 @@
 | APK | [artifact13871881801](https://github.com/leemh-dev/dochagjari/actions/runs/43055801516/artifacts/13871881801), debug/test/unsigned release·SHA256SUMS·metadata. GitHub 로그인 필요. 확인 시 만료 전(2027-02-09 만료 예정) |
 | 해시·서명 | [실제 파일 metadata](evidence/v0.2-apk-metadata.json), [다운로드 대조](evidence/v0.2-downloaded-apk-verification.txt). debug/test는 동일 runner 개발 서명, 이전 Cloud 서명과 다르므로 새 테스트 AVD 사용 |
 | 제출 release 서명 | **미완료**. unsigned release 제공. 키·비밀번호 없음. [README](../README.md)의 사용자 로컬 키 생성/서명/해시 절차를 실행하고 실제 서명 후 기록 갱신 필요 |
-| 코드 검사 | 2c2feb0 및 최신 dacfc37 [PR CI](https://github.com/leemh-dev/dochagjari/actions/runs/43135254549)·push43135246257 전체 성공. 진단21/UI13장/새 실제HTTP 복구 포함. 이후 문서 CI는 별도 확인 |
-| 신규 진단 검사 | 기존17 + X11 관찰/대상 차단4 = 21건 로컬 통과. [로그](evidence/pleos-diagnostic-tests.txt). 실제 기기 성공과 구분 |
+| 코드 검사 | 3c0ad6e [PR43145276876](https://github.com/leemh-dev/dochagjari/actions/runs/43145276876), f670f13 PR43146879923/push43146873320 전체 성공. 진단30/UI13장/실제HTTP 복구 포함. 이후 CI는 별도 확인 |
+| 신규 진단 검사 | native 대상 실제 회귀/동일 원본 독립 확대 identity·ADB 완료 판정/fresh-device guard 포함 35건 로컬 통과. [로그](evidence/pleos-diagnostic-tests.txt). 실제 기기 성공과 구분 |
 | 설치 전 확인 | `python3 scripts/pleos/adb_readiness.py --serial <전용AVD> --output /tmp/dochagjari-adb-readiness.json` 종료0일 때만 설치. transport/device + boot1 + package/activity found·각 종료0 필요 |
+
+## 최신 환경 진단
+
+[8d12198 실제 앱 표시](evidence/pleos-first-app-display/summary.json)를 확보했습니다. display0/물리1개·user10·focused/visible/multi-window이며 다른 display 추정은 지지되지 않습니다. 차량/내비는 테스트/모의 상태입니다.9430b7d는 정상 창 터치/새 XML·전환 확인/현재user·표준 ADB 검사를 수동43154848171에서 확인 중입니다. 로컬 진단35건 통과, 실제 SDK/핀/Console·driver 통과는 아직 미검증입니다.
+
+[실제 a8c91d2 Pleos](evidence/pleos-installed-ui-blocked/summary.json): 정상 승인/device·boot1·package/activity·각rc0·설치 직전 재확인·APK 설치 성공. 새8GiB guest `/data`여유약5.3GiB/NORMAL, 이전 설치 공간 오류는 재발하지 않았습니다. UI dump timeout/계기 영역만 표시로 실제 앱 화면·SDK/핀/Console는 미검증입니다. display/activity 원본 관찰은8d12198 수동43151137564에서 진행 중입니다.
+
+[connected 최종 결과](evidence/pleos-installed-ui-blocked/connected-final-summary.json)는 test APK 설치 commit 응답 없음으로 tests0/실패입니다. 기능6건 실패가 아니며 console 경고를 원인으로 확정하지 않습니다.5a6ed1b의 정상 ADB instrumentation 대체 driver는 준비/로컬 진단33건 통과, 실제 실행은 아직 미검증입니다. 기존 기기/서버DB/저장 정책/인증/배포 APK를 바꾸지 않습니다.
 
 ## 출품 범위별 완료 경계
 
@@ -24,7 +32,7 @@
 | 병원 | 가상 병원에서 동행·휠체어·무단차 미확인 제외 | 실제 동선 근거가 없으므로 가상 표시 유지 |
 | 영상 | 실제 일반 Android TFLite/ML Kit C12·생성/공개 영상·점유→우회 | Pleos 순정 외부 카메라·실차 미검증. 사전 영상 결과로 대체하지 않음 |
 | 자동 알림 | 같은 세션/지문 복원, 실제 Android HTTP 서버모의 응답 유실·앱/서버 재시작 후 GET복구·POST1/공급자0. [원본3장](evidence/android-http-recovery/README.md) | SENS 수락·휴대폰 수신은 별도 검증. 자격증명/등록 발신번호/동의 수신자 없으면 모의 유지 |
-| Pleos 환경 | 과거 KVM boot 로그 관찰, ADB 서비스 준비 미확인 | 후속43135246535도 unauthorized. 창목록/새 원본에는 승인창/Emulator가 있으나 pointer WINDOW0/focus=root543으로 입력 차단. 원인 미확인/추가 부팅 없음. 준비 성공 시만 설치 |
+| Pleos 환경 | 실제 ADB device/boot1/package/activity·각rc0 확인 | a8c91d2 새8GiB에서 실제 설치 성공. 계기 영역/UI dump timeout의 display/activity를 관찰 중. connected는 test APK 설치 단계 tests0/실패. SDK/Console 미검증 |
 
 새 AVD에서 실제 서명 APK를 설치한 뒤 두 내비 핀·좌석·영상·설정 유지·주행 제한·알림 결과를 시연하고 녹화합니다. 이번 작업에서 맥북·실차·실제 SMS·제출 서명을 실행한 것으로 표시하지 않습니다.
 
