@@ -28,6 +28,28 @@ Linux에서는 설치된 SDK와 JDK 경로로 `ANDROID_HOME`, `JAVA_HOME`을 지
 
 ## 맥북 M1에서 Pleos 설치·실행
 
+### 외장 SSD의 전용 개발 환경
+
+[M1 8GiB 실측 기록](docs/08-verification.md)과 [다음 실행 프롬프트](docs/09-next-development-prompt.md)를 참고합니다. 외장 APFS 볼륨의 전용 디렉터리 아래에 이 저장소와 `sdk/`, `avd/`, `gradle/`, `downloads/`, `tmp/`, `verification/`을 둡니다. 예를 들어 `/Volumes/<볼륨 이름>/DochagjariDev/dochagjari`가 저장소입니다. SDK Manager를 사용하는 경우 SDK 위치를 이 환경의 `sdk/`로 지정합니다. 로컬 절대 경로는 저장소에 저장하지 않습니다.
+
+아래 명령은 저장소에서 실행합니다. 실행기는 외장 볼륨과 저장소·캐시 경로를 확인하고 기존 ARM64 JDK 17을 사용합니다. 에뮬레이터는 한 대만 실행하고 APK 빌드와 번갈아 사용합니다.
+
+```bash
+bash scripts/pleos/macos-ssd-env.sh emulator -accel-check
+bash scripts/pleos/macos-ssd-env.sh emulator -list-avds
+bash scripts/pleos/macos-ssd-env.sh adb devices -l
+```
+
+이 장비에서 만든 `DochagjariPleosArm64`의 비교 실행 명령입니다. `-no-audio`는 초기 CoreAudio 대기와 QEMU watchdog 종료를 재현 조사할 때 적용한 옵션입니다. 이 옵션을 사용한 실행에서는 음성 기능을 검증할 수 없습니다.
+
+```bash
+bash scripts/pleos/macos-ssd-env.sh caffeinate -i emulator \
+  -avd DochagjariPleosArm64 -accel on -gpu host -no-snapshot -no-audio
+```
+
+### Android Studio로 설치하는 경우
+
+
 1. [공식 설치 가이드](https://document.pleos.ai/docs/connect/guide/getting-started/application-development/setup-connect-sdk-emulator)에 따라 Android Studio → SDK Manager → SDK Update Sites에 아래 **Mac ARM64** 주소를 추가합니다.
    `https://nexus-playground.pleos.ai/repository/raw-releases/connect-avd/2.x/crp-arm64-sys-img.xml`
 2. SDK Platforms의 **Show Package Details**를 켜고 API 34의 Pleos 이미지를 설치합니다. Device Manager → Automotive → **Pleos Connect v2.1.0**, API 34를 선택합니다. 선택한 이미지의 공식 기본 메모리·장치 프로필을 유지하고 Cold boot로 설정합니다. 이번 Linux x86_64 이미지의 source.properties 기본 RAM은 8192MB였으므로 호스트 여유 메모리도 확인합니다. 화면은 제공되는 Pleos 장치 프로필을 사용합니다.
@@ -62,7 +84,7 @@ adb -s "$DOCHAGJARI_SERIAL" logcat -v time Dochagjari:I DochagjariVehicle:I Doch
 
 ### 맥북 자원·공간·원본 화면 재현 확인
 
-아래는 맥북에서 실행할 읽기 전용 명령입니다. 이번 Cloud에서 맥북 자원 안정성을 검증한 결과가 아닙니다. 공식 ARM64 이미지/AVD 프로필을 선택한 뒤 실제 메모리 압력과 이미지·AVD·빌드가 사용할 디스크 여유를 확인합니다.
+아래는 맥북에서 실행할 읽기 전용 명령입니다. 맥북에서 관찰한 결과는 위 M1 실측 기록을 참고합니다. 공식 ARM64 이미지/AVD 프로필을 선택한 뒤 실제 메모리 압력과 이미지·AVD·빌드가 사용할 디스크 여유를 확인합니다.
 
 ```bash
 uname -m

@@ -1,0 +1,9 @@
+DEBUG   | Physical RAM size: 4096MB
+DEBUG   | CPU Acceleration status: Hypervisor.Framework OS X Version 27.0
+INFO         | Boot completed in 74107 ms
+ERROR        | detected a hanging thread 'QEMU2 main loop'. No response for 15010 ms
+ERROR        | detected a hanging thread 'QEMU2 CPU0 thread'. No response for 15356 ms
+ERROR        | detected a hanging thread 'QEMU2 CPU1 thread'. No response for 15356 ms
+ERROR        | detected a hanging thread 'QEMU2 CPU2 thread'. No response for 15356 ms
+ERROR        | detected a hanging thread 'QEMU2 CPU3 thread'. No response for 15356 ms
+ERROR        | detected a hanging thread 'QEMU2 main loop'. No response for 15009 ms

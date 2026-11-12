@@ -1,5 +1,25 @@
 # 다음 개발 실행 프롬프트
 
+## 맥북 M1 외장 SSD에서 이어가기
+
+```text
+도착자리 Android/Pleos 개발을 외장 SSD의 기존 clone에서 이어서 진행해줘.
+AGENTS.md·README·docs/07~12·PR #1·최신 CI를 확인하고 제출 범위와 현재 브랜치를 유지해.
+SSD가 마운트됐는지 확인하고 scripts/pleos/macos-ssd-env.sh로 기존 ARM64 SDK·AVD·Gradle 캐시를 재사용해.
+시작할 때 메모리 압력·swap·내부/SSD 여유를 읽고 에뮬레이터는 한 대만 실행해.
+M1에서는 Pleos v2.1.0/API 34/4GiB/HVF/호스트 그래픽/콜드 부팅과 -no-audio로
+기존 배포 APK 0.2.0/2의 설치·기본 조작을 확인했어. 오디오를 켠 첫 실행은 QEMU watchdog 종료였어.
+압력이 높으면 AVD를 닫은 뒤 작업자 1개로 빌드하고 Gradle과 AVD를 동시에 띄우지 마.
+배포 APK와 Mac 개발 서명이 다르므로 배포 조작 AVD와 기기 검사 AVD를 구분해.
+에뮬레이터 종료 후 debug/test 빌드와 표준 ADB 기능 6개는 성공했어. Gradle connected와 별도 프로세스 재시작 검사는 미검증이야.
+ADB 시리얼·현재 사용자·display·앱 focus·boot1·package/activity·/data 여유를 실제로 재확인해.
+안정적이면 실제 내비 두 목적지의 SDK 결과와 순정 핀, Virtual Console 좌우 좌석 조작과 앱 콜백을 각각 확인해.
+앱의 모의 입력, 실제 Pleos SDK/Console, 실차를 구분하고 승인/주행/디스플레이 제한을 우회하지 마.
+변경과 검증을 docs/08·10·12와 PR에 기록하고 기능 단위로 커밋·푸시해. 실제 SMS와 제출 서명은 준비 전 실행하지 마.
+```
+
+## 이전 Cloud 검증에서 이어갈 때
+
 2026-11-12 UTC · 최신 실제 실행 경계를 유지합니다.
 
 ```text

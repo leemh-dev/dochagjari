@@ -2,11 +2,22 @@
 
 2026-11-12 UTC · 기준: [개발계획](07-development-plan.md)
 
+## 맥북 M1 8GiB · Pleos v2.1.0 ARM64 실측
+
+2026-11-13 KST. Apple Hypervisor 하드웨어 가속을 사용했다. 첫 공식 구성의 부팅은 QEMU watchdog으로 종료됐다. CoreAudio 입력 스트림 대기 스택을 확인해 오디오만 끈 뒤, Pleos 홈·앱 목록·빠른 설정을 실제로 조작하고 10분 동안 서비스를 관찰했다. 메모리 압력은 경고였으며 swap 최대 3923.81MiB, 10분 시점 3615.69MiB였다.
+
+기존 배포 debug 0.2.0/2의 해시·서명·버전 대조 후 설치 및 실제 앱 표시를 확인했다. 논리 display0·물리 한 개·현재 user10·멀티윈도. 가상 학원 픽업↔주차, 좌석 조건 저장과 모의 점유 안내, 가상 병원, 테스트 주행 제한을 조작했다. 앱 실행 후 별도 10분 서비스 측정의 swap은 3875.19→3807.00MiB였다. 초반 단독 화면 지연이 있었고 압력은 경고였다. 음성·순정 내비 핀·Virtual Console 좌석 이벤트·실차·실제 SMS·제출 서명은 미검증이다.
+
+- [실제 도착자리 픽업 화면](evidence/macos-m1-pleos/macos-dochagjari-pickup.png) · [주차 전환](evidence/macos-m1-pleos/macos-dochagjari-parking.png) · [좌석 테스트 입력](evidence/macos-m1-pleos/macos-dochagjari-seat-occupied.png) · [가상 병원](evidence/macos-m1-pleos/macos-dochagjari-hospital.png) · [테스트 주행 제한](evidence/macos-m1-pleos/macos-dochagjari-driving.png)
+- [자원 및 부팅 증거](evidence/macos-m1-pleos/) · [개발 일지](10-development-log.md) · [재개 프롬프트](09-next-development-prompt.md)
+- 에뮬레이터 종료 후 Gradle 작업자 1개, JVM heap 1536MiB로 debug/test APK 빌드 성공, 종료 코드 0, 253초. [빌드 결과](evidence/macos-m1-pleos/macos-debug-build-status.txt) · [로컬 APK 해시와 개발 서명](evidence/macos-m1-pleos/macos-local-apk-identity.txt)
+- 새 Pleos 검사 AVD에서 로컬 개발 서명의 app/test APK 설치와 표준 ADB 기능 검사 6/6 통과, 종료 코드 0, 108초. Gradle connected는 호스트 메모리 압력으로 보류했고 별도 프로세스 재시작 검사는 미실행이다. [기기 검사 결과](evidence/macos-m1-pleos/macos-device-check-summary.txt)
+
 ## 최신 실행 종료 — 승인 불안정 재발·새 driver 미실행
 
 9430b7d [수동43154848171](https://github.com/leemh-dev/dochagjari/actions/runs/43154848171)/artifact13914939268은 정확한 현재호스트 지문/문구·native 대상/정상 포커스 후 Allow 입력1회에도 승인창이 남고 transport rc1/unauthorized였습니다([최신 원본/JSON](evidence/pleos-approval-unconfirmed-latest/summary.json)). devices rc0/transport_id1이지만 전후 이력이 없어 reconnect 원인도 미확인입니다. boot/package/activity 미조회, 설치·새 host 터치·SDK/Console·ADB 기기/복원 driver는 생략됐습니다. 이후 추가 부팅은 요청하지 않았습니다. 앞선 설치/앱 표시 성공과 구분합니다.
 
-9430b7d [PR CI43154858975](https://github.com/leemh-dev/dochagjari/actions/runs/43154858975)는 전체 성공(JVM33·서버14·lint·진단35·일반 Android 기능6·프로세스2·UI13장·HTTP 모의 복구). 로컬35·구문/actionlint/diff 통과. d6fa66f 현재-user 명시 보완/최종 문서 CI의 상태는 PR/Actions에서 별도로 확인하며 진행 중 검사를 성공으로 계산하지 않습니다. 맥북은 사용자 확인으로 아직 꺼져 있고 접근/자원 검증은 하지 않았습니다. 실제 SMS/제출 서명·실차는 여전히 미검증입니다.
+9430b7d [PR CI43154858975](https://github.com/leemh-dev/dochagjari/actions/runs/43154858975)는 전체 성공(JVM33·서버14·lint·진단35·일반 Android 기능6·프로세스2·UI13장·HTTP 모의 복구). 로컬35·구문/actionlint/diff 통과. d6fa66f 현재-user 명시 보완/최종 문서 CI의 상태는 PR/Actions에서 별도로 확인하며 진행 중 검사를 성공으로 계산하지 않습니다. 이 Cloud 실행 당시에는 맥북 접근과 자원 검증을 하지 않았습니다. 실제 SMS/제출 서명·실차는 여전히 미검증입니다.
 
 ## 이전 성공 증거 — 앱 표시 확인·정상 터치/현재-user 검사 준비
 
