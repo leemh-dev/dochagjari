@@ -1,0 +1,27 @@
+{
+  "source_run": 43128321081,
+  "artifact": 13903799876,
+  "source_commit": "cc1c19efb4b0ab9327d0ab861948fe737d506d77",
+  "scope": "Actual generic Android accessibility XML; read-only selector regression, not a Pleos SDK/device success",
+  "old_class_based_candidates": 0,
+  "resolved": {
+    "차량 신호 테스트 입력": {
+      "class": "android.view.View",
+      "bounds": "[1204,237][1256,285]",
+      "checkable": "true",
+      "enabled": "true"
+    },
+    "내비 모의 요청": {
+      "class": "android.view.View",
+      "bounds": "[1204,302][1256,350]",
+      "checkable": "true",
+      "enabled": "true"
+    },
+    "알림 서버 사용": {
+      "class": "android.view.View",
+      "bounds": "[1204,721][1256,769]",
+      "checkable": "true",
+      "enabled": "true"
+    }
+  }
+}

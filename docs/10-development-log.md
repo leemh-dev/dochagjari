@@ -247,6 +247,13 @@
 - **변경/가설:** 짧은 X11 click 대신 같은 화면의 같은 검증된 허용 버튼에 정상 mouse down→200ms→mouse up을 보낸다. 짧은 입력이 게스트에 반영되지 않았을 가능성을 비교하는 변경이며 정확한 내부 원인은 아직 입증되지 않았다. 호스트 지문/문구/유일한 버튼 조건·후속 화면/ADB 확인을 유지하고 인증 설정/키/항상 허용을 변경하지 않는다.
 - **검사/후속:** 기존13건·구문·actionlint·diff 검사 후 이 구체 입력 변경을 별도 수동 실행으로 비교한다. 앱/배포 APK는 동일하다. 일반 Android 화면 검사는 별도로 진행 중이다.
 
+## 2026-11-12 00:50 UTC — 앱 원본 화면13장 확보·실제 Compose 스위치 선택 오류 수정
+
+- **실제 실행 성공:**cc1c19e PR43128321081/push43128313393 전체 성공. JVM33·서버14·lint·당시 Python13·일반 Android 기능6·프로세스 복원2단계·새 UI 조작 검사 모두 통과했다. artifact13903799876의 원본13 PNG/XML·요약을 [화면 증거](evidence/android-ui-screens/README.md)에 보존했다. 픽업/주차/우회/후보 없음/가상 병원/설정/Android 영상 EMPTY·OCCUPIED/C12/우회/알림 좌표 입력/주행 잠금을 실제로 확인했다. 알림 화면 캡처를 발송 완료로 계산하지 않는다.
+- **재현된 오류:**실제11-test-inputs.xml에 Switch 클래스 노드가0개여서 기존 Pleos ui_probe의 클래스 선택기로는 모의 내비/차량 소스 스위치를 찾을 수 없다. Compose는 checkable/clickable android.view.View로 노출한다. [전후 회귀 JSON](evidence/compose-toggle-regression.json). Pleos 실제 기기 실패를 재현했다고 주장하지 않고, 실제 동일 앱 UI XML에서 선택기 오류를 재현한 것이다.
+- **수정:**클래스명 대신 정확한 라벨/같은 행/라벨 오른쪽의 유일한 checkable·clickable 노드를 찾도록 ui_nodes.py로 분리했다. 기존 set_switch의 enabled 검사와 변경 후 checked 확인을 유지한다. 탭·다른 스위치·중복/미존재는 선택하지 않는다. 주행 화면의 실제 disabled 상태도 검증했다.
+- **검사:**새 실제 XML 회귀3건 추가, Python16건 통과. compileall·actionlint·diff 통과. Kotlin 앱/배포 APK 버전·해시는 변경하지 않았다. 새 스위치 선택기의 실제 Pleos 조작 검증은 아직 남아 있다. 정상 누름·떼기 Pleos43129699644는 별도로 진행 중이다.
+
 ## 이후 기록 양식
 
 ```text

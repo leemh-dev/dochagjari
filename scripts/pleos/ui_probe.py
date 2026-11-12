@@ -9,6 +9,7 @@ import time
 import xml.etree.ElementTree as ET
 
 from adb_readiness import diagnostic, probe
+from ui_nodes import labeled_toggle
 
 adb = str(Path(os.environ["ANDROID_HOME"]) / "platform-tools/adb")
 reports = Path("app/build/reports/pleos")
@@ -44,15 +45,7 @@ def tap_text(text):
 
 
 def switch_node(label):
-    tree = nodes()
-    name = next((n for n in tree if n.attrib.get("text") == label), None)
-    if name is None:
-        raise RuntimeError("Test-source control missing: " + label)
-    _, y = bounds(name)
-    switches = [n for n in tree if "Switch" in n.attrib.get("class", "") and abs(bounds(n)[1] - y) < 60]
-    if len(switches) != 1:
-        raise RuntimeError("Cannot safely identify source switch: " + label)
-    return switches[0]
+    return labeled_toggle(nodes(), label)
 
 
 def set_switch(label, enabled):
