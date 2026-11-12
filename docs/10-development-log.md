@@ -446,3 +446,10 @@
 - **빌드·APK 식별** — AVD를 정상 종료한 뒤 SDK Platform 35를 설치하고 JDK 17, Gradle 8.10.2, `--no-daemon --max-workers=1`, heap 1536MiB, Kotlin in-process로 `:app:assembleDebug :app:assembleDebugAndroidTest` 실행. rc0, 전체 253초, Gradle 67개 작업. SDK XML 버전 경고가 있었고 빌드는 완료됐다. 빌드 전후 압력은 정상, swap 2663.00→2335.88MiB, SSD 여유 1,636,016,832→1,633,865,468KiB. [APK 식별](evidence/macos-m1-pleos/macos-local-apk-identity.txt)에 0.2.0/2, 소스 HEAD, app/test SHA-256, 동일 Mac 개발 인증서 지문을 남겼다.
 - **표준 ADB 기기 검사** — 배포 서명과 다른 로컬 APK 쌍을 새 `DochagjariPleosDeviceCheck`에 설치했다. `emulator-5562`에서 현재 user10과 준비 조건 rc0·guest 여유 9,800,440KiB를 확인했다. 이 AVD의 고정 앱/현재 사용자에서만 테스트 데이터를 초기화했다. `direct_instrumentation.py` rc0·108초, JUnit 34.559초, 완료 상태 0 여섯 건, `OK (6 tests)`, 최종 `INSTRUMENTATION_CODE: -1`. 표준 ADB로 사전 영상 분석·앱 모의 상태가 포함된 기존 기능 검사를 실행했다. Gradle connected와 별도 프로세스 재시작 검사는 보류했다. 검사 전후 경고, swap 2518.00→3621.31MiB. 두 AVD를 동시에 실행하지 않았다.
 - **최종 상태** — 검사 AVD 정상 종료 후 압력 정상, swap 3265.19MiB. 내부 여유 61,563,872KiB(58.7GiB), SSD 여유 1,629,778,108KiB(약 1.52TiB). SSD에서 SDK 8.2GiB, 두 AVD 7.8GiB, 다운로드 5.2GiB, Gradle 1.5GiB, 앱 빌드 산출물 322MiB를 확인했다. 앱과 빌드·검사는 순차로 수행하는 환경으로 기록한다.
+
+## 2026-11-13 KST — 사용자의 원래 도착 계획 요구와 구현 적합성 검토
+
+- **새 설명:**몰/백화점의 실내 목적지에 맞는 주차 게이트·구역·엘리베이터를 블로그/리뷰 등에서 찾아 내비에 연결하고, 귀환 시 차를 찾는 수고를 AI가 줄이는 것이 핵심이다. 병원/아이 픽업/카시트/휠체어는 확장이다. 목표는 검증/시연영상이며 실제 마켓 출시는 요구하지 않는다.
+- **조사/근거:**최신 feat 원격 d15907a를 fetch하고 clean 작업 트리에서 fast-forward했다. AGENTS·기획/데이터/기능/개발계획과 Domain/시설 JSON/AppModel/Gateways를 읽었다. 실내 POI, 자료 검색/추출, 연결 그래프/목적지별 비용 비교, 실제 주차 위치를 연결한 귀환 경로는 미구현이다. 현재 추천은 정적 후보 필터/정렬이고 walking은 미리 작성한 문장이다. 영상 AI/기본 기능 검사 성공을 새 핵심 요구 충족으로 간주하지 않는다.
+- **결과:**[요구/구현 차이·냉정한 평가·검증 제안](13-product-fit-review.md)을 별도 문서로 남겼다. 사용 가치는 기대되지만 데이터 정확성/갱신·연결 검증이 핵심이며 경쟁 우위/절감 수치는 미검증이다. 실제 복합시설 한 곳·실내 목적지 두 곳의 검색→연결 계획→내비→귀환 검증을 우선하는 제안이다.
+- **범위/검사:**기존 제출 계획/앱 코드/배포 APK를 변경하지 않은 검토 기록이다. 실제/가상, 준비/구현/검증을 구분했다. Markdown 링크와 diff를 확인하며 이미 통과한 빌드/기기 검사는 수동 재실행하지 않는다. PR #1에 기록 링크를 남기고 병합하지 않는다.
