@@ -295,6 +295,13 @@
 - **선행 검사:**새 check_pointer_runtime.py로 에뮬레이터 없이 호스트 포인터 동작을 먼저 확인하고 실패 시 이미지 다운로드 단계로 가지 않게 했다. Cloud 사용자 경로 런타임에서 실제 사전 검사 성공([JSON](evidence/host-pointer-preflight.json)). 정상 X11 인증은 유지하고 cookie를 출력하지 않는다.
 - **검사/후속:**새 inventory/대상 차단 회귀 포함 Python21건·구문·actionlint·diff 통과. 새 창 목록/차단 직전 원본 근거 수집 목적의 단일 후속 실행으로 비교한다. 앱0.2.0/2·기존 APK는 유지한다. Android 실제 HTTP 복구2c2feb0은 verify 성공·기기 단계 진행 중이다.
 
+## 2026-11-12 01:39 UTC — 실제 Android HTTP 복구 통과·원본3장 보존
+
+- **실제 성공:**2c2feb0 PR43134026080/push43134018393 전체 success, artifact13907511615. 새 Android API34 KVM에서 기존 JVM33·서버14·lint·당시 Python20·기기6·프로세스2단계·화면13장과 새 실제HTTP 검사 모두 통과했다.
+- **새 완료 범위:**실제 앱 UI로 서버 mock/동의/확정 위치를 입력했다. GET404→POST의 DB mock 저장 후 응답을 보류→앱 force-stop→서버 동일DB 재시작→새 앱 PID/빈 토큰 확인→같은 세션 GET200 복구. POST총1회/DB행1개/요청지문 동일/공급자0회, PID8659→9445. [정제 요약/원본3장](evidence/android-http-recovery/README.md). 모의 결과이며 SENS 수락/휴대폰 수신/실차 성공이 아니다.
+- **민감정보/격리:**토큰 재입력은 메모리/임시 private 파일만 사용했고 artifact에는 토큰/DB/전화번호/실제 요청 본문을 남기지 않았다. 실제 수신자가 없는 loopback fixture이다. 서버 재시작 중 DB를 삭제하거나 새 세션으로 재발송하지 않았다. Kotlin앱/배포 APK는 바꾸지 않았다.
+- **X11 추가 비교:**자체 Xvfb에 실제 Xmessage 창을 띄웠을 때 포인터는 실제 child ID를 반환했다([JSON](evidence/x11-mapped-window-check.json)). 따라서 실제 Pleos WINDOW0을 정상 전달로 간주하지 않는다. 이것만으로 창 종료/이동/게스트 장애 원인을 확정할 수는 없다. 창 목록/입력 차단 원본을 수집하는 dacfc37 수동43135246535 결과를 기다린다.
+
 ## 이후 기록 양식
 
 ```text
