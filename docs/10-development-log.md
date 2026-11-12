@@ -275,6 +275,13 @@
 - **검사:**새 읽기 전용 진단3건 포함 Python20건 로컬 통과. Python 구문·actionlint·diff 통과. source/coords/fingerprint/모달/버튼 확인 조건과 설치 직전 live ADB 준비 확인은 유지한다. 새 진단은 실제 Pleos 입력 성공 증거가 아니며 다음 단일 수동 실행의 목적은 누락된 입력 대상 근거 확보다.
 - **변경 범위:**X11 관찰·CI 의존 도구와 문서만 변경했다. 앱0.2.0/code2·배포 코드3a01515·기존 APK/서명/해시는 유지하며 디자인 개편은 미룬다. 기존 통과한 앱/JVM/서버 검사를 수동 반복하지 않는다.
 
+## 2026-11-12 01:18 UTC — Android 실제 HTTP 모의 복구 검증 준비
+
+- **독립 작업:**앱 코드/배포 APK를 유지하며 새 전용 일반 Android AVD에서 실제 앱 UI→로컬 Python 모의 서버 HTTP를 검증하는 스크립트를 추가했다. 서버가 POST를 DB에 기록한 뒤 응답을 보류하고 앱 프로세스를 종료한다. 같은 DB로 서버를 재시작하고 앱의 같은 세션/요청·토큰 미복원·재입력 후 GET만 수행하는지, POST1개/DB행1개/요청지문 동일/공급자 호출0을 검사한다.
+- **격리:**GITHUB_ACTIONS/새 전용 AVD 플래그와 live 준비 확인을 요구한다. fixture는 loopback·명시적 mock이며 공급자 함수는 실행 금지 대역이다. 수신자에는 실제 전화번호 대신 단순 비전화 placeholder를 쓰며 외부 SMS를 보내지 않는다. 임시 토큰/DB/hold파일은 artifact 밖 작업 디렉터리에서만 만들고 토큰·명령 인수·원본 요청 본문을 로그에 기록하지 않는다. 소유 서버 PID 헤더로 해당 child 프로세스 응답인지 확인한다.
+- **호스트 사전 확인:**실제 local HTTP에서 응답 보류 중 DB mock 저장·서버 재시작 후 동일 행/지문 GET·공급자 호출0을 확인했다([JSON](evidence/mock-http-fixture-self-check.json)). 호스트 fixture 검사이며 Android 성공을 뜻하지 않는다. Python 구문·actionlint·diff 검사 통과. 다음 CI에서 실제 앱 결과/실패를 확인한다.
+- **자료 보존:**기존 화면 캡처 함수를 import 시 자동 실행하지 않도록 main guard로 옮겨 재사용한다. 새 검사는 이전 화면13장/기기 검사를 대체하지 않는다. 실제 SENS 수락·휴대폰 수신·Pleos 실연동과 구분한다.
+
 ## 이후 기록 양식
 
 ```text

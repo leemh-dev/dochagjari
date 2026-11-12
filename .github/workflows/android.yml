@@ -47,6 +47,11 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - name: Enable KVM on the dedicated runner
         run: sudo chmod a+rw /dev/kvm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install local mock-server smoke dependencies
+        run: pip install -r server/requirements.txt
       - uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 34
@@ -66,6 +71,7 @@ jobs:
             adb install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
             python scripts/process_restart_smoke.py --serial emulator-5554 --reset-test-data
             DOCHAGJARI_FRESH_TEST_AVD=1 python scripts/capture_app_screens.py
+            DOCHAGJARI_FRESH_TEST_AVD=1 python scripts/android_server_smoke.py
             adb shell am start -W -n dev.leemh.dochagjari/.MainActivity
             adb exec-out screencap -p > app/build/reports/android-app.png
       - uses: actions/upload-artifact@v4
