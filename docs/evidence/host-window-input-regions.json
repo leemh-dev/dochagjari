@@ -1,0 +1,149 @@
+{
+  "success": true,
+  "scope": "Own synthetic host window only; no emulator/ADB or authentication change",
+  "normal": {
+    "readonly": true,
+    "root": 543,
+    "shape_version": [
+      1,
+      1
+    ],
+    "direct_pointer": {
+      "same_screen": true,
+      "child": 2097153,
+      "x": 200,
+      "y": 150
+    },
+    "windows": [
+      {
+        "id": 2097153,
+        "attributes_available": true,
+        "map_state": 2,
+        "map_state_name": "IsViewable",
+        "window_class": 1,
+        "width": 240,
+        "height": 120,
+        "override_redirect": false,
+        "requested_point_local": [
+          100,
+          50
+        ],
+        "input_rectangles_count": 1,
+        "input_rectangles": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 120
+          }
+        ],
+        "input_regions_complete": true,
+        "point_in_input_region": true,
+        "bounding_rectangles_count": 1,
+        "bounding_rectangles": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 120
+          }
+        ],
+        "bounding_regions_complete": true,
+        "point_in_bounding_region": true
+      }
+    ],
+    "x11_errors": []
+  },
+  "visible_empty_input": {
+    "readonly": true,
+    "root": 543,
+    "shape_version": [
+      1,
+      1
+    ],
+    "direct_pointer": {
+      "same_screen": true,
+      "child": 0,
+      "x": 200,
+      "y": 150
+    },
+    "windows": [
+      {
+        "id": 2097153,
+        "attributes_available": true,
+        "map_state": 2,
+        "map_state_name": "IsViewable",
+        "window_class": 1,
+        "width": 240,
+        "height": 120,
+        "override_redirect": false,
+        "requested_point_local": [
+          100,
+          50
+        ],
+        "input_rectangles_count": 0,
+        "input_rectangles": [],
+        "input_regions_complete": true,
+        "point_in_input_region": false,
+        "bounding_rectangles_count": 1,
+        "bounding_rectangles": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 120
+          }
+        ],
+        "bounding_regions_complete": true,
+        "point_in_bounding_region": true
+      }
+    ],
+    "x11_errors": []
+  },
+  "unmapped": {
+    "readonly": true,
+    "root": 543,
+    "shape_version": [
+      1,
+      1
+    ],
+    "direct_pointer": {
+      "same_screen": true,
+      "child": 0,
+      "x": 200,
+      "y": 150
+    },
+    "windows": [
+      {
+        "id": 2097153,
+        "attributes_available": true,
+        "map_state": 0,
+        "map_state_name": "IsUnmapped",
+        "window_class": 1,
+        "width": 240,
+        "height": 120,
+        "override_redirect": false,
+        "requested_point_local": [
+          100,
+          50
+        ],
+        "input_rectangles_count": 0,
+        "input_rectangles": [],
+        "input_regions_complete": true,
+        "point_in_input_region": false,
+        "bounding_rectangles_count": 1,
+        "bounding_rectangles": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 240,
+            "height": 120
+          }
+        ],
+        "bounding_regions_complete": true,
+        "point_in_bounding_region": true
+      }
+    ],
+    "x11_errors": []
+  }
+}

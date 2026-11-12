@@ -21,6 +21,6 @@ test_missing_tool_and_failure_preserve_return_codes (test_x11_context.X11Context
 test_readonly_records_actual_pointer_target_focus_and_geometry (test_x11_context.X11ContextTest.test_readonly_records_actual_pointer_target_focus_and_geometry) ... ok
 
 ----------------------------------------------------------------------
-Ran 21 tests in 0.152s
+Ran 21 tests in 0.252s
 
 OK

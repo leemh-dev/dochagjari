@@ -34,6 +34,8 @@ jobs:
           sudo apt-get install -y xvfb xauth xdotool x11-utils imagemagick tesseract-ocr tesseract-ocr-kor libpulse0 libxcb-cursor0 libxcb-xinerama0 libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinput0
       - name: Verify host pointer commands without an emulator
         run: python scripts/pleos/check_pointer_runtime.py --output app/build/reports/pleos/host-pointer-preflight.json
+      - name: Verify native visibility and input-region observations on a synthetic window
+        run: python scripts/pleos/check_window_regions.py --output app/build/reports/pleos/host-window-regions.json
       - name: Check KVM and boot official Pleos image with isolated test data
         id: boot
         env:

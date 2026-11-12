@@ -317,6 +317,14 @@
 - 앱 최초 실행/기능 전환/오류·수정 전후의 원본 화면을 중간중간 채팅 이미지로 표시하고 환경/실제·모의 구분/확인 결과를 붙이도록 했다. CI 종료 후에만 캡처를 받을 수 있으면 제약·수신 시점을 알리고 확보 즉시 보여 주며, 이전 화면/승인창/검정 화면을 새 앱 성공 증거로 대체하지 않는다. 민감정보 공개 금지는 유지한다.
 - 문서만 변경했다. git diff --check로 확인하며 기존 앱 검사·부팅을 재실행하지 않는다. 앱0.2.0/2·APK/서명/해시는 유지하고 기존 PR#1에 커밋·푸시/기록한다. 실제 연동 검증 수준은 변경하지 않는다.
 
+## 2026-11-12 02:06 UTC — 표시/입력 영역을 분리하는 native X11 진단 준비
+
+- **전체 위치:**①최신 상태/기기 확인 완료(PR#1 open/feat 브랜치·시작 HEAD9cf6d7d·작업 트리 깨끗함),②Pleos 승인/설치 차단 조사 진행,③실제 내비/좌석 미검증,④기존 Android HTTP 모의 복구 완료 유지,⑤디자인/서명/제출 준비 후속. 현재 Cloud는 KVM/ADB기기/VPN 없음. Mac 원격 연결 여부를 질문했고 답변과 무관한 진단은 계속한다. Cloud 환경 skill/status와 기존 README/docs07~12·원본/JSON·최신CI를 확인했다.
+- **새 가설/근거:**기존43135246535에는 승인창/Emulator 창 목록이 있으나 pointer WINDOW0/focus=root였다. 창 목록은 MapState/실제 입력 영역을 포함하지 않아 표시와 입력 가능 상태를 구분할 수 없다. RAM/userdata/sync/capture/키 부족을 원인으로 단정하지 않는다.
+- **호스트 통제 실험:**private Xauthority가 있는 자체 Xvfb에서 새로 만든 작은 합성 창만 사용했다. 정상 창은 직접 포인터 child ID가 양수, 같은 창을 계속 표시한 채 그 합성 창의 입력 영역만 비우면 IsViewable인 채 child0, Unmap하면 IsUnmapped였다. native Xlib/XShape snapshot이 이를 구분했고 X11오류0이다. [실제 JSON](evidence/host-window-input-regions.json). 이 조작은 합성 테스트 창에만 했으며 실제 에뮬레이터/ADB/인증 설정을 변경한 것이 아니다.
+- **새 구현:**별도 subprocess에서 XGetWindowAttributes/직접 XQueryPointer/XShape 입력·bounding 영역/요청점 포함 여부/숫자 X11오류를 read-only 수집한다. 창 제목/키/clipboard는 읽지 않는다. X11 대상 미확인 입력 차단·정상 지문/문구/버튼·live 설치 gate를 유지한다. DLL/ABI/창 변경 오류는 available=false로 처리하고 주 진단 프로세스를 보호한다.
+- **검사/다음:**실제 합성3상태 및 host pointer 사전 검사 통과, 기존 Python21건/구문/actionlint/diff 통과. 새 가설을 실제 Pleos의 read-only 속성과 대조하는 단일 수동 실행을 요청한다. 같은 실패의 부팅 반복이 아니라 이전에 빠진 MapState/입력 영역 근거를 확보하는 목적이다. 테스트/앱 화면은 얻는 즉시 환경·범위를 붙여 채팅에 공유한다. 앱0.2.0/code2·APK/해시/서명/디자인은 유지한다.
+
 ## 이후 기록 양식
 
 ```text

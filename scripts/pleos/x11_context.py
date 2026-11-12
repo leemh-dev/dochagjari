@@ -1,6 +1,9 @@
 """Read-only X11 pointer/focus/geometry evidence on the private CI-owned display."""
 import re
 import subprocess
+import json
+from pathlib import Path
+import sys
 from adb_readiness import diagnostic
 
 
@@ -46,6 +49,18 @@ def observe_pointer(environment, expected, runner=subprocess.run):
     inventory = window_inventory(read('root_tree', ['xwininfo', '-root', '-tree']))
     result['window_inventory'] = inventory
     result['checks']['root_tree']['stdout'] = str(inventory)
+    candidates=[w['id'] for w in inventory['windows'] if
+                w['x']<=expected[0]<w['x']+w['width'] and w['y']<=expected[1]<w['y']+w['height']][:10]
+    if inventory['root_id']:
+        try:
+            completed=runner([sys.executable,str(Path(__file__).with_name('native_window_state.py')),
+                     ','.join(str(value) for value in candidates),str(expected[0]),str(expected[1])],
+                     env=environment,capture_output=True,text=True,timeout=5)
+            result['checks']['native_state']={'returncode':completed.returncode,
+                'stdout':'Structured numeric snapshot stored separately', 'stderr':diagnostic(completed.stderr)}
+            result['native_state']=json.loads(completed.stdout) if completed.returncode==0 else {'available':False}
+        except (OSError,subprocess.SubprocessError,ValueError,TypeError) as error:
+            result['native_state']={'available':False,'error_type':type(error).__name__}
     window = values.get('WINDOW')
     if window and window > 0:
         # No window titles or arbitrary properties: only class and numeric geometry.
