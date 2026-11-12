@@ -92,10 +92,12 @@ def approve_visible_dialog(work, reports, environment, attempt):
         if not point and plan["dialog_detected"] and plan["host_fingerprint_matches"]:
             point = regions["permission_click"]
         if point:
-            subprocess.run(["xdotool", "mousemove", "--sync", str(point[0]), str(point[1]), "click", "1"],
+            subprocess.run(["xdotool", "mousemove", "--sync", str(point[0]), str(point[1]),
+                            "mousedown", "1", "sleep", "0.2", "mouseup", "1"],
                            env=environment, capture_output=True, check=True, timeout=10)
             result["clicked"] = True
             result["click_input_sent"] = True
+            result["input_method"] = "Normal visible Allow button: mouse down, 200ms hold, mouse up"
             time.sleep(2)
             result["post_input_observation"] = observe_after_input(
                 reports / f"debugging-after-input-{attempt}.png", environment, fingerprint)

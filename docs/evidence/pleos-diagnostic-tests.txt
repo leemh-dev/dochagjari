@@ -13,6 +13,6 @@ test_failed_boot_record_does_not_attempt_adb_or_install (test_install_gate.Insta
 test_prior_success_record_does_not_allow_install_on_missing_device (test_install_gate.InstallGateTest.test_prior_success_record_does_not_allow_install_on_missing_device) ... ok
 
 ----------------------------------------------------------------------
-Ran 13 tests in 0.180s
+Ran 13 tests in 0.150s
 
 OK
