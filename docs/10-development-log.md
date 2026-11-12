@@ -398,6 +398,11 @@
 - 새 일반 Android 원본(이미 확보 즉시 채팅에 표시)을 source별 c610c10 픽업/HTTP복구, ebfa349 영상C12/점유우회,3c0ad6e 가상병원/주행제한으로 따로 보관했다. 이전 원본을 덮어쓰지 않았고 실제 SDK/병원/차량/SMS 성공으로 대체하지 않는다.
 - README에 맥북 읽기 전용 메모리 압력/공간·guest df·화면 캡처와 정상 ADB instrumentation 재현 명령을 추가했다. Mac 미실행/새 AVD 한정·키/서명/정책 경계를 명시했다. 배포 APK artifact13871881801 미만료, 앱/서버/Gradle 런타임 diff0·버전/해시/서명은 유지한다. 문서는 diff 검사로 확인하고 이미 완료한 앱 검사를 수동 반복하지 않았다. PR#1은 open/미병합이다.
 
+## 2026-11-12 — 남은 profile stop/Gradle 준비 초기화의 현재-user 범위 일치
+
+- 정상 ADB driver/두 프로세스 복원에 이어 UI profile force-stop과 Gradle 전 고정 앱 데이터 초기화에도 읽은 foreground user를 명시했다. user 전환은 하지 않으며 app이 해당 현재user에 없으면 connected task를 시작하지 않는다. 새 job의 전용 AVD에서만 이 고정 패키지를 다룬다.
+- 구문/actionlint/diff 통과. 이 명시성 보완은 이미 실행 중인9430b7d 수동43154848171에 포함되지 않는다. 해당 실행의 실제 APK/스크린샷/검사 결과는9430b7d 기준으로만 기록한다. 앱/서버/Gradle 런타임과 배포 APK는 동일하다. 같은 새 AVD의 profile PID/저장값 검증과 표준 ADB driver 결과를 기다리며 보완만을 이유로 부팅을 반복하지 않는다.
+
 ## 이후 기록 양식
 
 ```text

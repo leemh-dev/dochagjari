@@ -190,7 +190,7 @@ try:
         screenshot("profile-saved.png")
         # This fresh dedicated AVD contains only this probe's test settings.
         before_pid = command("shell", "pidof", package).decode().strip()
-        command("shell", "am", "force-stop", package)
+        command("shell", "am", "force-stop", "--user",current_user(),package)
         start_app(); tap_text("좌석·조건")
         after_pid = command("shell", "pidof", package).decode().strip()
         restored = {option: switch_node(option).attrib.get("checked") == "true" for option in saved_options}

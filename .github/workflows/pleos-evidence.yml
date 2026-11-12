@@ -79,8 +79,13 @@ jobs:
         run: |
           python scripts/pleos/adb_readiness.py --serial "$ANDROID_SERIAL" --output app/build/reports/pleos/pre-test-adb-readiness.json
           # Only this job's newly-created AVD: SDK evidence is captured before test-data reset.
-          if adb -s "$ANDROID_SERIAL" shell pm path dev.leemh.dochagjari | grep -q '^package:'; then
-            adb -s "$ANDROID_SERIAL" shell pm clear dev.leemh.dochagjari
+          DOCHAGJARI_TEST_USER=$(adb -s "$ANDROID_SERIAL" shell am get-current-user | tr -d '\r')
+          [[ "$DOCHAGJARI_TEST_USER" =~ ^[0-9]+$ ]]
+          if adb -s "$ANDROID_SERIAL" shell pm path --user "$DOCHAGJARI_TEST_USER" dev.leemh.dochagjari | grep -q '^package:'; then
+            adb -s "$ANDROID_SERIAL" shell pm clear --user "$DOCHAGJARI_TEST_USER" dev.leemh.dochagjari
+          else
+            echo 'Installed target absent for current user; connected tests were not started.'
+            exit 1
           fi
           # Bound only this test process so final diagnostics can upload before the job limit.
           timeout --signal=TERM --kill-after=30s 20m ./gradlew :app:connectedDebugAndroidTest
