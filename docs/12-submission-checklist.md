@@ -11,10 +11,18 @@
 | APK | [artifact13871881801](https://github.com/leemh-dev/dochagjari/actions/runs/43055801516/artifacts/13871881801), debug/test/unsigned release·SHA256SUMS·metadata. GitHub 로그인 필요. 확인 시 만료 전(2027-02-09 만료 예정) |
 | 해시·서명 | [실제 파일 metadata](evidence/v0.2-apk-metadata.json), [다운로드 대조](evidence/v0.2-downloaded-apk-verification.txt). debug/test는 동일 runner 개발 서명, 이전 Cloud 서명과 다르므로 새 테스트 AVD 사용 |
 | 맥북 M1 8GiB | 오디오를 끈 Pleos ARM64 단독 실행, 배포 debug 설치·앱 조작, AVD 종료 후 debug/test 빌드, 새 AVD 표준 ADB 기능 검사 6/6 확인. Gradle connected 보류. 실제 내비 핀·Console 좌석은 미검증. [실측](08-verification.md) |
-| 제출 release 서명 | **미완료**. unsigned release 제공. 키·비밀번호 없음. [README](../README.md)의 사용자 로컬 키 생성/서명/해시 절차를 실행하고 실제 서명 후 기록 갱신 필요 |
+| APK 서명/제출 목표 | 설치 가능한 개발 서명 APK로 검증. 실제 앱마켓 출시/출시용 키 준비는 목표에서 제외. unsigned release는 별도 보관본이며 서명 완료본으로 표시하지 않음. 제출 형식 요구는 별도 확인 |
 | 코드 검사 | 9430b7d [PR43154858975](https://github.com/leemh-dev/dochagjari/actions/runs/43154858975) 전체 성공. JVM33/서버14/lint/진단35/기능6/프로세스2/UI13장/실제HTTP 복구. 이후 현재-user/최종 문서 CI는 별도 확인 |
 | 신규 진단 검사 | native 대상 실제 회귀/동일 원본 독립 확대 identity·ADB 완료 판정/fresh-device guard 포함 35건 로컬 통과. [로그](evidence/pleos-diagnostic-tests.txt). 실제 기기 성공과 구분 |
 | 설치 전 확인 | `python3 scripts/pleos/adb_readiness.py --serial <전용AVD> --output /tmp/dochagjari-adb-readiness.json` 종료0일 때만 설치. transport/device + boot1 + package/activity found·각 종료0 필요 |
+
+## 추가한 핵심 흐름 검증 — 아직 미완료
+
+- 실제 복합시설 한 곳/실내 목적지 두 곳: 최신 관련 자료 검색·출처/확인일·게이트/구역/엘리베이터 연결·내비 전달.
+- 입차 확인→지원 카메라/명시한 사전 영상 관측→정차 문맥의 층/구역/기둥/벽 단서 저장→귀환.
+- 표기 없음·동일 번호 다른 층·관측 후 이동 재개·카메라 미지원 대체 입력 시험.
+- 공공/공식/리뷰/제휴의 실제 확보 상태와 테스트/실제 SDK를 구분한다. 제휴/카메라 접근 완료를 가정하지 않는다.
+- [상세 설계/시험 항목](14-data-and-parking-observation.md). 기존 기능 검사 성공으로 이 흐름까지 완료 처리하지 않는다.
 
 ## 최신 환경 진단
 
@@ -37,15 +45,15 @@
 | 자동 알림 | 같은 세션/지문 복원, 실제 Android HTTP 서버모의 응답 유실·앱/서버 재시작 후 GET복구·POST1/공급자0. [원본3장](evidence/android-http-recovery/README.md) | SENS 수락·휴대폰 수신은 별도 검증. 자격증명/등록 발신번호/동의 수신자 없으면 모의 유지 |
 | Pleos 환경 | 실제 ADB device/boot1/package/activity·각rc0 확인 | a8c91d2 새8GiB에서 실제 설치 성공. 계기 영역/UI dump timeout의 display/activity를 관찰 중. connected는 test APK 설치 단계 tests0/실패. SDK/Console 미검증 |
 
-새 AVD에서 실제 서명 APK를 설치한 뒤 두 내비 핀·좌석·영상·설정 유지·주행 제한·알림 결과를 시연하고 녹화합니다. 현재 맥북 결과는 위 항목과 검증 기록을 따릅니다. 실차·실제 SMS·제출 서명은 미검증입니다.
+새 AVD에서 설치 가능한 개발 서명 APK를 설치한 뒤 두 내비 핀·좌석·영상·설정 유지·주행 제한·알림 결과를 시연하고 녹화합니다. 현재 맥북 결과는 위 항목과 검증 기록을 따릅니다. 실차·실제 SMS는 미검증입니다. 출시용 release 서명은 이번 검증/시연 목표에서 제외합니다.
 
 11월 14일 18:00 제출 후보 고정·녹화·커밋/해시 대조, 11월 15일 18:00 내부 제출 목표는 [개발계획](07-development-plan.md)의 일정입니다. 현재 실제 제출 완료나 전체 실연동 완료 상태는 아닙니다. 제출 양식·시연 영상·공개 저장소·설치 산출물의 버전/코드/검증 표시를 마지막으로 대조해야 합니다.
 
 ## 제출 시연 녹화·증거 수집 순서
 
-아래는 **실행 예정 절차**이며 완료 증거가 아닙니다. 제출 후보 APK를 새 전용 AVD에 설치한 뒤 실행한 항목만 체크하고, 실패/권한 없음/미검증을 편집으로 숨기지 않습니다.
+아래는 기존 확장 기능의 **실행 예정 절차**이며 완료 증거가 아닙니다. 제출 후보 APK를 새 전용 AVD에 설치한 뒤 실행한 항목만 체크하고, 실패/권한 없음/미검증을 편집으로 숨기지 않습니다.
 
-1. APK 버전·코드 커밋·SHA256·서명 종류와 기기 시리얼/이미지 버전을 기록합니다. 설치 직전 준비 helper JSON과 install rc를 보관합니다. 제출 키 서명 전이면 개발 서명/미서명 상태를 명시합니다.
+1. APK 버전·코드 커밋·SHA256·서명 종류와 기기 시리얼/이미지 버전을 기록합니다. 설치 직전 준비 helper JSON과 install rc를 보관합니다. 검증 APK의 개발 서명을 명시하고, 별도 unsigned release를 설치/서명 완료본과 혼동하지 않습니다.
 2. 학원 바로 태우기→주차 후 데리러 가기→첫 후보 이용 불가를 시연합니다. 실제 내비 모드에서 요청 좌표·SDK 콜백·순정 목적지 핀을 각각 캡처합니다. 콜백만 성공하고 핀이 확인되지 않으면 핀 미검증으로 남깁니다.
 3. Console 좌우 각각 Empty→Occupied→Empty를 바꾸고 같은 시점의 앱 좌석 문구·SDK 이벤트·저장 옵션 제안을 캡처합니다. 저장 완료 후 앱 프로세스를 종료/재실행해 복원을 확인합니다. Console 조작과 앱 수신을 나누고 AVD를 실차로 표기하지 않습니다.
 4. 가상 병원 동행/휠체어와 후보 없음, 주행 중 조작 제한을 시연합니다. 가상 병원·차량 테스트 입력 표시가 보이게 촬영합니다.
