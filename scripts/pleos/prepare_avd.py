@@ -159,11 +159,13 @@ hw.mainKeys=no
 image.sysdir.1={image}/
 tag.id=android-automotive
 target=android-34
-disk.dataPartition.size=2G
+disk.dataPartition.size=8G
 """)
+    report["test_userdata"] = {"fresh": True, "size_gib": 8, "previous_test_size_gib": 2,
+                               "reason": "Observed INSTALL_FAILED_INSUFFICIENT_STORAGE; guest free space will be collected"}
     userdata = work / "test-userdata.img"
     checkpoint("formatting-isolated-test-data")
-    with userdata.open("wb") as output: output.truncate(2 * 1024 ** 3)
+    with userdata.open("wb") as output: output.truncate(8 * 1024 ** 3)
     subprocess.run([str(sdk / "emulator/bin64/mkfs.ext4"), "-F", str(userdata)], check=True, capture_output=True)
     environment = os.environ | {"ANDROID_AVD_HOME": str(avd)}
     server = command(adb, "start-server")

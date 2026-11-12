@@ -353,6 +353,15 @@
 - **화면 지연 보완:**사용자의 중간 화면 공유 요구에 맞춰 `Collect SDK seat events and app screen` 직후 `pleos-before-connected-tests` artifact 업로드를 추가했다. 이후 긴 connected 검사 종료 전에도 승인/준비/설치/앱 화면 근거를 받을 수 있도록 한다. 최종 전체 artifact는 유지한다. 실제 실행/인증/기기 준비 조건은 바꾸지 않는다.
 - **검사/범위:**actionlint1.7.7·diff 통과. 이미 실행 중인43145130375에는 이 단계가 없으므로 종료 후 화면을 받는다. 새 workflow의 조기 업로드 자체는 아직 실행 미검증이다. 변경 확인만을 목적으로 부팅을 추가 실행하지 않는다. 배포 APK/앱 런타임/버전/해시/서명/디자인은 유지한다.
 
+## 2026-11-12 03:32 UTC — 정상 승인/서비스 준비 실제 확인·설치 저장 공간 오류·장기 검사 취소
+
+- **실제 결과:**3c0ad6e 수동43145130375/artifact13912507873. 정확한 현재 호스트 공개 지문·USB/RSA/라벨·native 대상/정상 포커스를 확인하고 정상 Allow1회 후 transport=device, boot1, package/activity found·각rc0이었다. 설치 직전과 connected 전 실제 재확인도 ready였다. 키/권한/인증/Always allow/입력 영역을 변경하지 않았다. [실제 readiness·원본·요약](evidence/pleos-storage-blocked/summary.json).
+- **새 차단:**설치가 `INSTALL_FAILED_INSUFFICIENT_STORAGE: Failed to override installation location`로 실패했다. 앱 설치·실행/SDK·핀/Console는 미검증이다. 검정 screencap을 확보 즉시 채팅에 보여 주고 앱 화면이 아님을 명시했다. 당시 guest df/임계값은 수집하지 않아 정확한 여유 공간·오류 내부 원인은 미확인이다. 기존2GiB 테스트 데이터와 다른 profile/RAM/userdata를 이전 승인 실패의 원인으로 소급 단정하지 않는다.
+- **검사 취소:**연결 검사 task가 약20분간 종료되지 않아 취소했고 always upload로 증거를 회수했다. AndroidTest APK 빌드/task 진입 로그는 있으나 완료 XML은 없어 통과로 계산하지 않는다. `Failed to start Emulator console for5554` 경고도 있지만 정체 원인으로 확정하지 않는다([정제 로그](evidence/pleos-storage-step-log.txt)).
+- **수정/새 목적:**새 job의 자체 빈 userdata만8GiB로 만들고 설정/파일 크기를 일치시켰다. 앱 설치 전 host df·guest df/data·설치 위치·저장 임계값/monitor를 read-only 수집하고 그 뒤 live ADB 준비를 다시 확인한다. 실제 설치 성공 output이 없으면 connected step을 생략하며,20분 command timeout으로 최종 artifact 회수 여유를 둔다. 초기 화면 artifact f670f13도 포함한다. 기존 기기/서버DB/Android 저장 정책은 바꾸지 않는다.
+- **독립 검사/다음:**자체 임시8GiB sparse ext4 생성/tune2fs0으로 크기 일치를 확인했다([JSON](evidence/host-eight-gib-ext4-check.json)). 구문/actionlint/diff 통과. Python30건과3c0ad6e PR43145276876 전체 일반 Android CI 성공은 별도 완료 증거다. 새 원본의 실제 설치 실패를 근거로 공간 관찰/크기 변경을 검증하는 단일 실행을 진행한다. 배포 APK/앱 런타임/버전/서명/디자인은 유지한다.
+- **환경 제약 추가 확인:**Cloud Desktop 스킬로 현재 환경을 확인했으나 enabled/unknown이며 cua_repl.js/open_in_codex 도구가 없어 실행 화면 제어를 할 수 없었다([환경ID/결과](evidence/cloud-desktop-status.json)). GitHub 실행 중 API blob은 미생성/공개 개별 로그404였고 종료 후 정상 로그를 회수했다. Mac에는 접근하지 않았다. 우회하지 않고 기기 증거만 사용했다.
+
 ## 이후 기록 양식
 
 ```text

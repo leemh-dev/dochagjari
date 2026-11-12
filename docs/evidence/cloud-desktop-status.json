@@ -1,0 +1,13 @@
+{
+  "environment_id": "ccarenv_b64_Y2NhcmVudl9kZTg2YTBmOTgzMTg4MTkxYjA4ZmRkMjRjN2QyODVlNQ",
+  "date_utc": "2026-11-12",
+  "remote_desktop": {
+    "enabled": true,
+    "state": "unknown"
+  },
+  "missing_tools": [
+    "cua_repl.js",
+    "open_in_codex"
+  ],
+  "result": "No callable desktop control tool; GitHub running-job logs NOT_FOUND, CLI redirect Forbidden. No Mac access or authorization bypass performed."
+}

@@ -45,6 +45,7 @@ jobs:
           sudo chmod a+rw /dev/kvm
           python scripts/pleos/prepare_avd.py
       - name: Install app, request two navigation points, select real seat source
+        id: app_probe
         run: python scripts/pleos/ui_probe.py
       - name: Observe and toggle official Virtual Console rear seats
         run: |
@@ -60,7 +61,7 @@ jobs:
           name: pleos-before-connected-tests
           path: app/build/reports/pleos/
       - name: Run Android tests on the prepared Pleos device
-        if: ${{ !cancelled() && steps.boot.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.boot.outcome == 'success' && steps.app_probe.outputs.apk_installed == 'true' }}
         env:
           ANDROID_SERIAL: emulator-5554
         run: |
@@ -69,7 +70,8 @@ jobs:
           if adb -s "$ANDROID_SERIAL" shell pm path dev.leemh.dochagjari | grep -q '^package:'; then
             adb -s "$ANDROID_SERIAL" shell pm clear dev.leemh.dochagjari
           fi
-          ./gradlew :app:connectedDebugAndroidTest
+          # Bound only this test process so final diagnostics can upload before the job limit.
+          timeout --signal=TERM --kill-after=30s 20m ./gradlew :app:connectedDebugAndroidTest
           adb -s "$ANDROID_SERIAL" install -r app/build/outputs/apk/debug/app-debug.apk
           adb -s "$ANDROID_SERIAL" install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
           python scripts/process_restart_smoke.py --serial "$ANDROID_SERIAL" --reset-test-data --output app/build/reports/pleos/process-restart.txt

@@ -1,0 +1,35 @@
+{
+  "navigation": [],
+  "pin_verified": false,
+  "note": "SDK results and screenshots require separate pin review; not real-car validation",
+  "live_adb_probe": {
+    "serial": "emulator-5554",
+    "ready": true,
+    "checks": {
+      "transport": {
+        "returncode": 0,
+        "stdout": "device",
+        "stderr": ""
+      },
+      "boot": {
+        "returncode": 0,
+        "stdout": "1",
+        "stderr": ""
+      },
+      "package": {
+        "returncode": 0,
+        "stdout": "Service package: found",
+        "stderr": ""
+      },
+      "activity": {
+        "returncode": 0,
+        "stdout": "Service activity: found",
+        "stderr": ""
+      }
+    },
+    "reason": "Boot and package/activity services verified"
+  },
+  "probe_error": "adb: failed to install app/build/outputs/apk/debug/app-debug.apk: Failure [INSTALL_FAILED_INSUFFICIENT_STORAGE: Failed to override installation location]\n\n",
+  "left_sdk_changed": false,
+  "right_sdk_changed": false
+}

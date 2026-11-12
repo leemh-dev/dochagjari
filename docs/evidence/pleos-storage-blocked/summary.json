@@ -1,0 +1,14 @@
+{
+  "run": 43145130375,
+  "artifact": 13912507873,
+  "source": "3c0ad6e",
+  "run_conclusion": "cancelled after approximately20minutes without test completion; always upload preserved evidence",
+  "authorization": "Normal visible Allow, own exact public fingerprint, verified native target/focus, no always-allow or key/auth edits",
+  "readiness": "device/boot1/package/activity each rc0; live before install and before connected step verified",
+  "apk_install": "failed INSTALL_FAILED_INSUFFICIENT_STORAGE",
+  "guest_free_bytes": "not collected in this run; do not assume exact cause or free space",
+  "screenshots": "Post-input and later screenshots are black, not app execution success",
+  "sdk_pin_console": "not executed",
+  "connected": "task started, no JUnit result/finished instrumentation evidence; cancelled, not passed",
+  "next": "Own new8GiB test userdata only; read-only host/guest storage and thresholds; immediate live pre-install check; gate tests on successful installation; early artifacts and bounded tests"
+}

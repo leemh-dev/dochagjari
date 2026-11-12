@@ -1,0 +1,5 @@
+2026-11-12T03:06:57.6952368Z Pleos boot completed with package/activity services
+2026-11-12T03:07:04.4812066Z RuntimeError: adb: failed to install app/build/outputs/apk/debug/app-debug.apk: Failure [INSTALL_FAILED_INSUFFICIENT_STORAGE: Failed to override installation location]
+2026-11-12T03:07:35.3795399Z [EmulatorConsole]: Failed to start Emulator console for 5554
+2026-11-12T03:07:57.3838837Z > Task :app:connectedDebugAndroidTest
+2026-11-12T03:27:29.2646500Z ##[error]The operation was canceled.

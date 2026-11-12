@@ -10,6 +10,7 @@ import xml.etree.ElementTree as ET
 
 from adb_readiness import diagnostic, probe
 from ui_nodes import labeled_toggle
+from storage_probe import collect as collect_storage
 
 adb = str(Path(os.environ["ANDROID_HOME"]) / "platform-tools/adb")
 reports = Path("app/build/reports/pleos")
@@ -90,8 +91,15 @@ try:
         report["right_sdk_changed"] = any("right=EMPTY" in line for line in real) and any("right=OCCUPIED" in line for line in real)
         screenshot("seat-app.png")
     else:
+        collect_storage(adb,"emulator-5554","app/build/outputs/apk/debug/app-debug.apk",reports)
+        report["pre_install_adb_probe"]=probe(adb,"emulator-5554")
+        if not report["pre_install_adb_probe"]["ready"]:
+            raise RuntimeError("Live readiness changed after read-only storage observations; no installation")
         command("install", "-r", "app/build/outputs/apk/debug/app-debug.apk", timeout=180)
         report["apk_installed"] = True
+        if output := os.environ.get("GITHUB_OUTPUT"):
+            with Path(output).open("a") as stream:
+                stream.write("apk_installed=true\n")
         grant = subprocess.run([adb, "-s", "emulator-5554", "shell", "pm", "grant", package, "android.car.permission.CAR_SPEED"], capture_output=True)
         report["car_speed_permission_granted"] = grant.returncode == 0
         report["car_speed_permission_result"] = {"returncode": grant.returncode,
