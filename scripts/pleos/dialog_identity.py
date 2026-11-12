@@ -20,3 +20,11 @@ def same_frame_header_confirms(full,header):
             full.get('fingerprint_count')==1 and header.get('rsa_marker_detected') is True and
             header.get('fingerprint_label_detected') is True and header.get('host_fingerprint_matches') is True and
             header.get('fingerprint_count')==1)
+
+
+def independent_header_views_confirm(full,headers):
+    # Missing OCR is not consent. Two same-original header views must each independently
+    # satisfy all original scene + exact current-host identity checks.
+    return (full.get('title_detected') is True and full.get('fingerprint_count')==0 and len(headers)==2 and
+            all(h.get('dialog_detected') is True and h.get('fingerprint_count')==1 and
+                h.get('host_fingerprint_matches') is True for h in headers))

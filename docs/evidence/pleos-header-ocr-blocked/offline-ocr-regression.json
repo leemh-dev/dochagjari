@@ -1,0 +1,33 @@
+{
+  "image_sha256": "d03ff2ea111964e06ae7a8594de390149679c5f34c2a9a138064011867dbd92a",
+  "full_frame": {
+    "dialog_detected": true,
+    "title_detected": true,
+    "rsa_marker_detected": true,
+    "fingerprint_label_detected": true,
+    "fingerprint_count": 0,
+    "host_fingerprint_matches": false,
+    "unambiguous_allow_button": false,
+    "click": null
+  },
+  "headers": [
+    {
+      "dialog_detected": true,
+      "title_detected": true,
+      "rsa_marker_detected": true,
+      "fingerprint_label_detected": true,
+      "fingerprint_count": 1,
+      "host_fingerprint_matches": true
+    },
+    {
+      "dialog_detected": true,
+      "title_detected": true,
+      "rsa_marker_detected": true,
+      "fingerprint_label_detected": true,
+      "fingerprint_count": 1,
+      "host_fingerprint_matches": true
+    }
+  ],
+  "passes_new_same_frame_classifier": true,
+  "scope": "IMAGE-derived reference for offline consistency only; not current host identity or authorization success"
+}

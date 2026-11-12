@@ -11,7 +11,7 @@ import time
 
 from adb_readiness import diagnostic
 from dialog_regions import inspect_regions, crop_ocr
-from dialog_identity import identity, same_frame_header_confirms
+from dialog_identity import identity, same_frame_header_confirms, independent_header_views_confirm
 from x11_context import observe_pointer, input_target_known, native_input_target
 
 
@@ -85,7 +85,7 @@ def approve_visible_dialog(work, reports, environment, attempt):
         if observation_point:
             # Read-only window evidence must survive a title OCR miss. This never moves/clicks.
             result["x11_observation"] = observe_pointer(environment, observation_point)
-        if (not plan["dialog_detected"] and plan.get("title_detected") and plan["host_fingerprint_matches"]
+        if ((not plan["dialog_detected"] or not plan["host_fingerprint_matches"]) and plan.get("title_detected")
                 and not regions["desktop_panel_blocked"] and regions["permission_click"]):
             observation=result.get("x11_observation",{})
             cx,cy=regions["permission_click"]
@@ -101,10 +101,17 @@ def approve_visible_dialog(work, reports, environment, attempt):
                     header=identity(crop_ocr(screenshot,work,(x,y,min(width,1200),band),environment,6),fingerprint)
                     result['focused_header_identity']=header
                     result['full_frame_dialog_detected']=plan['dialog_detected']
-                    if same_frame_header_confirms(plan,header):
-                        plan['dialog_detected']=True
-                        result['dialog_detected']=True
-                        result['dialog_confirmed_by']='same original full title and two matching fingerprints, header labels'
+                    confirmed=same_frame_header_confirms(plan,header)
+                    if not confirmed and plan.get('fingerprint_count')==0:
+                        views=[identity(crop_ocr(screenshot,work,(x,y,min(width,1200),band),environment,mode,threshold),fingerprint)
+                               for mode,threshold in [(11,None),(6,'40%')]]
+                        result['independent_header_views']=views
+                        confirmed=independent_header_views_confirm(plan,views)
+                    if confirmed:
+                        result['full_frame_identity']=dict(plan)
+                        plan['dialog_detected']=True;plan['host_fingerprint_matches']=True
+                        result['dialog_detected']=True;result['host_fingerprint_matches']=True
+                        result['dialog_confirmed_by']='strict same-original header identity; exact current host fingerprint'
         if regions["notice_click"]:
             nx, ny = regions["notice_click"]
             subprocess.run(["xdotool", "mousemove", str(nx), str(ny), "click", "1"],

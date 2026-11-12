@@ -11,8 +11,10 @@ test_post_input_observation_never_sends_another_input (test_debugging_dialog.Deb
 test_post_input_ocr_miss_does_not_prove_dialog_dismissal (test_debugging_dialog.DebuggingDialogTest.test_post_input_ocr_miss_does_not_prove_dialog_dismissal) ... ok
 test_region_buttons_require_a_unique_cancel_allow_bar (test_debugging_dialog.DebuggingDialogTest.test_region_buttons_require_a_unique_cancel_allow_bar) ... ok
 test_wrong_host_or_unrelated_permission_never_clicks (test_debugging_dialog.DebuggingDialogTest.test_wrong_host_or_unrelated_permission_never_clicks) ... ok
+test_conflicting_full_frame_fingerprint_and_missing_title_are_rejected (test_dialog_identity.SameFrameHeaderTest.test_conflicting_full_frame_fingerprint_and_missing_title_are_rejected) ... ok
 test_missing_header_labels_is_rejected (test_dialog_identity.SameFrameHeaderTest.test_missing_header_labels_is_rejected) ... ok
 test_missing_usb_title_or_original_identity_is_rejected (test_dialog_identity.SameFrameHeaderTest.test_missing_usb_title_or_original_identity_is_rejected) ... ok
+test_missing_whole_frame_fingerprint_requires_two_complete_independent_views (test_dialog_identity.SameFrameHeaderTest.test_missing_whole_frame_fingerprint_requires_two_complete_independent_views) ... ok
 test_other_host_or_duplicate_fingerprint_is_rejected (test_dialog_identity.SameFrameHeaderTest.test_other_host_or_duplicate_fingerprint_is_rejected) ... ok
 test_small_label_miss_requires_matching_original_and_header_identity (test_dialog_identity.SameFrameHeaderTest.test_small_label_miss_requires_matching_original_and_header_identity) ... ok
 test_failed_boot_record_does_not_attempt_adb_or_install (test_install_gate.InstallGateTest.test_failed_boot_record_does_not_attempt_adb_or_install) ... ok
@@ -28,6 +30,6 @@ test_missing_tool_and_failure_preserve_return_codes (test_x11_context.X11Context
 test_readonly_records_actual_pointer_target_focus_and_geometry (test_x11_context.X11ContextTest.test_readonly_records_actual_pointer_target_focus_and_geometry) ... ok
 
 ----------------------------------------------------------------------
-Ran 28 tests in 0.127s
+Ran 30 tests in 0.167s
 
 OK
