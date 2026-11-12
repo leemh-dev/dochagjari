@@ -27,3 +27,7 @@ v0.2.0의 목적은 확정한 픽업 요청을 재시작 후 복원하면서 같
 - ViewModel 종료는 저장 큐를 취소하지 않습니다. OS가 프로세스를 강제 종료한 경우에는 마지막으로 **저장 완료**된 값의 복원을 보장하며 아직 저장 중인 변경을 완료한 것으로 표시하지 않습니다.
 
 검증 명령·성공 여부는 [검증 기록](08-verification.md), 실행 이력은 [개발 일지](10-development-log.md)에 기록합니다.
+
+## 실제 Android HTTP 복구 증거 — 2026-11-12
+
+[2c2feb0 PR CI43134026080](https://github.com/leemh-dev/dochagjari/actions/runs/43134026080)에서 실제 앱 UI와 loopback SERVER_MOCK를 연결했습니다. 서버 DB 저장 후 응답을 보류하고 앱/서버를 종료·재시작해 같은 세션/요청 지문·위치·대상·모드를 복원했습니다. 토큰은 비어 있었고 재입력/결과 확인 후 GET200으로 복구했습니다. GET404→POST1회→재시작 GET1회, DB행/지문 동일·공급자0회입니다. DB 삭제/새 세션 재발송을 사용하지 않았습니다. [원본3장·검증 경계](evidence/android-http-recovery/README.md)와 [정제 추적](evidence/android-http-recovery/summary.json)을 제공합니다. 실제 공급자 수락/휴대폰 수신이나 모든 pending/unknown 조합의 기기 검증을 뜻하지 않습니다.

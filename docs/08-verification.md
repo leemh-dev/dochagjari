@@ -2,6 +2,15 @@
 
 2026-11-11 UTC · 기준: [개발계획](07-development-plan.md)
 
+## 최신 진행 — 2026-11-12 실제 HTTP 복구·입력 전달 진단
+
+- **새 Android 완료 증거:**2c2feb0 [PR43134026080](https://github.com/leemh-dev/dochagjari/actions/runs/43134026080)·push43134018393 전체 성공. 실제 앱 UI→Python loopback 모의 서버에서 GET404→POST 저장 후 응답 보류→앱 force-stop→동일 DB 서버 재시작→새 앱 PID/빈 토큰 확인→같은 세션 GET200 복구를 확인했습니다. POST총1회·DB행1개·요청지문 동일·공급자 호출0회입니다. [원본3장/출처](evidence/android-http-recovery/README.md) · [추적 JSON](evidence/android-http-recovery/summary.json). **SERVER_MOCK 실제 HTTP 검증이며 SENS 수락/휴대폰 수신은 아닙니다.**
+- **같은 CI:**JVM33·서버14·lint·당시 진단20·일반 Android 기능6·프로세스 복원2단계·기존 화면 조작13장도 성공했습니다. 이후 dacfc37 PR43135254549/push43135246257도 전체 성공했고 진단21건·새 HTTP 복구를 포함합니다. 문서4530bb9 CI는 확인 시 진행 중입니다. 새 실제 HTTP 검사는 별도 host fixture 사전 검사와 구분합니다. fixture의 수신자 ID 불일치는 코드 대조로 미리 수정했고 이전24a7d2c CI는 취소 완료/성공 아님으로 기록합니다.
+- **새 로컬 진단:**read-only X11 pointer/포커스/geometry3건·창 목록/대상 차단1건을 더해 Python21건 로컬 통과. 구문·actionlint·diff 통과. 자체 private Xvfb에서 같은좌표 --sync/분리 입력 모두 성공했고 실제 호스트 창이 있으면 포인터 child ID가 나왔습니다. [포인터 사전 검사](evidence/host-pointer-preflight.json) · [창 비교](evidence/x11-mapped-window-check.json). Android/ADB 승인 검사가 아닙니다.
+- **실제 Pleos 추가 근거:**93b4c16 수동43132924010/artifact13906886041은 unauthorized였습니다. 입력 전 좌표는2403,351로 일치하지만 WINDOW0/focus543/display3000x2000이며 입력 명령이10초 timeout이었습니다. [JSON/범위](evidence/pleos-x11-input/summary.json). 반복 --sync만으로 원인을 설명할 수 없고, 창 종료/이동/게스트 장애를 아직 구분하지 못합니다. 설치/속성·서비스/SDK/Console/기기 검사는 생략했습니다.
+- **후속 보완:**dacfc37은 대상 창 미확인 시 입력 차단/새 원본 수집, 제목을 제외한 root 창 목록, 이미지 다운로드 전 host 포인터 사전 검사를 추가했습니다. 같은200ms 정상 동작/정확한 지문·문구·버튼 조건·live ADB 설치 준비 검사를 유지합니다. 수동43135246535/artifact13907941147은 host 사전 검사 성공 후에도 WINDOW0/focus=root543이어서 입력 차단·unauthorized로 끝났습니다. 새 원본에는 승인창이 있고 창 목록에는 Emulator2400x1350/100,100이 있습니다. 이것만으로 입력 전달/승인 성공을 뜻하지 않습니다. [실제 결과/원본](evidence/pleos-window-target-blocked/summary.json). 설치/SDK/Console/기기 검사는 생략했고 이후 추가 부팅을 요청하지 않았습니다. 자체 X11 창은 screenshot 전후 모두 정상 대상 ID였으므로 capture/sync만으로 단정할 수 없습니다.
+- **유지/외부 조건:**Kotlin 앱/서버 런타임/배포0.2.0/code2·코드3a01515·artifact13871881801·기존 해시/개발 서명은 유지합니다. Cloud KVM/기기/VPN 없음·Mac 미접근. 디자인 전면 개편은 미룹니다. 실제 내비 핀/좌석·순정 카메라·실차·SENS 수락/수신·제출 서명은 미검증입니다.
+
 ## 최신 진행 — 2026-11-12: 실제 앱 화면·오류 수정
 
 - **새 실제 실행:**cc1c19e [PR43128321081](https://github.com/leemh-dev/dochagjari/actions/runs/43128321081)·push43128313393 모두 성공. JVM33·서버14·lint·당시 Python13·일반 Android 기능6·프로세스 복원2단계에 더해 **새 UI 조작 검사10개 확인/원본 화면13장**을 확보했습니다. [화면·XML·출처](evidence/android-ui-screens/README.md) · [실제 요약](evidence/android-ui-screens/summary.json). 픽업/주차/우회/후보 없음/가상 병원/저장 완료 표시/실제 Android 생성 영상 EMPTY·OCCUPIED/C12/점유 우회/알림 좌표 입력/주행 잠금·영상 숨김입니다. 알림 캡처 자체는 발송 완료 증거가 아닙니다.

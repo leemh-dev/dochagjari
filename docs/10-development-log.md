@@ -302,6 +302,15 @@
 - **민감정보/격리:**토큰 재입력은 메모리/임시 private 파일만 사용했고 artifact에는 토큰/DB/전화번호/실제 요청 본문을 남기지 않았다. 실제 수신자가 없는 loopback fixture이다. 서버 재시작 중 DB를 삭제하거나 새 세션으로 재발송하지 않았다. Kotlin앱/배포 APK는 바꾸지 않았다.
 - **X11 추가 비교:**자체 Xvfb에 실제 Xmessage 창을 띄웠을 때 포인터는 실제 child ID를 반환했다([JSON](evidence/x11-mapped-window-check.json)). 따라서 실제 Pleos WINDOW0을 정상 전달로 간주하지 않는다. 이것만으로 창 종료/이동/게스트 장애 원인을 확정할 수는 없다. 창 목록/입력 차단 원본을 수집하는 dacfc37 수동43135246535 결과를 기다린다.
 
+## 2026-11-12 01:51 UTC — 창 목록과 실제 대상 불일치 확인·추가 부팅 중단
+
+- **실제 결과:**dacfc37 수동43135246535/artifact13907941147. host 포인터 사전 검사 성공, 공식 이미지/GUI 실행 후 원본에는 USB 승인창이 있고 root 창 목록에는 Emulator2400x1350/100,100이 있었다. 그러나 기대/실제 좌표2403,351에서 pointer WINDOW0, focus=root543이었다. 대상 미확인 차단이 작동해 허용 동작을 보내지 않았고 unauthorized로 종료했다. [새 원본/정제 근거](evidence/pleos-window-target-blocked/summary.json). 창 목록/기하정보/화면 표시는 실제 전달 증거가 아니다. GUI 입력·포커스/창 상태의 정확한 내부 원인은 아직 미확인이다.
+- **경계:**transport에서 막혀 부팅 속성/package/activity는 미조회, 앱 설치/실제 내비·핀/Console·SDK수신/Pleos 기기 검사는 생략했다. 이후 추가 부팅을 요청하지 않았다. 기존 RAM/userdata/profile crash나 auth키 부족을 원인으로 단정하지 않는다. 인증/키/권한/항상 허용은 바꾸지 않았다.
+- **호스트 비교:**자체 Xmessage 창에서 screenshot 전/후 포인터 ID가 동일하게 양수였다([JSON](evidence/x11-screenshot-effect-check.json)). 이 조건에서는 screenshot/sync만으로 같은 문제를 재현하지 못했다. Android/Pleos 성공 증거가 아니며 Qt/AVD 조건과 동일하다고 가정하지 않는다.
+- **최종 검사:**2c2feb0 및 최신 dacfc37 PR43135254549/push43135246257 일반 CI 전체 성공. JVM33/서버14/lint/진단21/기기6/프로세스2단계/기존UI13장/새실제HTTP 복구가 통과했다. 문서4530bb9 CI는 확인 시 진행 중. 앱/서버/Gradle 런타임을3a01515와 diff해 동일함을 확인했고 배포 artifact13871881801도 미만료다. SENS/제출키 설정은 미완비, server/.env 없음(값은 출력하지 않음).
+- **문서/산출물:**docs/08·11·12에 실제 Android SERVER_MOCK HTTP 복구 완료 수준을 반영하고 README 재현 명령·docs/09 다음 프롬프트를 정리했다. 앱0.2.0/code2/배포 SHA·개발 서명·unsigned release는 유지한다. 원본 화면/PR/검증/다음 프롬프트를 최종 채팅에도 제공한다. PR은 병합하지 않는다.
+- **다음:**접근 가능한 정상 Pleos/맥북 원격 연결 또는 근거 있는 X11/Qt 입력/포커스·창 상태 진단을 먼저 진행한다. 준비 helper가 실제 성공한 뒤에만 설치/두 목적지 SDK·핀/Console 좌우·앱 초기값·콜백/설정 복원/기기 검사를 한다. 실제 SMS·실차·병원 동선·순정 카메라·제출 서명은 여전히 별도 미검증이다.
+
 ## 이후 기록 양식
 
 ```text

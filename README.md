@@ -90,7 +90,7 @@ python3 scripts/pleos/adb_readiness.py --serial "$DOCHAGJARI_SERIAL" \
 
 GUI CI는 이 job이 만든 새 AVD에서만 정상 USB 디버깅 문구·일치하는 공개 호스트 지문·취소 옆의 명확한 허용 버튼을 확인해 클릭합니다. 지문이 다르거나 UI가 모호하면 클릭하지 않으며, 실제 transport/device와 부팅/서비스가 확인돼야 다음 단계로 갑니다. 키 파일 편집·복사, 인증 비활성화, 권한 우회는 하지 않습니다. 호스트 OCR은 이 승인 화면 관찰에만 사용하며 앱 ML Kit 분석 성공으로 계산하지 않습니다.
 
-최신 KVM 진단43128107467과 정상200ms 누름·떼기 비교43129699644 모두 unauthorized로 종료됐습니다. 원본 입력 후 화면에는 승인창이 남아 있습니다. [실제 비교 결과](docs/evidence/pleos-sustained-input/summary.json)를 먼저 읽습니다. OCR이 문구를 읽지 못한 false는 창 종료를 증명하지 않으며, 후속 코드는 이를 unknown으로 명시합니다. 입력 명령 성공이나 검정 화면도 승인 성공이 아닙니다. Mac에서는 정상 허용 후 대화상자 종료/재등장을 관찰하고 helper 성공 여부를 확인합니다. 화면·해당 호스트·시리얼·ADB 상태를 대조하며 무관한 기기나 인증 설정을 변경하지 않습니다.
+최신 KVM 진단43135246535는 원본에 승인창이 보이고 창 목록에 Emulator 기하정보도 있지만 pointer WINDOW0/focus=root여서 허용 입력을 차단했습니다. [새 실제 근거](docs/evidence/pleos-window-target-blocked/summary.json)를 먼저 읽습니다. 창 목록·화면 표시·좌표 일치는 실제 입력 전달 증거가 아닙니다. 이전 정상200ms 입력 비교도 unauthorized였습니다. OCR false/검정 화면 역시 승인창 종료나 승인 성공을 증명하지 않습니다. 같은 실패로 부팅을 재요청하지 말고 X11/Qt 입력·포커스/창 상태나 접근 가능한 정상 승인 기기부터 확인합니다. Mac 명령은 실제 접근했을 때만 실행 결과로 기록합니다.
 
 [일반 Android에서 직접 실행한 원본13장](docs/evidence/android-ui-screens/README.md)은 앱 테스트 입력/생성 영상의 실제 실행 증거입니다. Pleos 실제 연동 검증과 구분합니다. 실제 XML에서 확인한 Compose 스위치는 클래스명이 아닌 라벨/행/checkable·clickable로 선택하도록 수정했습니다.
 
@@ -201,3 +201,11 @@ shasum -a 256 app/build/outputs/apk/release/app-release.apk
 키가 없으면 `app-release-unsigned.apk`만 생성합니다. 이를 서명된 제출 APK로 부르지 않습니다. 서명 후 새 해시·키 지문·코드 커밋·버전을 기록하고 제출 전 새 Pleos AVD에서 서명 APK를 설치해 목적지 핀·좌석·영상·휴대폰 수신을 다시 검증해야 합니다.
 
 [기획 문서](docs/01-product-plan.md) · [개발계획](docs/07-development-plan.md) · [검증 기록](docs/08-verification.md) · [알림 복구 계약](docs/11-arrival-recovery.md) · [외부 모델·영상 출처](THIRD_PARTY_NOTICES.md)
+
+### 실제 Android 모의 서버 복구 검사
+
+[원본 화면3장/실행 근거](docs/evidence/android-http-recovery/README.md)에서 실제 Android 앱의 서버 모의 HTTP 복구를 확인할 수 있습니다. 서버 저장 뒤 응답 유실·앱 종료·동일DB 서버 재시작에도 같은 세션 GET으로 복구했고 POST1회/공급자0회였습니다. 실제 SMS 수락/휴대폰 수신은 아닙니다.
+
+CI가 만든 새 전용 AVD와 모의 fixture에서만 `DOCHAGJARI_FRESH_TEST_AVD=1 python scripts/android_server_smoke.py`를 실행합니다. 실제 사용자 기기에서 이 명령을 실행하지 않습니다. 임시 토큰/DB는 artifact 밖에 보관하며 외부 공급자는 호출하지 않습니다.
+
+에뮬레이터 없이 호스트 X11 입력만 확인하려면 Xvfb/xdotool/xauth/x11-utils가 준비된 Linux에서 `python scripts/pleos/check_pointer_runtime.py --output /tmp/dochagjari-pointer-check.json`을 실행합니다. 별도 private Xauthority를 쓰고 Android/ADB를 실행하지 않습니다. 호스트 성공이 Pleos 승인 성공을 뜻하지 않습니다.
