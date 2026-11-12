@@ -17,6 +17,9 @@ test_missing_usb_title_or_original_identity_is_rejected (test_dialog_identity.Sa
 test_missing_whole_frame_fingerprint_requires_two_complete_independent_views (test_dialog_identity.SameFrameHeaderTest.test_missing_whole_frame_fingerprint_requires_two_complete_independent_views) ... ok
 test_other_host_or_duplicate_fingerprint_is_rejected (test_dialog_identity.SameFrameHeaderTest.test_other_host_or_duplicate_fingerprint_is_rejected) ... ok
 test_small_label_miss_requires_matching_original_and_header_identity (test_dialog_identity.SameFrameHeaderTest.test_small_label_miss_requires_matching_original_and_header_identity) ... ok
+test_failed_or_truncated_instrumentation_is_not_a_pass (test_direct_instrumentation.CompleteSuiteEvidenceTest.test_failed_or_truncated_instrumentation_is_not_a_pass) ... ok
+test_only_complete_six_case_success_is_accepted (test_direct_instrumentation.CompleteSuiteEvidenceTest.test_only_complete_six_case_success_is_accepted) ... ok
+test_reset_cannot_start_without_both_explicit_fresh_device_guards (test_direct_instrumentation.CompleteSuiteEvidenceTest.test_reset_cannot_start_without_both_explicit_fresh_device_guards) ... ok
 test_failed_boot_record_does_not_attempt_adb_or_install (test_install_gate.InstallGateTest.test_failed_boot_record_does_not_attempt_adb_or_install) ... ok
 test_prior_success_record_does_not_allow_install_on_missing_device (test_install_gate.InstallGateTest.test_prior_success_record_does_not_allow_install_on_missing_device) ... ok
 test_actual_native_emulator_target_overrides_false_zero_from_xdotool (test_native_target.ActualNativeTargetTest.test_actual_native_emulator_target_overrides_false_zero_from_xdotool) ... ok
@@ -30,6 +33,6 @@ test_missing_tool_and_failure_preserve_return_codes (test_x11_context.X11Context
 test_readonly_records_actual_pointer_target_focus_and_geometry (test_x11_context.X11ContextTest.test_readonly_records_actual_pointer_target_focus_and_geometry) ... ok
 
 ----------------------------------------------------------------------
-Ran 30 tests in 0.167s
+Ran 33 tests in 0.470s
 
 OK

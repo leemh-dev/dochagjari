@@ -370,6 +370,13 @@
 - **검사/다음 실행 근거:**구문/actionlint/diff 통과, 새 진단 모듈의 실제 결과는 아직 미검증이다. 현재 같은 앱의 기기 검사가 이미 실행 중이므로 다음 read-only 관찰 실행은 run_connected_tests=false로 중복 검사하지 않는다. 새 실제 화면/UI dump 실패와 누락된 display 근거를 확보하는 단일 진단 목적이다. 배포 APK/앱 런타임/디자인/버전/서명은 유지한다.
 - **공식 데이터 비교:**원본 userdata ext41153433600bytes/메타데이터만 읽었고 파일 내용/키를 읽거나 복사하지 않았다([JSON](evidence/official-userdata-filesystem.json)). source.properties에는 multi_display_window/hotplug_multi_display=no가 있으나 수동 config에는 명시되지 않은 차이가 있다. 이 차이 또는 vendor profile crash를 원인으로 확정하지 않고 먼저 실제 display/activity를 관찰한다.
 
+## 2026-11-12 — 정상 ADB instrumentation 대체 검사 경로 준비
+
+- **근거/목적:**3c0ad6e connected task는 약20분 후 취소/결과 XML 없음, a8c91d2도 기기 검사 진행 중이다. AGP console5554 경고를 원인으로 확정하지 않는다. 정상 승인된 ADB와 테스트 APK로 기존6개 기능 검사를 실행하는 별도 driver를 준비해 Gradle 연결 계층 정체와 앱 검사 결과를 구분한다. 인증/권한/키를 바꾸지 않는다.
+- **구현:**device_test_driver=adb 선택 시 assembleDebugAndroidTest·검증용 test APK 해시/개발 서명 기록·live readiness/대상 APK 존재 확인 후 표준 adb install -t/-r와 am instrument -w/-r를 사용한다. 기존6개 클래스만 실행하고 실제 완료 status0 6개·OK(6 tests)·최종 instrumentation code-1·오류 없음이 모두 있어야 통과다. 잘린/실패/중복 status를 성공으로 해석하지 않는다. 모델/프로필 두 프로세스 복원 검사는 별도 step으로 독립 실행한다.
+- **격리:**DOCHAGJARI_FRESH_TEST_AVD=1과 --reset-test-data가 모두 있어야 고정된 이 앱만 초기화한다. 사용자 기기/서버DB에 사용하지 않는다. 앱 테스트 입력/모의 알림/사전 영상 검증이며 실제 NaviHelper/좌석/실차/SENS 성공과 다르다. driver 결과를 connectedDebugAndroidTest 통과로 표시하지 않는다.
+- **검사/경계:**실제 완료 판정2건과 fresh-device guard1건을 추가해 진단Python33건 통과. 구문/actionlint/diff 통과. 정상 ADB driver의 실제 Pleos 실행은 아직 미검증이며 현재 display 관찰 실행에는 포함되지 않았다. 새 부팅은 실제 display/기기 검사 원본을 읽고 필요 근거를 기록한 뒤 결정한다. 앱 런타임/배포APK/버전/서명은 유지한다.
+
 ## 이후 기록 양식
 
 ```text

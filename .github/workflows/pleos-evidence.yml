@@ -6,6 +6,11 @@ on:
         description: Run connected regression after installation (disable for observation-only runs)
         type: boolean
         default: true
+      device_test_driver:
+        description: Device regression driver (adb is separate from Gradle connected tests)
+        type: choice
+        options: [gradle, adb, none]
+        default: gradle
 jobs:
   pleos-evidence:
     runs-on: ubuntu-latest
@@ -66,7 +71,7 @@ jobs:
           name: pleos-before-connected-tests
           path: app/build/reports/pleos/
       - name: Run Android tests on the prepared Pleos device
-        if: ${{ !cancelled() && steps.boot.outcome == 'success' && steps.app_probe.outputs.apk_installed == 'true' && inputs.run_connected_tests }}
+        if: ${{ !cancelled() && steps.boot.outcome == 'success' && steps.app_probe.outputs.apk_installed == 'true' && inputs.run_connected_tests && inputs.device_test_driver == 'gradle' }}
         env:
           ANDROID_SERIAL: emulator-5554
         run: |
@@ -80,6 +85,23 @@ jobs:
           adb -s "$ANDROID_SERIAL" install -r app/build/outputs/apk/debug/app-debug.apk
           adb -s "$ANDROID_SERIAL" install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
           python scripts/process_restart_smoke.py --serial "$ANDROID_SERIAL" --reset-test-data --output app/build/reports/pleos/process-restart.txt
+      - name: Run existing app tests with standard ADB instrumentation
+        id: direct_tests
+        if: ${{ !cancelled() && steps.boot.outcome == 'success' && steps.app_probe.outputs.apk_installed == 'true' && inputs.device_test_driver == 'adb' }}
+        env:
+          DOCHAGJARI_FRESH_TEST_AVD: '1'
+        run: |
+          ./gradlew :app:assembleDebugAndroidTest
+          {
+            sha256sum app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+            "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --print-certs app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+          } > app/build/reports/pleos/verification-test-apk-identity.txt
+          python scripts/pleos/direct_instrumentation.py --serial emulator-5554 --reset-test-data
+      - name: Verify saved profile and arrival journal across two instrumentation processes
+        if: ${{ !cancelled() && steps.direct_tests.outputs.test_apk_installed == 'true' && inputs.device_test_driver == 'adb' }}
+        run: |
+          python scripts/pleos/adb_readiness.py --serial emulator-5554 --output app/build/reports/pleos/direct-restart-readiness.json
+          python scripts/process_restart_smoke.py --serial emulator-5554 --reset-test-data --output app/build/reports/pleos/direct-process-restart.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
