@@ -8,6 +8,8 @@
 
 ## 현재 우선순위 · 지도 중심 Android UX
 
+[사진을 참고한 3분할 3D 시안4장](docs/ux/photo-based-3d/README.md): 차량 주변 / 내비 / 도착자리로 나누고 병원·학원·정자역·공항의 형태와 표지를 단순화했습니다. 생성 디자인이며 실제 센서/앱 실행이 아닙니다. [화면 역할·자료 경계·다음 적용 순서](docs/29-photo-based-3d-ux.md). 기존 앱/APK는 유지합니다.
+
 [실제 장소 사진 조사](docs/28-real-place-photo-research.md): 분당서울대병원·분당 수내동 학원가·인천공항 T1 장기주차장·정자역의 사진13장과 공식 안내도2장을 확보했습니다. [출처 목록](docs/research/real-place-references/README.md). 다음 디자인은 실제 시설 자료를 먼저 대조합니다. 분당 학부모 승용차 픽업 대기 사진은 미확보이며 셔틀버스 보도사진과 구분합니다.
 
 [병원·학교/학원 픽업·역/공항 마중의 새 UX 예상도](docs/ux/scenario-concepts/README.md)를 저장했습니다. 기존 매장 시안과 같은 테마의 가상 정차 화면이며 실제 앱 실행/시설 지도/연동 성공이 아닙니다. [장면별 행동·전환 규칙](docs/27-scenario-ux-concepts.md).
