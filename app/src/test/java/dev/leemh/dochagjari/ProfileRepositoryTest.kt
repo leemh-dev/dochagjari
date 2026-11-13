@@ -19,8 +19,8 @@ class ProfileRepositoryTest {
         }
         val repository = ProfileRepository(storage, backgroundScope)
         runCurrent()
-        val first = Profile(leftDoor = true, heightM = 2.1)
-        val last = first.copy(stroller = true, companion = true, heightM = 2.3)
+        val first = Profile(leftDoor = true, heightM = 2.1, seats = SeatPreferences(SeatSetup.CONFIGURED, SeatAssignment(SeatRole.INFANT, true)))
+        val last = first.copy(stroller = true, companion = true, heightM = 2.3, seats = first.seats.copy(right = SeatAssignment(SeatRole.ADULT)))
         repository.update(first); repository.update(last); runCurrent()
         assertEquals(ProfileSaveStatus.SAVING, repository.state.value.status)
         assertEquals(last, repository.state.value.profile)
@@ -38,7 +38,7 @@ class ProfileRepositoryTest {
             override suspend fun write(profile: Profile) { if (fail) throw IOException("disk full"); persisted = profile }
         }
         val repository = ProfileRepository(storage, backgroundScope); runCurrent()
-        val edited = Profile(rightDoor = true, wheelchair = true, heightM = 2.2)
+        val edited = Profile(rightDoor = true, wheelchair = true, heightM = 2.2, seats = SeatPreferences(SeatSetup.CONFIGURED, right = SeatAssignment(SeatRole.CHILD, true)))
         repository.update(edited); runCurrent()
         assertEquals(ProfileSaveStatus.ERROR, repository.state.value.status)
         assertEquals(edited, repository.state.value.profile)

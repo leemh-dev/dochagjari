@@ -1,5 +1,9 @@
 # 도착자리 개발계획
 
+## 3단계 선택적 좌석 역할
+
+지원이 확인된 뒷좌석 좌우의 명시적 역할·카시트 선택/건너뛰기와 저장 이행은 [docs/20](20-optional-seat-roles.md)을 따른다. 점유와 역할을 분리하고 기존 방문·설정·알림을 보존한다. 실제 로컬/기기 결과는 검증 기록에서 구분한다.
+
 2026-11-11 KST · 11월 15일 출품 기준
 
 [서비스 기획](01-product-plan.md) · [시나리오](02-service-scenarios.md) · [데이터](03-data-plan.md) · [기능](04-feature-design.md) · [Pleos 연동](05-pleos-integration.md) · [MVP와 제출](06-mvp-and-submission.md)

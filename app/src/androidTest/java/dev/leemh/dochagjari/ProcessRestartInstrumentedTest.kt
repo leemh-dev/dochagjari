@@ -18,7 +18,7 @@ class ProcessRestartInstrumentedTest {
     private fun report(request: ConfirmedArrival) = InstrumentationRegistry.getInstrumentation().sendStatus(0, Bundle().apply {
         putInt("arrival_process_pid", Process.myPid()); putString("arrival_request_hash", request.fingerprint())
     })
-    private val expected = Profile(leftDoor = true, rightDoor = true, stroller = true, wheelchair = true, companion = true, heightM = 2.2)
+    private val expected = Profile(leftDoor = true, rightDoor = true, stroller = true, wheelchair = true, companion = true, heightM = 2.2, seats = SeatPreferences(SeatSetup.CONFIGURED, SeatAssignment(SeatRole.INFANT, true), SeatAssignment(SeatRole.ADULT)))
     @Test fun prepareQueuedArrivalAndSavedProfile() = runBlocking {
         phase("prepare")
         val instrumentation = InstrumentationRegistry.getInstrumentation()

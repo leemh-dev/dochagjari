@@ -1,0 +1,18 @@
+{
+  "environment": "Codex Cloud; JDK17/Android35; offline cache,1worker,1536MiB",
+  "jvm": {
+    "tests": 51,
+    "failures": 0,
+    "errors": 0
+  },
+  "build": {
+    "unit_lint_debug": "passed in first invocation; AndroidTest smart-cast compilation failed",
+    "androidTest_release": "passed after local non-null repository reference fix; BUILD SUCCESSFUL in1m28s"
+  },
+  "device": "Not yet run for stage3; not Pleos evidence",
+  "new_tests": [
+    "SeatPreferencesTest: explicit choices/occupancy boundaries",
+    "ProfileDataStoreTest: legacy migration, shutdown/reopen,unknown role,injected write failure/retry against actual file"
+  ],
+  "storage_failure": "Exception injected before DataStore write, not a claim of physical disk failure"
+}

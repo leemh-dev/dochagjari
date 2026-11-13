@@ -16,7 +16,7 @@ data class AccessPoint(
     val open: String, val close: String, val walking: String, val permitted: Boolean = true
 )
 data class Facility(val id: String, val name: String, val entrance: String, val fictional: Boolean, val points: List<AccessPoint>)
-data class Profile(val leftDoor: Boolean = false, val rightDoor: Boolean = false, val stroller: Boolean = false, val wheelchair: Boolean = false, val companion: Boolean = false, val heightM: Double = 1.8)
+data class Profile(val leftDoor: Boolean = false, val rightDoor: Boolean = false, val stroller: Boolean = false, val wheelchair: Boolean = false, val companion: Boolean = false, val heightM: Double = 1.8, val seats: SeatPreferences = SeatPreferences())
 data class Observation(val occupancy: Occupancy, val confidence: Float, val observedAt: Long, val source: InputSource, val detail: String = "") {
     fun effective(now: Long): Occupancy = if (confidence >= .65f && now - observedAt in 0..30_000) occupancy else Occupancy.UNKNOWN
 }

@@ -7,6 +7,8 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStoreFile
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
@@ -27,13 +29,23 @@ class DataStoreProfileStorage(private val store: DataStore<Preferences>) : Profi
         val p = store.data.first()
         return Profile(p[booleanPreferencesKey("left")] ?: false, p[booleanPreferencesKey("right")] ?: false,
             p[booleanPreferencesKey("stroller")] ?: false, p[booleanPreferencesKey("wheelchair")] ?: false,
-            p[booleanPreferencesKey("companion")] ?: false, p[doublePreferencesKey("height")] ?: 1.8)
+            p[booleanPreferencesKey("companion")] ?: false, p[doublePreferencesKey("height")] ?: 1.8,
+            SeatPreferences(enumValue(p[stringPreferencesKey("seat_setup")], SeatSetup.NOT_SET),
+                SeatAssignment(enumValue(p[stringPreferencesKey("seat_left_role")], SeatRole.UNSPECIFIED), p[booleanPreferencesKey("seat_left_child_seat")] ?: false),
+                SeatAssignment(enumValue(p[stringPreferencesKey("seat_right_role")], SeatRole.UNSPECIFIED), p[booleanPreferencesKey("seat_right_child_seat")] ?: false)))
     }
+    private inline fun <reified T : Enum<T>> enumValue(raw: String?, fallback: T): T = enumValues<T>().firstOrNull { it.name == raw } ?: fallback
     override suspend fun write(profile: Profile) {
         store.edit { p ->
             mapOf("left" to profile.leftDoor, "right" to profile.rightDoor, "stroller" to profile.stroller,
                 "wheelchair" to profile.wheelchair, "companion" to profile.companion).forEach { (key, value) -> p[booleanPreferencesKey(key)] = value }
             p[doublePreferencesKey("height")] = profile.heightM
+            p[intPreferencesKey("seat_schema")] = 1
+            p[stringPreferencesKey("seat_setup")] = profile.seats.setup.name
+            p[stringPreferencesKey("seat_left_role")] = profile.seats.left.role.name
+            p[stringPreferencesKey("seat_right_role")] = profile.seats.right.role.name
+            p[booleanPreferencesKey("seat_left_child_seat")] = profile.seats.left.childSeat
+            p[booleanPreferencesKey("seat_right_child_seat")] = profile.seats.right.childSeat
         }
     }
 }
@@ -78,5 +90,6 @@ class ProfileRepository(private val storage: ProfileStorage, scope: CoroutineSco
         _state.value = _state.value.copy(profile = profile, revision = revision, status = ProfileSaveStatus.SAVING)
         if (!writes.trySend(revision to profile).isSuccess) _state.value = _state.value.copy(status = ProfileSaveStatus.ERROR)
     }
+    suspend fun readStoredProfile(): Profile = storage.read()
     fun retry() = update(_state.value.profile)
 }

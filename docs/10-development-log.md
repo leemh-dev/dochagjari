@@ -571,3 +571,13 @@
 - 이실험은원격브랜치에커밋/푸시하지않았고5개코드파일을정확히기존HEAD로복원했다. 실험빌드2m9s는제출검증성과로계산하지않는다. 앱기능/버전은CI통과e573e8e/0.4.0·4를유지한다. 생성된APK도원래검증버전으로복원해혼동을막는다. 실제원본20/21과픽셀비교결과는보존하며새로운기기부팅/CI중복요청없다.
 - 철회후JVM검사중복없이debug/test/unsigned release만1m18s재생성해로컬산출물도0.4.0/4로복구했다. 원래검증로컬APK와세hash/서명을대조했으며최종기기CI/배포판코드는변경없다.
 - 재생성한로컬APK의hash는이전동일소스빌드와달랐고개발인증서는동일했다. 동일소스의byte재현성을가정하지않고local metadata/SHA를실제최종파일로갱신했다. CI배포APK의hash/manifest/서명대조결과와CI파일은그대로다.
+
+## 2026-11-13 UTC — 3단계 선택적 좌석 역할 구현 시작
+
+- **조사/원격:**AGENTS·README·docs07~19·기존 Profile/DataStore/AppModel/UI/순차 writer·기기/프로세스 검사를 확인했다. PR#1 open/미병합/mergeable,원격 f097143 clean; 기존 CI43358680681 verify/android-device success. 이과거결과를이번새검사로계산하지않는다. 연결된GitHub앱을사용하고기존CLI401/터널403실패를반복하지않는다. Cloud-runtime스킬/현재환경의정책·자격값없는정상연결을확인했다.
+- **환경:**기존JDK17/Android35/Gradle offline캐시·1worker/1536MiB. 승인된adb devices목록0, /dev/kvm없음. 새무가속부팅/맥북실행주장없음. 실제기기검사/새화면은전용일반Android CI에서수행후반입한다.
+- **구현:**앱후보0.5.0/5. 지원확인뒷좌석좌우의역할(미지정/성인/어린이/영유아)·카시트사용과NOT_SET/CONFIGURED/SKIPPED를추가했다. 건너뛰기는역할사용만중지하고저장선택/기존이동조건/방문을유지한다. 점유OCCUPIED일때저장선택확인제안만하며역할자동추정/프로필변경없음. 기존profile파일/여섯키와순차저장/status를재사용하고새키만atomic edit에추가했다. 기존방문/알림저널/확정요청스키마는바꾸지않았다.
+- **검사 준비:**실제DataStore이행/즉시종료후새store복원·다른키보존·알수없는enum·주입쓰기실패/실제파일유지/재시도,순차쓰기역할포함·순수점유제안검사. 실제기기2건/기존프로세스2단계역할포함과UI22~25를추가했다. readStoredProfile로실제저장값재조회후판정하며UI선택값만저장성공으로보지않는다. 현재로컬빌드실행중이며새CI/기기성공으로표시하지않는다.
+- **후속:**로컬검사→기능커밋/푸시·새APKmetadata/SHA/서명→실제CI/앱원본화면확인→docs08/09/12/18/PR갱신. 자동병합없음. AI조회worker/내비·입차/연속카메라·주차귀환은후속이며지어낸기둥/번호/거리/현재위치를추가하지않는다.
+- **로컬실패/수정:**첫실행의JVM/lint/debug는통과했지만AndroidTest Kotlin컴파일에서다른모듈의nullable guidance속성smart cast가불가능해실패했다. 테스트에서requireNotNull한로컬val로참조를고정했다. 이미통과한JVM/lint를되풀이하지않고실패/미완료AndroidTest·release빌드만이어간다.
+- **로컬완료:**JUnit51/실패0·오류0(새6건),lint/debug통과. nullable참조수정후AndroidTest/unsigned release잔여빌드1m28s성공. Python구문/actionlint/diff통과. 로그두개/실제JUnit집계JSON을stage3-seat-roles에보존한다. 새CI/앱원본은아직대기다.

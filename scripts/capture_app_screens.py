@@ -158,6 +158,26 @@ def main():
         expect('저장 상태 · PLANNED / HIDDEN'); capture('21-native-guide-hidden-restored')
         report['native_map'] = {'renderer': 'Android Compose Canvas/PathMeasure', 'map': 'self-drawn partial schematic using official route coordinates',
                                 'tilted_flat_animation_close_hidden_restore': True, 'positioning': False}
+        tap('좌석·조건'); tap('건너뛰기 · 설정 없이 안내'); expect('사용자 선택: 설정 없이 안내'); capture('22-seat-roles-skipped')
+        tap('왼쪽 영유아'); tap('왼쪽 카시트 사용'); tap('오른쪽 성인')
+        expect('사용자 선택: 저장한 역할 사용'); capture('23-seat-roles-configured')
+        tap('연동·테스트')
+        # Change occupancy through the app's visible test controls, never infer a role.
+        root = tree()
+        left_label = find('뒷좌석 좌')
+        x1, y1, x2, y2 = box(left_label)
+        # Controls are grouped by seat; select the first visible OCCUPIED after the left label.
+        nodes = list(tree().iter('node'))
+        index = next(i for i,n in enumerate(nodes) if n.attrib.get('text') == '뒷좌석 좌' and visible(n))
+        occupied = next(n for n in nodes[index+1:] if n.attrib.get('text') == 'OCCUPIED' and visible(n))
+        a,b,c,d = box(occupied); adb('shell','input','tap',str((a+c)//2),str((b+d)//2)); time.sleep(.5)
+        tap('좌석·조건')
+        expect('왼쪽 저장 선택 · 영유아 · 카시트 사용. 이번 탑승에도 맞는지 확인하세요.'); capture('24-seat-occupancy-suggestion')
+        adb('shell', 'am', 'force-stop', PACKAGE)
+        adb('shell', 'am', 'start', '-W', '-n', PACKAGE + '/.MainActivity'); time.sleep(2)
+        tap('좌석·조건'); expect('사용자 선택: 저장한 역할 사용'); capture('25-seat-roles-restarted')
+        report['seat_roles'] = {'source': 'Explicit user selection; app test occupancy only', 'skip_and_configuration': True,
+                                'suggestion_does_not_infer_role': True, 'process_restart': True}
         report['success'] = True
     except Exception as error:
         report['success'] = False
