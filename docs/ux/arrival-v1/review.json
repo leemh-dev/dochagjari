@@ -8,7 +8,8 @@
     "driving hides detailed route",
     "driving disables plan controls",
     "close removes route",
-    "mock record button opens return"
+    "mock record button opens return",
+    "driving->stopped never auto-opens detail; explicit open required"
   ],
   "result": "PASS",
   "apk_changed": false,
@@ -45,7 +46,8 @@
     },
     {
       "file": "07-driving.png",
-      "sha256": "50f7e6be674b738d63979f498cef1428ea1b066bce52f8e4c8fb2f7ed98f8a49"
+      "sha256": "74b23b733ce72f1f74d7603b8d9c51a24f3a8c1c1ce312d2336c7a8fc167f00b"
     }
-  ]
+  ],
+  "correction": "Final UX review found auto replay on return to stopped; corrected and targeted browser check PASS"
 }
