@@ -2,6 +2,10 @@
 
 2026-11-13 UTC · 기준 [개발계획](07-development-plan.md) · [최신 검증](08-verification.md)
 
+## UX 설계 선행 · Android 적용은 아직
+
+사용자 검토에 따라 최종 녹화 전에 [내비 연결 UX](24-navigation-ux-design.md)를 설계했다. 독립 호스트 프로토타입6장면/8캡처와 주행/닫기 제약만 확인했다. Android/Pleos UI 적용·순정 내비 내부 카드/분할은 미검증이다. 앱0.8.0/8·84acdd3/기존APK/CI 결과를 변경하거나 새 기기 성공으로 세지 않는다.
+
 ## 6단계 주차 완료·요약·귀환 — 일반 Android·MOCK/TEST 검증 통과
 
 앱 **0.8.0/8·84acdd3**, [CI43404749340](https://github.com/leemh-dev/dochagjari/actions/runs/43404749340) verify/android-device모두success. 같은입차방문에명시주차완료→관측중지→SQLite재조회ACK→일회성요약/닫기→저장단서귀환을연결했다. 관측후보/USER입력확인/TEST단서와현재위치를구분하고기존DB/schema·자료/방문ID·설정/좌석·알림을보존한다.

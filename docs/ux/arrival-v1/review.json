@@ -1,0 +1,51 @@
+{
+  "type": "host UX design prototype; NOT Android/Pleos validation",
+  "reference": "Existing Mac Pleos screenshots; not certification of latest official design tokens",
+  "browser": "Chromium/Playwright,1280x800",
+  "checks": [
+    "6 scene transitions",
+    "4.5s route replay and completed path",
+    "driving hides detailed route",
+    "driving disables plan controls",
+    "close removes route",
+    "mock record button opens return"
+  ],
+  "result": "PASS",
+  "apk_changed": false,
+  "road_map": "fictional layout,not real route/navigation",
+  "floor_route": "existing visit-catalog14 points/IndoorFloorPlan blocks",
+  "screenshots": [
+    {
+      "file": "01-plan.png",
+      "sha256": "d3a80269b23128f8afe5f3ec1862ca155237eeec30092b92f2eab4337348b041"
+    },
+    {
+      "file": "02-road-handoff.png",
+      "sha256": "3f8132ce942c27b21e17725180fc22f4ac4229e2d88c43e468cf9cc17169ecc7"
+    },
+    {
+      "file": "03-entry-unknown.png",
+      "sha256": "0ffd6f6e1d41e20497864e58ab8bff4745f8206b1e8b32f6ba66a8310682ce90"
+    },
+    {
+      "file": "04-floor-route.png",
+      "sha256": "83cd0fca6708bd8948b1cabc65b3a6e47c2829bf1f726790f0e318d02163f618"
+    },
+    {
+      "file": "04b-floor-complete.png",
+      "sha256": "4cd4b1fea474438da39d1b584ad639415e7c9305b84ecd2db0a2f6dff9e23a6c"
+    },
+    {
+      "file": "05-parking.png",
+      "sha256": "e52b2f4f32ba567a9ec1ceab8f3e7d1bd70b3cb2e0d86c1dd266bd92e6995b1d"
+    },
+    {
+      "file": "06-return.png",
+      "sha256": "730feb5508612c2bc59552bb6227ab5a0b8e1101fad8b5efa96294275e93b3f0"
+    },
+    {
+      "file": "07-driving.png",
+      "sha256": "50f7e6be674b738d63979f498cef1428ea1b066bce52f8e4c8fb2f7ed98f8a49"
+    }
+  ]
+}
