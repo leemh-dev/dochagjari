@@ -4,9 +4,11 @@
 
 [Android UX 규격](25-android-navigation-ux.md) · [현행 결과/원본 화면·APK식별](evidence/android-product-ux/README.md). 아래 결과는 최신 GitHub/증거와 먼저 대조한다.
 
+병원·픽업·역/공항의 [새 디자인 시안과 전환 규칙](27-scenario-ux-concepts.md)을 먼저 검토한다. 네 최종 생성 화면과 기존 매장 기준은 `docs/ux/scenario-concepts/`에 있으며 실제 앱/SDK 검증 증거가 아니다. 공항은 주차 대기 단계의 선이 주차장에서 끝나는 최종본을 사용한다.
+
 ```text
 도착자리의 지도 중심 Android UX 이후 시연 준비를 이어가줘.
-AGENTS.md·README·docs/01~02·docs/07~26·PR #1·최신 원격/CI/artifact를 먼저 확인해.
+AGENTS.md·README·docs/01~02·docs/07~27·PR #1·최신 원격/CI/artifact를 먼저 확인해.
 핵심 사용자는 초행 장소·건물·주차장의 진입·승하차·대기·이동을 잘 모르는 사람이야.
 매장 방문(시나리오1)·병원 동행·학교/학원 픽업·역/공항 마중을 네 대표 시나리오로 유지해.
 주차 인식/기억은 공통 기능이야. 역/공항의 대표 편입을 새 구현 완료나 제출 범위 확대로 표시하지 마.
