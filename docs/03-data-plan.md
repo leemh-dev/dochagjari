@@ -59,3 +59,7 @@
 - [전국주차장정보표준데이터](https://www.data.go.kr/data/15012896/standard.do) · [한국교통안전공단 주차 API](https://www.data.go.kr/data/15099883/openapi.do) · [인천공항 T1 면별 API](https://www.data.go.kr/data/15107228/openapi.do)
 - [용인세브란스 주차 안내](https://yi.severance.healthcare/yi/about/location/parking.do) · [용인세브란스 층별 안내](https://yi.severance.healthcare/yi/patient-carer/guide/facility/floormap.do) · [수지초등학교](https://suji-e.goeyi.kr/suji-e/cm/cntnts/cntntsView.do?cntntsId=1358&mi=7222) · [수지씨앤씨미술학원](https://bd.cncartsystem.com/campus/suji/)
 - [도로교통법 제32조](https://www.law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1034215241)
+
+## 사전 DB 기본 조회 — 사용자 추가 요구
+
+방문할 때마다 같은 시설을 재검색하지 않고, 공식 자료/최신 관련 리뷰에서 미리 추출·검토한 시설/매장/주차/엘리베이터 연결을 버전 있는 DB에 저장해 재사용한다. 누락·오류·변경·갱신기한을 별도 재확인 작업으로 처리한다. 아가방 입점/층과 도면/보행 간선·축척 확인을 첫 조사 범위에 포함한다. 실제 확보/구현 상태와 DB/도면 모델·검증 기준은 [docs/16](16-preloaded-db-and-indoor-route.md)을 따른다.
