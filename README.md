@@ -8,6 +8,8 @@
 
 ## 현재 우선순위 · 지도 중심 Android UX
 
+**새 개발 브랜치: `feat/arrival-context-ux`**. 기존 최신f164ec7에서 분리해 시안/앱/데이터를 보존했습니다. [새 개발 기준과 순서](docs/34-implementation-restart.md) · [시안PNG22개/최신6개 보존 대조](docs/evidence/implementation-restart/design-baseline.json). 첫 코드 단위는 내비와 독립된 다중 탑승 프리셋/이번 구성의 저장·기존 설정 이행입니다. 기존 PR#1은 유지합니다.
+
 [탑승 설정 후속 방향](docs/33-occupant-modes-and-trip-context.md): 혼자/아이 동반/가족 등 좌석별 구성을 여러 프리셋으로 저장하고, 이번 구성은 음성·선택·지원 센서로 확인하는 **내비와 독립된 설정**으로 설계합니다. 도착 안내는 확인한 조건을 활용합니다. 현재 앱은 단일 좌우 역할 저장이며 새 다중 프리셋/음성 인지는 아직 구현하지 않았습니다.
 
 [시연영상 제작 계획](docs/32-demo-video-production-plan.md): 3분30초 서비스 본편과 약90초 실제 앱 실행기록을 제안합니다. 양재→판교점 에뜨와 방문/주차단서/귀환을 한 이야기로 연결하고 병원·학원·역/공항은 확장 장면으로 보여줍니다. [210초 콘티](docs/demo/video-plan/shot-list.json). 현재는 계획이며 영상/새 앱을 제작한 것은 아닙니다.
