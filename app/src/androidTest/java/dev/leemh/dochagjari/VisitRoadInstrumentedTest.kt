@@ -6,9 +6,14 @@ import androidx.lifecycle.ViewModelProvider
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
+import org.junit.Before
 
 class VisitRoadInstrumentedTest {
     @get:Rule val ui = createAndroidComposeRule<MainActivity>()
+    @Before fun openDeveloperTools() {
+        ui.waitUntil(10_000) { androidx.lifecycle.ViewModelProvider(ui.activity)[AppModel::class.java].state.value.vehicle.stopped == true }
+        ui.onNodeWithText("개발자 도구").performClick()
+    }
     private fun prepare(): AppModel {
         lateinit var model: AppModel
         ui.runOnIdle { model = ViewModelProvider(ui.activity)[AppModel::class.java] }

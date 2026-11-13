@@ -124,7 +124,7 @@ fun IndoorGuideScreen(destination: IndoorDestination, catalogVersion: String, in
     }
 }
 
-@Composable private fun FloorCanvas(destination: IndoorDestination, progress: Float, modifier: Modifier) {
+@Composable internal fun FloorCanvas(destination: IndoorDestination, progress: Float, modifier: Modifier) {
     val labelSize = with(LocalDensity.current) { 12.sp.toPx() }
     Canvas(modifier.background(Color.White, RoundedCornerShape(14.dp))) {
         val projection = FloorProjection(EttoiFloorPlan.bounds, size.width, size.height, 16.dp.toPx())

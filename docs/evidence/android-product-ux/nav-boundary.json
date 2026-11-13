@@ -1,0 +1,17 @@
+{
+  "checked_at_utc": "2026-11-13T11:45:24.779492+00:00",
+  "official_url": "https://document.pleos.ai/en/docs/pleos-only/connect-sdk-pleos/NaviHelper/destinations",
+  "document_sha256": "e7b484a22171f56312e8dd34e1e03821fe36fe81095b4239f008dfa5c0ba789b",
+  "supported_documented": [
+    "requestRoute(RouteInfo)",
+    "getDestinationInfo()",
+    "NaviHelperEventListener.onDestinationInfo"
+  ],
+  "not_established": [
+    "Native navigation map embedding",
+    "Automatic app foreground or automatic parking entry",
+    "Actual emulator destination pin"
+  ],
+  "local_device_state": "Cloud has no ADB transport and no /dev/kvm; user confirmed Mac is currently off",
+  "native_navigation_test": "BLOCKED; no emulator boot/download/install or auth modification attempted"
+}

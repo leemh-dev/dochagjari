@@ -7,9 +7,14 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
+import org.junit.Before
 
 class SeatRolesInstrumentedTest {
     @get:Rule val ui = createAndroidComposeRule<MainActivity>()
+    @Before fun openDeveloperTools() {
+        ui.waitUntil(10_000) { androidx.lifecycle.ViewModelProvider(ui.activity)[AppModel::class.java].state.value.vehicle.stopped == true }
+        ui.onNodeWithText("개발자 도구").performClick()
+    }
     @Test fun optionalRolesAreDurableAndSkipPreservesVisitAndLegacyOptions() {
         val services = AppServices.get(ui.activity.application)
         val repository = services.profiles

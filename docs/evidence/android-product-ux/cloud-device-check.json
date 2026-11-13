@@ -1,0 +1,24 @@
+{
+  "at_utc": "2026-11-13T11:45:54.370555+00:00",
+  "environment": "Cloud Linux",
+  "kvm_present": false,
+  "devices": {
+    "returncode": 0,
+    "stdout": "List of devices attached",
+    "stderr": ""
+  },
+  "readiness": {
+    "serial": "emulator-5554",
+    "ready": false,
+    "checks": {
+      "transport": {
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "error: device 'emulator-5554' not found"
+      }
+    },
+    "reason": "ADB transport is not an authorized online device"
+  },
+  "mac": "User confirmed currently powered off",
+  "actions": "No emulator boot, download, installation, or authentication modification"
+}

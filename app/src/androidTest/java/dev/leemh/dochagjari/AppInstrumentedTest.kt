@@ -11,9 +11,14 @@ import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
+import org.junit.Before
 
 class AppInstrumentedTest {
     @get:Rule val ui = createAndroidComposeRule<MainActivity>()
+    @Before fun openDeveloperTools() {
+        ui.waitUntil(10_000) { androidx.lifecycle.ViewModelProvider(ui.activity)[AppModel::class.java].state.value.vehicle.stopped == true }
+        ui.onNodeWithText("개발자 도구").performClick()
+    }
     @Test fun academyModeAndBlockedCandidateChangeDestination() {
         ui.onNodeWithText("서쪽 승하차점 (시연 좌표)").performScrollTo().assertIsDisplayed()
         ui.onNodeWithText("주차하고 데리러 가기").performClick()

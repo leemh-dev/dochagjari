@@ -31,15 +31,15 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState); setContent { ArrivalApp() } }
+    override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState); setContent { ProductApp() } }
 }
 private val Ink = Color(0xFF101C27)
 private val Mint = Color(0xFF78E2C5)
 private val scheme = darkColorScheme(primary = Mint, background = Color(0xFF09121B), surface = Ink, onPrimary = Color(0xFF072C26), secondary = Color(0xFFB0C9F3))
 
-@Composable fun ArrivalApp(model: AppModel = viewModel()) {
+@Composable fun ArrivalApp(model: AppModel = viewModel(), initialTab: Int = 0) {
     val state by model.state.collectAsStateWithLifecycle()
-    var tab by remember { mutableIntStateOf(0) }
+    var tab by remember { mutableIntStateOf(initialTab) }
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri -> if (uri != null) model.analyze(uri) }
     val observationPicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri -> if (uri != null) model.startVisitVideo(uri) }
     val observationOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current

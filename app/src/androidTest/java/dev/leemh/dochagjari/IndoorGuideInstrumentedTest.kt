@@ -7,9 +7,14 @@ import androidx.lifecycle.ViewModelProvider
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
+import org.junit.Before
 
 class IndoorGuideInstrumentedTest {
     @get:Rule val ui = createAndroidComposeRule<MainActivity>()
+    @Before fun openDeveloperTools() {
+        ui.waitUntil(10_000) { androidx.lifecycle.ViewModelProvider(ui.activity)[AppModel::class.java].state.value.vehicle.stopped == true }
+        ui.onNodeWithText("개발자 도구").performClick()
+    }
     private fun prepare(): VisitRecord {
         val repo = AppServices.get(ui.activity.application).guidance!!
         ui.waitUntil(10_000) { !repo.state.value.loading && repo.state.value.catalogVersion.isNotBlank() }

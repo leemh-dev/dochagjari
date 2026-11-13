@@ -62,6 +62,7 @@ def main():
         user = ui.adb('shell', 'am', 'get-current-user').decode().strip(); assert user.isdigit()
         assert ui.adb('shell', 'pm', 'clear', '--user', user, ui.PACKAGE).decode().strip() == 'Success'
         ui.adb('shell', 'am', 'start', '--user', user, '-W', '-n', ui.PACKAGE + '/.MainActivity'); time.sleep(2)
+        ui.tap("개발자 도구")
         ui.expect('서쪽 승하차점 (시연 좌표)'); ui.capture('01-start')
         ui.tap('매장 방문'); ui.tap('저장된 매장 찾기'); ui.tap('방문 준비 · 저장')
         visit = None
@@ -87,6 +88,7 @@ def main():
         old_pid = ui.adb('shell', 'pidof', ui.PACKAGE).decode().strip()
         ui.adb('shell', 'am', 'force-stop', '--user', user, ui.PACKAGE)
         ui.adb('shell', 'am', 'start', '--user', user, '-W', '-n', ui.PACKAGE + '/.MainActivity'); time.sleep(2)
+        ui.tap("개발자 도구")
         ui.tap('매장 방문'); ui.expect(visit); ui.expect('저장 상태 · PARKED / HIDDEN')
         ui.expect('저장 주차 기록 확인 · 자동 재개 없음'); ui.expect('메모 · manual-demo'); ui.capture('10-restored-hidden')
         new_pid = ui.adb('shell', 'pidof', ui.PACKAGE).decode().strip(); assert old_pid and new_pid and old_pid != new_pid

@@ -80,6 +80,7 @@ jobs:
             adb install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
             python scripts/process_restart_smoke.py --serial emulator-5554 --reset-test-data
             DOCHAGJARI_FRESH_TEST_AVD=1 python scripts/capture_parking_screens.py
+            DOCHAGJARI_FRESH_TEST_AVD=1 python scripts/capture_product_screens.py
             DOCHAGJARI_FRESH_TEST_AVD=1 python scripts/android_server_smoke.py
             adb shell am start -W -n dev.leemh.dochagjari/.MainActivity
             adb exec-out screencap -p > app/build/reports/android-app.png

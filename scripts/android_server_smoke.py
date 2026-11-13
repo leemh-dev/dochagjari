@@ -104,6 +104,7 @@ try:
         server = start_server(work)
         if ui.adb('shell','pm','clear',ui.PACKAGE).strip() != b'Success': raise RuntimeError('Owned test-data reset failed')
         ui.adb('shell','am','start','-W','-n',ui.PACKAGE+'/.MainActivity'); time.sleep(2)
+        ui.tap('개발자 도구')
         ui.tap('연동·테스트'); toggle('알림 서버 사용',True)
         toggle('실제 SENS 서버 모드 · 기본은 서버 모의 발송',False)
         enter_token(token)
@@ -121,6 +122,7 @@ try:
         (work / 'hold-response').unlink()
         server = start_server(work)  # Same DB and request: never delete or replace rows.
         ui.adb('shell','am','start','-W','-n',ui.PACKAGE+'/.MainActivity'); time.sleep(2)
+        ui.tap('개발자 도구')
         second_pid = ui.adb('shell','pidof',ui.PACKAGE).decode().strip()
         if not first_pid or not second_pid or first_pid == second_pid: raise RuntimeError('No new Android process')
         ui.tap('만남·알림'); ui.expect('세션 ' + frozen['session_id'])
