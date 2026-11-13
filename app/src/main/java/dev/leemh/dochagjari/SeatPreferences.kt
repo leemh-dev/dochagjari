@@ -12,3 +12,9 @@ data class SeatPreferences(val setup: SeatSetup = SeatSetup.NOT_SET, val left: S
         return "${if (leftSide) "왼쪽" else "오른쪽"} 저장 선택 · ${seat.role.label}${if (seat.childSeat) " · 카시트 사용" else ""}. 이번 탑승에도 맞는지 확인하세요."
     }
 }
+
+/** A draft or stale write acknowledgement must never be called a saved passenger choice. */
+fun ProfileState.seatSuggestion(leftSide: Boolean, occupancy: Occupancy): String? {
+    if (status != ProfileSaveStatus.SAVED || revision != savedRevision) return null
+    return persisted?.seats?.suggestion(leftSide, occupancy)
+}

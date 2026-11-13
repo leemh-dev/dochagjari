@@ -581,3 +581,15 @@
 - **후속:**로컬검사→기능커밋/푸시·새APKmetadata/SHA/서명→실제CI/앱원본화면확인→docs08/09/12/18/PR갱신. 자동병합없음. AI조회worker/내비·입차/연속카메라·주차귀환은후속이며지어낸기둥/번호/거리/현재위치를추가하지않는다.
 - **로컬실패/수정:**첫실행의JVM/lint/debug는통과했지만AndroidTest Kotlin컴파일에서다른모듈의nullable guidance속성smart cast가불가능해실패했다. 테스트에서requireNotNull한로컬val로참조를고정했다. 이미통과한JVM/lint를되풀이하지않고실패/미완료AndroidTest·release빌드만이어간다.
 - **로컬완료:**JUnit51/실패0·오류0(새6건),lint/debug통과. nullable참조수정후AndroidTest/unsigned release잔여빌드1m28s성공. Python구문/actionlint/diff통과. 로그두개/실제JUnit집계JSON을stage3-seat-roles에보존한다. 새CI/앱원본은아직대기다.
+
+### 3단계 코드 반영·CI APK 독립 대조
+
+- 기능 c98630d를정상fast-forward로반영했고공개Git fetch/파일보존mixed index동기화로로컬과일치시켰다. PR#1제목/본문을새역할설정·로컬결과/기기대기로갱신했다. 자동병합/강제푸시없음.
+- 새CI43364708532 verify success:Gradle3m22s·서버14/진단35성공. 로컬APKs0.5.0/5의실제metadata/SHA와CI APKartifact14008949223을구분해기록한다. 정상연결된GitHub앱의파일참조로CI세APK를내려받고실제byte SHA256/aapt manifest/apksigner인증서·미서명을각각독립대조해모두일치했다. 임시서명URL/키는증거에남기지않는다.
+- CI빌드는PR임시병합af004328168ea876e91b531cea4c6525455f314c이며그부모에기능c98630d가있다. refs/pull/1/merge를실제fetch해tree3cad39b3ee964b52892be06bdd4eb07ca78bd3e1이head와동일함을대조했다. PR을실제로병합한것은아니다. 기기job은진행중이며새성공/화면으로계산하지않는다.
+
+### 코드 검토에서 발견한 저장 완료 제안 경계 보강
+
+- c98630d 기기CI가진행중일때검토에서SeatRoleSettings의제안이편집profile.seats를직접쓰는것을확인했다. 저장중/실패에도제안문구가'저장선택'이라고할수있는코드경로다. 실제기기실패/실측으로발견한문제와구분한다.
+- 제안은ProfileState의최신revision==savedRevision·SAVED·persisted에있는역할에서만만들도록보강한다. 편집값은별도선택UI에남기고SAVING/ERROR/stale-ack에서는저장제안을숨긴다. 이세경계와정상저장완료제안검사를추가했다. 기능코드변경이므로새검사/빌드후별도수정커밋과새CI를진행한다. 버전은미완성개발0.5.0/5범위에서유지하되코드/hash/서명을분리기록한다.
+- **보강로컬결과:**JVM52/실패0·오류0,lint/debug/test/unsigned release전체2m33s성공. stale-ack검사를실제저장역할이있는경우로강화한후SeatPreferencesTest3건만21s재실행통과했다. 이전CI51건과구분하고새코드의기기/화면은후속CI에서확인한다.

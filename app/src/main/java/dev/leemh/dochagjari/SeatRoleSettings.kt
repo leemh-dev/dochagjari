@@ -9,7 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-@Composable fun SeatRoleSettings(profile: Profile, leftOccupancy: Occupancy, rightOccupancy: Occupancy, enabled: Boolean, onChange: (Profile) -> Unit) {
+@Composable fun SeatRoleSettings(save: ProfileState, leftOccupancy: Occupancy, rightOccupancy: Occupancy, enabled: Boolean, onChange: (Profile) -> Unit) {
+    val profile = save.profile
     val seats = profile.seats
     Text("탑승 역할 · 선택 사항", fontSize = 22.sp)
     Text("설정하지 않아도 매장 안내를 이용할 수 있습니다. 이름은 입력하지 않습니다.", fontSize = 15.sp)
@@ -34,6 +35,6 @@ import androidx.compose.ui.unit.sp
             Switch(checked = assignment.childSeat, onCheckedChange = null, enabled = enabled)
         }
         Text("점유 신호: $occupancy · 역할/카시트를 판별하는 값이 아닙니다.", fontSize = 14.sp)
-        seats.suggestion(left, occupancy)?.let { Text(it, color = MaterialTheme.colorScheme.primary, fontSize = 15.sp) }
+        save.seatSuggestion(left, occupancy)?.let { Text(it, color = MaterialTheme.colorScheme.primary, fontSize = 15.sp) }
     }
 }

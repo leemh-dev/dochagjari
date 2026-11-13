@@ -14,5 +14,12 @@
     "SeatPreferencesTest: explicit choices/occupancy boundaries",
     "ProfileDataStoreTest: legacy migration, shutdown/reopen,unknown role,injected write failure/retry against actual file"
   ],
-  "storage_failure": "Exception injected before DataStore write, not a claim of physical disk failure"
+  "storage_failure": "Exception injected before DataStore write, not a claim of physical disk failure",
+  "savedRoleSuggestionFix": {
+    "jvm": 52,
+    "failures": 0,
+    "errors": 0,
+    "build": "JVM/lint/debug/test/unsigned release BUILD SUCCESSFUL in2m33s",
+    "rule": "Only latest SAVED persisted profile can suggest; drafts/errors/stale revisions hidden"
+  }
 }

@@ -138,7 +138,7 @@ private val scheme = darkColorScheme(primary = Mint, background = Color(0xFF0912
                             if (!enabled) Text("정차 상태가 확인되면 설정할 수 있습니다.")
                             Text(state.profileSave.status.label, color = if (state.profileSave.status == ProfileSaveStatus.ERROR) scheme.error else Mint)
                             if (state.profileSave.status == ProfileSaveStatus.ERROR) OutlinedButton(model::retryProfile, enabled = enabled) { Text("설정 다시 저장") }
-                            SeatRoleSettings(state.profile, state.vehicle.left, state.vehicle.right, enabled, model::profile)
+                            SeatRoleSettings(state.profileSave, state.vehicle.left, state.vehicle.right, enabled, model::profile)
                             Toggle("왼쪽 카시트 문 여유", state.profile.leftDoor, enabled) { model.profile(state.profile.copy(leftDoor = it)) }
                             Toggle("오른쪽 카시트 문 여유", state.profile.rightDoor, enabled) { model.profile(state.profile.copy(rightDoor = it)) }
                             Toggle("유모차 · 무단차 필요", state.profile.stroller, enabled) { model.profile(state.profile.copy(stroller = it)) }
