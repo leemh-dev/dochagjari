@@ -187,6 +187,38 @@ def main():
         tap('매장 방문'); expect(visit_text); expect('저장 상태 · PARKING_GUIDANCE / HIDDEN'); capture('29-entry-restored-hidden')
         report['visit_road_entry'] = {'same_visit_id': True, 'channel': 'MOCK', 'entry': 'explicit TEST', 'native_pin_verified': False,
                                      'parking_completed': False, 'hidden_after_process_restart': True}
+        tap('테스트 관측 시작'); tap('테스트 B3/C12 반복')
+        expect('관측 판단: 반복 표지 후보 · 위치 확정 아님'); capture('30-observation-test-candidate')
+        tap('테스트 B4/C12 반복'); expect('관측 판단: 층별 같은 번호/상충 관측 · 후보 보류'); capture('31-observation-floor-conflict')
+        tap('테스트 관측 시작'); tap('테스트 낮은 신뢰도')
+        expect('관측 판단: 낮은 신뢰도 · 후보 보류'); capture('32-observation-low-confidence')
+        tap('테스트 관측 시작'); tap('테스트 오래됨')
+        expect('관측 판단: 오래됨/시각 미확인 · 후보 보류'); capture('33-observation-stale')
+        tap('테스트 관측 시작'); tap('테스트 표기 없음')
+        expect('관측 판단: 표기 없음/여러 표기 · 후보 보류'); capture('34-observation-no-sign')
+        tap('생성 C12 방문 관측')
+        deadline = time.monotonic() + 90
+        while time.monotonic() < deadline:
+            texts = [n.attrib.get('text', '') for n in tree().iter('node')]
+            if any(t.startswith('영상 분석 완료') for t in texts): break
+            if any('관측 입력/저장 실패' in t for t in texts): raise AssertionError('Visit video analysis failed')
+            time.sleep(1)
+        else: raise AssertionError('Visit video did not complete')
+        expect('저장 관측 출처: 생성 영상 분석 · 저장 프레임 2'); capture('35-observation-android-video')
+        tap('5층 동선 보기'); expect('5층 에뜨와 동선'); capture('36-observation-guide-unverified')
+        tap('닫기')
+        tap('테스트 관측 시작'); tap('테스트 B3/C12 반복')
+        old_pid = adb('shell', 'pidof', PACKAGE).decode().strip()
+        adb('shell', 'am', 'force-stop', PACKAGE)
+        adb('shell', 'am', 'start', '-W', '-n', PACKAGE + '/.MainActivity'); time.sleep(2)
+        tap('매장 방문'); expect(visit_text)
+        expect('관측 중지 · 자동 재개 없음'); expect('저장 관측 출처: 테스트 관측 · 저장 프레임 2'); capture('37-observation-restored-idle')
+        new_pid = adb('shell', 'pidof', PACKAGE).decode().strip()
+        if not old_pid or not new_pid or old_pid == new_pid: raise AssertionError('Observation restore requires new process')
+        report['visit_observation'] = {'same_visit_id': True, 'input': 'TEST floor/pillar fixtures and GENERATED video / Android ML Kit',
+            'cases': ['repeated B3/C12 text candidate', 'B3/B4 same pillar conflict', 'low confidence', 'stale', 'no sign', 'actual generated video'],
+            'old_pid': old_pid, 'new_pid': new_pid, 'stored_frames': 2, 'no_automatic_resume': True,
+            'actual_pangyo_pillar_position_lift_verified': False, 'parking_confirmed': False}
         report['success'] = True
     except Exception as error:
         report['success'] = False

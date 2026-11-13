@@ -25,7 +25,7 @@ data class VisitRecord(
     val id: String, val catalogVersion: String, val destinationId: String,
     val originLabel: String = "현대자동차 양재 사옥", val createdAt: Long,
     val phase: VisitPhase = VisitPhase.PLANNED, val visibility: GuideVisibility = GuideVisibility.VISIBLE,
-    val source: GuidanceInputSource = GuidanceInputSource.USER, val parking: ParkingClue? = null, val journey: VisitJourney = VisitJourney()
+    val source: GuidanceInputSource = GuidanceInputSource.USER, val parking: ParkingClue? = null, val journey: VisitJourney = VisitJourney(), val observation: VisitObservationJournal = VisitObservationJournal()
 )
 
 object VisitGuidanceCodec {
@@ -60,7 +60,7 @@ object VisitGuidanceCodec {
         put("id", record.id); put("catalogVersion", record.catalogVersion); put("destinationId", record.destinationId)
         put("originLabel", record.originLabel); put("createdAt", record.createdAt)
         put("phase", record.phase.name); put("visibility", record.visibility.name); put("source", record.source.name)
-        put("journey", record.journey.json())
+        put("journey", record.journey.json()); put("observation", record.observation.json())
         record.parking?.let { p -> put("parking", JSONObject().apply {
             put("floor", p.floor); put("zone", p.zone); put("pillar", p.pillar); put("elevatorId", p.elevatorId)
             put("confirmed", p.confirmed); put("source", p.source.name); put("observedAt", p.observedAt)
@@ -74,6 +74,6 @@ object VisitGuidanceCodec {
             j.getString("originLabel"), j.getLong("createdAt"), VisitPhase.valueOf(j.getString("phase")),
             GuideVisibility.valueOf(j.getString("visibility")), GuidanceInputSource.valueOf(j.getString("source")),
             p?.let { ParkingClue(optional("floor"), optional("zone"), optional("pillar"), optional("elevatorId"),
-                it.getBoolean("confirmed"), GuidanceInputSource.valueOf(it.getString("source")), it.getLong("observedAt")) }, VisitJourney.parse(j.optJSONObject("journey")))
+                it.getBoolean("confirmed"), GuidanceInputSource.valueOf(it.getString("source")), it.getLong("observedAt")) }, VisitJourney.parse(j.optJSONObject("journey")), VisitObservationJournal.parse(j.optJSONObject("observation")))
     }
 }

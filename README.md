@@ -6,6 +6,12 @@
 
 개발을 이어갈 때는 [다음 개발 실행 프롬프트](docs/09-next-development-prompt.md)를 사용합니다. [제출 체크리스트](docs/12-submission-checklist.md)에서 남은 실제 확인 항목을 확인합니다. 주요 진행 절차·실패·후속 작업은 [개발 일지](docs/10-development-log.md), 기능별 완료 증거는 [검증 기록](docs/08-verification.md)에 남깁니다.
 
+## 5단계 입차 후 관측·추천
+
+입차가 기록된 같은 방문에서 `테스트 관측 시작` 또는 `생성 C12 방문 관측`/`생성 빈 방문 관측`/`공개 영상 방문 관측`/`방문 영상 선택`으로 시작합니다. 출처와 원문·분석 시각·클립 시각을 저장하며 반복된 문자 후보를 표시합니다. TEST B3/C12·B4/C12, 낮은 신뢰도·오래됨·표기 없음을 비교할 수 있습니다.
+
+관측 문자와 실제 차량 위치는 다릅니다. 생성 C12는 실제 판교점 기둥이 아니며 연결 근거가 없는 주차층·승강기·현재 위치를 확정하지 않습니다. 기존5층 동선과 지도에 미확인 안내를 유지합니다. 닫기·관측 중지·탭 이탈·백그라운드·주행/unknown·권한 오류 때 중지하고 재시작은 저장 기록만 복원합니다. 실제 외부 카메라는 미연동입니다. [관측 계약](docs/22-visit-observation.md) · [검사·화면·APK](docs/evidence/stage5-visit-observation/README.md).
+
 ## 4단계 시설 목적지→명시적 입차
 
 정차 상태에서 `매장 방문`→별칭 검색→`방문 준비 · 저장` 후 `시설 목적지로 내비 요청`을 누릅니다. 기본은 모의 요청입니다. 판교점 공식 시설 대표 좌표와 주소를 표시하며, 이 좌표를 차량 주차장 입구로 표시하지 않습니다. 출발지 양재 사옥은 계획 라벨이고 실제 차량/AVD 위치를 옮기지 않습니다.
@@ -46,7 +52,7 @@
 - JDK **17**, Android SDK Platform **35**, Build Tools **35.0.0**. 실행 대상은 **API 34 이상**, ARM64 또는 x86_64입니다.
 - Gradle **8.10.2**, AGP **8.8.0**, Kotlin **1.9.22**. Wrapper를 동봉합니다.
 - 공식 SDK: `NaviHelper:3.0.5`, `Vehicle:2.3.2`. Maven: `https://nexus-playground.pleos.ai/repository/maven-releases/`.
-- 현재 개발 버전은 **0.6.0 / versionCode 6**입니다. [신규 CI](https://github.com/leemh-dev/dochagjari/actions/runs/43371857767)의 `development-apks-and-metadata`에서 세 APK·실제 manifest/코드/SHA/서명을 확인합니다. [로컬 식별](docs/evidence/stage4-road-entry/local-apk-metadata.json)과 CI runner의 서명/해시는 다를 수 있습니다.
+- 현재 개발 버전은 **0.7.0 / versionCode 7**입니다. 새 CI/APK 식별은 [5단계 증거](docs/evidence/stage5-visit-observation/README.md)를 따릅니다. 아래는 이전0.6 보관본입니다. [신규 CI](https://github.com/leemh-dev/dochagjari/actions/runs/43371857767)의 `development-apks-and-metadata`에서 세 APK·실제 manifest/코드/SHA/서명을 확인합니다. [로컬 식별](docs/evidence/stage4-road-entry/local-apk-metadata.json)과 CI runner의 서명/해시는 다를 수 있습니다.
 - 1단계0.3.0/3은 [이전 artifact](https://github.com/leemh-dev/dochagjari/actions/runs/43344658563/artifacts/14001506355)로 보관합니다.
 - 이전 **0.2.0 / versionCode 2**의 [개발 APK·기기 테스트 APK·unsigned release 보관 artifact](https://github.com/leemh-dev/dochagjari/actions/runs/43055801516/artifacts/13871881801)의 서명 종류와 SHA-256은 [검증 기록](docs/08-verification.md)에 정리합니다. debug는 개발 서명이고 제출용 서명 APK가 아닙니다.
 - 이전0.2 보관 artifact는 `development-release-assets-and-metadata`, 현재0.6는 `development-apks-and-metadata`입니다. 압축을 풀면 세 APK와 `apk-metadata.json`, `SHA256SUMS`가 있습니다. GitHub 로그인 후 다운로드합니다. runner 개발 서명은 이전 Cloud 서명과 다르므로 **새 테스트 AVD**를 사용합니다. 기존 데이터가 있는 앱을 임의 삭제하지 않습니다. Release 게시 API의 인증 제한과 대체 경로는 [개발 일지](docs/10-development-log.md)에 기록했습니다.

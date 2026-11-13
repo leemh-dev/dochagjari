@@ -72,6 +72,15 @@ class VisitGuidanceRepository(private val storage: GuidanceStorage, private val 
         if (created) persist(v)
         created
     }
+    suspend fun beginObservation(visitId: String, source: VisitFrameSource): VisitScan = transaction {
+        VisitObservationRules.begin(current(visitId), source).also(::persist).observation.latest!!
+    }
+    fun appendObservation(visitId: String, runId: String, sample: VisitSample) = action(saving = true) {
+        persist(VisitObservationRules.append(current(visitId), runId, sample))
+    }
+    fun stopObservation(visitId: String, runId: String, reason: String) = action(saving = true) {
+        persist(VisitObservationRules.stop(current(visitId), runId, reason))
+    }
     fun search(query: String) = action {
         initialize()
         _state.value = _state.value.copy(matches = storage.search(catalog!!.version, query))

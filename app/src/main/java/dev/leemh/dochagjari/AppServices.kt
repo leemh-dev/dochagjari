@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 class AppServices(val scope: CoroutineScope, val outbox: ArrivalOutbox, val profiles: ProfileRepository, val guidance: VisitGuidanceRepository? = null) {
+    val visitAnalysisLock = kotlinx.coroutines.sync.Mutex()
     companion object {
         @Volatile private var instance: AppServices? = null
         fun get(application: Application): AppServices = instance ?: synchronized(this) {

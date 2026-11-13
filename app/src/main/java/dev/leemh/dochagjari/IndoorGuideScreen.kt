@@ -42,7 +42,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 private val RouteBlue = Color(0xFF246EFF)
 
 @Composable
-fun IndoorGuideScreen(destination: IndoorDestination, catalogVersion: String, inputLabel: String, onClose: () -> Unit) {
+fun IndoorGuideScreen(destination: IndoorDestination, catalogVersion: String, inputLabel: String, onClose: () -> Unit, observationNote: String? = null) {
     Dialog(onDismissRequest = onClose, properties = DialogProperties(usePlatformDefaultWidth = false)) {
         val owner = LocalLifecycleOwner.current
         val context = LocalContext.current
@@ -83,6 +83,7 @@ fun IndoorGuideScreen(destination: IndoorDestination, catalogVersion: String, in
                     OutlinedButton(onClick = onClose) { Text("닫기") }
                 }
                 Text("유아휴게실·유아차 대여 쪽 엘리베이터 → 복도 → 에뜨와", fontSize = 17.sp)
+                observationNote?.let { Text(it, fontSize = 14.sp, color = Color(0xFFB7CCE7)) }
                 if (supported) {
                     val density = LocalDensity.current.density
                     BoxWithConstraints(Modifier.fillMaxWidth()) {

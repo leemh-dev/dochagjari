@@ -5,6 +5,10 @@ import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.sync.withLock
+import java.util.concurrent.atomic.AtomicLong
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,17 +27,22 @@ data class AppState(
     val useServer: Boolean = false, val serverUrl: String = "http://10.0.2.2:8000", val token: String = "", val recipientId: String = "demo",
     val consent: Boolean = false, val error: String = "", val log: List<String> = emptyList(),
     val sensServer: Boolean = false, val delivery: OutboxState = OutboxState(ArrivalRecord()),
+    val observingVisit: Boolean = false, val visitObservationMessage: String = "관측 중지 · 자동 재개 없음", val observationTick: Long = 0,
     val roadTarget: RoadTarget? = null, val roadStarting: Boolean = false,
     val profileSave: ProfileState = ProfileState(), val guidance: GuidanceState = GuidanceState(), val showIndoorGuide: Boolean = false
 ) { val facility: Facility get() = facilities[facilityIndex] }
 
-class AppModel @JvmOverloads constructor(application: Application, private val services: AppServices = AppServices.get(application)) : AndroidViewModel(application) {
+class AppModel @JvmOverloads constructor(application: Application, private val services: AppServices = AppServices.get(application), private val visitFrameAnalyzer: VisitFrameAnalyzer? = null) : AndroidViewModel(application) {
     private val app = application
     private val _state = MutableStateFlow(AppState())
     val state = _state.asStateFlow()
     private var navi: NavigationGateway? = null
     private var visitRoad: VisitRoadNavigator? = null
     private var roadGeneration = 0
+    private val scanGeneration = AtomicLong()
+    private var scanJob: Job? = null
+    private var scanRunId: String? = null
+    private var scanVisitId: String? = null
     private var vehicleSource: VehicleStateSource? = null
     private var testSource: TestVehicleStateSource? = null
     private var sourceGeneration = 0
@@ -53,7 +62,7 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
         }
         viewModelScope.launch { services.outbox.state.collect(::applyOutbox) }
         services.guidance?.let { repository -> viewModelScope.launch { repository.state.collect { saved -> _state.update { it.copy(guidance = saved) } } } }
-        viewModelScope.launch { while (true) { delay(5_000); recompute() } }
+        viewModelScope.launch { while (true) { delay(5_000); recompute(); if (_state.value.guidance.visit?.observation?.latest != null) _state.update { it.copy(observationTick = System.currentTimeMillis()) } } }
     }
     private fun log(message: String) { _state.update { it.copy(log = (listOf(message) + it.log).take(24)) }; android.util.Log.i("Dochagjari", message) }
     private fun recompute() { _state.update { it.copy(recommendation = recommender.recommend(it.facility, it.mode, it.profile, it.blocked, it.observations)) } }
@@ -82,6 +91,7 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
         _state.update { it.copy(showIndoorGuide = true) }
     }
     fun closeIndoorGuide() {
+        stopVisitObservation("지도/입력 소스 닫기")
         if (!_state.value.showIndoorGuide) return
         _state.update { it.copy(showIndoorGuide = false) }
         services.guidance?.setVisibility(GuideVisibility.HIDDEN)
@@ -129,6 +139,68 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
             catch (_: Exception) { _state.update { it.copy(error = "입차 확인 저장 실패 · 방문 상태를 확인하세요") } }
         }
     }
+    fun stopVisitObservation(reason: String = "사용자 관측 중지") {
+        if (!_state.value.observingVisit && scanJob == null && scanRunId == null) return
+        scanGeneration.incrementAndGet(); scanJob?.cancel(); scanJob = null
+        val run = scanRunId; val visit = scanVisitId
+        scanRunId = null; scanVisitId = null
+        _state.update { it.copy(observingVisit = false, visitObservationMessage = reason + " · 저장 기록만 유지") }
+        if (run != null && visit != null) services.guidance?.stopObservation(visit, run, reason)
+    }
+    private fun startVisitObservation(source: VisitFrameSource, uri: Uri?, asset: String?, input: InputSource?) {
+        val s = _state.value; val repo = services.guidance ?: return; val visit = s.guidance.visit ?: return
+        if (s.vehicle.stopped != true || s.analyzing || visit.journey.entry == null || visit.phase != VisitPhase.PARKING_GUIDANCE || source == VisitFrameSource.TEST && !s.testVehicle) return
+        stopVisitObservation("입력 소스 변경")
+        val generation = scanGeneration.incrementAndGet()
+        _state.update { it.copy(observingVisit = true, visitObservationMessage = "${source.label} · 시작 저장 중") }
+        scanJob = viewModelScope.launch {
+            var run: VisitScan? = null
+            try {
+                val started = repo.beginObservation(visit.id, source); run = started
+                if (generation != scanGeneration.get()) { repo.stopObservation(visit.id, started.id, "시작 중 취소"); return@launch }
+                scanRunId = started.id; scanVisitId = visit.id
+                _state.update { it.copy(visitObservationMessage = "${source.label} · 관측 중 · 실제 측위 아님") }
+                if (source == VisitFrameSource.TEST) return@launch
+                withContext(Dispatchers.IO) {
+                    services.visitAnalysisLock.withLock {
+                        (visitFrameAnalyzer ?: analyzer).analyzeVisit(uri, asset, requireNotNull(input), { generation == scanGeneration.get() }) { frame ->
+                            if (generation == scanGeneration.get()) repo.appendObservation(visit.id, started.id,
+                                VisitSample(java.util.UUID.randomUUID().toString(), frame.rawText.take(1000), null, frame.analyzedAt, frame.frameTimeMs,
+                                    frame.occupancy, frame.occupancyConfidence.toDouble(), frame.rawText.length > 1000))
+                        }
+                    }
+                }
+                repo.stopObservation(visit.id, started.id, "영상 분석 완료")
+                if (generation == scanGeneration.get()) _state.update { it.copy(observingVisit = false, visitObservationMessage = "영상 분석 완료 · 저장 기록/문자 점수 미제공 · 현재 위치 아님") }
+            } catch (e: CancellationException) {
+                run?.let { repo.stopObservation(visit.id, it.id, "작업 취소/화면 종료") }; throw e
+            } catch (e: Exception) {
+                val reason = if (e is SecurityException) "영상 권한 없음/철회" else "관측 입력/저장 실패"
+                run?.let { repo.stopObservation(visit.id, it.id, reason) }
+                if (generation == scanGeneration.get()) _state.update { it.copy(observingVisit = false, visitObservationMessage = reason + " · 미확인") }
+            }
+        }
+    }
+    fun startVisitTestObservation() = startVisitObservation(VisitFrameSource.TEST, null, null, null)
+    fun startVisitVideo(uri: Uri? = null, asset: String? = null) {
+        val source = when (asset) {
+            null -> VisitFrameSource.SELECTED_VIDEO to InputSource.VIDEO
+            "generated-empty.mp4", "generated-blocked.mp4" -> VisitFrameSource.GENERATED_VIDEO to InputSource.GENERATED
+            "public-obstacles.mp4" -> VisitFrameSource.PUBLIC_VIDEO to InputSource.PUBLIC_VIDEO
+            else -> return
+        }
+        startVisitObservation(source.first, uri, asset, source.second)
+    }
+    fun feedVisitTestObservation(case: String) {
+        val s = _state.value; val repo = services.guidance ?: return; val run = s.guidance.visit?.observation?.latest ?: return
+        val visit = scanVisitId ?: return
+        if (!s.observingVisit || s.vehicle.stopped != true || !s.testVehicle || run.source != VisitFrameSource.TEST || run.id != scanRunId) return
+        val raw = when (case) { "B3" -> "FLOOR B3 C12"; "B4" -> "FLOOR B4 C12"; "NONE" -> ""; else -> "C12" }
+        val now = System.currentTimeMillis()
+        repeat(2) { i -> repo.appendObservation(visit, run.id, VisitSample(java.util.UUID.randomUUID().toString(), raw,
+            if (case == "LOW") .2 else .95, now - if (case == "STALE") 60_000 else 0, i * 1000L,
+            if (case == "BLOCKED") Occupancy.OCCUPIED else Occupancy.UNKNOWN, if (case == "BLOCKED") .95 else .0)) }
+    }
     fun searchStore(query: String) { if (_state.value.vehicle.stopped == true) services.guidance?.search(query) }
     fun prepareVisit(destinationId: String) { if (_state.value.vehicle.stopped == true) services.guidance?.prepare(destinationId) }
     fun chooseFacility(index: Int) {
@@ -151,6 +223,7 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
             visitRoad?.close(); visitRoad = null
             _state.value.guidance.visit?.let { v -> v.journey.latest?.let { a -> services.guidance?.roadEvent(v.id, a.id, RoadStatus.INTERRUPTED, "MODE_CHANGED", "앱 내비 방식 변경 · 순정 내비 종료/핀 상태 미확인") } }
         }
+        stopVisitObservation("내비 입력 변경")
         navi?.close(); _state.update { it.copy(testNavi = test) }
         val report: (String) -> Unit = { message -> _state.update { it.copy(naviStatus = message) }; log(message) }
         navi = if (test) TestNavigationGateway(report) else PleosNavigationGateway(app, report)
@@ -235,9 +308,10 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
         val s = _state.value
         if (s.vehicle.stopped != true || s.analyzing) return
         val point = s.recommendation.point ?: return
+        stopVisitObservation("기존 후보 영상 분석으로 전환")
         _state.update { it.copy(analyzing = true, analysis = "${source.label} · 실제 모델 분석 중") }
         viewModelScope.launch {
-            val result = withContext(Dispatchers.IO) { runCatching { analyzer.analyze(uri, asset, source) } }
+            val result = withContext(Dispatchers.IO) { runCatching { services.visitAnalysisLock.withLock { analyzer.analyze(uri, asset, source) } } }
             result.onSuccess { analysis ->
                 _state.update { it.copy(observations = it.observations + (point.id to analysis.observation), analysis = "${source.label} · ${point.name}\n원본 관측 ${analysis.observation.occupancy} (${analysis.observation.confidence})\n${analysis.detail}", analyzing = false, clue = if (it.delivery.record.request == null && it.vehicle.stopped == true && it.session.id == s.session.id && analysis.clue.isNotBlank()) analysis.clue + " · 사용자 확인 필요" else it.clue, session = if (it.delivery.record.request == null) it.session.copy(confirmed = false) else it.session) }
                 recompute(); log("영상 분석: ${analysis.observation}")
@@ -249,5 +323,5 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
         val o = Observation(occupancy, if (low) .3f else .95f, System.currentTimeMillis() - if (stale) 60_000 else 0, InputSource.TEST)
         _state.update { it.copy(observations = it.observations + (point.id to o), analysis = "테스트 상태 입력 · 영상 분석 결과 아님: ${o.effective(System.currentTimeMillis())}") }; recompute()
     }
-    override fun onCleared() { roadGeneration++; visitRoad?.close(); sourceGeneration++; navi?.close(); vehicleSource?.close(); super.onCleared() }
+    override fun onCleared() { stopVisitObservation("앱 종료"); roadGeneration++; visitRoad?.close(); sourceGeneration++; navi?.close(); vehicleSource?.close(); super.onCleared() }
 }
