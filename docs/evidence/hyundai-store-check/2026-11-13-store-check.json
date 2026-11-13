@@ -1,0 +1,24 @@
+{
+  "checkedAtUtc": "2026-11-13T00:09:32.476573+00:00",
+  "method": "Official public HTML retrieval; no live SDK or site-wide inventory API used",
+  "pangyo": {
+    "url": "https://www.ehyundai.com/newPortal/DP/FG/FG000000_V.do?branchCd=B00148000",
+    "title": "판교점 층별안내 | 현대백화점",
+    "responseSha256": "5a9bf3188380cd0f1bb64107324a0eaedbed8a05f03c5ae10eb8d48f1e96df5a",
+    "agabangExactNameMatches": 0,
+    "confirmedAlternative": {
+      "name": "에뜨와",
+      "precedingFloorHeading": "5F 아동·패밀리· 현대어린이책미술관",
+      "brandCode": "480A01A01A89000102188"
+    },
+    "limit": "Exact-name absence in retrieved directory does not prove permanent non-tenancy; 에뜨와 is not treated as 아가방."
+  },
+  "seoul": {
+    "urls": [
+      "https://thehyundaiseoul.ehyundai.com/store",
+      "https://thehyundaiseoul.ehyundai.com/store/floor-guide"
+    ],
+    "agabangExactNameMatchesInRetrievedHtml": 0,
+    "limit": "Client-loaded store inventory not independently confirmed; HTML absence is not definitive non-tenancy."
+  }
+}
