@@ -1,0 +1,24 @@
+{
+  "created_at_utc": "2026-11-13",
+  "type": "corrected static UI design, not execution evidence",
+  "file": "05-camera-and-3d-map.png",
+  "prompt": "Edit the FIRST attached Pleos-style HMI design. The user corrected our misunderstanding: 3D applies ONLY to the MAP inside the THIRD panel, NOT to camera imagery or a perspective building scene. Preserve the ENTIRE FIRST vehicle-information panel exactly as attached: isolated silver sedan on dark empty background, P/0kmh, vehicle trip stats, no street, no camera, no sensor visualization, no new buildings. Preserve the ENTIRE SECOND native navigation panel exactly as attached, its 2D road map, controls and labels. Preserve the top status bar and bottom HVAC/app dock. Keep original three equal-width panels. ONLY redesign the third/right panel. Use very clean Korean automotive typography. At third panel top compact app header 도착자리, title 주차장 안내 and small subtitle 카메라·지도 시연. Immediately below header, in upper portion of third panel, show a SHORT wide rectangle of RAW PHOTOGRAPHIC built-in front camera view of a parking garage, referencing SECOND supplied real photograph. It must look like a NORMAL camera photograph/video still with concrete texture, natural lighting and real cars, NOT 3D render, NOT cartoon or vector geometry. No visible readable license plates, no people, no source watermark. This is simulated camera UI, include tiny label 빌트인캠 · 예시 in image top-left, unobtrusive detection rectangle on the orange 2F / 227 column. Compact badge at CAMERA IMAGE lower-right says 표지 관측 and 2F · 227. This camera video box occupies at most upper 30% of service panel content. BELOW the camera, a thin divider and label 3D 주차 지도 · 예시. LARGE lower part of third panel must be a TILTED OVERHEAD ISOMETRIC PARKING FLOORPLAN, like a 2D indoor parking map rotated 20deg and tilted 45deg, subtly extruded flat outlines for parking bays, driving aisles, pillar dots and clearly labeled elevator and escalator symbols. No eye-level garage picture, no full building facade, no dollhouse architectural interior, no roof. A dark charcoal planar floorplate, light grey white lines for parking stalls, modest blocks, legible map hierarchy. Elevator icon labeled 엘리베이터; escalator icon labeled 에스컬레이터. Tiny muted note 배치 예시 · 위치 미확인 inside map. Do not draw any route or blue position dot suggesting verified location; highlight only the elevator icon blue. Actual parking plan/elevator linkage is unknown, this is a schematic design. Bottom of third panel compact two buttons 단서 확인 and 닫기. Footer OUTSIDE device, replace old caption with 지도만 3D · 카메라는 영상 | UI 예상도 · 실제 실행 아님. All text spelled cleanly. The key visual is three UNCHANGED system/nav/NEW SERVICE partitions, and within third partition VERTICAL stack: photographic camera strip ABOVE spacious oblique 3D parking MAP. Only right panel changes. Output same landscape aspect, refined production HMI concept.",
+  "original_generation": "/workspace/generated_images/exec-eaa28491-9452-4b4c-87cd-39db7b14e5e1.png",
+  "reference_files": [
+    "../scenario-concepts/01-store-reference.png",
+    "airport-parking-interior.jpg"
+  ],
+  "source_page": "https://yulfam-pet.com/40",
+  "limitations": [
+    "camera preview is an illustrative generated rendition using a public photo, not an accessed built-in camera feed",
+    "parking floorplan and elevator/escalator placements are schematic; no verified current position or route",
+    "vehicle and native navigation panel composition retained from store design; not pixel-identical verified or actual Pleos execution",
+    "supersedes the prior building/camera-as-3D interpretation; app and APK unchanged"
+  ],
+  "bytes": 1854553,
+  "sha256": "e1ba2597c3743f1688daaa2b78f3e7f1d7943691606fb4137315449f649b0cbf",
+  "dimensions": [
+    1672,
+    941
+  ]
+}
