@@ -7,7 +7,7 @@
   },
   "build": "Final JVM/lint/debug/test/unsigned release BUILD SUCCESSFUL in1m43s",
   "new_unit_tests": 10,
-  "device": "Pending for stage4; no Pleos/pin/real entry claims",
+  "device": "CI43371857767 PASS;12 instrumented passes,2 process-specific skips followed by separate two-phase PASS;29 UI screenshots/explicit entry/hidden restart/HTTP SERVER_MOCK recovery PASS",
   "research": "Official facility marker, not vehicle entrance",
   "iterations": [
     "first implementation2m25s",

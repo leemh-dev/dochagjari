@@ -2,6 +2,14 @@
 
 2026-11-13 UTC · 기준: [개발계획](07-development-plan.md)
 
+## 4단계 시설 목적지/명시적 입차 — 일반 Android·모의 입력 검증 통과
+
+앱 **0.6.0 / 6**, 기능 `f959cb9`. 판교점 공식 시설 대표 마커를 차량 진입점과 구분하고, 같은 방문에 요청 ID/목적지 snapshot·전달 claim·이벤트·명시USER/TEST입차와 지도/닫기 복원을 연결했다. SDK 함수 반환·요청ID없는콜백·실제핀·입차는 별도다. 옛JSON/SQLite schema·방문/자료/설정/알림을 보존한다.
+
+최신 CI43371857767 verify/android-device 모두 success. 원본 JVM62/실패0·서버14/진단35·lint/세APK, 실제기기12pass·프로세스전용2skip후별도종료/복원2단계PASS,UI29장/새4장과HTTP모의복구가통과했다. APK세파일hash/manifest/서명을독립대조했고기기검사는동일소스별도runner재빌드라는수준을구분한다. [계약](21-road-navigation-and-entry.md) · [공식근거/원본화면·검사/APK](evidence/stage4-road-entry/README.md).
+
+실제SDK요청/콜백·순정핀/자동입차/실차·기존Mac설치본업그레이드는 미검증이다. 시설 좌표를 차량입구로, 모의 결과를 실제 성공으로 표시하지 않는다. 다음은5단계관측/추천갱신이다.
+
 ## 3단계 선택적 좌석 역할 — 로컬/일반 Android 기기 통과
 
 앱 **0.5.0 / 5**, 기능 `c98630d`·최신 저장 완료 제안 수정 `a8e440b`. 역할/카시트·건너뛰기, 기존 파일/6개 이동 조건·방문ID·확정 알림 보존을 구현했다. 점유와 사용자 지정 역할을 분리하며 제안은 최신 SAVED/revision/persisted에서만 만든다.
