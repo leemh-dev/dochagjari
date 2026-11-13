@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="dev.leemh.dochagjari.AppInstrumentedTest" tests="11" failures="0" errors="0" skipped="2" time="54.626" timestamp="2026-11-13T03:36:16" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 14" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="realFrameAnalysisChangesWithVideoAndReadsPillar" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="27.087" />
+  <testcase name="videoInputChangesOccupancyAndDivertsRecommendationInApp" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="18.488" />
+  <testcase name="hospitalCompanionAndMissingStepFreeRouteChangeCandidates" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="0.938" />
+  <testcase name="savedOptionsAndNotificationJournalSurviveModelRestart" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="0.765" />
+  <testcase name="drivingAndUnknownStatesBlockLocationAndProfileChanges" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="0.575" />
+  <testcase name="academyModeAndBlockedCandidateChangeDestination" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="1.039" />
+  <testcase name="nativeRouteMovesPausesChangesPerspectiveAndClosesWithoutLosingVisit" classname="dev.leemh.dochagjari.IndoorGuideInstrumentedTest" time="2.702" />
+  <testcase name="movingOrUnknownVehicleStateClosesAndCannotReopenDetailedMap" classname="dev.leemh.dochagjari.IndoorGuideInstrumentedTest" time="1.189" />
+  <testcase name="verifyRestoredArrivalAndProfile" classname="dev.leemh.dochagjari.ProcessRestartInstrumentedTest" time="0.038">
+    <skipped />
+  </testcase>
+  <testcase name="prepareQueuedArrivalAndSavedProfile" classname="dev.leemh.dochagjari.ProcessRestartInstrumentedTest" time="0.003">
+    <skipped />
+  </testcase>
+  <testcase name="storeLookupAndPreparedVisitAreReallyStoredAndSurviveActivityRestart" classname="dev.leemh.dochagjari.StoreVisitInstrumentedTest" time="1.027" />
+</testsuite>

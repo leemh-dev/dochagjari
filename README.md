@@ -1,30 +1,37 @@
 # 도착자리
 
-**목적지 너머, 만날 자리까지.** 방문 매장에 맞는 도착·주차·보행 안내를 연결하는 Kotlin Android 앱을 개발합니다. 현재 판교점 에뜨와 시설 조회·방문 저장과 기존 픽업/병원 시연 기능이 있습니다. [11월 15일 개발계획](docs/07-development-plan.md)을 구현 기준으로 사용합니다.
+**목적지 너머, 만날 자리까지.** 방문 매장에 맞는 도착·주차·보행 안내를 연결하는 Kotlin Android 앱을 개발합니다. 현재 판교점 에뜨와 시설 조회·방문 저장·네이티브 동선 재생과 기존 픽업/병원 시연 기능이 있습니다. [11월 15일 개발계획](docs/07-development-plan.md)을 구현 기준으로 사용합니다.
 
 가상 학원·병원 각각 한 곳을 동봉합니다. 사람 출입구를 유지하면서 방문 모드·이용 불가·영상 점유에 따라 차량 도착점이 바뀝니다. 순정 내비 좌표의 실제 승하차 허용 여부나 실제 시설 무단차 경로를 검증한 서비스는 아닙니다.
 
 개발을 이어갈 때는 [다음 개발 실행 프롬프트](docs/09-next-development-prompt.md)를 사용합니다. [제출 체크리스트](docs/12-submission-checklist.md)에서 남은 실제 확인 항목을 확인합니다. 주요 진행 절차·실패·후속 작업은 [개발 일지](docs/10-development-log.md), 기능별 완료 증거는 [검증 기록](docs/08-verification.md)에 남깁니다.
 
+## 2단계 앱 지도 확인
+
+[2단계 검사와 화면 구분](docs/evidence/stage2-native-guide/README.md)을 따릅니다. 정차 상태에서 아래1단계 절차로 방문을 준비한 뒤 `5층 동선 보기`를 누릅니다. 앱 안의 일부 개략도에서 파란 선이 엘리베이터→에뜨와 순서로 재생됩니다. `재생/일시정지`, `처음부터`, `평면 보기/기울여 보기`, `닫기`를 확인합니다. 시스템 동작 줄이기 설정이면 자동 재생하지 않고 버튼으로 재생합니다.
+
+닫으면 같은 방문의 표시 상태가 저장되며 재실행 후 지도를 자동으로 열지 않습니다. `연동·테스트`에서 주행/미확인으로 바꾸면 열기가 제한됩니다. 이동점은 경로 재생이며 실제 현재 위치가 아닙니다. 기둥/호기·거리·무단차와 실제 주차장 연결은 미확인입니다. [실제 일반 Android 앱 캡처](docs/evidence/stage2-native-guide/18-native-route-animation.png)에서 재생25%와 평면/100%·닫힘 복원을 확인했습니다. 호스트 렌더와 실제 AVD·Pleos를 구분합니다.
+
 ## 1단계 매장 방문 확인
 
-[실행 단계](docs/18-execution-stages.md)와 [현재 검사/APK식별](docs/evidence/stage1-visit-db/README.md)을 따릅니다. 새 전용 AVD에 개발 서명0.3 APK를 설치하고 정차 테스트 상태에서 다음을 확인합니다.
+[실행 단계](docs/18-execution-stages.md)와 [현재 검사/APK식별](docs/evidence/stage1-visit-db/README.md)을 따릅니다. 새 전용 AVD에 현재 개발 서명 APK를 설치하고 정차 테스트 상태에서 다음을 확인합니다.
 
 1. `매장 방문` 탭에서 기본 문구 `에뜨와 판교 현백`으로 `저장된 매장 찾기`를 누릅니다.
 2. 공식 자료의 `현대백화점 판교점 · 5F 에뜨와`, 확인일/출처·14개 보행 좌표와 미확인 필드를 확인합니다. 일반 조회는 웹/LLM을 호출하지 않습니다.
 3. `방문 준비 · 저장` 후 방문ID/자료버전/상태가 나오는지 확인합니다. 반복 준비는 같은 방문을 유지합니다.
 4. 앱을 종료/재실행하고 같은 탭에서 동일 방문ID가 복원되는지 확인합니다. 일반 Android CI에서 기기 검사와 새 프로세스 복원 캡처 절차가 통과했습니다. 원본 artifact는 Cloud 다운로드 터널403으로 독립 열람하지 못했으므로 검증 기록의 경계를 따릅니다.
 
-도로내비·입차·앱 지도 애니메이션·연속 관측 연결은 다음 단계입니다. 실제 게이트/주차기둥/승강기호기·거리/무단차는 미확인으로 유지합니다. 기존 설정/알림 기록은 별도 저장소에 보존합니다.
+앱 지도 재생은2단계에 추가했고 도로내비·입차·연속 관측 연결은 다음 단계입니다. 실제 게이트/주차기둥/승강기호기·거리/무단차는 미확인으로 유지합니다. 기존 설정/알림 기록은 별도 저장소에 보존합니다.
 
 ## 빌드와 APK
 
 - JDK **17**, Android SDK Platform **35**, Build Tools **35.0.0**. 실행 대상은 **API 34 이상**, ARM64 또는 x86_64입니다.
 - Gradle **8.10.2**, AGP **8.8.0**, Kotlin **1.9.22**. Wrapper를 동봉합니다.
 - 공식 SDK: `NaviHelper:3.0.5`, `Vehicle:2.3.2`. Maven: `https://nexus-playground.pleos.ai/repository/maven-releases/`.
-- 현재 개발 버전은 **0.3.0 / versionCode 3**입니다. [신규 CI](https://github.com/leemh-dev/dochagjari/actions/runs/43344658563)의 `development-apks-and-metadata`에서 세 APK·실제 manifest/코드/SHA/서명을 확인합니다. [로컬 식별](docs/evidence/stage1-visit-db/local-apk-metadata.json)과 CI runner의 서명/해시는 다를 수 있습니다.
+- 현재 개발 버전은 **0.4.0 / versionCode 4**입니다. [신규 CI](https://github.com/leemh-dev/dochagjari/actions/runs/43358680681)의 `development-apks-and-metadata`에서 세 APK·실제 manifest/코드/SHA/서명을 확인합니다. [로컬 식별](docs/evidence/stage2-native-guide/local-apk-metadata.json)과 CI runner의 서명/해시는 다를 수 있습니다.
+- 1단계0.3.0/3은 [이전 artifact](https://github.com/leemh-dev/dochagjari/actions/runs/43344658563/artifacts/14001506355)로 보관합니다.
 - 이전 **0.2.0 / versionCode 2**의 [개발 APK·기기 테스트 APK·unsigned release 보관 artifact](https://github.com/leemh-dev/dochagjari/actions/runs/43055801516/artifacts/13871881801)의 서명 종류와 SHA-256은 [검증 기록](docs/08-verification.md)에 정리합니다. debug는 개발 서명이고 제출용 서명 APK가 아닙니다.
-- 이전0.2 보관 artifact는 `development-release-assets-and-metadata`, 신규0.3은 `development-apks-and-metadata`입니다. 압축을 풀면 세 APK와 `apk-metadata.json`, `SHA256SUMS`가 있습니다. GitHub 로그인 후 다운로드합니다. runner 개발 서명은 이전 Cloud 서명과 다르므로 **새 테스트 AVD**를 사용합니다. 기존 데이터가 있는 앱을 임의 삭제하지 않습니다. Release 게시 API의 인증 제한과 대체 경로는 [개발 일지](docs/10-development-log.md)에 기록했습니다.
+- 이전0.2 보관 artifact는 `development-release-assets-and-metadata`, 현재0.4는 `development-apks-and-metadata`입니다. 압축을 풀면 세 APK와 `apk-metadata.json`, `SHA256SUMS`가 있습니다. GitHub 로그인 후 다운로드합니다. runner 개발 서명은 이전 Cloud 서명과 다르므로 **새 테스트 AVD**를 사용합니다. 기존 데이터가 있는 앱을 임의 삭제하지 않습니다. Release 게시 API의 인증 제한과 대체 경로는 [개발 일지](docs/10-development-log.md)에 기록했습니다.
 - 저장소의 [`apk/dochagjari-debug.apk`](apk/dochagjari-debug.apk)는 **이전 0.1.0 보관본**입니다. 큰 새 바이너리는 CI artifact로 제공해 소스 이력을 불필요하게 늘리지 않습니다.
 
 ```bash

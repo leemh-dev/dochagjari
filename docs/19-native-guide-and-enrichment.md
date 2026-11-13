@@ -1,6 +1,6 @@
 # 2단계 앱 지도와 이동 중 자료 보완 방향
 
-2026-11-13 UTC · 양재 사옥→판교점 5층 에뜨와. [실행 단계](18-execution-stages.md)와 [앱 계획](17-in-app-visit-guidance-plan.md)을 따른다. 새 앱 후보는 0.4.0 / versionCode 4이며 실제 APK 식별과 검사 결과는 검증 기록에 남긴다.
+2026-11-13 UTC · 양재 사옥→판교점 5층 에뜨와. [실행 단계](18-execution-stages.md)와 [앱 계획](17-in-app-visit-guidance-plan.md)을 따른다. 앱 0.4.0 / versionCode 4·수정 e573e8e의 일반 Android CI43358680681이 통과했다. [실제 앱 화면·APK 식별/검사](evidence/stage2-native-guide/README.md)를 따른다.
 
 ## 이번 구현 범위
 

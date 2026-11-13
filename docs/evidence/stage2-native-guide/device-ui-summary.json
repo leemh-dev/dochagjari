@@ -1,0 +1,140 @@
+{
+  "environment": "Generic Android API34 / CI-owned fresh AVD",
+  "inputs": "App test vehicle, mock navigation, local mock notification, generated video",
+  "checks": [
+    {
+      "text": "서쪽 승하차점 (시연 좌표)",
+      "result": "visible"
+    },
+    {
+      "text": "뒤편 주차장 입구 (시연 좌표)",
+      "result": "visible"
+    },
+    {
+      "text": "뒤편 주차장 입구 (시연 좌표)",
+      "result": "visible"
+    },
+    {
+      "text": "후보 없음",
+      "result": "visible"
+    },
+    {
+      "text": "설정 저장 완료",
+      "result": "visible"
+    },
+    {
+      "video": "생성 빈 구간",
+      "occupancy": "EMPTY",
+      "result": "visible Android analysis"
+    },
+    {
+      "video": "생성 장애물·C12",
+      "occupancy": "OCCUPIED",
+      "result": "visible Android analysis"
+    },
+    {
+      "text": "뒤편 주차장 입구 (시연 좌표)",
+      "result": "visible"
+    },
+    {
+      "text": "정차 상태가 확인되면 설정할 수 있습니다.",
+      "result": "visible"
+    },
+    {
+      "text": "주행 중 또는 주행 상태 미확인 · 영상 결과와 카메라 화면을 숨깁니다.",
+      "result": "visible"
+    },
+    {
+      "text": "현대백화점 판교점 · 5F 에뜨와",
+      "result": "visible"
+    },
+    {
+      "text": "방문 ID · bbe0956c-0a2b-46dc-a67d-1ab80c7050e4",
+      "result": "visible"
+    },
+    {
+      "text": "방문 ID · bbe0956c-0a2b-46dc-a67d-1ab80c7050e4",
+      "result": "visible"
+    },
+    {
+      "text": "5층 에뜨와 동선",
+      "result": "visible"
+    },
+    {
+      "text": "방문 ID · bbe0956c-0a2b-46dc-a67d-1ab80c7050e4",
+      "result": "visible"
+    },
+    {
+      "text": "방문 ID · bbe0956c-0a2b-46dc-a67d-1ab80c7050e4",
+      "result": "visible"
+    },
+    {
+      "text": "저장 상태 · PLANNED / HIDDEN",
+      "result": "visible"
+    }
+  ],
+  "screenshots": [
+    "01-pickup.png",
+    "02-parking.png",
+    "03-diversion.png",
+    "04-no-candidates.png",
+    "05-hospital.png",
+    "06-profile.png",
+    "07-video-empty.png",
+    "08-video-blocked.png",
+    "09-video-diversion.png",
+    "10-notification.png",
+    "11-test-inputs.png",
+    "12-driving-lock.png",
+    "13-driving-video-hidden.png",
+    "14-store-lookup.png",
+    "15-visit-saved.png",
+    "16-visit-restored.png",
+    "17-native-guide-tilted.png",
+    "18-native-route-animation.png",
+    "19-native-guide-flat.png",
+    "20-native-guide-closed.png",
+    "21-native-guide-hidden-restored.png"
+  ],
+  "pleos_native_verified": false,
+  "readiness": {
+    "serial": "emulator-5554",
+    "ready": true,
+    "checks": {
+      "transport": {
+        "returncode": 0,
+        "stdout": "device",
+        "stderr": ""
+      },
+      "boot": {
+        "returncode": 0,
+        "stdout": "1",
+        "stderr": ""
+      },
+      "package": {
+        "returncode": 0,
+        "stdout": "Service package: found",
+        "stderr": ""
+      },
+      "activity": {
+        "returncode": 0,
+        "stdout": "Service activity: found",
+        "stderr": ""
+      }
+    },
+    "reason": "Boot and package/activity services verified"
+  },
+  "visit_recovery": {
+    "same_visit_id": true,
+    "old_pid": "6953",
+    "new_pid": "8755",
+    "source": "Official facility DB; USER preparation, no vehicle trip/parking executed"
+  },
+  "native_map": {
+    "renderer": "Android Compose Canvas/PathMeasure",
+    "map": "self-drawn partial schematic using official route coordinates",
+    "tilted_flat_animation_close_hidden_restore": true,
+    "positioning": false
+  },
+  "success": true
+}

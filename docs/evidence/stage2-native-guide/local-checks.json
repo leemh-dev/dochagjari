@@ -7,7 +7,7 @@
   },
   "build": "testDebugUnitTest lintDebug assembleDebug assembleDebugAndroidTest assembleRelease: BUILD SUCCESSFUL in2m9s",
   "hostRender": "Robolectric native graphics/Android View.draw; not an AVD/Pleos screenshot",
-  "device": "Not yet executed for stage2",
+  "device": "CI43358680681 success; JUnit XML: 9 passed, 2 process-specific skipped methods; separate two-phase process restart PASS; 21 UI screenshots and HTTP recovery PASS",
   "scope": "Native partial floor schematic and official route playback, not current user positioning or parking connection",
   "hostMotion": {
     "targetedTest": "passed after full-suite pass",
@@ -16,5 +16,13 @@
     "distinctProgressReadings": ">10 asserted",
     "lastProgress": "100% asserted",
     "recording": "native View.draw in Robolectric, not emulator screenshot"
+  },
+  "pauseFix": {
+    "code": "e573e8ebbd5736259cf3eb48e792074d61f8897c",
+    "tests": 45,
+    "failures": 0,
+    "errors": 0,
+    "build": "BUILD SUCCESSFUL in 1m59s; lint/debug/test/unsigned release",
+    "pause": "1000ms no progress change asserted"
   }
 }

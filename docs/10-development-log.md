@@ -551,3 +551,23 @@
 - `gh run view 43355911129 --log-failed`로 실제 assertion을 확인했다. 진행 중 frame await가 재개된 뒤 Compose effect 취소 전에 한 번 갱신할 수 있어, 프레임 수신 직후 재생/전경/자료 지원 상태를 다시 검사하도록 수정했다. 호스트에도 동일한 정지 후1000ms 진행률 불변 검사를 추가했고 기존 실제 기기 assertion은 유지한다.
 - 최초 로컬 Gradle 호출은 샌드박스의 로컬 소켓 제한으로 daemon 시작 전 실패했다. 승인된 동일 offline 빌드 환경으로 재실행하며 기기 결과는 새 코드 CI에서 별도로 확인한다. 이전 APK artifact14006426759는 이 수정 전 산출물이다.
 - **수정 후 로컬 실제 결과:**동일 JDK17/Android35·offline·1worker/1536MiB로 JVM45/실패0·오류0, lint/debug/test/unsigned release 전체빌드1m59s성공. 정지1000ms불변/25중간프레임 검사를 포함한다. GitHub CLI는401/일반Git push dry-run은인증없음이어서연결된GitHub앱의정상권한으로fast-forward갱신한다. 강제푸시/인증우회없음. 새기기CI완료는아직아니다.
+
+### 수정 코드의 정상 연결 경로·CI APK 독립 대조
+
+- GitHub앱으로원격cad08a9를기대값으로확인한fast-forward e573e8e를반영하고공개Git fetch/파일보존mixed index갱신으로로컬HEAD를맞췄다. CLI401/인증없는push dry-run은진짜차단이지만연결된GitHub앱은정상권한이다. 수동키주입/인증/프록시우회는하지않았다.
+- 새PR CI43358680681의verify성공:Gradle5m3s·서버14건/진단35건통과. APKartifact14006823539를연결된GitHub앱의정상파일참조로다운로드했다. 원래CLI Azure터널403과다른지원기능이며더이상원본반입전체가불가능하다고표시하지않는다.
+- 최초APK비교는metadata코드가head와다르다는assert에서중지했다. 조사결과PR workflow의GITHUB_SHA인임시병합718920494f4761e31aa4ee82947c0ea021ec338b였다. 공개refs/pull/1/merge를fetch해부모head e573e8e와동일tree d56e260b794b038fb4f9e9cf086c43b94ba05568을실제대조했다. 자동병합/브랜치변경이아니다. 세APK SHA256·aapt manifest·apksigner개발인증서/미서명여부를각각독립확인해모두metadata와일치했다. 로컬/CI키·해시를구분한JSON/SHA파일을추가한다. 기기job은별도대기중이다.
+
+### 2단계 완료 — 실제 기기 화면/정지 수정/복원 확인
+
+- CI43358680681의verify/android-device모두success를확인했다. 연결된GitHub앱으로기기artifact14008371120(약2.4MB)를실제다운로드·해제하고새PNG/XML/JSON/JUnit을읽었다.17기울기/0%,18실제재생25%,19평면/100%,20닫기,21새프로세스/같은방문HIDDEN을열어채팅중간에이미지로표시했다. 호스트GIF/기기화면을구분한다.
+- 실제JUnit XML은9pass(기존6·매장1·신규지도2)/0failure·2프로세스전용skip이다. 콘솔Finished13을13pass로표시하지않는다. 별도process_restart_smoke가새PID/불변요청/저장프로필복원2단계PASS를기록했다. 신규정지검사는assert유지한채통과했고주행/unknown상세지도닫기·재열기차단도성공했다.
+- UI21장전체절차·Android영상EMPTY/OCCUPIED·C12·우회/설정·동일방문복원을이번실행에서확인했다. 별도HTTP SERVER_MOCK도응답보류→동일DB서버재시작/빈토큰→같은세션GET200·POST1·공급자0으로성공했다. 실제SMS/Pleos/실차아니다. 테스트용무작위방문/세션ID만증거에남기고실제전화번호/키는없다.
+- docs08/09/10/12/18·README·증거·PR을최신결과로갱신한다. 이후문서/증거만추가하므로[skip ci]로같은앱코드검사를중복실행하지않는다. 코드e573e8e/CI임시병합7189204·0.4.0/4·실제APKhash/서명을기록했다. 자동병합없음. 다음3단계선택설정이며AI조회worker/목적지내비·입차/카메라관측·주차귀환/전체시연은남아있다.
+
+### 화면 표시 오독 확인·실험 변경 철회
+
+- 채팅에서20번이미지를열었을때표시를검정으로오독해일시적으로Dialog제거/실제픽셀검사·0.4.1/5를로컬에서시도했다. 하지만수정반영전에원본PNG를Pillow로직접읽어검사하니앱영역비검정비율100%,배경RGB(9,18,27)였고20/21본문의픽셀차이bbox=None으로완전히같았다. 축소본을다시열어정상본문을확인했다. 실제앱검정문제는재현되지않았으며잘못된판단을사용자에게즉시정정했다.
+- 이실험은원격브랜치에커밋/푸시하지않았고5개코드파일을정확히기존HEAD로복원했다. 실험빌드2m9s는제출검증성과로계산하지않는다. 앱기능/버전은CI통과e573e8e/0.4.0·4를유지한다. 생성된APK도원래검증버전으로복원해혼동을막는다. 실제원본20/21과픽셀비교결과는보존하며새로운기기부팅/CI중복요청없다.
+- 철회후JVM검사중복없이debug/test/unsigned release만1m18s재생성해로컬산출물도0.4.0/4로복구했다. 원래검증로컬APK와세hash/서명을대조했으며최종기기CI/배포판코드는변경없다.
+- 재생성한로컬APK의hash는이전동일소스빌드와달랐고개발인증서는동일했다. 동일소스의byte재현성을가정하지않고local metadata/SHA를실제최종파일로갱신했다. CI배포APK의hash/manifest/서명대조결과와CI파일은그대로다.

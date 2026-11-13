@@ -1,6 +1,10 @@
 # 구현·검증 기록
 
-2026-11-12 UTC · 기준: [개발계획](07-development-plan.md)
+2026-11-13 UTC · 기준: [개발계획](07-development-plan.md)
+
+## 2단계 앱 지도 — 로컬/일반 Android 기기 통과
+
+앱0.4.0/4·코드e573e8e에네이티브Canvas/PathMeasure·기울기/회전·파란선·재생/평면전환/닫기를추가했다. 같은방문ID/자료버전·설정/알림을보존하고표시상태를저장한다. 주행/미확인은상세지도를닫는다. JVM45/lint/debug·test·unsigned release통과,중간25프레임호스트Compose검사통과. [로컬검사/APK/호스트화면](evidence/stage2-native-guide/README.md). 호스트렌더는AVD/Pleos화면이아니며CI43358680681 verify/android-device모두통과했다. 실제기기JUnit9통과·프로세스전용2skip후별도2단계PASS,21장캡처/동일방문닫힘복원/실제HTTP모의복구도성공했다. 새기기원본5장을채팅에서직접열었으며APK세파일의hash/manifest/서명을독립대조했다. 공식동선기반개략도/재생점이며현재측위/주차연결/실제카메라성공을의미하지않는다. 주행중자료보완방향은docs/19에설계반영했고실제AI조회worker는미구현이다.
 
 ## 1단계 앱 구현 — 로컬/일반 Android CI 통과
 
