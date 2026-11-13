@@ -1,5 +1,5 @@
 {
-  "code_commit": "ef3f306cb752ae5d1817216faa008b3b756d53d9",
+  "code_commit": "8ea046a65e69b0c15749683cf979e0df26eae536",
   "versionName": "0.7.0",
   "versionCode": 7,
   "workflow_run": null,
@@ -7,8 +7,8 @@
     {
       "kind": "debug",
       "file": "dochagjari-0.7.0-debug.apk",
-      "bytes": 79417615,
-      "sha256": "7b08a44f70b5a62590a0e044ead65f0b6db1944639202de2ad98af32cce354db",
+      "bytes": 79419067,
+      "sha256": "e120448fca6a87ca2114a889568dca02bd75c8494809648dea92d6d259e5c86c",
       "manifest": {
         "name": "dev.leemh.dochagjari",
         "versionCode": "7",
@@ -33,8 +33,8 @@
     {
       "kind": "unsigned-release",
       "file": "dochagjari-0.7.0-unsigned-release.apk",
-      "bytes": 71015825,
-      "sha256": "c00491c67aef1e0ea7b09c2e9811be281a7cccf8f14f07591e36869871b01b94",
+      "bytes": 71032209,
+      "sha256": "e047219cd7e4f0a4484098f8d92011985e369848a0edecef8a8aebd281a55a43",
       "manifest": {
         "name": "dev.leemh.dochagjari",
         "versionCode": "7",

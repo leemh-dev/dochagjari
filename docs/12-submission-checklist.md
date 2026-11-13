@@ -2,13 +2,19 @@
 
 2026-11-13 UTC · 기준 [개발계획](07-development-plan.md) · [최신 검증](08-verification.md)
 
-## 5단계 같은 방문 관측 — 구현/로컬 검사, 실제 기기 CI 대기
+## 5단계 같은 방문 관측 — 일반 Android·TEST/생성 영상 검증 통과
 
-앱 **0.7.0/7**. 입차 기록이 있는 같은 방문에 출처/원문·시각/점유/중지 저널과 보수적 문자 후보·추천을 연결했다. 낮은 신뢰도/오래됨/표기없음/같은번호 층충돌은 보류한다. 실제 판교점 기둥·주차층/현재위치·승강 연결 근거가 없어 parking=null과 기존5층 동선을 유지한다. 닫기/탭이탈/백그라운드/주행/권한 오류는 중지하고 재시작은 자동 재개하지 않는다.
+앱 **0.7.0/7**, 기능 `ef3f306`·실제 기기 URI 회귀 수정 **`8ea046a`**. 입차가 저장된 같은 방문에 출처별 원문·시각·점유/중지 기록과 보수적 문자 후보·추천을 연결했다. 옛 JSON/SQLite schema·자료/방문ID·설정/좌석·확정 알림을 보존한다. 낮음/오래됨/미래시각/표기없음·같은번호 층충돌은 후보를 보류한다.
 
-첫 CI43388009453 verify는 JVM77/서버14/진단35·lint/세APK 통과했으나 기기는11pass/1fail/2skip이었다. 새 관측 시나리오는 통과했지만 앱 캐시 file://를 문서grant로 잘못 검사한 회귀로 기존 선택 영상 검사1건이 실패했다. 프로세스/화면 후속은 실행되지 않았다. [실패 원본 요약](evidence/stage5-visit-observation/first-device-failure.json). 앱 전용 파일과 외부 content 문서를 구분해 수정하고 새 경계5건과 후속 검사를 진행 중이다.
+최신 [CI43390462215](https://github.com/leemh-dev/dochagjari/actions/runs/43390462215) verify/android-device 모두 success. 원본 **JVM82/실패0, 서버14/진단35·lint/세APK**, 실제기기 **12pass/실패0**·프로세스전용2skip 후 별도종료/복원2단계PASS. 새시나리오는TEST단서/층충돌/낮음/오래됨/표기없음·실제Android생성C12/문자점수null·닫기/주행중지·저장재조회/재시작을 검사했다. UI37장/신규8장과HTTP SERVER_MOCK 복구도 성공했다. 콘솔의 Finished 수를 모두 pass로 세지 않는다.
 
-로컬 첫 JVM77/실패0·lint/세APK가 통과했다. 마지막 주행 중 상세 숨김/안내문구의 lint/세APK 패키징도 통과했다. 새로운 실제 Android 기기/화면 검사는 대기 중이며 이전 단계 성공을 재실행으로 세지 않는다. [계약](22-visit-observation.md) · [현재 증거](evidence/stage5-visit-observation/README.md). 실제 Pleos 카메라/SDK·핀·측위/실차·실제 OS 권한 철회는 미검증이다. 다음6단계 주차완료/귀환·7단계 전체시연은 남아 있다.
+첫CI43388009453은기기11pass/1fail/2skip이었다. 앱 전용cache file://까지문서grant를요구한회귀를실제로확인해canonical앱cache/files와외부content문서의정상read grant를구분했다. 수정후기존영상선택검사도PASS이며인증/권한검사해제없음. [첫실패](evidence/stage5-visit-observation/first-device-failure.json)와first-ci-*APK/hash를보존했다. URI권한경계5건은단위주입검사이며실제OS철회성공이아니다.
+
+새PID7575→7626에서같은방문/내비요청/관측ID·2TEST프레임·기존프로필/역할·동일확정알림을복원하고관측/내비를자동재개하지않음을확인했다. 이검사는미완료관측저널을명시적으로준비한것이며실제카메라종료실측이아니다. UI별도TEST관측도11670→13133에서기록2프레임/같은방문과idle복원·후보오래됨을확인했다. HTTP는같은DB서버재시작/응답보류/빈토큰→같은세션GET200·POST1/공급자0이다.
+
+생성C12/TEST B3·B4는실제판교점기둥·차량주차층이아니다. 연결근거가없어parking=null·현재위치/승강연결미확인·기존5층경로를유지하고추천문구만갱신한다. 지도36은CI동작줄이기설정의재생대기0%이며자동재생/위치기반경로갱신성공으로표시하지않는다. 실제Pleos SDK/핀·외부카메라/측위·실차·OpenDocument실제OS철회·새관측공개/선택영상경로·AI자료worker는미검증/미구현이다. 가상병원·모의SMS를유지하고공급자수락/휴대폰수신과구분한다.
+
+[관측계약](22-visit-observation.md) · [원본화면·기기/XML요약·복원·APK](evidence/stage5-visit-observation/README.md) · [새APK artifact14021185433](https://github.com/leemh-dev/dochagjari/actions/runs/43390462215/artifacts/14021185433). 실제배포세파일의bytes/SHA256·manifest·개발인증서/미서명을독립대조했고CI임시5894f438과코드8ea046a의tree일치를확인했다. 기기job은동일소스별도runner재빌드다. 개발서명debug/test·unsigned release와기존사용자데이터/이전APK를유지한다. 다음6단계는명시주차완료·요약/닫기·귀환,7단계는같은APK연속시연이다.
 
 ## 4단계 시설 목적지/명시적 입차 — 일반 Android·모의 입력 검증 통과
 

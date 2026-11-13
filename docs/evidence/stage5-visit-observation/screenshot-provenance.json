@@ -1,0 +1,90 @@
+{
+  "run": 43390462215,
+  "artifact": 14022042145,
+  "head_code": "8ea046a65e69b0c15749683cf979e0df26eae536",
+  "ci_build_code": "5894f4388389e9f486362dd46477af56f268e149",
+  "environment": "Generic Android API34 / CI-owned fresh AVD",
+  "input": "MOCK navigation, TEST entry/observations, GENERATED video analyzed in Android ML Kit; no actual Pangyo pillar/location mapping",
+  "files": [
+    {
+      "file": "30-observation-test-candidate.png",
+      "sha256": "1af521998b9baea6f187fa4ec68fcf3b54abdcac285c06aa7a1b2e381ed6c056",
+      "bytes": 109343
+    },
+    {
+      "file": "30-observation-test-candidate.xml",
+      "sha256": "fb3b247ea0085822bab1c705096a1aa9f356bb0cc5b0470ccae058febf71114e",
+      "bytes": 26171
+    },
+    {
+      "file": "31-observation-floor-conflict.png",
+      "sha256": "153ccbff293f1b07a56e7c0562fb428eea71fd3557aa860b13201e7b25b4d32a",
+      "bytes": 107442
+    },
+    {
+      "file": "31-observation-floor-conflict.xml",
+      "sha256": "7d387788e73f622352296d981baf479364be9637f3411be1db442f85ffb0188e",
+      "bytes": 26160
+    },
+    {
+      "file": "32-observation-low-confidence.png",
+      "sha256": "68503619afdfe1768810499e6abb64ae4f5ce7082fa21b1788836be37a1426b7",
+      "bytes": 105875
+    },
+    {
+      "file": "32-observation-low-confidence.xml",
+      "sha256": "a774c91d7c0f485a70039e8639ab7ffcedfbe34cea7ea2b897f6a686422cf42d",
+      "bytes": 26134
+    },
+    {
+      "file": "33-observation-stale.png",
+      "sha256": "d0e66e0cfde73ddebcec8a6d2129b099f0c2730430dc249a8aa4cf43d5066c62",
+      "bytes": 107014
+    },
+    {
+      "file": "33-observation-stale.xml",
+      "sha256": "26ac6805e2dc69e04aa9644ad5303936fdaabb46b11ad1e70046ddb48973d6a7",
+      "bytes": 26144
+    },
+    {
+      "file": "34-observation-no-sign.png",
+      "sha256": "64272538ec257439c22f89cafd02e6839c58686cc10d074380d828fa28cd057f",
+      "bytes": 106650
+    },
+    {
+      "file": "34-observation-no-sign.xml",
+      "sha256": "8bff18d0a8bee8d060d2e6b417076a16bb7f7befae776dc883d331a2aa489ff7",
+      "bytes": 26145
+    },
+    {
+      "file": "35-observation-android-video.png",
+      "sha256": "c235794591b8f3fde9ee14ec2cd891b1564f0e2b423c402ee809464391557edc",
+      "bytes": 119411
+    },
+    {
+      "file": "35-observation-android-video.xml",
+      "sha256": "a8454f45d1b51feaf315f622c1454fe8173064713f0e44387d9e7a756dfbec74",
+      "bytes": 26269
+    },
+    {
+      "file": "36-observation-guide-unverified.png",
+      "sha256": "f7035c455bedd3e265c754980f8c914c6956a795c139a10723a45feebc4d276d",
+      "bytes": 116460
+    },
+    {
+      "file": "36-observation-guide-unverified.xml",
+      "sha256": "6bb3d8fb52f20c4703a7867007f8cb933f16c05600d936dcb0658947038d9eaf",
+      "bytes": 11984
+    },
+    {
+      "file": "37-observation-restored-idle.png",
+      "sha256": "769eaf64a995fde83ef2ab87a7eb46dc36c7d7a1f35dd886643d698cd0774aa7",
+      "bytes": 107369
+    },
+    {
+      "file": "37-observation-restored-idle.xml",
+      "sha256": "32f7c4c7c32acd40e658bf580669a590c64b259de75747e4e54faaeba50f8449",
+      "bytes": 26486
+    }
+  ]
+}

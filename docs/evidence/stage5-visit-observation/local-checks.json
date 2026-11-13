@@ -1,14 +1,15 @@
 {
   "environment": "Codex Cloud JDK17/Android35, offline/1worker/1536MiB; ADB devices0; KVM absent",
   "jvm": {
-    "tests": 77,
+    "tests": 82,
     "failures": 0,
     "errors": 0,
-    "new_tests": 15
+    "new_tests": 20
   },
-  "build": "JVM77/lint/3APKs SUCCESS1m56s; final UI-only lint/debug/test/unsigned release 1m 29s",
+  "build": "URI regression fix JVM82/lint/debug/androidTest/unsigned release SUCCESS1m50s",
   "lifecycle": "3 additional cases success43s: late frame after close, injected SecurityException, incomplete journal no auto source restart",
   "python_compile": "capture_app_screens.py, process_restart_smoke.py PASS",
   "actionlint": "1.7.7 android.yml PASS",
-  "device": "pending new CI; no Pleos/native camera/position verification"
+  "device": "CI43390462215 PASS: 12 instrumented passes/2 process-specific skips followed by separate 2-phase restart PASS,37 UI screenshots,HTTP SERVER_MOCK recovery PASS",
+  "code_commit": "8ea046a65e69b0c15749683cf979e0df26eae536"
 }

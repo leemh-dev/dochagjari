@@ -661,3 +661,18 @@
 - URI 단위검사 첫 실행에서 Robolectric 기본 checkUriPermission이 허용을 반환해 미승인 content 기대가 실패했다. 실제 OS 거부를 재현한 것이 아니므로 ContextWrapper로 명시 GRANTED/DENIED를 주입하고 허용/거부 두 경로를 검증하도록 보정했다. 총 신규 경계5건이며 실제 OS 철회와 구분한다.
 
 - 실제 수정후 로컬 JVM82/실패0·lint/debug/test/unsigned release 전체1m50s 성공. 새 소스 커밋/CI로 기기 영상 회귀와 프로세스/화면 후속을 확인한다. 원본 uri-fixed-local.log에 기록한다.
+
+- 회귀수정8ea046a65e69b0c15749683cf979e0df26eae536을expected_sha ef3f306/force=false로fast-forward했고파일보존인덱스동기화를확인했다. 새CI43390462215진행중이며PR에첫실패·수정·새검사상태를명시했다. 앱버전0.7.0/7을유지하고서로다른코드/바이트/서명을metadata로구분한다. 첫APK는first-*로보존하고수정로컬APKmetadata를갱신했다.
+
+- 새CI43390462215 verify success/Gradle5m19s·서버14/진단35를원본로그에서확인했다. report artifact14021120849의HTML은JVM82/실패0/ignored0이다. 새배포artifact14021185433도세APKbytes/SHA256·manifest·개발인증서/미서명모두대조일치했다. 독립대조정규식의필드경계/이스케이프오류를수정해일치를확인했으며APK자체실패가아니다. 임시5894f438/기능8ea046a의실제tree af875b388905631af7c67bf20ce74046e4d7fb25도일치한다. 실제기기는별도진행중이다.
+
+### 5단계 완료 — 수정후 실제 Android 원본/복원·화면 확인
+
+- 8ea046a/CI43390462215 verify/android-device모두success. 기기artifact14022042145(약4.1MB)를정상GitHub앱으로실제다운로드하고원본XML14메서드중12pass/실패0/2skip을확인했다. 기존선택영상회귀도PASS. 새관측시나리오의TEST층충돌/낮음/오래됨/표기없음·Android생성C12/문자점수null·닫기/주행중지/저장재조회·재시작이통과했다.
+- 프로세스전용2메서드는일괄검사에서skip후별도준비/강제종료/새PID7575→7626에서같은방문/내비요청/관측ID·2TEST프레임/불완전저널·기존프로필/좌석역할/동일확정알림을복원했다. source/내비자동재개없음. 명시미완료저널fixture검사이며실제카메라활성중강제종료실측이아니다.
+- UI37장/관측신규8장성공.30TEST반복문자후보/35실제Android생성영상2처리프레임·C12/36출처·미확인지도와31B3/B4상충/37새PIDidle원본을확보즉시채팅에이미지로표시했다.36은CI동작줄이기의재생대기0%라자동재생/현재위치기반선갱신으로표시하지않았다. PNG/XML·파일SHA·run/source를보존했다.
+- UI관측강제종료도11670→13133에서같은방문/저장2프레임과자동재개없음·오래됨후보보류를확인했다. readiness는transport=device/boot1/package/activity found·각rc0이다. HTTP SERVER_MOCK도같은DB서버재시작/응답보류/빈토큰→같은세션GET200·POST1/공급자0으로성공했다. 실제SENS/휴대폰수신이아니다.
+- CI기기job실행중세부단계를볼수없어완료기준을앞당기지않고대기했다. 실행중로그조회1회는BlobNotFound404였고앱실패로표시하지않았다. 종료후완료로그/원본을확인했다. UIartifact는job종료후에만제공돼그시점과차단을채팅에공유했다.
+- README/docs08/09/12/18/22·증거·PR을최신수준으로갱신한다. APK는0.7.0/7·코드8ea046a,CI임시5894f438/tree af875b3·세파일실제hash/개발서명/미서명을구분한다. 첫ef3/첫CI실패와metadata는first-*로보존한다. 기기APK는같은소스별도runner재빌드이며배포byte/서명과동일을가정하지않는다.
+- 연결근거없어parking=null·주차층/현재위치·승강연결미확인·기존5층선유지다. 실제Pleos SDK/핀·외부카메라/측위·실차·새관측OpenDocument/공개영상실행/실제OS철회·AI조회worker는미검증/미구현. native강제중단/메모리성능을실측했다고주장하지않는다. 가상병원/모의SMS·기존DB/방문/설정/알림/이전APK보존,자동병합없음.
+- 후속은6단계주차완료·요약/닫기·귀환과7단계같은APK연속시연이다. 다음실행프롬프트를파일과최종채팅에직접제공한다. 이후문서/증거만[skip ci]커밋해같은앱검사를근거없이반복하지않는다.

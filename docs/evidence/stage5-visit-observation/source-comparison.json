@@ -1,9 +1,8 @@
 {
-  "feature_commit": "ef3f306cb752ae5d1817216faa008b3b756d53d9",
-  "ci_pr_merge_commit": "f6c552e8ae4718e30d15002754e35abca373e394",
-  "feature_tree": "5376de1e0bfe7fe04f8b5c6d22d156c8d4fabff8",
-  "ci_tree": "5376de1e0bfe7fe04f8b5c6d22d156c8d4fabff8",
-  "trees_equal": true,
+  "feature_commit": "8ea046a65e69b0c15749683cf979e0df26eae536",
+  "ci_pr_merge_commit": "5894f4388389e9f486362dd46477af56f268e149",
+  "feature_tree": "af875b388905631af7c67bf20ce74046e4d7fb25",
+  "ci_tree": "af875b388905631af7c67bf20ce74046e4d7fb25",
   "actually_merged": false,
-  "note": "PR virtual merge ref inspected, no PR merge performed; distribution verify job and device runner rebuild are distinct APKs"
+  "trees_equal": true
 }
