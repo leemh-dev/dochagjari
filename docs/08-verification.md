@@ -2,6 +2,10 @@
 
 2026-11-12 UTC · 기준: [개발계획](07-development-plan.md)
 
+## 1단계 앱 구현 — 로컬/일반 Android CI 통과
+
+앱0.3.0/3·코드4d31a15에사전SQLite시설DB/별칭검색·버전보존·동일방문저장/복원·매장방문탭을추가했다. 신규8개포함JVM41/실패0·오류0,lint/debug/test/unsigned release빌드통과. [로컬검사/APK식별](evidence/stage1-visit-db/README.md). 수정 후 CI43344658563의verify/android-device모두성공했다. 검색/실제SQLite재조회·Activity재시작과강제종료/새PID·같은방문복원캡처절차가포함된다. [CI 실제 결론](evidence/stage1-visit-db/ci-result.json)·[기기화면 artifact](https://github.com/leemh-dev/dochagjari/actions/runs/43344658563/artifacts/14001348823). Cloud다운로드는저장소터널403으로막혀개별원본/보고서를독립열람한것은아니다. 패키지명metadata파싱오류를실제APK로확인해3b9a3c5에서고쳤다. 기존0.2보관본/해시/서명은유지하며새CIartifact는development-apks-and-metadata다. 앱지도/카메라/실제차량내비·음성은다음단계다.
+
 ## 앱 내 시나리오 개발계획 확정 — 구현 전
 
 [docs/17](17-in-app-visit-guidance-plan.md)에 기존 코드 재사용/부족분과 단계별 구현·검증·종료 규칙을 정했다. 현재 선택적 좌석별 탑승 역할·앱 내2.5D 지도·입차/연속관측·관측 기반 경로/주차 세션은 신규 개발 대상이다. 기존 Profile/DataStore·좌석SDK·선택영상OCR는 기반이며 신규 전체 흐름 완료가 아니다. PR#1 open·현재42035f6 CI43339266811/43339258708 success를 조회했다. 이번 계획 작성에서 기존 검사를 재실행한 것으로 표시하지 않는다.

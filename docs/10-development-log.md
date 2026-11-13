@@ -519,3 +519,20 @@
 - **구현:**SQLite 사전시설카탈로그/별칭검색·버전불변/이전스냅샷보존·독립방문저널·같은ID준비/재시작복원·저장실패표시/재시도와정차제한된매장방문탭. 공식판교에뜨와5F·14좌표를동봉하고게이트/기둥/호기/거리미확인은유지한다. 신규unit8건·기기UI1건·기존화면캡처에검색/저장/새프로세스복원3장을추가했다. 현재버전을manifest에서읽는APK메타데이터/새artifact를CI에추가하고기존0.2패키징workflow는보존한다.
 - **환경/명령/실제결과:**기존Java17/Android35/Gradle캐시,1worker·1536MiB·offline로 testDebugUnitTest/lintDebug/assembleDebug/assembleDebugAndroidTest/assembleRelease 실행,2m3s성공. JVM41/실패0·오류0(신규8),Python구문/actionlint/diff통과. ADB는샌드박스소켓차단후승인된조회에서연결기기0, /dev/kvm없음. 무가속부팅반복없음. 기기검사/원본화면은CI실제결과대기이며성공으로계산하지않는다.
 - **산출물/후속:**앱0.3.0/3으로새APK생성. 기존0.2.0/2/3a01515·해시/서명/보관본은유지한다. 코드커밋후현재APK서명/해시metadata를기록하고전용CI AVD검색/저장/새PID같은방문ID를확인한다.1단계이후2단계지도애니메이션구현은이번범위에서아직시작하지않았다. 증거docs/evidence/stage1-visit-db/·PR#1기록,자동병합없음.
+
+### 1단계 후속 — 코드푸시/APK식별 대조
+
+- 기능코드4d31a15를푸시하고새CI43344530173/43344518024가시작됐다. 실제APK세개의서명/manifest/SHA를추출하면서패키지name정규식이compileSdkVersionCodename접미까지읽는오류를재현했다. 공백경계/정확한app·test패키지assert로수정한3b9a3c5를추가푸시했다. APK바이너리는같은4d31a15코드이며로컬metadata를수정된수집기로재생성했다.
+- 로컬debug/test는같은Cloud개발키,release는미서명이다. SHA/지문/버전/코드와세파일크기는docs/evidence/stage1-visit-db/local-apk-metadata.json에기록했다. 기존0.2runner키와혼동/기존앱삭제없이새전용AVD를사용한다. 새CI43344658563/43344649386실행중이며성공으로계산하지않는다.
+
+### CI 생성 성공과 다운로드 차단
+
+- 수정 후 CI43344658563의 verify job이 성공했고 새 artifact14001506355(`development-apks-and-metadata`)가 생성됐다. CI 생성 단계의 실제 manifest·서명 검사와 이 Cloud의 독립 파일 대조를 구분한다.
+- GitHub API는 정상 리다이렉트하지만 Azure blob 저장소로의 프록시 터널이403으로 차단됐다. 신선한 아카이브 응답/정상 HTTP 클라이언트에서도 같은 계층임을 확인했다. 환경 변경 요청 도구는 없어 다른 프록시로 우회하지 않는다. 임시 서명 URL·토큰은 공개 증거에 저장하지 않는다. 화면 artifact도 직접 반입 못 할 수 있어 실제 상태/링크를 제공한다.
+- PR#1 제목/설명을1단계 실제 동작·새 버전/기존 보관본·현재 검사·기기 대기/다운로드 차단·7단계 후속으로 갱신했다. android-device는 아직 실행 중이다.
+
+### 1단계 완료 — 실제 일반 Android CI 성공
+
+- 수정 후 코드3b9a3c5의CI43344658563이완료됐고verify/android-device모두success다. 수정전기능코드4d31a15의43344530173도전체성공했다. 신규매장기기검사와기존기능/프로세스2단계·새검색/저장/강제종료후새PID같은방문ID캡처절차가포함된다. GitHub API결론/step/artifact를ci-result.json에정제저장했다.
+- 신규APKartifact14001506355와기기화면/보고서artifact14001348823을확인했다. 새기기artifact다운로드도같은저장소터널403이라원본을독립열람/채팅이미지로표시하지못했다. 성공한job절차와독립파일대조를구분하고원본링크를제공한다. 이전화면으로대체하지않는다.
+- docs/08·09·12·18/README를1단계완료·2단계다음으로갱신한다. 앱기능코드4d31a15/metadata수정3b9a3c5와로컬/CIAPK서명·해시범위를구분한다. 후속문서/증거만추가하므로[skip ci]문서커밋으로동일코드검사중복실행을생략한다.2단계구현은이번에시작하지않았다.

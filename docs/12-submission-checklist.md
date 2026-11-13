@@ -2,6 +2,10 @@
 
 2026-11-12 UTC · 기준 [개발계획](07-development-plan.md) · [최신 검증](08-verification.md)
 
+## 신규 1단계 APK — 기존0.2 보관본과 구분
+
+앱0.3.0/3·기능코드4d31a15,metadata패키지파싱수정3b9a3c5. [실제 로컬 APK식별/검사](evidence/stage1-visit-db/README.md). JVM41/lint/세빌드와CI43344658563 verify/android-device가통과했다. 기기검사/새PID복원캡처절차가포함되며원본artifact다운로드는Cloud터널403으로차단됐다. 새artifact development-apks-and-metadata의코드/manifest/해시/서명과설치전대조한다. 이전artifact13871881801·0.2메타데이터는과거보관증거다. 도로/입차/지도애니메이션·관측/귀환전체완료는아니다.
+
 ## 다음 APK의 전체 흐름 완료 기준 — 현재 미완료
 
 [앱 구현계획](17-in-app-visit-guidance-plan.md) 기준: 선택설정/건너뛰기·사전DB조회·에뜨와목적지·도로내비/테스트입차·앱2.5D파란선·영상/테스트관측갱신·주차저장/요약·닫기/재개/복원을 같은 APK에서 이어서 검증한다. 음성/실제SDK와 테스트를 구분하고 주행중 상세조작제한·새입차 중복·권한철회·종료/복원·설정이행·기존SMS복구를 확인한다. 기존 웹GIF/테스트 성공을 이 체크 완료로 계산하지 않는다. 새APK 생성 시 코드/버전/SHA/서명을 별도 기록한다. 이번에는 계획만 변경했다.
