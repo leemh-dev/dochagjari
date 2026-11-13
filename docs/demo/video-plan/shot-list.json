@@ -30,12 +30,13 @@
         "end_seconds": 35,
         "duration_seconds": 20,
         "status": "planned",
-        "title": "에뜨와 요청과 선택 조건",
+        "title": "독립 탑승 확인 후 에뜨와 요청",
         "mode": "concept",
-        "action": "음성요청 UX 연출과 선택적 탑승/유모차 조건",
+        "action": "내비와 독립된 이번 탑승 확인3~5초(선택사항) 후 목적지 요청. 센서만으로 아이/혼자 판정하지 않는 UX 컨셉.",
         "assets": [
           "docs/ux/scenario-concepts/01-store-reference.png"
-        ]
+        ],
+        "occupant_context_note": "Multiple presets and active trip context are planning-only; see docs/33-occupant-modes-and-trip-context.md. No new voice/sensor implementation."
       },
       {
         "id": "S03",
