@@ -1,0 +1,13 @@
+{
+  "source": "../pangyo-route-example/route-result.json",
+  "inputRouteIndex": 0,
+  "nativeFloor": "5F",
+  "background": "Official desktop screenshot at zoomControl(200), mapPositionMoveCamera(900,800), viewport1600x1100",
+  "transform": {
+    "scale": 0.96,
+    "translateX": -64,
+    "translateY": -88
+  },
+  "purpose": "Native floor path projected onto same-camera screenshot pixels; not geolocation or meter scale",
+  "display": "CSS perspective1250px rotateX32deg rotateZ-10deg. Map and path transformed together."
+}

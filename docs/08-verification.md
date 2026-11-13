@@ -2,6 +2,10 @@
 
 2026-11-12 UTC · 기준: [개발계획](07-development-plan.md)
 
+## 앱 외부 전체 시나리오·2.5D 파란선 미리보기 — 2026-11-13 UTC
+
+[조작 가능한 HTML·GIF/MP4·브라우저 검사](evidence/pangyo-scenario-preview/README.md)를 만들었다. 공식5F 지도 배경과 기존 공식14개 경로 좌표를 함께 기울여 파란 선/이동점 애니메이션을 표시한다. 재생/일시정지·단계 선택·평면 전환, page errors0·모바일 가로 넘침 없음 확인. 주차 기둥/승강기 번호 미확인 시 주변 시설 표지에 근거한 추정 안내를 작성했다. 주차·귀환은 시나리오 제안이며 실제 차량 이동/빈자리/개인 주차 기록이 아니다. 실제3D 건물·측위·앱/Pleos 구현 성공으로 계산하지 않는다.
+
 ## 공식 지도에서 5층 에뜨와 경로선 실행 — 2026-11-13 UTC
 
 앱 수정 없이 공식 판교점 지도를 데스크톱 Chromium에서 열어 5F 에뜨와/엘리베이터/에스컬레이터 POI를 확인하고 공식 길찾기를 실제 실행했다. [엘리베이터 경로 원본](evidence/pangyo-route-example/elevator-to-ettoi.png) · [에스컬레이터 경로 원본](evidence/pangyo-route-example/escalator-to-ettoi.png) · [전체 지도/결과·한계](evidence/pangyo-route-example/README.md). 사전 생성 지도나 Pleos/실차/앱 내 길찾기 결과가 아니다. 유아차 대여/유아휴게실 쪽 엘리베이터에서 복도를 돌아 에뜨와 입구로 연결되는 선을 확인했다. 축척/단위·실측 거리/시간·무단차 전 구간은 미검증이다.
