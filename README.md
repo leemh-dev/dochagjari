@@ -6,9 +6,13 @@
 
 개발을 이어갈 때는 [다음 개발 실행 프롬프트](docs/09-next-development-prompt.md)를 사용합니다. [제출 체크리스트](docs/12-submission-checklist.md)에서 남은 실제 확인 항목을 확인합니다. 주요 진행 절차·실패·후속 작업은 [개발 일지](docs/10-development-log.md), 기능별 완료 증거는 [검증 기록](docs/08-verification.md)에 남깁니다.
 
-## 현재 우선순위 · 내비 연결 UX
+## 현재 우선순위 · 지도 중심 Android UX
 
-최종 녹화 전에 [지도 중심 UX 설계](docs/24-navigation-ux-design.md)와 [인터랙티브 시안](docs/ux/arrival-v1/prototype.html)을 검토합니다. 호스트 시안이며 실제 Android/Pleos 연동 성공이 아닙니다. 앱0.8.0/8·84acdd3/기존APK와 검증 결과는 유지합니다. 순정 내비 안의 카드/분할 지원은 아직 미확인이고, 기본은 정상 내비 요청/앱 전환입니다.
+[설계24](docs/24-navigation-ux-design.md)에 이어 **Android0.9.0/9·e2b93ba**에 [제품 UI](docs/25-android-navigation-ux.md)를 적용했습니다. 목적지 카드→명시 입차→기울인5층 파란선→주차 저장 확인/귀환으로 이어집니다. 선택적 탑승 설정은 상단 설정에서, 기존 기능/UUID·영상/HTTP 진단은 `개발자 도구`에서 확인합니다. 기존 DB/설정/알림과 복구는 유지합니다. [현재 검사·원본 화면·APK](docs/evidence/android-product-ux/README.md).
+
+기본은 모의 내비/TEST 차량입니다. `탑승 설정 → Pleos SDK`는 정상 SDK 목적지 요청을 선택할 뿐 지도 삽입이나 실제 핀 성공을 뜻하지 않습니다. 순정 내비 안내 중 앱을 임의로 덮지 않습니다. 주차장에 들어와 정차한 뒤 명시 입차로 앱의5층 미리보기를 엽니다. 주차층/승강연결·현재 위치·복귀선은 확인되지 않으면 만들지 않습니다.
+
+실제 Pleos 확인은 Mac 원격/에뮬레이터가 켜진 뒤 아래 기존 readiness/서명대조·새 전용 AVD 절차로 진행합니다. 이번 Cloud는 기기0/KVM없음이고 사용자는 Mac이 꺼져 있다고 확인했으므로 실제 내비를 실행하지 않았습니다. 준비 후 SDK 콜백/실제 핀/입차를 각각 확인하고 같은 앱의5층 화면과 비교합니다. 실제 Pleos 적합성/시스템 내비 통합과 일반 Android 실행 결과를 구분합니다.
 
 ## 6단계 주차 완료·요약·귀환
 
@@ -68,7 +72,7 @@
 - JDK **17**, Android SDK Platform **35**, Build Tools **35.0.0**. 실행 대상은 **API 34 이상**, ARM64 또는 x86_64입니다.
 - Gradle **8.10.2**, AGP **8.8.0**, Kotlin **1.9.22**. Wrapper를 동봉합니다.
 - 공식 SDK: `NaviHelper:3.0.5`, `Vehicle:2.3.2`. Maven: `https://nexus-playground.pleos.ai/repository/maven-releases/`.
-- 현재 개발 버전은 **0.8.0 / versionCode 8**, 코드 **84acdd3**입니다. [새 APK/metadata](https://github.com/leemh-dev/dochagjari/actions/runs/43404749340/artifacts/14027490674) 세 파일의 실제 해시·manifest·서명을 독립 대조했습니다. [CI 식별](docs/evidence/stage6-parking-return/ci-apk-metadata.json)·[로컬 식별](docs/evidence/stage6-parking-return/local-apk-metadata.json)을 구분하고 이전 APK/사용자 데이터를 유지합니다.
+- 이전 기능 기반 개발 버전은 **0.8.0 / versionCode 8**, 코드 **84acdd3**입니다. 현행0.9.0/9 APK는 [UX 증거](docs/evidence/android-product-ux/README.md)를 따릅니다. [새 APK/metadata](https://github.com/leemh-dev/dochagjari/actions/runs/43404749340/artifacts/14027490674) 세 파일의 실제 해시·manifest·서명을 독립 대조했습니다. [CI 식별](docs/evidence/stage6-parking-return/ci-apk-metadata.json)·[로컬 식별](docs/evidence/stage6-parking-return/local-apk-metadata.json)을 구분하고 이전 APK/사용자 데이터를 유지합니다.
 - 1단계0.3.0/3은 [이전 artifact](https://github.com/leemh-dev/dochagjari/actions/runs/43344658563/artifacts/14001506355)로 보관합니다.
 - 이전 **0.2.0 / versionCode 2**의 [개발 APK·기기 테스트 APK·unsigned release 보관 artifact](https://github.com/leemh-dev/dochagjari/actions/runs/43055801516/artifacts/13871881801)의 서명 종류와 SHA-256은 [검증 기록](docs/08-verification.md)에 정리합니다. debug는 개발 서명이고 제출용 서명 APK가 아닙니다.
 - 이전0.2 보관 artifact는 `development-release-assets-and-metadata`, 현재 신규버전은 `development-apks-and-metadata`입니다. 압축을 풀면 세 APK와 `apk-metadata.json`, `SHA256SUMS`가 있습니다. GitHub 로그인 후 다운로드합니다. runner 개발 서명은 이전 Cloud 서명과 다르므로 **새 테스트 AVD**를 사용합니다. 기존 데이터가 있는 앱을 임의 삭제하지 않습니다. Release 게시 API의 인증 제한과 대체 경로는 [개발 일지](docs/10-development-log.md)에 기록했습니다.

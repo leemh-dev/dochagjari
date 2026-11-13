@@ -1,0 +1,25 @@
+{
+  "code": "48b2ba57e3ac6199eb093ea86cfcab9019e368f4",
+  "run": 43419890120,
+  "device_artifact": 14035146367,
+  "environment": "Generic Android API34; TEST inputs and MOCK road",
+  "connected": {
+    "passed": 13,
+    "failures": 0,
+    "skipped_process_only": 2
+  },
+  "separate_process_phases_passed": 2,
+  "product_png_count": 15,
+  "parking_png_count": 14,
+  "http_server_mock": {
+    "success": true,
+    "post_count": 1,
+    "provider_attempts": 0
+  },
+  "ui_process_pids": [
+    "10212",
+    "11493"
+  ],
+  "not_final_apk_code": "Final code e2b93ba results are kept separately",
+  "pleos_native_verified": false
+}

@@ -25,3 +25,7 @@
 - 새 전용 일반 Android CI AVD에서 목적지/모의 내비/TEST입차·주차/기울인 실제 Compose 지도/동적·정적 경로/수동 단서/새 PID 복원/주행 화면을 원본 PNG와 XML로 보관한다. 해당 job이 만든 AVD에서만 초기 테스트 fixture를 만든다. 실제 사용자 기기 데이터나 알림 서버 DB는 지우지 않는다.
 - CI artifact는 job 종료 후 확보 가능하므로 실행 중 이미지인 척하지 않는다. 최종 검사/이미지·APK해시·서명은 [증거 디렉터리](evidence/android-product-ux/)에 실제 결과를 반영한다.
 - 실제 Pleos 순정 내비/Console·외부 카메라·현장 주차장 연결/측위·실차·실제 SMS는 이 검사로 대체하지 않는다. 앱마켓 출시/출시 서명은 범위 밖이다. 자동 병합 없음.
+
+## 최종 실제 결과
+
+기능48b2ba5·표시보완e2b93ba, [CI43420964354](https://github.com/leemh-dev/dochagjari/actions/runs/43420964354) verify/android-device 모두success. 원본JVM99·서버14/진단35·lint/세APK, 기기13pass/별도복원2단계·제품UI15장/기존주차UI14장/HTTP SERVER_MOCK 성공. APK 실제파일/해시·manifest·개발서명/미서명을 독립대조했다. [완료 증거/원본 화면](evidence/android-product-ux/README.md). 실제Pleos/현장 경계는 그대로이며 다음은 같은APK의7단계 연속시연이다.

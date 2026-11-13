@@ -1,0 +1,15 @@
+{
+  "run": 43420964354,
+  "job": 131870545211,
+  "jvm": {
+    "tests": 99,
+    "failures": 0,
+    "ignored": 0
+  },
+  "server": 14,
+  "diagnostics": 35,
+  "lint_and_three_apks": "PASS",
+  "artifact": 14034616082,
+  "source": "Downloaded original HTML and completed verify log",
+  "build": "5m52s"
+}

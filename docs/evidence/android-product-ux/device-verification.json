@@ -1,0 +1,18 @@
+{
+  "code": "e2b93baa91ce5bc56fb770fdc65dad08b9992175",
+  "run": 43420964354,
+  "job": 131873465768,
+  "artifact": 14034214983,
+  "connected": {
+    "passed": 13,
+    "failures": 0,
+    "errors": 0,
+    "skipped_process_only": 2
+  },
+  "process_phases_passed": 2,
+  "product_png_count": 15,
+  "parking_png_count": 14,
+  "pre_install_all_checks_rc0_stderr_empty": true,
+  "source": "Original artifact XML/PNG/readiness/process and HTTP reports",
+  "pleos_native_verified": false
+}

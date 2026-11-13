@@ -2,9 +2,11 @@
 
 2026-11-13 UTC · 기준: [개발계획](07-development-plan.md)
 
-## UX 설계 선행 · Android 적용은 아직
+## 지도 중심 Android UX · 0.9.0/9
 
-사용자 검토에 따라 최종 녹화 전에 [내비 연결 UX](24-navigation-ux-design.md)를 설계했다. 독립 호스트 프로토타입6장면/8캡처와 주행/닫기 제약만 확인했다. Android/Pleos UI 적용·순정 내비 내부 카드/분할은 미검증이다. 앱0.8.0/8·84acdd3/기존APK/CI 결과를 변경하거나 새 기기 성공으로 세지 않는다.
+[Android 적용 규격](25-android-navigation-ux.md) · 기능48b2ba5·내비방식표시보완e2b93ba. 기본 화면을 목적지/짧은 카드/큰5층지도·주차 요약/귀환으로 변경하고 기존 진단 UI는 개발자 도구로 분리했다. 기존 SQLite/DataStore/확정 알림 계약을 재사용한다. 로컬 JVM99·lint·debug/test/unsigned release 빌드 통과. [현재 CI43419890120](https://github.com/leemh-dev/dochagjari/actions/runs/43419890120) verify/android-device 모두success. JVM99·서버14/진단35·lint/세APK, 실제기기13pass/0fail·프로세스전용2skip 후 별도복원2단계·제품UI15장/기존주차UI14장/HTTP SERVER_MOCK 통과를 원본으로 대조했다. [현행 증거](evidence/android-product-ux/README.md).
+
+공식 NaviHelper 문서의 목적지 요청/조회는 확인했지만 지도 embedding/내비 내부 카드/분할 지원은 미확인이다. Cloud ADB0·transport rc1/device not found·KVM없음이며 사용자 확인으로 Mac도 꺼져 있다. [현재 기기 조회](evidence/android-product-ux/cloud-device-check.json). 실제 Pleos SDK/핀·Console·현장 위치/승강 연결·외부 카메라/실차를 일반 Android로 대체하지 않는다.
 
 ## 6단계 주차 완료·요약·귀환 — 일반 Android·MOCK/TEST 검증 통과
 

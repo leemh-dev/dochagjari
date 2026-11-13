@@ -717,3 +717,23 @@
 - 긴텍스트/테스트조작·UUID/SQLite정보를사용자화면에서분리하는규칙,안전상태/모션/데이터부족동작과공식내비연결확인게이트를docs24에기록했다. README/docs08/09/12/18·PR을설계수준으로갱신하고문서/시안만[skip ci]로기록한다. 앱84acdd3와기존설정/방문/알림/사용자데이터·APK보존/자동병합없음. 다음은시안검토반영·정상플랫폼지원범위확인후Android UI적용이다.
 
 - UX최종검토에서주행→정차토글이상세지도자동재생으로돌아갈수있는시안동작을발견했다. 간단안내상태로유지하고명시열기후에만상세재생하도록수정했다. 별도호스트브라우저검사로주행숨김→정차시닫힘유지→명시열기→닫기중지를PASS했고07캡처/해시를갱신했다. Android코드/검사는변경/재실행하지않았다.
+
+
+## 2026-11-13 UTC · 내비 연계 Android UX 적용 / 실제 Pleos 확인 경계
+
+- 조사: AGENTS·README·기능/검증/단계/UX문서와 PR1 원격 HEAD cf7a3b6(open)을 확인했다. 사용자는 UX 시안을 Android에 적용하고 가능하면 실제 에뮬레이터 내비를 확인하도록 요청했다. Cloud runtime 설정은 기존과 같고 등록된 원격 접근 정보/기기/KVM이 없었다. 사용자도 Mac이 아직 꺼져 있다고 답했다.
+- 실제 명령: `adb devices -l` rc0/목록0/빈stderr, 공통 `probe(adb, emulator-5554)` transport rc1/빈stdout/`device not found`. boot/package/activity는 transport 미준비로 조회하지 않았다. [원본 정제 JSON](evidence/android-product-ux/cloud-device-check.json). 새 Pleos 부팅/이미지 다운로드/설치/인증 조작은 하지 않았다. 기존 Cloud unauthorized를 이번 기기 성공으로 바꾸지 않는다.
+- 공식 근거: 정상 proxy/TLS로 NaviHelper destinations 문서를 조회해 목적지 요청/결과 조회/콜백을 확인했다. [URL/원문SHA/지원경계](evidence/android-product-ux/nav-boundary.json). 지도 embedding/강제 foreground/임의 overlay 지원은 이 문서로 확인되지 않아 기본 A(정상 SDK 요청+별도 앱 안내)를 적용한다.
+- 변경: 기능 **48b2ba5**, 앱0.9.0/9. 기본 ProductApp의 밝은 목적지/짧은 카드·선택 설정·명시 입차·큰 기울인5층 개략도/파란선·주차 요약/귀환·직접 단서 보완을 구현했다. 기존 AppModel/SQLite/DataStore/outbox를 재사용한다. TEST/모의 표시·위치/연결 미확인·주행 숨김·닫기/자동재개 없음 계약을 유지한다. 기술 진단 화면은 개발자 도구로 분리하고 기존 기기 회귀는 명시적으로 여기에 진입한다. [Android 규격25](25-android-navigation-ux.md).
+- 환경/검사: Cloud JDK17/SDK35·캐시 Gradle offline. 기본 sandbox의 Gradle daemon socket이 Operation not permitted여서 동일 작업을 정상 승인 실행 환경에서 수행했다. `:app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease` BUILD SUCCESSFUL 2m35s, JVM99/failure0/error0/skip0. Python구문/actionlint/diff검사 통과. [로컬 기록](evidence/android-product-ux/local-checks.json). 기기 검증은 로컬 빌드와 구분한다.
+- CI [43419890120](https://github.com/leemh-dev/dochagjari/actions/runs/43419890120)를 시작하고 PR을 진행 상태로 갱신했다. 새 제품 UI 기기 검사·15장 캡처/동적·정적 경로·새PID 복원과 기존 회귀/HTTP SERVER_MOCK를 정의했다. CI artifact는 job 종료 후 확보되므로 캡처 전에 앱 화면이라고 표시하지 않았다. 아래 후속 실제 결과로 완료 여부를 판단한다.
+- 차단/남은 작업: 실제 Pleos SDK/순정 핀·앱 전환/Console·현장 승강연결/측위·외부 카메라·실차·실제 SMS·AI자료 worker는 별도다. Mac 접근 없이 실행했다고 주장하지 않는다. 목표는 기능검증/시연이고 앱마켓 출시/출시 서명은 범위 밖. 기존 사용자 데이터·서버DB/세션 보존, 자동 병합 없음.
+
+- 코드 검토 보완 **e2b93ba**: 제품 카드가 저장된 요청 방식 대신 현재 선택값만 설명하던 혼동 가능성을 확인했다(실제 Pleos 재현으로 주장하지 않음). 다음 요청 방식과 저장된 `RoadAttempt.channel`을 각각 표시하고 모의/실제 SDK를 바꾸어도 이전 요청의 출처를 유지한다. 이 변경으로 최종 코드의 CI를 새로 실행하며 앞선 결과와 구분한다.
+
+- 최종 코드의 PR 전용 workflow 조회가 빈 배열이어서 공개 Actions API의 `head_sha=e2b93ba` 읽기 조회로 push 실행 **43420964354**를 확인했다. 수동 재실행으로 해결하지 않았다. verify131870545211 성공, 원본보고서14034616082의JVM99/0fail/0ignored·완료log의서버14/진단35·lint/세APK를확인했다(Gradle5m52s). 개발APK artifact14033304488의ZIP digest와실제세파일크기/SHA256·aapt manifest·apksigner를독립대조했다. debug/test개발인증서같음·release unsigned. [대조결과](evidence/android-product-ux/ci-apk-comparison.json). 기기job별도재빌드byte/인증서와배포artifact동일을가정하지않는다.
+
+- 초기 코드48b2ba5의 CI43419890120은 verify/android-device 모두 success. artifact14035146367 원본을 받아 XML15건 중13pass/0fail/프로세스전용2skip·별도process2단계OK, parking14장/product15장/HTTP SERVER_MOCK 성공을 확인했다. PID10212→11493·manual-demo 복원, POST1/공급자0. 확보 직후 목적지/5F완료/귀환/재생시작의 실제 앱PNG를 채팅에 직접 표시하고 일반Android/TEST/MOCK와 초기 코드를 명시했다. 최종e2b93ba의 결과와 구분한다. [초기 결과](evidence/android-product-ux/initial-code-ci.json).
+
+- 최종 **e2b93ba / CI43420964354** android-device131873465768도success. artifact14034214983 ZIP digest와 원본 XML/PNG/readiness/복원/HTTP 보고서를 받아 대조했다. 기기13pass/0fail/2skip 후 별도process2단계OK. 새제품설정/지도/닫기·주행/재생성/실제SQLite 방문보존 검사와 기존회귀가 통과했다. 제품15장(대표8장PNG/XML보관), 기존주차14장, HTTP3장. 제품새PID10324→11631에서manual-demo 복원, 기존주차회귀도동일ID유지. HTTP POST1/공급자0. 설치전4개check각rc0/빈stderr 확인. 원본재생시작/완료와모션줄이기전체선을비교했고FPS/정확한재생시간실측으로과장하지않았다. [최종대조](evidence/android-product-ux/device-verification.json)·[원본화면](evidence/android-product-ux/README.md). 확보즉시최종코드목적지/지도/주행화면도채팅에직접표시했다.
+- 마무리: README/docs08·09·10·12·18·25와증거/PR을최종검사로갱신한다. 추가앱코드/DB/키변경없고문서/원본증거커밋은[skip ci]로구분한다. 다음은7단계같은APK연속시연과접근가능한Mac/Pleos의SDK/순정핀·앱전환/Console확인이다. 이번실행에서실제Pleos/실차·SENS/휴대폰수신·AI자료worker를성공/완료로표시하지않는다.

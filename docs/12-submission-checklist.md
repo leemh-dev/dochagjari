@@ -1,10 +1,15 @@
 # 11월 15일 제출 준비 체크리스트
 
+## 현행 UX 게이트
+
+기능48b2ba5·내비방식표시보완e2b93ba·앱0.9.0/9에 [지도 중심 Android UX](25-android-navigation-ux.md)를 적용했다. 기본 사용자 화면과 개발자 도구를 분리한다. [현행 실제 결과/화면·APK식별](evidence/android-product-ux/README.md)을 기준으로 7단계 같은 APK의 연속시연을 준비한다. 호스트 시안이나 이전0.8기기 결과를 새 실행으로 세지 않는다. 실제 Pleos SDK/핀·Console·실차/현장 연결과 앱마켓 출시는 별도이며 출시는 범위 밖이다.
+
+
 2026-11-13 UTC · 기준 [개발계획](07-development-plan.md) · [최신 검증](08-verification.md)
 
-## UX 설계 선행 · Android 적용은 아직
+## 이전 호스트 시안
 
-사용자 검토에 따라 최종 녹화 전에 [내비 연결 UX](24-navigation-ux-design.md)를 설계했다. 독립 호스트 프로토타입6장면/8캡처와 주행/닫기 제약만 확인했다. Android/Pleos UI 적용·순정 내비 내부 카드/분할은 미검증이다. 앱0.8.0/8·84acdd3/기존APK/CI 결과를 변경하거나 새 기기 성공으로 세지 않는다.
+[설계24](24-navigation-ux-design.md)의 독립HTML/8캡처는 호스트 검토 자료다. 이후 Android 적용은 상단 현행 UX 증거로 구분하며 실제 Pleos UI/순정 내비 내부 카드는 여전히 미검증이다.
 
 ## 6단계 주차 완료·요약·귀환 — 일반 Android·MOCK/TEST 검증 통과
 

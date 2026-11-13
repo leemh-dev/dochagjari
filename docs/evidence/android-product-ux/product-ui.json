@@ -1,0 +1,122 @@
+{
+  "environment": "Generic Android API34 / CI-owned fresh AVD",
+  "inputs": "TEST vehicle and entry/parking; MOCK road; manual-demo synthetic memo",
+  "checks": [
+    {
+      "text": "에뜨와로 갈까요?",
+      "result": "visible"
+    },
+    {
+      "text": "내비 안내 시작",
+      "result": "visible"
+    },
+    {
+      "text": "도로 안내는 순정 내비에서",
+      "result": "visible"
+    },
+    {
+      "text": "엘리베이터에서\n에뜨와까지",
+      "result": "visible"
+    },
+    {
+      "text": "매장까지 이어서",
+      "result": "visible"
+    },
+    {
+      "text": "모션 줄이기 · 전체 경로 표시",
+      "result": "visible"
+    },
+    {
+      "text": "주차 기록 저장 완료",
+      "result": "visible"
+    },
+    {
+      "text": "주차층 미확인  ·  기둥 미확인",
+      "result": "visible"
+    },
+    {
+      "text": "manual-demo",
+      "result": "visible"
+    },
+    {
+      "text": "주차 기록이 있어요",
+      "result": "visible"
+    },
+    {
+      "text": "manual-demo",
+      "result": "visible"
+    },
+    {
+      "text": "안전하게 이동하세요",
+      "result": "visible"
+    }
+  ],
+  "screenshots": [
+    "01-product-destination.png",
+    "02-visit-ready.png",
+    "03-mock-road-handoff.png",
+    "04-animated-floor-early.png",
+    "05-animated-floor-complete.png",
+    "06-entry-unknown-connection.png",
+    "07-reduced-motion-static.png",
+    "08-parking-saved-unknown.png",
+    "09-return-clues-no-fake-line.png",
+    "10-manual-clue-form.png",
+    "11-manual-clue-save.png",
+    "12-return-manual-clue.png",
+    "13-restored-home-no-auto-guide.png",
+    "14-restored-return.png",
+    "15-driving-brief.png"
+  ],
+  "pleos_native_verified": false,
+  "readiness": {
+    "serial": "emulator-5554",
+    "ready": true,
+    "checks": {
+      "transport": {
+        "returncode": 0,
+        "stdout": "device",
+        "stderr": ""
+      },
+      "boot": {
+        "returncode": 0,
+        "stdout": "1",
+        "stderr": ""
+      },
+      "package": {
+        "returncode": 0,
+        "stdout": "Service package: found",
+        "stderr": ""
+      },
+      "activity": {
+        "returncode": 0,
+        "stdout": "Service activity: found",
+        "stderr": ""
+      }
+    },
+    "reason": "Boot and package/activity services verified"
+  },
+  "success": true,
+  "old_pid": "10324",
+  "new_pid": "11631",
+  "actual_sdk_pin": false,
+  "current_position_and_return_path_verified": false,
+  "animation": "Actual Compose six-second route; early PNG taken before XML dump, later PNG after delay",
+  "file_sha256": {
+    "06-entry-unknown-connection.png": "74551fcc8869796d9730179b60ff506f5ee32579ef06a994b9f68974c3e467ea",
+    "11-manual-clue-save.png": "1fdf57bd85031c46e7d68679c94e4e791714e00b65d1ed8efd2ca804b03db673",
+    "10-manual-clue-form.png": "79a264b687ee14d1fc4beab98fabbebc1edd0d54944fde3ce1d9633ab4cb8e5f",
+    "03-mock-road-handoff.png": "adc92c9e7114ce996ac146726dbdc483fce42c9b29e594967e5375faa294753b",
+    "15-driving-brief.png": "946b8a83733d5356623d089942076a01ef5eecb9bef1d31689a6266464834abc",
+    "02-visit-ready.png": "a471e495150401b3c3186db7a864f26fc4bd8c622878949fe4af56122ad637c1",
+    "07-reduced-motion-static.png": "08d1d900c8e167900aeb9ae5a8362cfae067a49fc644e2dc0b10e1e17b6c6985",
+    "01-product-destination.png": "7909c62714d08e55185ed7fd68bdc98cc18c969456db3587f354451054a8ff9a",
+    "13-restored-home-no-auto-guide.png": "bd2baf343ea0c727fce6da43dd23d3a26dcce926049ac853ddd5a095ebf1b5d0",
+    "12-return-manual-clue.png": "8fa5532a4786f6ac7ceb2e7e19fed78d381e42ca895bfe9495e805197f634f37",
+    "04-animated-floor-early.png": "d1669cf1e8b3a756eb2bb704003ae1266fdfa7e3bde1d69abdbd26a368ef895c",
+    "05-animated-floor-complete.png": "cd1ca834d91f90237635f593f95efec8c3c28a4f7f5cc8775542bd1418b5b3c1",
+    "14-restored-return.png": "f66857e814f71dc2ffc201749f181718093bc52bdaaac2d8e042241bbedf504f",
+    "09-return-clues-no-fake-line.png": "66fc5922b6cb151284660807cf2f97568488fcd22487cf7fffeccc31432e57de",
+    "08-parking-saved-unknown.png": "bd9857c92c833edacd97a35429baf439e4a09482049bd2e63ec24a6c55b8d1f2"
+  }
+}

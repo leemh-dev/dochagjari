@@ -1,0 +1,10 @@
+{
+  "source": "Original final CI PNGs; full-frame blue threshold (includes static blue labels)",
+  "blue_pixels": {
+    "04-animated-floor-early": 948,
+    "05-animated-floor-complete": 2695,
+    "07-reduced-motion-static": 2695
+  },
+  "interpretation": "Early vs completed line differs; reduced-motion completed path matches. This is not an FPS or exact duration measurement.",
+  "implemented_duration_seconds": 6
+}

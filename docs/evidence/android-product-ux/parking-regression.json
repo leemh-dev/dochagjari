@@ -1,0 +1,142 @@
+{
+  "environment": "Generic Android API34 / CI-owned fresh AVD",
+  "inputs": "TEST vehicle/entry/observations/parking; MOCK road; synthetic manual memo",
+  "checks": [
+    {
+      "text": "서쪽 승하차점 (시연 좌표)",
+      "result": "visible"
+    },
+    {
+      "text": "모의 내비 계산 완료 · 실제 SDK/핀 미검증",
+      "result": "visible"
+    },
+    {
+      "text": "5층 에뜨와 동선",
+      "result": "visible"
+    },
+    {
+      "text": "관측 판단: 반복 표지 후보 · 위치 확정 아님",
+      "result": "visible"
+    },
+    {
+      "text": "주차 저장 완료 · 요약",
+      "result": "visible"
+    },
+    {
+      "text": "주차층·구역·기둥·승강기 미확인 · 관측 문자를 자동 확정하지 않았습니다.",
+      "result": "visible"
+    },
+    {
+      "text": "입력 출처 · TEST · 입력 변경 · 미저장",
+      "result": "visible"
+    },
+    {
+      "text": "저장 단서 출처 · TEST · 실제 시설 확인 아님",
+      "result": "visible"
+    },
+    {
+      "text": "메모 · manual-demo",
+      "result": "visible"
+    },
+    {
+      "text": "차로 돌아가기 · 저장 기록",
+      "result": "visible"
+    },
+    {
+      "text": "5층 에뜨와 동선",
+      "result": "visible"
+    },
+    {
+      "text": "방문 ID · 81967f82-a8bb-408e-b06e-b99f31a7b8dd",
+      "result": "visible"
+    },
+    {
+      "text": "저장 상태 · PARKED / HIDDEN",
+      "result": "visible"
+    },
+    {
+      "text": "저장 주차 기록 확인 · 자동 재개 없음",
+      "result": "visible"
+    },
+    {
+      "text": "메모 · manual-demo",
+      "result": "visible"
+    },
+    {
+      "text": "주행 중/상태 미확인 · 주차 상세 조작과 단서 숨김",
+      "result": "visible"
+    },
+    {
+      "text": "이동 재개 후 이전 기록 · 현재 주차 위치 아님",
+      "result": "visible"
+    },
+    {
+      "text": "주차층·구역·기둥·승강기 미확인 · 관측 문자를 자동 확정하지 않았습니다.",
+      "result": "visible"
+    },
+    {
+      "text": "방문 ID · 81967f82-a8bb-408e-b06e-b99f31a7b8dd",
+      "result": "visible"
+    },
+    {
+      "text": "저장 상태 · PARKING_GUIDANCE / HIDDEN",
+      "result": "visible"
+    }
+  ],
+  "screenshots": [
+    "01-start.png",
+    "02-entry-map.png",
+    "03-observation-only.png",
+    "04-unknown-parking-summary.png",
+    "05-test-draft-unsaved.png",
+    "06-test-note-stored.png",
+    "07-manual-note-stored.png",
+    "08-return-record.png",
+    "09-floor-preview.png",
+    "10-restored-hidden.png",
+    "11-driving-hidden.png",
+    "12-previous-record-after-movement.png",
+    "13-next-parking-unknown.png",
+    "14-explicit-search-idle.png"
+  ],
+  "pleos_native_verified": false,
+  "readiness": {
+    "serial": "emulator-5554",
+    "ready": true,
+    "checks": {
+      "transport": {
+        "returncode": 0,
+        "stdout": "device",
+        "stderr": ""
+      },
+      "boot": {
+        "returncode": 0,
+        "stdout": "1",
+        "stderr": ""
+      },
+      "package": {
+        "returncode": 0,
+        "stdout": "Service package: found",
+        "stderr": ""
+      },
+      "activity": {
+        "returncode": 0,
+        "stdout": "Service activity: found",
+        "stderr": ""
+      }
+    },
+    "reason": "Boot and package/activity services verified"
+  },
+  "memo_input": {
+    "verified_editor": true,
+    "keyboard_back_sent": true
+  },
+  "success": true,
+  "same_visit_id": true,
+  "old_pid": "7506",
+  "new_pid": "9140",
+  "observation_promoted": false,
+  "automatic_summary_or_source_resume": false,
+  "manual_memo": "synthetic manual-demo",
+  "current_position_and_return_path_verified": false
+}

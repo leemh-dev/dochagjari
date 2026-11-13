@@ -1,0 +1,20 @@
+{
+  "environment": "Cloud Linux JDK17/SDK35 cached Gradle; no connected device",
+  "at": "2026-11-13 UTC",
+  "source": "48b2ba5 (product test final text is verified by CI)",
+  "jvm": {
+    "tests": 99,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "build": "BUILD SUCCESSFUL in 2m 35s",
+  "commands": [
+    "./gradlew --offline --no-daemon --max-workers=1 -Dorg.gradle.jvmargs=-Xmx1536m :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease",
+    "python -m py_compile scripts/capture_product_screens.py scripts/capture_parking_screens.py scripts/android_server_smoke.py"
+  ],
+  "limitations": [
+    "Not Android device execution; CI device proof pending",
+    "First default-sandbox Gradle daemon socket denied; standard approved elevated execution used for the same build"
+  ]
+}
