@@ -64,7 +64,9 @@ fun IndoorGuideScreen(destination: IndoorDestination, catalogVersion: String, in
             if (playing && resumed && supported) {
                 var previous = withFrameNanos { it }
                 while (progress < 1f) {
+                    // A queued frame can resume before the effect is cancelled by recomposition.
                     val now = withFrameNanos { it }
+                    if (!playing || !resumed || !supported) break
                     progress = (progress + (now - previous).coerceAtMost(200_000_000L) / 6_000_000_000f).coerceAtMost(1f)
                     previous = now
                 }

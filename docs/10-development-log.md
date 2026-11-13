@@ -544,3 +544,10 @@
 - **실패/해결:**호스트Compose검사를추가하며offline캐시에없는JUnit1.1.5/tracing1.1/runner1.5 의존성요구를발견했다. 기존앱/기기검사와동일한캐시버전(JUnit1.2.1/tracing1.2/runner1.6.2)으로test의존성만정렬했다. 호스트PixelCopy는forceRedraw콜백2초timeout이었다. Robolectric native View.draw 직접캡처로전환해같은Kotlin화면을확인했다. 호스트실제렌더에서검은제목/작은지도를보고명시적contentColor·넓은화면이동순서/지도배치·범위/글자분할을수정했다.
 - **로컬 결과:**기존JDK17/Android35/Gradle캐시,1worker/1536MiB/offline. JVM45/실패0·오류0,lint/debug/test/unsigned release빌드2m9s성공. 이후같은호스트렌더검사에중간25프레임·10개초과진행값/최종100%확인을추가해해당1건을단독재실행통과했다. 기존검사를근거없이반복하지않았다. Python구문/actionlint/diff확인. 실제기기검사2건과화면17~21(기울기/재생/평면/닫기/새프로세스숨김복원)을추가했으며CI실행전에는성공으로계산하지않는다.
 - **증거/후속:**docs/evidence/stage2-native-guide/의로컬로그/검사JSON·호스트flat/tilted PNG·Kotlin실제프레임GIF. 호스트이미지는에뮬레이터/Pleos화면이아니라고채팅에서표시했다. 새코드커밋후APK코드/manifest/서명/SHA와CI결과를갱신하고원본기기화면반입은기존저장소403진단을따른다. 데이터버전/시설/층/출발·도착불일치는지도대신미준비안내다. 공식지도이미지/인증구성을앱에복사하지않았다. PR갱신/기능별커밋푸시,자동병합없음.
+
+### 2단계 실제 기기 회귀 — 일시정지 프레임 경합 수정
+
+- 코드 cad08a9의 CI43355911129에서 verify는 성공했으나 Android API34 기기 검사 신규 `nativeRouteMovesPausesChangesPerspectiveAndClosesWithoutLosingVisit`가 실패했다. 실제 비교값은 일시정지 직후 `동선 재생 24%`→`25%`였다. 전체13건 중 실패1, 별도 절차 전용 process 검사2건은 skip이며 이후 화면17~21·HTTP 복구 단계는 실행되지 않았다. 빌드 성공/호스트 렌더를 기기 통과로 계산하지 않는다.
+- `gh run view 43355911129 --log-failed`로 실제 assertion을 확인했다. 진행 중 frame await가 재개된 뒤 Compose effect 취소 전에 한 번 갱신할 수 있어, 프레임 수신 직후 재생/전경/자료 지원 상태를 다시 검사하도록 수정했다. 호스트에도 동일한 정지 후1000ms 진행률 불변 검사를 추가했고 기존 실제 기기 assertion은 유지한다.
+- 최초 로컬 Gradle 호출은 샌드박스의 로컬 소켓 제한으로 daemon 시작 전 실패했다. 승인된 동일 offline 빌드 환경으로 재실행하며 기기 결과는 새 코드 CI에서 별도로 확인한다. 이전 APK artifact14006426759는 이 수정 전 산출물이다.
+- **수정 후 로컬 실제 결과:**동일 JDK17/Android35·offline·1worker/1536MiB로 JVM45/실패0·오류0, lint/debug/test/unsigned release 전체빌드1m59s성공. 정지1000ms불변/25중간프레임 검사를 포함한다. GitHub CLI는401/일반Git push dry-run은인증없음이어서연결된GitHub앱의정상권한으로fast-forward갱신한다. 강제푸시/인증우회없음. 새기기CI완료는아직아니다.

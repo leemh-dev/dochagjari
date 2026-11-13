@@ -1,0 +1,9 @@
+Source: https://github.com/leemh-dev/dochagjari/actions/runs/43355911129
+Code: cad08a9ec98552e6345111d29f196f8753a0eef0
+Environment: dedicated general Android API34 AVD, not Pleos
+verify: success; android-device: failure
+2026-11-13T03:13:54Z IndoorGuideInstrumentedTest.nativeRouteMovesPausesChangesPerspectiveAndClosesWithoutLosingVisit FAILED
+org.junit.ComparisonFailure: expected:<동선 재생 2[4]%> but was:<동선 재생 2[5]%>
+Finished 13 tests; one failure; two process-specific methods intentionally skipped.
+Later screenshot and HTTP recovery steps did not run.
+Retrieved via gh run view --log-failed; no credentials or private recipient data included.

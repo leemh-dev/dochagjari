@@ -55,6 +55,13 @@ class IndoorGuideRenderTest {
         capture("tilted.png")
         ui.mainClock.autoAdvance = false
         ui.onNodeWithText("처음부터").performClick(); ui.mainClock.advanceTimeByFrame()
+        ui.mainClock.advanceTimeBy(1500)
+        ui.onNodeWithText("일시정지").performClick(); ui.mainClock.advanceTimeByFrame()
+        fun progressText() = ui.onNodeWithTag("route-progress").fetchSemanticsNode().config[SemanticsProperties.Text].joinToString { it.text }
+        val paused = progressText()
+        ui.mainClock.advanceTimeBy(1000)
+        assertEquals("A queued frame must not change progress after pause", paused, progressText())
+        ui.onNodeWithText("처음부터").performClick(); ui.mainClock.advanceTimeByFrame()
         val observed = mutableListOf<String>()
         for (frame in 0..24) {
             if (frame > 0) ui.mainClock.advanceTimeBy(300)
