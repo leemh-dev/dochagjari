@@ -18,7 +18,9 @@ def collect(code_commit, output, sdk):
                          ('unsigned-release', 'release/app-release-unsigned.apk')]:
         apk = Path('app/build/outputs/apk') / source
         badging = subprocess.run([str(build_tools / 'aapt'), 'dump', 'badging', str(apk)], check=True, text=True, capture_output=True).stdout.splitlines()[0]
-        identity = dict(re.findall(r"(name|versionCode|versionName)='([^']*)'", badging))
+        identity = dict(re.findall(r"(?:^|\s)(name|versionCode|versionName)='([^']*)'", badging))
+        expected_package = 'dev.leemh.dochagjari' + ('.test' if kind == 'androidTest' else '')
+        assert identity['name'] == expected_package, f'Unexpected APK package: {identity}'
         if kind == 'debug':
             app_version = (identity['versionName'], int(identity['versionCode']))
         elif kind == 'unsigned-release':
