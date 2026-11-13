@@ -8,6 +8,8 @@
 
 ## 현재 우선순위 · 지도 중심 Android UX
 
+[시연영상 제작 계획](docs/32-demo-video-production-plan.md): 3분30초 서비스 본편과 약90초 실제 앱 실행기록을 제안합니다. 양재→판교점 에뜨와 방문/주차단서/귀환을 한 이야기로 연결하고 병원·학원·역/공항은 확장 장면으로 보여줍니다. [210초 콘티](docs/demo/video-plan/shot-list.json). 현재는 계획이며 영상/새 앱을 제작한 것은 아닙니다.
+
 [도로변 시나리오 UX 시안4장](docs/ux/road-scenario-concepts/README.md): 학원 픽업·병원 동행·정자역 마중·공항 배웅을 카메라/3D도로지도로 표현했습니다. 첫 번째 차량정보·두 번째 내비 구성을 유지하고 **세 번째 상단만 카메라, 하단만3D지도**입니다. [설계/정차후보 경계/수정 기록](docs/31-road-scenario-ux-concepts.md). 디자인 검토안이며 앱/APK는 변경하지 않았습니다.
 
 [도로 3D/승하차 참고 이미지19장 조사](docs/30-road-ui-reference-review.md): 실제 차량UI10장과 병원·학원·역·공항 현장9장을 모아 자료부터 검토합니다. [사진별 출처](docs/research/road-ui-references/README.md). 첫 번째 차량정보·두 번째 내비 유지, 세 번째 상단 카메라/하단3D지도 구조를 보존하며 이번에는 새 시안/앱을 만들지 않았습니다.

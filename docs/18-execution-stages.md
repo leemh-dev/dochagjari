@@ -1,5 +1,7 @@
 # 실제 개발 단계와 진행 기록
 
+[7단계 시연영상 제작 계획](32-demo-video-production-plan.md)을 추가했다. 서비스 본편210초/실제 앱 실행기록 약90초를 제안하며, 첫 제작 작업은15~20초 모션샘플이다. 콘티 수립만 수행했고 새 영상/앱/기기 검증 완료로 세지 않는다.
+
 2026-11-13 UTC · [상세 앱 계획](17-in-app-visit-guidance-plan.md). 첫 시나리오는 양재 사옥→판교점5F 에뜨와→주차 위치/귀환. 단계별 실제 완료 증거를 구분한다.
 
 **사용자 UX 검토 반영:** 1~6의 기능 검증과 제품 UX 완성을 구분한다. 7단계 최종 영상 전에 [내비 연결 UX 설계/Android 적용](24-navigation-ux-design.md)을 선행한다. 호스트 시안에 이어 [Android0.9.0/9의 제품 UI](25-android-navigation-ux.md)를 적용했다. 일반 Android 기기 검증과 실제 Pleos 연동은 [현행 증거](evidence/android-product-ux/README.md)로 구분한다.
