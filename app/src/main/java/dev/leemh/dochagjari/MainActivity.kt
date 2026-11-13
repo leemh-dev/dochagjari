@@ -51,13 +51,49 @@ private val scheme = darkColorScheme(primary = Mint, background = Color(0xFF0912
                 }
                 Spacer(Modifier.height(12.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    listOf("도착 안내", "좌석·조건", "영상 탐색", "만남·알림", "연동·테스트").forEachIndexed { index, name ->
+                    listOf("도착 안내", "좌석·조건", "영상 탐색", "만남·알림", "연동·테스트", "매장 방문").forEachIndexed { index, name ->
                         FilterChip(selected = tab == index, onClick = { tab = index }, label = { Text(name) })
                     }
                 }
                 HorizontalDivider(Modifier.padding(vertical = 8.dp))
                 Column(Modifier.weight(1f).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     when (tab) {
+                        5 -> {
+                            var query by remember { mutableStateOf("에뜨와 판교 현백") }
+                            val guidance = state.guidance
+                            Text("매장 방문 · 1단계", color = Mint)
+                            Text("출발지 · 현대자동차 양재 사옥")
+                            Text("사전 시설 DB 조회 · 실제 차량 출발 위치와 구분합니다.", color = scheme.secondary)
+                            OutlinedTextField(value = query, onValueChange = { query = it }, label = { Text("방문할 매장") }, enabled = state.vehicle.stopped == true)
+                            Button(onClick = { model.searchStore(query) }, enabled = state.vehicle.stopped == true && !guidance.loading && !guidance.saving) { Text("저장된 매장 찾기") }
+                            if (guidance.loading) Text("시설 DB 불러오는 중")
+                            if (guidance.error.isNotBlank()) Text(guidance.error, color = Color(0xFFFFCD81))
+                            Text("DB 버전 · ${guidance.catalogVersion.ifBlank { "미준비" }}", fontSize = 12.sp)
+                            guidance.matches.forEach { destination ->
+                                Panel {
+                                    Text("${destination.facilityName} · ${destination.floor} ${destination.name}", fontWeight = FontWeight.Bold)
+                                    Text("${destination.checkedAt} 공식 안내 확인 · 5층 보행 연결 ${destination.route.size}개 좌표", fontSize = 13.sp)
+                                    Text(destination.sourceUrl, fontSize = 12.sp)
+                                    Text("출발 단서 · ${destination.routeStartDescription}")
+                                    Text("미확인 · ${destination.unverifiedFields.joinToString(" / ")}", color = scheme.secondary, fontSize = 13.sp)
+                                    Button(onClick = { model.prepareVisit(destination.id) }, enabled = state.vehicle.stopped == true && !guidance.saving) { Text("방문 준비 · 저장") }
+                                }
+                            }
+                            if (!guidance.loading && guidance.matches.isEmpty()) Text("조회한 매장이 없으면 이름·지점을 확인해주세요.")
+                            if (guidance.saving) Text("방문 저장 중")
+                            guidance.visit?.let { visit ->
+                                Panel {
+                                    Text("저장된 방문 · ${guidance.visitDestination?.name ?: "자료 확인 필요"}", color = Mint)
+                                    Text("${guidance.visitDestination?.facilityName.orEmpty()} · ${guidance.visitDestination?.floor.orEmpty()}")
+                                    Text("방문 ID · ${visit.id}", fontSize = 12.sp)
+                                    Text("저장 상태 · ${visit.phase} / ${visit.visibility}")
+                                    Text("사용 자료 · ${visit.catalogVersion}", fontSize = 12.sp)
+                                    Text("주차 위치 · ${visit.parking?.pillar ?: "미확인 · 아직 저장하지 않음"}")
+                                }
+                            }
+                            Text("지도 애니메이션·내비 전달·입차/관측 연결은 다음 단계입니다. 이 화면은 조회와 방문 저장/복원을 확인합니다.", color = scheme.secondary)
+                        }
+
                         0 -> {
                             Text("01  어디에서 만날까요?", color = Mint)
                             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) { state.facilities.forEachIndexed { i,f -> FilterChip(state.facilityIndex == i, { model.chooseFacility(i) }, { Text(f.name) }) } }

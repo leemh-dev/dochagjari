@@ -126,6 +126,27 @@ def main():
         tap('연동·테스트'); capture('11-test-inputs'); tap('주행')
         tap('좌석·조건'); expect('정차 상태가 확인되면 설정할 수 있습니다.'); capture('12-driving-lock')
         tap('영상 탐색'); expect('주행 중 또는 주행 상태 미확인 · 영상 결과와 카메라 화면을 숨깁니다.'); capture('13-driving-video-hidden')
+        tap('연동·테스트'); tap('정차'); tap('매장 방문')
+        tap('저장된 매장 찾기'); expect('현대백화점 판교점 · 5F 에뜨와'); capture('14-store-lookup')
+        tap('방문 준비 · 저장')
+        deadline = time.monotonic() + 15
+        visit_text = None
+        while time.monotonic() < deadline:
+            texts = [n.attrib.get('text', '') for n in tree().iter('node')]
+            visit_text = next((t for t in texts if t.startswith('방문 ID · ')), None)
+            if visit_text: break
+            scroll(tree(), down=True)
+        if not visit_text: raise AssertionError('Persisted visit did not appear')
+        expect(visit_text); capture('15-visit-saved')
+        old_pid = adb('shell', 'pidof', PACKAGE).decode().strip()
+        adb('shell', 'am', 'force-stop', PACKAGE)
+        adb('shell', 'am', 'start', '-W', '-n', PACKAGE + '/.MainActivity')
+        time.sleep(2); tap('매장 방문'); expect(visit_text); capture('16-visit-restored')
+        new_pid = adb('shell', 'pidof', PACKAGE).decode().strip()
+        if not old_pid or not new_pid or old_pid == new_pid:
+            raise AssertionError('Visit recovery did not run in a new app process')
+        report['visit_recovery'] = {'same_visit_id': True, 'old_pid': old_pid, 'new_pid': new_pid,
+                                    'source': 'Official facility DB; USER preparation, no vehicle trip/parking executed'}
         report['success'] = True
     except Exception as error:
         report['success'] = False

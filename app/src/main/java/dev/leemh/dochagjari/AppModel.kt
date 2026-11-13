@@ -23,7 +23,7 @@ data class AppState(
     val useServer: Boolean = false, val serverUrl: String = "http://10.0.2.2:8000", val token: String = "", val recipientId: String = "demo",
     val consent: Boolean = false, val error: String = "", val log: List<String> = emptyList(),
     val sensServer: Boolean = false, val delivery: OutboxState = OutboxState(ArrivalRecord()),
-    val profileSave: ProfileState = ProfileState()
+    val profileSave: ProfileState = ProfileState(), val guidance: GuidanceState = GuidanceState()
 ) { val facility: Facility get() = facilities[facilityIndex] }
 
 class AppModel @JvmOverloads constructor(application: Application, private val services: AppServices = AppServices.get(application)) : AndroidViewModel(application) {
@@ -49,6 +49,7 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
             }
         }
         viewModelScope.launch { services.outbox.state.collect(::applyOutbox) }
+        services.guidance?.let { repository -> viewModelScope.launch { repository.state.collect { saved -> _state.update { it.copy(guidance = saved) } } } }
         viewModelScope.launch { while (true) { delay(5_000); recompute() } }
     }
     private fun log(message: String) { _state.update { it.copy(log = (listOf(message) + it.log).take(24)) }; android.util.Log.i("Dochagjari", message) }
@@ -71,6 +72,8 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
                 recipientId = request?.recipientId ?: s.recipientId)
         }
     }
+    fun searchStore(query: String) { if (_state.value.vehicle.stopped == true) services.guidance?.search(query) }
+    fun prepareVisit(destinationId: String) { if (_state.value.vehicle.stopped == true) services.guidance?.prepare(destinationId) }
     fun chooseFacility(index: Int) {
         if (index !in _state.value.facilities.indices || index == _state.value.facilityIndex) return
         if (!newSession()) return

@@ -15,7 +15,13 @@ jobs:
           log-accepted-android-sdk-licenses: false
       - run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
       - uses: gradle/actions/setup-gradle@v4
-      - run: ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug
+      - run: ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease
+      - name: Package current version and signing metadata
+        run: python3 scripts/collect_apk_metadata.py --code-commit "$GITHUB_SHA" --output development-assets
+      - uses: actions/upload-artifact@v4
+        with:
+          name: development-apks-and-metadata
+          path: development-assets/
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
