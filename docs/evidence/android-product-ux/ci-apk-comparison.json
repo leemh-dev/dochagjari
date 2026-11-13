@@ -1,0 +1,25 @@
+{
+  "run": 43420964354,
+  "artifact": 14033304488,
+  "code_commit": "e2b93baa91ce5bc56fb770fdc65dad08b9992175",
+  "version": "0.9.0/9",
+  "checks": [
+    {
+      "kind": "debug",
+      "bytes_sha256_manifest_match": true,
+      "signature_expected": true
+    },
+    {
+      "kind": "androidTest",
+      "bytes_sha256_manifest_match": true,
+      "signature_expected": true
+    },
+    {
+      "kind": "unsigned-release",
+      "bytes_sha256_manifest_match": true,
+      "signature_expected": true
+    }
+  ],
+  "download": "Connected GitHub App reference; archive digest and actual APK bytes checked",
+  "device_apk": "Separate runner rebuild of same source; byte/certificate equality not assumed"
+}

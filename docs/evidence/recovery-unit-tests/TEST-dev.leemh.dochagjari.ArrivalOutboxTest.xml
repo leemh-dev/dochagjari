@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="dev.leemh.dochagjari.ArrivalOutboxTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:30:04" hostname="codex-cloud" time="0.495">
+  <properties />
+  <testcase name="corruptAndLegacyUnknownRecordsBlockAutomaticNewSession" classname="dev.leemh.dochagjari.ArrivalOutboxTest" time="0.273" />
+  <testcase name="responseWithDifferentModeOrHashDoesNotCompleteOrResend" classname="dev.leemh.dochagjari.ArrivalOutboxTest" time="0.035" />
+  <testcase name="lostPostResponseIsRecoveredByGetWithoutAnotherPost" classname="dev.leemh.dochagjari.ArrivalOutboxTest" time="0.015" />
+  <testcase name="fingerprintMatchesPythonAndJsonRoundtripDoesNotChangeIt" classname="dev.leemh.dochagjari.ArrivalOutboxTest" time="0.006" />
+  <testcase name="changedRecipientPositionAndModeCannotReplaceFrozenRequest" classname="dev.leemh.dochagjari.ArrivalOutboxTest" time="0.013" />
+  <testcase name="missingTokenAndFailedLookupNeverPostOrCreateNewId" classname="dev.leemh.dochagjari.ArrivalOutboxTest" time="0.006" />
+  <testcase name="disappearanceOfPreviouslyObservedReservationNeverAllowsResend" classname="dev.leemh.dochagjari.ArrivalOutboxTest" time="0.01" />
+  <testcase name="terminationBeforeWorkerRestoresExactRequestThenLooksUpBeforeSending" classname="dev.leemh.dochagjari.ArrivalOutboxTest" time="0.012" />
+  <testcase name="concurrentAndRepeatedRecoveryNeverSubmitsAnotherRequest" classname="dev.leemh.dochagjari.ArrivalOutboxTest" time="0.081" />
+  <testcase name="journalSaveFailurePreventsAnyNetworkAttempt" classname="dev.leemh.dochagjari.ArrivalOutboxTest" time="0.004" />
+  <testcase name="serverPendingUnknownAndFailedAreNotReposted" classname="dev.leemh.dochagjari.ArrivalOutboxTest" time="0.015" />
+  <testcase name="revocationWhileLookupIsInFlightIsDurableAndPreventsPost" classname="dev.leemh.dochagjari.ArrivalOutboxTest" time="0.01" />
+  <testcase name="invalidEndpointConsentAndCoordinatesAreNotJournaled" classname="dev.leemh.dochagjari.ArrivalOutboxTest" time="0.003" />
+  <testcase name="localMockRestartNeverContactsServer" classname="dev.leemh.dochagjari.ArrivalOutboxTest" time="0.008" />
+  </testsuite>

@@ -1,0 +1,36 @@
+{
+  "apk_bytes": 78485636,
+  "scope": "Fresh dedicated test AVD; read-only; no data deletion or storage-policy changes",
+  "host_df": {
+    "returncode": 0,
+    "stdout": "Filesystem     1024-blocks     Used Available Capacity Mounted on\n/dev/root        151361008 71894828  79449796      48% /",
+    "stderr": ""
+  },
+  "guest": {
+    "df_data": {
+      "returncode": 0,
+      "stdout": "Filesystem       1K-blocks    Used Available Use% Mounted on\n/dev/block/dm-43   8107484 2411344   5548684  31% /data/user/0\n/dev/block/dm-43   8107484 2411344   5548684  31% /data/user/0",
+      "stderr": ""
+    },
+    "install_location": {
+      "returncode": 0,
+      "stdout": "0[auto]",
+      "stderr": ""
+    },
+    "low_bytes": {
+      "returncode": 0,
+      "stdout": "null",
+      "stderr": ""
+    },
+    "low_percent": {
+      "returncode": 0,
+      "stdout": "null",
+      "stderr": ""
+    },
+    "storage_monitor": {
+      "returncode": 0,
+      "stdout": "Known volumes:\n  Default:\n    level=NORMAL lastUsableBytes=5793124352 \n    lowBytes=415103180 fullBytes=1048576\n    path=/data\n\nmSeq=1 mForceState=UNKNOWN \n",
+      "stderr": ""
+    }
+  }
+}

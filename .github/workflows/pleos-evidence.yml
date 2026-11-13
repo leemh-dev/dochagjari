@@ -1,0 +1,121 @@
+name: Pleos KVM evidence collection
+on:
+  workflow_dispatch:
+    inputs:
+      run_connected_tests:
+        description: Run connected regression after installation (disable for observation-only runs)
+        type: boolean
+        default: true
+      device_test_driver:
+        description: Device regression driver (adb is separate from Gradle connected tests)
+        type: choice
+        options: [gradle, adb, none]
+        default: gradle
+jobs:
+  pleos-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m unittest discover -s scripts/pleos/tests -v
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools emulator
+          log-accepted-android-sdk-licenses: false
+      - run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+      - uses: gradle/actions/setup-gradle@v4
+      - run: ./gradlew :app:assembleDebug
+      - name: Record identity of the temporary verification APK
+        run: |
+          mkdir -p app/build/reports/pleos
+          {
+            printf 'workflow_source_commit=%s\n' "$GITHUB_SHA"
+            cat app/build/outputs/apk/debug/output-metadata.json
+            sha256sum app/build/outputs/apk/debug/app-debug.apk
+            "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --print-certs app/build/outputs/apk/debug/app-debug.apk
+          } > app/build/reports/pleos/verification-apk-identity.txt
+      - name: Install GUI tools for normal test-AVD debugging approval
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb xauth xdotool x11-utils imagemagick tesseract-ocr tesseract-ocr-kor libpulse0 libxcb-cursor0 libxcb-xinerama0 libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinput0
+      - name: Verify host pointer commands without an emulator
+        run: python scripts/pleos/check_pointer_runtime.py --output app/build/reports/pleos/host-pointer-preflight.json
+      - name: Verify native visibility and input-region observations on a synthetic window
+        run: python scripts/pleos/check_window_regions.py --output app/build/reports/pleos/host-window-regions.json
+      - name: Check KVM and boot official Pleos image with isolated test data
+        id: boot
+        env:
+          DOCHAGJARI_AVD_GUI: '1'
+          DOCHAGJARI_APPROVE_TEST_ADB: '1'
+        run: |
+          sudo chmod a+rw /dev/kvm
+          python scripts/pleos/prepare_avd.py
+      - name: Install app, request two navigation points, select real seat source
+        id: app_probe
+        env:
+          DOCHAGJARI_PLEOS_HOST_TOUCH: '1'
+        run: timeout --signal=INT --kill-after=30s 12m python scripts/pleos/ui_probe.py
+      - name: Observe and toggle official Virtual Console rear seats
+        run: |
+          npm install --prefix app/build/pleos-browser playwright
+          node scripts/pleos/console_probe.cjs
+      - name: Collect SDK seat events and app screen
+        if: always()
+        run: python scripts/pleos/ui_probe.py collect
+      - name: Publish app and readiness evidence before connected tests
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pleos-before-connected-tests
+          path: app/build/reports/pleos/
+      - name: Run Android tests on the prepared Pleos device
+        if: ${{ !cancelled() && steps.boot.outcome == 'success' && steps.app_probe.outputs.apk_installed == 'true' && inputs.run_connected_tests && inputs.device_test_driver == 'gradle' }}
+        env:
+          ANDROID_SERIAL: emulator-5554
+        run: |
+          python scripts/pleos/adb_readiness.py --serial "$ANDROID_SERIAL" --output app/build/reports/pleos/pre-test-adb-readiness.json
+          # Only this job's newly-created AVD: SDK evidence is captured before test-data reset.
+          DOCHAGJARI_TEST_USER=$(adb -s "$ANDROID_SERIAL" shell am get-current-user | tr -d '\r')
+          [[ "$DOCHAGJARI_TEST_USER" =~ ^[0-9]+$ ]]
+          if adb -s "$ANDROID_SERIAL" shell pm path --user "$DOCHAGJARI_TEST_USER" dev.leemh.dochagjari | grep -q '^package:'; then
+            adb -s "$ANDROID_SERIAL" shell pm clear --user "$DOCHAGJARI_TEST_USER" dev.leemh.dochagjari
+          else
+            echo 'Installed target absent for current user; connected tests were not started.'
+            exit 1
+          fi
+          # Bound only this test process so final diagnostics can upload before the job limit.
+          timeout --signal=TERM --kill-after=30s 20m ./gradlew :app:connectedDebugAndroidTest
+          adb -s "$ANDROID_SERIAL" install -r app/build/outputs/apk/debug/app-debug.apk
+          adb -s "$ANDROID_SERIAL" install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+          python scripts/process_restart_smoke.py --serial "$ANDROID_SERIAL" --reset-test-data --output app/build/reports/pleos/process-restart.txt
+      - name: Run existing app tests with standard ADB instrumentation
+        id: direct_tests
+        if: ${{ !cancelled() && steps.boot.outcome == 'success' && steps.app_probe.outputs.apk_installed == 'true' && inputs.device_test_driver == 'adb' }}
+        env:
+          DOCHAGJARI_FRESH_TEST_AVD: '1'
+        run: |
+          ./gradlew :app:assembleDebugAndroidTest
+          {
+            sha256sum app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+            "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --print-certs app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+          } > app/build/reports/pleos/verification-test-apk-identity.txt
+          python scripts/pleos/direct_instrumentation.py --serial emulator-5554 --reset-test-data
+      - name: Verify saved profile and arrival journal across two instrumentation processes
+        if: ${{ !cancelled() && steps.direct_tests.outputs.test_apk_installed == 'true' && inputs.device_test_driver == 'adb' }}
+        run: |
+          python scripts/pleos/adb_readiness.py --serial emulator-5554 --output app/build/reports/pleos/direct-restart-readiness.json
+          python scripts/process_restart_smoke.py --serial emulator-5554 --reset-test-data --output app/build/reports/pleos/direct-process-restart.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pleos-kvm-readiness-sdk-console-evidence
+          path: |
+            app/build/reports/pleos/
+            app/build/outputs/androidTest-results/connected/debug/TEST-*.xml
+      - name: Stop dedicated emulator
+        if: always()
+        run: adb -s emulator-5554 emu kill || true

@@ -1,0 +1,6 @@
+{
+  "navigation": [],
+  "pin_verified": false,
+  "note": "SDK results and screenshots require separate pin review; not real-car validation",
+  "probe_error": "Command '['/usr/local/lib/android/sdk/platform-tools/adb', '-s', 'emulator-5554', 'logcat', '-d', '-v', 'brief', 'DochagjariPleosSeat:I', 'DochagjariVehicle:I', '*:S']' timed out after 45 seconds"
+}

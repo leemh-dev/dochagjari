@@ -1,0 +1,939 @@
+{
+  "serial": "emulator-5554",
+  "environment": "GitHub KVM / official Pleos 2.1.0 API34 x86_64 / separate test userdata",
+  "boot_completed": true,
+  "acceleration": "accel:\n0\nKVM (version 12) is installed and usable.\naccel",
+  "stage": "boot-completed-with-services",
+  "gui_runtime": {
+    "ready": true,
+    "returncode": 0,
+    "missing": [],
+    "stderr": ""
+  },
+  "archive_bytes": 4087751964,
+  "range_count": 61,
+  "ranges_completed": 61,
+  "image_properties": "Pkg.Desc=System Image x86_64\nPkg.Revision=1\nPkg.Dependencies=emulator\nAndroidVersion.ApiLevel=34\nSystemImage.Abi=x86_64\nSystemImage.TagId=android-automotive\nSystemImage.TagDisplay=Automotive\nSystemImage.GpuSupport=true\nAddon.VendorId=42dot\nAddon.VendorDisplay=42dot Inc.\navd_config_ini.hw.keyboard=yes\navd_config_ini.hw.ramSize=8192\navd_config_ini.hw.gpu.enabled=yes\navd_config_ini.hw.gpu.mode=host\navd_config_ini.hw.multi_display_window=no\navd_config_ini.hw.hotplug_multi_display=no\n",
+  "adb_server_start": {
+    "returncode": 0,
+    "stderr": "* daemon not running; starting now at tcp:5037\n* daemon started successfully"
+  },
+  "gui_enabled": true,
+  "authorization_ui": [
+    {
+      "clicked": false,
+      "attempt": 1,
+      "host_fingerprint_available": true,
+      "method": "X11 normal AVD screen; exact host fingerprint required; no key editing",
+      "dialog_detected": false,
+      "title_detected": false,
+      "rsa_marker_detected": false,
+      "fingerprint_label_detected": false,
+      "fingerprint_count": 0,
+      "host_fingerprint_matches": false,
+      "unambiguous_allow_button": false,
+      "region_observation": {
+        "notice_click": [
+          1389,
+          675
+        ],
+        "desktop_panel_blocked": true,
+        "permission_click": null,
+        "buttons": []
+      },
+      "nested_notice_dismissed": true
+    },
+    {
+      "clicked": true,
+      "attempt": 2,
+      "host_fingerprint_available": true,
+      "method": "X11 normal AVD screen; exact host fingerprint required; no key editing",
+      "dialog_detected": true,
+      "title_detected": true,
+      "rsa_marker_detected": true,
+      "fingerprint_label_detected": true,
+      "fingerprint_count": 1,
+      "host_fingerprint_matches": true,
+      "unambiguous_allow_button": false,
+      "region_observation": {
+        "notice_click": null,
+        "desktop_panel_blocked": false,
+        "permission_click": [
+          2403,
+          351
+        ],
+        "buttons": [
+          {
+            "box": [
+              2170,
+              329,
+              148,
+              45
+            ],
+            "label": "cancel"
+          },
+          {
+            "box": [
+              2329,
+              329,
+              148,
+              45
+            ],
+            "label": "allow"
+          }
+        ]
+      },
+      "x11_observation": {
+        "readonly": true,
+        "expected_point": [
+          2403,
+          351
+        ],
+        "checks": {
+          "pointer": {
+            "returncode": 0,
+            "stdout": "X=1389\nY=675\nSCREEN=0\nWINDOW=0",
+            "stderr": ""
+          },
+          "display": {
+            "returncode": 0,
+            "stdout": "3000 2000",
+            "stderr": ""
+          },
+          "focus": {
+            "returncode": 0,
+            "stdout": "543",
+            "stderr": ""
+          },
+          "root_tree": {
+            "returncode": 0,
+            "stdout": "{'root_id': 543, 'windows': [{'id': 4194332, 'width': 700, 'height': 21, 'x': 950, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 4194314, 'width': 54, 'height': 506, 'x': 2500, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 4194313, 'width': 1, 'height': 1, 'x': 0, 'y': 0, 'classes': []}, {'id': 4194311, 'width': 2400, 'height': 1350, 'x': 100, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 10485766, 'width': 2400, 'height': 1350, 'x': 100, 'y': 100, 'classes': []}, {'id': 4194309, 'width': 3, 'height': 3, 'x': 0, 'y': 0, 'classes': []}]}",
+            "stderr": ""
+          },
+          "native_state": {
+            "returncode": 0,
+            "stdout": "Structured numeric snapshot stored separately",
+            "stderr": ""
+          }
+        },
+        "pointer": {
+          "X": 1389,
+          "Y": 675,
+          "SCREEN": 0,
+          "WINDOW": 0
+        },
+        "pointer_coordinates_match": false,
+        "display_size": [
+          3000,
+          2000
+        ],
+        "focus_window": 543,
+        "window_inventory": {
+          "root_id": 543,
+          "windows": [
+            {
+              "id": 4194332,
+              "width": 700,
+              "height": 21,
+              "x": 950,
+              "y": 100,
+              "classes": [
+                "qemu-system-x86_64",
+                "Emulator"
+              ]
+            },
+            {
+              "id": 4194314,
+              "width": 54,
+              "height": 506,
+              "x": 2500,
+              "y": 100,
+              "classes": [
+                "qemu-system-x86_64",
+                "Emulator"
+              ]
+            },
+            {
+              "id": 4194313,
+              "width": 1,
+              "height": 1,
+              "x": 0,
+              "y": 0,
+              "classes": []
+            },
+            {
+              "id": 4194311,
+              "width": 2400,
+              "height": 1350,
+              "x": 100,
+              "y": 100,
+              "classes": [
+                "qemu-system-x86_64",
+                "Emulator"
+              ]
+            },
+            {
+              "id": 10485766,
+              "width": 2400,
+              "height": 1350,
+              "x": 100,
+              "y": 100,
+              "classes": []
+            },
+            {
+              "id": 4194309,
+              "width": 3,
+              "height": 3,
+              "x": 0,
+              "y": 0,
+              "classes": []
+            }
+          ]
+        },
+        "native_state": {
+          "readonly": true,
+          "root": 543,
+          "shape_version": [
+            1,
+            1
+          ],
+          "direct_focus": {
+            "window": 543,
+            "revert_to": 0
+          },
+          "direct_pointer": {
+            "same_screen": true,
+            "child": 4194311,
+            "x": 1389,
+            "y": 675
+          },
+          "windows": [
+            {
+              "id": 4194311,
+              "attributes_available": true,
+              "map_state": 2,
+              "map_state_name": "IsViewable",
+              "window_class": 1,
+              "width": 2400,
+              "height": 1350,
+              "override_redirect": false,
+              "requested_point_local": [
+                2303,
+                251
+              ],
+              "input_rectangles_count": 1,
+              "input_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "input_regions_complete": true,
+              "point_in_input_region": true,
+              "bounding_rectangles_count": 1,
+              "bounding_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "bounding_regions_complete": true,
+              "point_in_bounding_region": true
+            },
+            {
+              "id": 10485766,
+              "attributes_available": true,
+              "map_state": 2,
+              "map_state_name": "IsViewable",
+              "window_class": 1,
+              "width": 2400,
+              "height": 1350,
+              "override_redirect": false,
+              "requested_point_local": [
+                2303,
+                251
+              ],
+              "input_rectangles_count": 1,
+              "input_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "input_regions_complete": true,
+              "point_in_input_region": true,
+              "bounding_rectangles_count": 1,
+              "bounding_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "bounding_regions_complete": true,
+              "point_in_bounding_region": true
+            }
+          ],
+          "x11_errors": []
+        }
+      },
+      "x11_before_input": {
+        "readonly": true,
+        "expected_point": [
+          2403,
+          351
+        ],
+        "checks": {
+          "pointer": {
+            "returncode": 0,
+            "stdout": "X=2403\nY=351\nSCREEN=0\nWINDOW=0",
+            "stderr": ""
+          },
+          "display": {
+            "returncode": 0,
+            "stdout": "3000 2000",
+            "stderr": ""
+          },
+          "focus": {
+            "returncode": 0,
+            "stdout": "543",
+            "stderr": ""
+          },
+          "root_tree": {
+            "returncode": 0,
+            "stdout": "{'root_id': 543, 'windows': [{'id': 4194332, 'width': 700, 'height': 21, 'x': 950, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 4194314, 'width': 54, 'height': 506, 'x': 2500, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 4194313, 'width': 1, 'height': 1, 'x': 0, 'y': 0, 'classes': []}, {'id': 4194311, 'width': 2400, 'height': 1350, 'x': 100, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 10485766, 'width': 2400, 'height': 1350, 'x': 100, 'y': 100, 'classes': []}, {'id': 4194309, 'width': 3, 'height': 3, 'x': 0, 'y': 0, 'classes': []}]}",
+            "stderr": ""
+          },
+          "native_state": {
+            "returncode": 0,
+            "stdout": "Structured numeric snapshot stored separately",
+            "stderr": ""
+          }
+        },
+        "pointer": {
+          "X": 2403,
+          "Y": 351,
+          "SCREEN": 0,
+          "WINDOW": 0
+        },
+        "pointer_coordinates_match": true,
+        "display_size": [
+          3000,
+          2000
+        ],
+        "focus_window": 543,
+        "window_inventory": {
+          "root_id": 543,
+          "windows": [
+            {
+              "id": 4194332,
+              "width": 700,
+              "height": 21,
+              "x": 950,
+              "y": 100,
+              "classes": [
+                "qemu-system-x86_64",
+                "Emulator"
+              ]
+            },
+            {
+              "id": 4194314,
+              "width": 54,
+              "height": 506,
+              "x": 2500,
+              "y": 100,
+              "classes": [
+                "qemu-system-x86_64",
+                "Emulator"
+              ]
+            },
+            {
+              "id": 4194313,
+              "width": 1,
+              "height": 1,
+              "x": 0,
+              "y": 0,
+              "classes": []
+            },
+            {
+              "id": 4194311,
+              "width": 2400,
+              "height": 1350,
+              "x": 100,
+              "y": 100,
+              "classes": [
+                "qemu-system-x86_64",
+                "Emulator"
+              ]
+            },
+            {
+              "id": 10485766,
+              "width": 2400,
+              "height": 1350,
+              "x": 100,
+              "y": 100,
+              "classes": []
+            },
+            {
+              "id": 4194309,
+              "width": 3,
+              "height": 3,
+              "x": 0,
+              "y": 0,
+              "classes": []
+            }
+          ]
+        },
+        "native_state": {
+          "readonly": true,
+          "root": 543,
+          "shape_version": [
+            1,
+            1
+          ],
+          "direct_focus": {
+            "window": 543,
+            "revert_to": 0
+          },
+          "direct_pointer": {
+            "same_screen": true,
+            "child": 4194311,
+            "x": 2403,
+            "y": 351
+          },
+          "windows": [
+            {
+              "id": 4194311,
+              "attributes_available": true,
+              "map_state": 2,
+              "map_state_name": "IsViewable",
+              "window_class": 1,
+              "width": 2400,
+              "height": 1350,
+              "override_redirect": false,
+              "requested_point_local": [
+                2303,
+                251
+              ],
+              "input_rectangles_count": 1,
+              "input_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "input_regions_complete": true,
+              "point_in_input_region": true,
+              "bounding_rectangles_count": 1,
+              "bounding_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "bounding_regions_complete": true,
+              "point_in_bounding_region": true
+            },
+            {
+              "id": 10485766,
+              "attributes_available": true,
+              "map_state": 2,
+              "map_state_name": "IsViewable",
+              "window_class": 1,
+              "width": 2400,
+              "height": 1350,
+              "override_redirect": false,
+              "requested_point_local": [
+                2303,
+                251
+              ],
+              "input_rectangles_count": 1,
+              "input_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "input_regions_complete": true,
+              "point_in_input_region": true,
+              "bounding_rectangles_count": 1,
+              "bounding_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "bounding_regions_complete": true,
+              "point_in_bounding_region": true
+            }
+          ],
+          "x11_errors": []
+        }
+      },
+      "window_activation": {
+        "target": 4194311,
+        "returncode": 0,
+        "stderr": ""
+      },
+      "x11_after_activation": {
+        "readonly": true,
+        "expected_point": [
+          2403,
+          351
+        ],
+        "checks": {
+          "pointer": {
+            "returncode": 0,
+            "stdout": "X=2403\nY=351\nSCREEN=0\nWINDOW=0",
+            "stderr": ""
+          },
+          "display": {
+            "returncode": 0,
+            "stdout": "3000 2000",
+            "stderr": ""
+          },
+          "focus": {
+            "returncode": 0,
+            "stdout": "4194311",
+            "stderr": ""
+          },
+          "root_tree": {
+            "returncode": 0,
+            "stdout": "{'root_id': 543, 'windows': [{'id': 4194332, 'width': 700, 'height': 21, 'x': 950, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 4194314, 'width': 54, 'height': 506, 'x': 2500, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 4194313, 'width': 1, 'height': 1, 'x': 0, 'y': 0, 'classes': []}, {'id': 4194311, 'width': 2400, 'height': 1350, 'x': 100, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 10485766, 'width': 2400, 'height': 1350, 'x': 100, 'y': 100, 'classes': []}, {'id': 4194309, 'width': 3, 'height': 3, 'x': 0, 'y': 0, 'classes': []}]}",
+            "stderr": ""
+          },
+          "native_state": {
+            "returncode": 0,
+            "stdout": "Structured numeric snapshot stored separately",
+            "stderr": ""
+          }
+        },
+        "pointer": {
+          "X": 2403,
+          "Y": 351,
+          "SCREEN": 0,
+          "WINDOW": 0
+        },
+        "pointer_coordinates_match": true,
+        "display_size": [
+          3000,
+          2000
+        ],
+        "focus_window": 4194311,
+        "window_inventory": {
+          "root_id": 543,
+          "windows": [
+            {
+              "id": 4194332,
+              "width": 700,
+              "height": 21,
+              "x": 950,
+              "y": 100,
+              "classes": [
+                "qemu-system-x86_64",
+                "Emulator"
+              ]
+            },
+            {
+              "id": 4194314,
+              "width": 54,
+              "height": 506,
+              "x": 2500,
+              "y": 100,
+              "classes": [
+                "qemu-system-x86_64",
+                "Emulator"
+              ]
+            },
+            {
+              "id": 4194313,
+              "width": 1,
+              "height": 1,
+              "x": 0,
+              "y": 0,
+              "classes": []
+            },
+            {
+              "id": 4194311,
+              "width": 2400,
+              "height": 1350,
+              "x": 100,
+              "y": 100,
+              "classes": [
+                "qemu-system-x86_64",
+                "Emulator"
+              ]
+            },
+            {
+              "id": 10485766,
+              "width": 2400,
+              "height": 1350,
+              "x": 100,
+              "y": 100,
+              "classes": []
+            },
+            {
+              "id": 4194309,
+              "width": 3,
+              "height": 3,
+              "x": 0,
+              "y": 0,
+              "classes": []
+            }
+          ]
+        },
+        "native_state": {
+          "readonly": true,
+          "root": 543,
+          "shape_version": [
+            1,
+            1
+          ],
+          "direct_focus": {
+            "window": 4194311,
+            "revert_to": 2
+          },
+          "direct_pointer": {
+            "same_screen": true,
+            "child": 4194311,
+            "x": 2403,
+            "y": 351
+          },
+          "windows": [
+            {
+              "id": 4194311,
+              "attributes_available": true,
+              "map_state": 2,
+              "map_state_name": "IsViewable",
+              "window_class": 1,
+              "width": 2400,
+              "height": 1350,
+              "override_redirect": false,
+              "requested_point_local": [
+                2303,
+                251
+              ],
+              "input_rectangles_count": 1,
+              "input_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "input_regions_complete": true,
+              "point_in_input_region": true,
+              "bounding_rectangles_count": 1,
+              "bounding_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "bounding_regions_complete": true,
+              "point_in_bounding_region": true
+            },
+            {
+              "id": 10485766,
+              "attributes_available": true,
+              "map_state": 2,
+              "map_state_name": "IsViewable",
+              "window_class": 1,
+              "width": 2400,
+              "height": 1350,
+              "override_redirect": false,
+              "requested_point_local": [
+                2303,
+                251
+              ],
+              "input_rectangles_count": 1,
+              "input_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "input_regions_complete": true,
+              "point_in_input_region": true,
+              "bounding_rectangles_count": 1,
+              "bounding_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "bounding_regions_complete": true,
+              "point_in_bounding_region": true
+            }
+          ],
+          "x11_errors": []
+        }
+      },
+      "click_input_sent": true,
+      "input_method": "Normal visible Allow button: mouse down, 200ms hold, mouse up",
+      "x11_after_input": {
+        "readonly": true,
+        "expected_point": [
+          2403,
+          351
+        ],
+        "checks": {
+          "pointer": {
+            "returncode": 0,
+            "stdout": "X=2403\nY=351\nSCREEN=0\nWINDOW=0",
+            "stderr": ""
+          },
+          "display": {
+            "returncode": 0,
+            "stdout": "3000 2000",
+            "stderr": ""
+          },
+          "focus": {
+            "returncode": 0,
+            "stdout": "4194311",
+            "stderr": ""
+          },
+          "root_tree": {
+            "returncode": 0,
+            "stdout": "{'root_id': 543, 'windows': [{'id': 4194332, 'width': 700, 'height': 21, 'x': 950, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 4194314, 'width': 54, 'height': 506, 'x': 2500, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 4194313, 'width': 1, 'height': 1, 'x': 0, 'y': 0, 'classes': []}, {'id': 4194311, 'width': 2400, 'height': 1350, 'x': 100, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 10485766, 'width': 2400, 'height': 1350, 'x': 100, 'y': 100, 'classes': []}, {'id': 4194309, 'width': 3, 'height': 3, 'x': 0, 'y': 0, 'classes': []}]}",
+            "stderr": ""
+          },
+          "native_state": {
+            "returncode": 0,
+            "stdout": "Structured numeric snapshot stored separately",
+            "stderr": ""
+          }
+        },
+        "pointer": {
+          "X": 2403,
+          "Y": 351,
+          "SCREEN": 0,
+          "WINDOW": 0
+        },
+        "pointer_coordinates_match": true,
+        "display_size": [
+          3000,
+          2000
+        ],
+        "focus_window": 4194311,
+        "window_inventory": {
+          "root_id": 543,
+          "windows": [
+            {
+              "id": 4194332,
+              "width": 700,
+              "height": 21,
+              "x": 950,
+              "y": 100,
+              "classes": [
+                "qemu-system-x86_64",
+                "Emulator"
+              ]
+            },
+            {
+              "id": 4194314,
+              "width": 54,
+              "height": 506,
+              "x": 2500,
+              "y": 100,
+              "classes": [
+                "qemu-system-x86_64",
+                "Emulator"
+              ]
+            },
+            {
+              "id": 4194313,
+              "width": 1,
+              "height": 1,
+              "x": 0,
+              "y": 0,
+              "classes": []
+            },
+            {
+              "id": 4194311,
+              "width": 2400,
+              "height": 1350,
+              "x": 100,
+              "y": 100,
+              "classes": [
+                "qemu-system-x86_64",
+                "Emulator"
+              ]
+            },
+            {
+              "id": 10485766,
+              "width": 2400,
+              "height": 1350,
+              "x": 100,
+              "y": 100,
+              "classes": []
+            },
+            {
+              "id": 4194309,
+              "width": 3,
+              "height": 3,
+              "x": 0,
+              "y": 0,
+              "classes": []
+            }
+          ]
+        },
+        "native_state": {
+          "readonly": true,
+          "root": 543,
+          "shape_version": [
+            1,
+            1
+          ],
+          "direct_focus": {
+            "window": 4194311,
+            "revert_to": 2
+          },
+          "direct_pointer": {
+            "same_screen": true,
+            "child": 4194311,
+            "x": 2403,
+            "y": 351
+          },
+          "windows": [
+            {
+              "id": 4194311,
+              "attributes_available": true,
+              "map_state": 2,
+              "map_state_name": "IsViewable",
+              "window_class": 1,
+              "width": 2400,
+              "height": 1350,
+              "override_redirect": false,
+              "requested_point_local": [
+                2303,
+                251
+              ],
+              "input_rectangles_count": 1,
+              "input_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "input_regions_complete": true,
+              "point_in_input_region": true,
+              "bounding_rectangles_count": 1,
+              "bounding_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "bounding_regions_complete": true,
+              "point_in_bounding_region": true
+            },
+            {
+              "id": 10485766,
+              "attributes_available": true,
+              "map_state": 2,
+              "map_state_name": "IsViewable",
+              "window_class": 1,
+              "width": 2400,
+              "height": 1350,
+              "override_redirect": false,
+              "requested_point_local": [
+                2303,
+                251
+              ],
+              "input_rectangles_count": 1,
+              "input_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "input_regions_complete": true,
+              "point_in_input_region": true,
+              "bounding_rectangles_count": 1,
+              "bounding_rectangles": [
+                {
+                  "x": 0,
+                  "y": 0,
+                  "width": 2400,
+                  "height": 1350
+                }
+              ],
+              "bounding_regions_complete": true,
+              "point_in_bounding_region": true
+            }
+          ],
+          "x11_errors": []
+        }
+      },
+      "post_input_observation": {
+        "screenshot": "debugging-after-input-2.png",
+        "dialog_detected": false,
+        "host_fingerprint_matches": false,
+        "dialog_state": "unknown",
+        "absence_verified": false,
+        "note": "OCR misses do not prove dismissal; inspect the original image and ADB transport"
+      }
+    }
+  ],
+  "launcher_pid": 4216,
+  "launcher_kind": "xvfb-run with emulator child",
+  "adb_probe": {
+    "serial": "emulator-5554",
+    "ready": true,
+    "checks": {
+      "transport": {
+        "returncode": 0,
+        "stdout": "device",
+        "stderr": ""
+      },
+      "boot": {
+        "returncode": 0,
+        "stdout": "1",
+        "stderr": ""
+      },
+      "package": {
+        "returncode": 0,
+        "stdout": "Service package: found",
+        "stderr": ""
+      },
+      "activity": {
+        "returncode": 0,
+        "stdout": "Service activity: found",
+        "stderr": ""
+      }
+    },
+    "reason": "Boot and package/activity services verified"
+  },
+  "adb_devices": "List of devices attached\nemulator-5554          device product:crp_avd model:Connect_on_x86_64_emulator device:crp_avd_x86_64 transport_id:1",
+  "adb_devices_returncode": 0,
+  "adb_devices_stderr": ""
+}

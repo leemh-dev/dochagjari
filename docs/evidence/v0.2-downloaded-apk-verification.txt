@@ -1,0 +1,11 @@
+Published artifact: https://github.com/leemh-dev/dochagjari/actions/runs/43055801516/artifacts/13871881801
+App code commit: 3a015154a05e7d2861aea1bc190010962313824c
+Downloaded artifact SHA256SUMS: all 3 APKs OK
+dochagjari-0.2.0-debug.apk
+Signer #1 certificate SHA-256 digest: f23aec4da8919c1e92033b50d0a57714f1a6dedd1a3964e65a2dabd122950b89
+dochagjari-0.2.0-androidTest.apk
+Signer #1 certificate SHA-256 digest: f23aec4da8919c1e92033b50d0a57714f1a6dedd1a3964e65a2dabd122950b89
+package: name='dev.leemh.dochagjari' versionCode='2' versionName='0.2.0' platformBuildVersionName='15' platformBuildVersionCode='35' compileSdkVersion='35' compileSdkVersionCodename='15'
+sdkVersion:'34'
+targetSdkVersion:'34'
+native-code: 'arm64-v8a' 'x86_64'

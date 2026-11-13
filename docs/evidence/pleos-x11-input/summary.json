@@ -1,0 +1,25 @@
+{
+  "run": 43132924010,
+  "artifact": 13906886041,
+  "source": "93b4c16",
+  "result": "unauthorized; installation skipped",
+  "new_evidence": {
+    "expected_point": [
+      2403,
+      351
+    ],
+    "actual_pointer": [
+      2403,
+      351
+    ],
+    "pointer_window": 0,
+    "focus_window": 543,
+    "display": [
+      3000,
+      2000
+    ],
+    "input_command": "timed out before successful gesture completion"
+  },
+  "limits": "WINDOW=0 is unknown target. Root window inventory was not captured. Exact authorization failure cause remains unconfirmed. Host-only same-coordinate command returned normally, so repeated sync alone does not explain the failure.",
+  "next_change": "Record sanitized root inventory and a fresh screen when pointer target is unknown; do not emit an approval gesture to an unknown target."
+}

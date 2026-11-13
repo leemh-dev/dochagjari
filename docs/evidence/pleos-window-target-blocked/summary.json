@@ -1,0 +1,118 @@
+{
+  "run": 43135246535,
+  "artifact": 13907941147,
+  "source": "dacfc37",
+  "result": "unauthorized; approval gesture intentionally blocked because pointer target remained unknown",
+  "x11": {
+    "readonly": true,
+    "expected_point": [
+      2403,
+      351
+    ],
+    "checks": {
+      "pointer": {
+        "returncode": 0,
+        "stdout": "X=2403\nY=351\nSCREEN=0\nWINDOW=0",
+        "stderr": ""
+      },
+      "display": {
+        "returncode": 0,
+        "stdout": "3000 2000",
+        "stderr": ""
+      },
+      "focus": {
+        "returncode": 0,
+        "stdout": "543",
+        "stderr": ""
+      },
+      "root_tree": {
+        "returncode": 0,
+        "stdout": "{'root_id': 543, 'windows': [{'id': 4194332, 'width': 700, 'height': 21, 'x': 950, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 4194314, 'width': 54, 'height': 506, 'x': 2500, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 4194313, 'width': 1, 'height': 1, 'x': 0, 'y': 0, 'classes': []}, {'id': 4194311, 'width': 2400, 'height': 1350, 'x': 100, 'y': 100, 'classes': ['qemu-system-x86_64', 'Emulator']}, {'id': 10485764, 'width': 2400, 'height': 1350, 'x': 100, 'y': 100, 'classes': []}, {'id': 4194309, 'width': 3, 'height': 3, 'x': 0, 'y': 0, 'classes': []}]}",
+        "stderr": ""
+      }
+    },
+    "pointer": {
+      "X": 2403,
+      "Y": 351,
+      "SCREEN": 0,
+      "WINDOW": 0
+    },
+    "pointer_coordinates_match": true,
+    "display_size": [
+      3000,
+      2000
+    ],
+    "focus_window": 543,
+    "window_inventory": {
+      "root_id": 543,
+      "windows": [
+        {
+          "id": 4194332,
+          "width": 700,
+          "height": 21,
+          "x": 950,
+          "y": 100,
+          "classes": [
+            "qemu-system-x86_64",
+            "Emulator"
+          ]
+        },
+        {
+          "id": 4194314,
+          "width": 54,
+          "height": 506,
+          "x": 2500,
+          "y": 100,
+          "classes": [
+            "qemu-system-x86_64",
+            "Emulator"
+          ]
+        },
+        {
+          "id": 4194313,
+          "width": 1,
+          "height": 1,
+          "x": 0,
+          "y": 0,
+          "classes": []
+        },
+        {
+          "id": 4194311,
+          "width": 2400,
+          "height": 1350,
+          "x": 100,
+          "y": 100,
+          "classes": [
+            "qemu-system-x86_64",
+            "Emulator"
+          ]
+        },
+        {
+          "id": 10485764,
+          "width": 2400,
+          "height": 1350,
+          "x": 100,
+          "y": 100,
+          "classes": []
+        },
+        {
+          "id": 4194309,
+          "width": 3,
+          "height": 3,
+          "x": 0,
+          "y": 0,
+          "classes": []
+        }
+      ]
+    }
+  },
+  "input_blocked": "X11 pointer target is unknown; no approval gesture emitted",
+  "image_review": "USB debugging dialog visible in fresh original. Window inventory includes Emulator geometry2400x1350 at100,100, but pointer WINDOW=0 and focus equals root543. Geometry/list membership is not proof of delivery or successful approval.",
+  "host_preflight_success": true,
+  "adb_ready": false,
+  "boot_package_activity_queried": false,
+  "installed": false,
+  "native_navigation_console_or_connected_tests": false,
+  "cause": "Unconfirmed. Do not assume RAM/userdata/vendor crash, repeat-sync alone or screenshot capture alone caused it.",
+  "next": "No more boot requested. Inspect native X11/Qt focus/input/window state or use an accessible normally-approved Pleos device before installing."
+}

@@ -1,0 +1,12 @@
+{
+  "scope": "Read-only OCR consistency on one actual original; reference fingerprint is image-derived, not a new host-auth proof",
+  "source_run": 43139256982,
+  "image_sha256": "6f718e10c7cae184f2514cb69e71e601d108203daaad340ca70756738e821af8",
+  "full_rsa": false,
+  "full_label": false,
+  "header_rsa": true,
+  "header_label": true,
+  "full_fp_count": 1,
+  "header_fp_count": 1,
+  "same_image_fingerprint_consistent": true
+}

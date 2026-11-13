@@ -1,0 +1,152 @@
+{
+  "created_at_utc": "2026-11-13T14:57:51Z",
+  "type": "generated design concept, not execution evidence",
+  "app_unchanged": {
+    "version": "0.9.0",
+    "versionCode": 9,
+    "code_commit": "e2b93baa91ce5bc56fb770fdc65dad08b9992175"
+  },
+  "base_prompt": "Create ONE highly polished LANDSCAPE automotive HMI SERVICE DESIGN EXAMPLE. The user rejected the previous AI-looking miniature scene; the goal now is an authentic restrained real-time automotive 3D perception / navigation-renderer aesthetic, using the supplied REAL LOCATION PHOTOS to simplify visible structures. First attached image is ONLY a layout reference for the 3-part Pleos-like display; subsequent photos are geometric references. Preserve three vertical functional zones and a continuous black system header and bottom HVAC/app dock: LEFT system ego-vehicle / nearby road-object rendering (about 28%), MIDDLE native-navigation-style geographic context (about 32%), RIGHT Dochagjari service with a large 3D spatial rendering and concise UI (about 40%). Content is parked P, 0 km/h so service controls can be shown. The left system scene may illustrate detected cars/curbs using plain grey cuboids with thin outlines, no realistic car photography. Native-navigation context in center is schematic, not a real SDK screenshot. Build the right-panel geometry as full-bleed grounded perspective scene, like an actual vector 3D automotive renderer: flat or matte grey architectural massing, simplified planes and columns, greenish translucent glass only where supported by photos, readable roadway/curb/sidewalk surfaces, generic grey cars with no license plates, subtle blue outlines on a few selected semantic objects. Foreground and background feel continuous, NOT a detached floating dollhouse or isometric toy island. Use physically coherent vanishing points. IMPORTANT NO glossy toy diorama, NO neon glow, NO photoreal textures, NO dramatic cinematic lighting, NO tiny decorative trees, NO fantasy building, NO excessive HUD boxes/AI scan grids, NO lasers. Colors charcoal, ash grey, restrained blue/teal, small amber only for uncertainty. Text is large, short, accurate Korean sans serif, excellent clear Hangul. Right service header '도착자리', hierarchy of one location title, small state chip, large scene, one short next-action sentence, two usable bottom buttons. Represent architecture from photos only approximately and visibly label it as a reconstruction. Do not invent verified entrances, legal stopping points, distances, precise walking routes, floor-to-elevator connections, live locations, recognition probabilities, flight information or sensor measurements. Tiny label in service panel '3D 인식 표현 예시'. A clean readable evidence strip below entire screen MUST contain exact scenario label specified, meaning real-photo-reference 3D concept / simulated sensing / not real execution. Source people/plate identities must not be reproduced. Keep system and app regions distinct. New examples must look noticeably less like AI art and more like a clean vector game-engine automotive HMI screenshot.",
+  "designs": [
+    {
+      "key": "hospital",
+      "file": "01-hospital.png",
+      "prompt": "HOSPITAL: service title '분당서울대병원', subtitle '동행 방문'. Geometric reference is actual cancer/neuroscience building with broad low rust-bronze entrance canopy/band and large blue-grey glass hospital mass behind it, grounded driveway geometry from the real entrance photo. Simplify into restrained flat planes with an understated warm bronze horizontal band; generic car shapes/curbs at forecourt. Scene should focus on entrance recognition, not invent a whole campus or clinic/parking/elevator route. A thin blue selected outline and label '건물 입구' on the visible canopy. Grey nearby vehicles with understated object outlines. Small wheelchair chip '함께 이동'. Keep uncertainty visible as short line '승하차 위치 확인 필요' rather than marking an unverified bay permitted. Main buttons '주차장 안내' and '동행 조건'. Left ego-car plus grey neighboring vehicles / curb scene. Middle route context abstract campus streets with destination hospital block, no fake exact roads or distance. Evidence strip '병원 동행 · 실제 사진 참고 3D 재구성 | 센서 표현 예시 · 실제 실행 아님'.",
+      "reference_files": [
+        "01-store-reference.png",
+        "hospital-entrance.jpg",
+        "hospital-underground-official.jpg"
+      ],
+      "generation_output": "/workspace/generated_images/exec-7623a801-9731-4cac-be8f-e20dc349da2e.png",
+      "bytes": 1712796,
+      "sha256": "8a0939af9ef090ba4187ae3b6bf025a8dfdf39a0d60f404e40ff40e49c45f1e8",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "sources": [
+        {
+          "file": "hospital-entrance.jpg",
+          "title": "암·뇌신경병원 외관과 차량 진입 공간",
+          "source_page": "https://blog.naver.com/jisunih/221554052803",
+          "date_note": "게시일 본문 미확인",
+          "capture_date_verified": false,
+          "sha256": "15188e2f243695f7af9e1a13e38ec13d6d8aab949ea2f2a5fc9894dd559e8318"
+        },
+        {
+          "file": "hospital-underground-official.jpg",
+          "title": "병원 공식 지하 주차장 사진",
+          "source_page": "https://www.snubh.org/intro/map/parking.do",
+          "date_note": "게시/촬영일 미표시",
+          "capture_date_verified": false,
+          "sha256": "9cbe7bb003a777b9d33f0a913d1a645595b9ad7a233e2b3451365b7156233bbb"
+        }
+      ]
+    },
+    {
+      "key": "academy",
+      "file": "02-academy.png",
+      "prompt": "ACADEMY PICKUP: service title '수내동 학원가', small subtitle '픽업 안내'. Reference the actual Crystal building from photo: a broad approximately five-storey rectilinear commercial building, flat neutral facade with a few muted sign-band rectangles, legible name '크리스탈빌딩' and ONE smaller academy label '정상어학원'. DO NOT reproduce phone numbers or all signage. Use the bus photo only as a separate reference for generic yellow academy shuttle vehicle shapes and curb congestion, NOT a claim they were photographed outside this building. Rendering shows simplified grey roadway, curb, building front, two muted yellow shuttles and generic grey vehicles. Small amber pill '혼잡 상황 예시'. Short tags '건물 입구', '보행로', '주변 차량'. No invented P lot or blue arrow through sidewalk, no claim of blocked or permitted stop at actual location. Simple instruction '차량과 만날 문을 구분해요'. Main button '대기 장소 찾기', secondary '만남 위치 공유'. Left ego/grey vehicles context, middle approximate street-block map without invented named streets. Scene is approximate composition with fictional traffic arrangement. Evidence strip '학원 픽업 · 실제 건물 참고 3D 재구성 | 차량 배치는 예시 · 실제 실행 아님'.",
+      "reference_files": [
+        "01-store-reference.png",
+        "sunae-academy-building.jpg",
+        "bundang-academy-buses.jpg"
+      ],
+      "generation_output": "/workspace/generated_images/exec-e0f83aea-3cda-4693-b229-20a952a814fa.png",
+      "bytes": 1642496,
+      "sha256": "66873ddaea2c5546debbc0e25892bcb55dbdb31a42b9ad7166efa8c8cb5a14cb",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "sources": [
+        {
+          "file": "sunae-academy-building.jpg",
+          "title": "수내동 크리스탈빌딩·정상어학원 외관",
+          "source_page": "https://learns.academy/academies/e597ee1a-5de9-47fb-8315-5ee9a0e1c94e",
+          "date_note": "게시/촬영일 미확인",
+          "capture_date_verified": false,
+          "sha256": "f679d9b5c82693b75058f5da792c2eeb65e375cc1aa75305b4d7312149c8194d"
+        },
+        {
+          "file": "bundang-academy-buses.jpg",
+          "title": "학원 셔틀버스 주정차 보도사진",
+          "source_page": "https://www.g-enews.com/article/General-News/2022/07/202207111155332757d6b0ab7f1c_1",
+          "date_note": "보도 2022-07-11",
+          "capture_date_verified": false,
+          "sha256": "25b230cda78fc114e2041067ca6d282965fa4d972f727fa012de6f7bf738a7ea"
+        }
+      ]
+    },
+    {
+      "key": "station",
+      "file": "03-station.png",
+      "prompt": "JEONGJA STATION PICKUP: service title '정자역 마중', chip '출구 확인'. Model the visible Exit5 canopy accurately in simplified low-poly form: modest green-tinted glass and metal slanted canopy going down to subway, dark horizontal sign band reading '정자역' and yellow number '5', sidewalk and adjacent commercial slab on the left. NOT a standalone grand aboveground train terminal, NOT an elevated railway station. Backdrop as muted building massing only. Slight oblique street-level aerial perspective shows glass exit canopy, sidewalk, kerb and roadway. Label '5번 출구' with a thin blue selection outline around canopy, '보행로' in subtle teal. Cars on road represented as unlabelled grey objects; their placements are fictional examples. Do not mark a made-up passenger pickup bay or legally allowed stopping point. Short next-action line '출구 확인 후 승차 장소를 찾아요'. Buttons '승차 장소 찾기' and '만남 위치 공유'. Left ego/curb perception mock, center simple street-map context labeled '정자역' only without fabricated exit connections. Evidence strip '정자역 마중 · 실제 사진 참고 3D 재구성 | 승차 위치 미확인 · 실제 실행 아님'.",
+      "reference_files": [
+        "01-store-reference.png",
+        "jeongja-exit5.jpg"
+      ],
+      "generation_output": "/workspace/generated_images/exec-4210d7e2-3eb2-47fd-9171-bd9d155da310.png",
+      "bytes": 1710711,
+      "sha256": "84e8eb7bdcb033ef9ed80ed3066a8750c7e76187d9e957d328243c1a04c93f21",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "sources": [
+        {
+          "file": "jeongja-exit5.jpg",
+          "title": "정자역 5번 출입구와 상가·보도",
+          "source_page": "https://sajin.com/site/gyeonggi/1/",
+          "date_note": "게시/촬영일 미확인",
+          "capture_date_verified": false,
+          "sha256": "12f71b310cc4381e83bd4476f7e5c8fd57e5ec8174b997d0826083c4ae2589c0"
+        }
+      ]
+    },
+    {
+      "key": "airport",
+      "file": "04-airport.png",
+      "prompt": "INCHEON AIRPORT LONG-TERM PARKING OBSERVATION: service title '인천공항 장기주차', subtitle '제1여객터미널'. This example specifically demonstrates recognizing a PARKING CLUE in a garage, not curb pickup or live flight coordination. Right service main scene is a restrained perspective simplified 3D view INSIDE the real referenced garage: concrete flat slab ceiling and repetitive square columns, rows of generic grey cars/white bay markings; keep ceiling simple, not detailed photo texture. One selected foreground pillar carries the actual observed source-photo text '2F' and '227' on a muted orange panel. Thin blue semantic outline around that pillar, faint grey outlines around adjacent vehicles. Beside scene or right bottom of scene place a compact observation badge reading '표지 관측 예시' then large '2F · 227'. Do not call it confirmed current position or actual live OCR; no confidence percent. Caption below scene '단서를 확인해 주차 기록에 남겨요'. Small state line '현재 위치 미확인'. Main buttons '단서 확인' and '닫기'. Center map schematic geographic overview using basic T1/long-term parking grouping from official map, label '장기주차장' and 'T1' only; no driving/walking route from pillar227 to terminal because not verified. Left ego with grey neighboring parked vehicles/parking-bay geometry in 3D system area. Evidence strip '공항 주차 단서 · 실제 사진 참고 3D 재구성 | 표지·센서 표현 예시 · 실제 실행 아님'.",
+      "reference_files": [
+        "01-store-reference.png",
+        "airport-parking-interior.jpg",
+        "airport-parking-map-official.jpg",
+        "airport-longterm-entrance.jpg"
+      ],
+      "generation_output": "/workspace/generated_images/exec-f820bd67-4c9d-490f-9908-9bdc11fd8325.png",
+      "bytes": 1646068,
+      "sha256": "8294ece23bce7ed877857e96deb4ab1c2cb9e464026a7bad16c1ae88353625ff",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "sources": [
+        {
+          "file": "airport-longterm-entrance.jpg",
+          "title": "제1여객터미널 장기주차장 입구·P1 표지",
+          "source_page": "https://blog.naver.com/oh22jh/222881667476",
+          "date_note": "게시일 본문 미확인",
+          "capture_date_verified": false,
+          "sha256": "573ff4ebdb54ffa31004f03d3e16f6e5f672a089dac4887d90ee561b747c9ead"
+        },
+        {
+          "file": "airport-parking-interior.jpg",
+          "title": "주차타워 내부 층·구역 표기",
+          "source_page": "https://yulfam-pet.com/40",
+          "date_note": "게시 2024-02-21",
+          "capture_date_verified": false,
+          "sha256": "2505ba109ef7cee8b839a669378860b8585effa5d70f69a7a147afa7f2b909c9"
+        },
+        {
+          "file": "airport-parking-map-official.jpg",
+          "title": "인천공항 T1 공식 주차장 안내도",
+          "source_page": "https://www.airport.kr/ap_ko/957/subview.do",
+          "date_note": "2026-11-13 조회",
+          "capture_date_verified": false,
+          "sha256": "542d556aed26ebba3ec3b821da56cf5d731adc87d9d7b53f0df2e2fe3c92fc68"
+        }
+      ]
+    }
+  ]
+}

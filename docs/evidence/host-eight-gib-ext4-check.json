@@ -1,0 +1,12 @@
+{
+  "scope": "Own temporary sparse ext4 file only; not Pleos guest free space or install success",
+  "logical_bytes": 8589934592,
+  "mkfs_returncode": 0,
+  "tune2fs_returncode": 0,
+  "fields": {
+    "Block count": "2097152",
+    "Reserved block count": "104857",
+    "Free blocks": "2026865",
+    "Block size": "4096"
+  }
+}

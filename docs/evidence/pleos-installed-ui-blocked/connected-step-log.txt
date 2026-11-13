@@ -1,0 +1,8 @@
+2026-11-12T03:47:00.9134909Z [EmulatorConsole]: Failed to start Emulator console for 5554
+2026-11-12T04:01:11.2144321Z Exception thrown during onBeforeAll invocation of plugin AndroidTestApkInstallerPlugin: ErrorName: UNKNOWN
+2026-11-12T04:01:11.2175993Z Message: Failed to install split APK(s): [/home/runner/work/dochagjari/dochagjari/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk]
+2026-11-12T04:01:11.2177676Z Failed to install split APK(s): [/home/runner/work/dochagjari/dochagjari/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk]
+2026-11-12T04:01:11.2179956Z com.android.ddmlib.ShellCommandUnresponsiveException
+2026-11-12T04:01:11.2184363Z 	at com.android.ddmlib.SplitApkInstallerBase.installCommit(SplitApkInstallerBase.java:154)
+2026-11-12T04:01:12.0133291Z > Task :app:connectedDebugAndroidTest FAILED
+2026-11-12T04:01:12.0143131Z BUILD FAILED in 14m 35s

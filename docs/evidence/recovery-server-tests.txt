@@ -1,0 +1,19 @@
+test_auth_and_consent (test_app.ArrivalTests.test_auth_and_consent) ... ok
+test_concurrent_duplicates_call_provider_once (test_app.ArrivalTests.test_concurrent_duplicates_call_provider_once) ... ok
+test_crash_after_reservation_before_provider_is_not_retried (test_app.ArrivalTests.test_crash_after_reservation_before_provider_is_not_retried) ... ok
+test_daily_limit_and_status (test_app.ArrivalTests.test_daily_limit_and_status) ... ok
+test_legacy_database_migration_keeps_row_without_mode_proof (test_app.ArrivalTests.test_legacy_database_migration_keeps_row_without_mode_proof) ... ok
+test_lookup_after_response_loss_proves_same_payload_and_mode (test_app.ArrivalTests.test_lookup_after_response_loss_proves_same_payload_and_mode) ... ok
+test_mock_no_provider_and_restart_dedup (test_app.ArrivalTests.test_mock_no_provider_and_restart_dedup) ... ok
+test_mode_change_never_promotes_mock_request_to_real_sms (test_app.ArrivalTests.test_mode_change_never_promotes_mock_request_to_real_sms) ... ok
+test_provider_reject_is_not_delivery (test_app.ArrivalTests.test_provider_reject_is_not_delivery) ... ok
+test_real_test_inputs_require_explicit_enable (test_app.ArrivalTests.test_real_test_inputs_require_explicit_enable) ... ok
+test_session_cannot_be_rebound_to_another_registered_recipient (test_app.ArrivalTests.test_session_cannot_be_rebound_to_another_registered_recipient) ... ok
+test_shared_kotlin_fingerprint_vector (test_app.ArrivalTests.test_shared_kotlin_fingerprint_vector) ... ok
+test_stop_and_location_are_required (test_app.ArrivalTests.test_stop_and_location_are_required) ... ok
+test_timeout_is_durable_unknown_without_resend (test_app.ArrivalTests.test_timeout_is_durable_unknown_without_resend) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.836s
+
+OK

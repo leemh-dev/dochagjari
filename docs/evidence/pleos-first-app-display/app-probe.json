@@ -1,0 +1,104 @@
+{
+  "navigation": [
+    {
+      "mode": "바로 태우기",
+      "requested_coordinate": [
+        37.48544722,
+        127.03636666
+      ],
+      "pin_verified": false,
+      "error": "Visible toggle label is missing or ambiguous: 내비 모의 요청"
+    },
+    {
+      "mode": "주차하고 데리러 가기",
+      "requested_coordinate": [
+        37.48615,
+        127.03715
+      ],
+      "pin_verified": false,
+      "error": "Visible toggle label is missing or ambiguous: 내비 모의 요청"
+    }
+  ],
+  "pin_verified": false,
+  "note": "SDK results and screenshots require separate pin review; not real-car validation",
+  "live_adb_probe": {
+    "serial": "emulator-5554",
+    "ready": true,
+    "checks": {
+      "transport": {
+        "returncode": 0,
+        "stdout": "device",
+        "stderr": ""
+      },
+      "boot": {
+        "returncode": 0,
+        "stdout": "1",
+        "stderr": ""
+      },
+      "package": {
+        "returncode": 0,
+        "stdout": "Service package: found",
+        "stderr": ""
+      },
+      "activity": {
+        "returncode": 0,
+        "stdout": "Service activity: found",
+        "stderr": ""
+      }
+    },
+    "reason": "Boot and package/activity services verified"
+  },
+  "pre_install_adb_probe": {
+    "serial": "emulator-5554",
+    "ready": true,
+    "checks": {
+      "transport": {
+        "returncode": 0,
+        "stdout": "device",
+        "stderr": ""
+      },
+      "boot": {
+        "returncode": 0,
+        "stdout": "1",
+        "stderr": ""
+      },
+      "package": {
+        "returncode": 0,
+        "stdout": "Service package: found",
+        "stderr": ""
+      },
+      "activity": {
+        "returncode": 0,
+        "stdout": "Service activity: found",
+        "stderr": ""
+      }
+    },
+    "reason": "Boot and package/activity services verified"
+  },
+  "apk_installed": true,
+  "car_speed_permission_granted": true,
+  "car_speed_permission_result": {
+    "returncode": 0,
+    "stderr": ""
+  },
+  "launches": [
+    {
+      "am_start_stdout": "Starting: Intent { cmp=dev.leemh.dochagjari/.MainActivity }\nStatus: timeout\nLaunchState: UNKNOWN (-1)\nActivity: dev.leemh.dochagjari/.MainActivity\nWaitTime: 19032\nComplete",
+      "screenshot": "app-launch-0.png",
+      "note": "Launch command/capture alone does not prove correct display or app UI"
+    },
+    {
+      "am_start_stdout": "Starting: Intent { cmp=dev.leemh.dochagjari/.MainActivity }\nWarning: Activity not started, intent has been delivered to currently running top-most instance.\nStatus: ok\nLaunchState: UNKNOWN (0)\nActivity: dev.leemh.dochagjari/.MainActivity\nTotalTime: 0\nWaitTime: 27\nComplete",
+      "screenshot": "app-launch-1.png",
+      "note": "Launch command/capture alone does not prove correct display or app UI"
+    },
+    {
+      "am_start_stdout": "Starting: Intent { cmp=dev.leemh.dochagjari/.MainActivity }\nWarning: Activity not started, intent has been delivered to currently running top-most instance.\nStatus: ok\nLaunchState: UNKNOWN (0)\nActivity: dev.leemh.dochagjari/.MainActivity\nTotalTime: 0\nWaitTime: 181\nComplete",
+      "screenshot": "app-launch-2.png",
+      "note": "Launch command/capture alone does not prove correct display or app UI"
+    }
+  ],
+  "probe_error": "Visible toggle label is missing or ambiguous: 왼쪽 카시트 문 여유",
+  "left_sdk_changed": false,
+  "right_sdk_changed": false
+}

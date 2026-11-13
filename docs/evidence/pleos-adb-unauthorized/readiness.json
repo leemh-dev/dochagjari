@@ -1,0 +1,28 @@
+{
+  "serial": "emulator-5554",
+  "environment": "GitHub KVM / official Pleos 2.1.0 API34 x86_64 / separate test userdata",
+  "boot_completed": false,
+  "acceleration": "accel:\n0\nKVM (version 12) is installed and usable.\naccel",
+  "stage": "failed",
+  "archive_bytes": 4087751964,
+  "range_count": 61,
+  "ranges_completed": 61,
+  "image_properties": "Pkg.Desc=System Image x86_64\nPkg.Revision=1\nPkg.Dependencies=emulator\nAndroidVersion.ApiLevel=34\nSystemImage.Abi=x86_64\nSystemImage.TagId=android-automotive\nSystemImage.TagDisplay=Automotive\nSystemImage.GpuSupport=true\nAddon.VendorId=42dot\nAddon.VendorDisplay=42dot Inc.\navd_config_ini.hw.keyboard=yes\navd_config_ini.hw.ramSize=8192\navd_config_ini.hw.gpu.enabled=yes\navd_config_ini.hw.gpu.mode=host\navd_config_ini.hw.multi_display_window=no\navd_config_ini.hw.hotplug_multi_display=no\n",
+  "emulator_pid": 3116,
+  "adb_probe": {
+    "serial": "emulator-5554",
+    "ready": false,
+    "checks": {
+      "transport": {
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "error: device unauthorized.\n[credential diagnostic omitted]\nTry 'adb kill-server' if that seems wrong.\nOtherwise check for a confirmation dialog on your device."
+      }
+    },
+    "reason": "ADB transport is not an authorized online device"
+  },
+  "adb_devices": "List of devices attached\nemulator-5554          unauthorized transport_id:1",
+  "adb_devices_returncode": 0,
+  "adb_devices_stderr": "",
+  "error": "Pleos boot/services not ready within 900 seconds"
+}

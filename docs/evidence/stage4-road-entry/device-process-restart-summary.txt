@@ -1,0 +1,1 @@
+PASS: process restart 7370 -> 7420; unchanged request 72381e12b273f208af957666014061308721314bcedc6a4c0ed08615e8c6246c; frozen payload and acknowledged profile restored; no token/provider call; same visit 00e5f641-b3c7-4942-9ef5-99044cb8a067/road request c4c6a505-32af-45ce-a5c7-0dc07c1bbe50, no auto replay/entry

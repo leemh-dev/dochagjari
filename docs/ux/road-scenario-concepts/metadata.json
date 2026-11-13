@@ -1,0 +1,170 @@
+{
+  "created_at_utc": "2026-11-13",
+  "kind": "generated static scenario UX concepts, not app or sensor execution",
+  "base_prompt": "EDIT the FIRST attached Pleos-style HMI concept, preserving its entire LEFT vehicle information panel (isolated silver sedan on dark empty background, P and 0km/h, trip stats), entire MIDDLE existing native navigation map panel, top statusbar and bottom HVAC dock. Do NOT insert roads, cameras, buildings or ADAS visualization into the LEFT panel. Do NOT replace the MIDDLE map. Only redesign the THIRD/right app panel, same original boundaries, overall aspect 1672x941. It is essential to distinguish CAMERA from MAP. THIRD panel contains: compact app icon/header 도착자리 and scene title; upper ~27% real-photographic CAMERA preview, a narrow wide horizontal rectangle; lower ~50% a TILTED OVERHEAD 3D ROAD MAP with road surface, lane markings, sidewalks, junctions and abstract low extruded building footprints, like BMW's road-level 3D navigation viewed obliquely FROM ABOVE. SECOND attachment is ONLY BMW visual style reference for this lower map, never copy its cabin/UI. Subsequent attachment(s) are real place photography reference ONLY for the upper camera preview and semantic street context. Camera preview MUST look like normal live-camera photographic video with real textures, NOT rendered building/CG/3D scene. Map below MUST look like navigation geometry, NOT eye-level camera, detailed building facade, dollhouse, floating miniature island or garage. Grounded continuous roads extending to panel edges. The THIRD map, not the car area or camera, is what gets 3D. Elegant dark charcoal cartography, muted grey sidewalk and building volumes, clear off-white road boundaries, restrained blue/teal emphasis, large crisp Korean sans-serif. Hide license plates/phone numbers/faces in photographic preview; no copied watermarks or unreadable microtext. Use one instruction and two bottom actions. Compact label '빌트인캠 · 시연' camera top-left; a result badge at CAMERA bottom-right. Label '3D 도로 지도 · 예시' above lower map. Map is a clearly schematic service preview; do not invent exact gate/column/elevator IDs, distance/minutes/confidence %, live current position or claim legal stop permission. No pinpoint current-position dot. Any depicted car is generic hypothetical scenario object. The original MIDDLE Pangyo native map is a layout-preserved background, not proof of an active trip to this scene. Preserve comfortable spacing and header/footer and panel boundaries. This is a STATIC DESIGN MOCKUP, not app screenshot/real camera feed/integration evidence. Footer below entire device '카메라는 영상 · 지도만 3D | 자료 참고 UX 시안 · 실제 실행 아님'.",
+  "app_unchanged": {
+    "version": "0.9.0",
+    "versionCode": 9,
+    "code_commit": "e2b93baa91ce5bc56fb770fdc65dad08b9992175"
+  },
+  "limitations": [
+    "left vehicle and middle native navigation composition retained, no pixel-identity verification",
+    "middle Pangyo map is preserved layout reference, not a current route for each scene",
+    "camera previews are generated photo-like illustrations referencing collected sources, not actual vehicle camera capture",
+    "lower road layouts, candidate areas and sidewalk lines are schematic; no verified coordinates, legal stopping location or barrier-free route",
+    "all scenes assume parked P/0km/h; do not show interaction unlocked while driving"
+  ],
+  "designs": [
+    {
+      "key": "academy",
+      "file": "01-academy.png",
+      "reference_files": [
+        "05-camera-and-3d-map.png",
+        "bmw-urban-closeup.jpg",
+        "academy-daechi-main.jpg"
+      ],
+      "prompt": "SCENE: 학원 픽업, subtitle '대치동 · 픽업 상황 예시', compact amber chip '대기 장소 확인'. Upper camera preview references actual nighttime Daechi curbside academy pickup photo: dark roadside, a row of brake lights, pedestrian metal railing, yellow no-stopping roadway lettering. Keep that as PHOTOGRAPHIC camera scene. Badge bottom-right '도로변 대기 감지 · 예시'. Lower navigation-like oblique ROAD MAP shows several simple grey academy building footprint volumes at top, sidewalk with rail/curb, a multi-lane road running diagonally up screen, a side junction, generic grey vehicles queued at curb. Highlight ONLY the curb segment in restrained amber hatch labelled '정차 금지 구간'. Academy footprint label '학원가'. Thin teal sidewalk band labelled '보행로'. NO blue route ending at prohibited curb and NO imaginary confirmed P parking lot. Clear summary '도로변 대기 대신 다른 장소를 찾아요'. Bottom blue primary button '대안 장소 찾기', secondary '만남 위치 공유'. Small '지도 배치 예시' map note. Aim for polished actual product, spatial relationships readable, not wall of warning text.",
+      "generated_original": "/workspace/generated_images/exec-f23100d6-6597-4a86-89f5-9e69219dd4c2.png",
+      "bytes": 1858527,
+      "sha256": "668410b38c8ccc62ad51c27a5903d0ca030414a334743e6396affa462f86789f",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "sources": [
+        {
+          "file": "bmw-urban-closeup.jpg",
+          "title": "BMW 도심 차선·주변 차량 지도 확대",
+          "source_page": "https://www.bmwgroup.com/en/news/general/2026/bmw-maps.html",
+          "date_note": "공식 2026 자료, 촬영일 미확인",
+          "sha256": "52dd17ad7e3d1c8a5e02fa6d750bd1bcd8845f5fe1f7969ce657acb8c6a05705"
+        },
+        {
+          "file": "academy-daechi-main.jpg",
+          "title": "대치동 학부모 픽업 대기·정차금지",
+          "source_page": "https://tv.edaily.co.kr/News/NewsRead?Kind=257&NewsId=01610486642272896",
+          "date_note": "2025-08-31 게시, 원문 8월25일 상황",
+          "sha256": "fdadbc7df348ee2eb2169573c87fcd456ec7793cc6aef75c8ca58007d40863d7"
+        }
+      ]
+    },
+    {
+      "key": "hospital",
+      "file": "02-hospital.png",
+      "reference_files": [
+        "05-camera-and-3d-map.png",
+        "bmw-urban-closeup.jpg",
+        "hospital-access-road.png",
+        "hospital-gate-queue.png"
+      ],
+      "prompt": "SCENE: 병원 동행, subtitle '분당서울대병원', small chip wheelchair icon+'동행 방문'. Upper PHOTOGRAPHIC camera strip references actual hospital access-road and entrance photo: road/sidewalk/curb and hospital parking approach, natural light, no detailed rendered hospital. The real roadside '지하 만차' sign may be shown in camera with badge '진입 상황 확인 · 시연'. Do NOT turn historical photo into live current full occupancy claim. Lower 3D ROAD MAP is schematic oblique overhead: simple low hospital footprint at upper edge, clearly different pedestrian entrance icon '사람 출입구', curving driveway and dedicated sidewalk ribbon, fork labelled '주차장 진입' and an outline zone near building labelled '승하차 후보'. Subtle amber '현장 확인 필요' beside candidate; no claim designated/allowed/wheelchair-accessible stop or known barrier-free route. No actual route/current-position dot. Put two light option chips '함께 주차' and '먼저 하차' to communicate companion choice, with selected state '함께 주차'. Below map summary '동행 조건에 맞춰 도착 방법을 골라요'. Buttons '주차 대안 보기' and '동행 조건'. Avoid funeral/pharmacy shuttle context and never use Asan restricted zone as SNUH. No exact numbered entrance/elevator.",
+      "generated_original": "/workspace/generated_images/exec-1c15ff71-083d-4f6f-9949-6c4e49cc95cf.png",
+      "bytes": 1839834,
+      "sha256": "7f900945aed09684fb96a8220f38cbdba65bfaacf3ae355e0062bd26363d3d4f",
+      "dimensions": [
+        1671,
+        941
+      ],
+      "sources": [
+        {
+          "file": "bmw-urban-closeup.jpg",
+          "title": "BMW 도심 차선·주변 차량 지도 확대",
+          "source_page": "https://www.bmwgroup.com/en/news/general/2026/bmw-maps.html",
+          "date_note": "공식 2026 자료, 촬영일 미확인",
+          "sha256": "52dd17ad7e3d1c8a5e02fa6d750bd1bcd8845f5fe1f7969ce657acb8c6a05705"
+        },
+        {
+          "file": "hospital-access-road.png",
+          "title": "분당서울대병원 접근 도로·보도",
+          "source_page": "https://bookspoon.tistory.com/entry/분당서울대병원-장례식장-주차장-주차요금-팁",
+          "date_note": "2025-01-06 게시, 촬영일 미확인",
+          "sha256": "d1ab2e5d4d469eb1b7eed372a74cae897a35d2dd0112041664c84cf0d47805a0"
+        },
+        {
+          "file": "hospital-gate-queue.png",
+          "title": "분당서울대병원 정문 진입·지하 만차 표지",
+          "source_page": "https://bookspoon.tistory.com/entry/분당서울대병원-장례식장-주차장-주차요금-팁",
+          "date_note": "2025-01-06 게시, 촬영일 미확인",
+          "sha256": "8c936d48e44d311c528aff33bc39a11dc835731d90ae4fe9a4692fbe0fc98598"
+        }
+      ]
+    },
+    {
+      "key": "station",
+      "file": "03-station.png",
+      "reference_files": [
+        "05-camera-and-3d-map.png",
+        "bmw-urban-closeup.jpg",
+        "jeongja-exit5.jpg"
+      ],
+      "prompt": "SCENE: 정자역 마중, subtitle '출구와 승차 장소를 함께 확인', muted chip '만남 준비'. Upper CAMERA strip is PHOTOGRAPHIC representation referencing actual Jeongja exit5 sloping greenish GLASS SUBWAY ENTRANCE canopy with station name 정자역 and real yellow5, sidewalk/road in background. No grand aboveground terminal building or elevated tracks. Badge at CAMERA bottom-right '5번 출구 표지 · 예시'. Lower 3D ROAD MAP viewed obliquely from above: broad road, adjacent grey sidewalk, rectangular commercial building footprints; small subway stairs symbol located ON the sidewalk labelled '5번 출구'. Thin teal pedestrian sidewalk line from stair symbol extending towards right edge WITHOUT crossing car lanes, label '보행 동선 예시'. Vehicle carriageway separate, candidate-search area outlined soft blue, label '승차 장소 탐색'. Do not invent specific legal pickup bay, confirmed curb stop or distance. Header above lower map '3D 도로 지도 · 예시'. Summary '사람 출구와 차량 만남 장소를 구분해요'. Buttons '승차 장소 찾기' and '만남 위치 공유'. Small map note '승차 위치 확인 전'. No car route terminating at stair entrance.",
+      "generated_original": "/workspace/generated_images/exec-b993c031-73c0-450e-bcc8-4c8cac35f92f.png",
+      "correction_prompt": "Make a very targeted correction to this existing UI concept. Preserve ALL layout, left vehicle information, middle native navigation, right header and upper camera photograph, road/sidewalk/isometric map, footer, colors and text. In the LOWER RIGHT 3D road map ONLY, REMOVE the large dashed blue rounded area and label '승차 장소 탐색' currently spanning the middle traffic lanes. Restore continuous ordinary grey road surface and lane dashes in that exact area. DO NOT draw any alternative stopping bay or pickup zone anywhere, no new parking lot, route, vehicle location or invented legal stop. Keep the subway exit5 and teal pedestrian example line on sidewalk unchanged. Keep the existing small map note '승차 위치 확인 전' and bottom buttons '승차 장소 찾기' / '만남 위치 공유'. The map must show the human station exit and sidewalk clearly without marking a place to stop the car. The blue PRIMARY BUTTON is where a driver can search for a suitable vehicle meeting place later. This is a minimal edit, all other screen elements remain as attached. Output same landscape dimensions.",
+      "initial_generation": "/workspace/generated_images/exec-22a0831d-eca5-43c6-b346-d915e7863342.png",
+      "correction_reason": "Removed a pickup-search overlay spanning active traffic lanes; retain only exit/pedestrian illustration, no claimed stopping location",
+      "bytes": 1871640,
+      "sha256": "90973fd6c9eba0460827371855e914dc23608482017e94cddf8f5bd9c1fdc2ab",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "sources": [
+        {
+          "file": "bmw-urban-closeup.jpg",
+          "title": "BMW 도심 차선·주변 차량 지도 확대",
+          "source_page": "https://www.bmwgroup.com/en/news/general/2026/bmw-maps.html",
+          "date_note": "공식 2026 자료, 촬영일 미확인",
+          "sha256": "52dd17ad7e3d1c8a5e02fa6d750bd1bcd8845f5fe1f7969ce657acb8c6a05705"
+        },
+        {
+          "file": "jeongja-exit5.jpg",
+          "title": "정자역5번 출구·보도·도로",
+          "source_page": "https://sajin.com/site/gyeonggi/1/",
+          "date_note": "게시/촬영일 미확인",
+          "sha256": "12f71b310cc4381e83bd4476f7e5c8fd57e5ec8174b997d0826083c4ae2589c0"
+        }
+      ]
+    },
+    {
+      "key": "airport",
+      "file": "04-airport.png",
+      "reference_files": [
+        "05-camera-and-3d-map.png",
+        "bmw-urban-closeup.jpg",
+        "airport-curb-1.jpg",
+        "airport-curb-2.jpg"
+      ],
+      "prompt": "SCENE: 공항 배웅, subtitle '인천공항 T1 · 출국층 예시', muted chip '승하차 준비'. This is departures DROP-OFF, never label it arrivals pickup. Upper PHOTOGRAPHIC camera strip references actual airport departures curbside at night: curved terminal canopy, trolley rows, vehicles, overhead airport door sign but avoid highlighting door number as recommendation. A modest detection box on the visible sign '불법주정차 금지' is okay, bottom-right CAMERA badge '현장 표지 확인 · 예시'. Lower 3D ROAD MAP (not parking interior) is oblique overhead: long simple terminal footprint along upper edge, pedestrian curb/sidewalk band, parallel road lanes with dashed lane boundaries, a clearly drawn zebra crossing. Show pale grey vehicles and one amber curb boundary representing no waiting, label '장시간 대기 구분'. A separately outlined light-blue hypothetical curb segment can be labelled '승하차 구역 확인' but not confirmed legal or exact bay. Summary '내릴 곳을 확인하고 오래 기다리면 주차해요'. Bottom buttons '승하차 안내' and '주차장 보기'. No minutes/fees, no confirmed stop permission or departure gate/flight details, no indoor elevator. Map note '도로 배치 예시'.",
+      "generated_original": "/workspace/generated_images/exec-652efcaa-d867-4de3-94b5-7c27964477a6.png",
+      "bytes": 1843146,
+      "sha256": "dd9136afd39ea24b1419a25f7c82b3f8e704b3c1afbefc76b46470be2d3251d4",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "sources": [
+        {
+          "file": "bmw-urban-closeup.jpg",
+          "title": "BMW 도심 차선·주변 차량 지도 확대",
+          "source_page": "https://www.bmwgroup.com/en/news/general/2026/bmw-maps.html",
+          "date_note": "공식 2026 자료, 촬영일 미확인",
+          "sha256": "52dd17ad7e3d1c8a5e02fa6d750bd1bcd8845f5fe1f7969ce657acb8c6a05705"
+        },
+        {
+          "file": "airport-curb-1.jpg",
+          "title": "인천공항 T1 출국층 도로변 짐 내림",
+          "source_page": "https://ndolson.com/531769",
+          "date_note": "2026-02-18 게시, 촬영일 미확인",
+          "sha256": "4f5eff78d05bea3113d4f578ed0c91de62aec61d7d660ff20156e6ae12927e88"
+        },
+        {
+          "file": "airport-curb-2.jpg",
+          "title": "인천공항 T1 출국층 도로·금지 표지",
+          "source_page": "https://ndolson.com/531769",
+          "date_note": "2026-02-18 게시, 촬영일 미확인",
+          "sha256": "c1d9a2b47b28eed81a1acb909787329f14f5f9cd6a21a406e64abbac8db9a1d4"
+        }
+      ]
+    }
+  ]
+}

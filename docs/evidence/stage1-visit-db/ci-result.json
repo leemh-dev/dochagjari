@@ -1,0 +1,185 @@
+{
+  "checkedAtUtc": "2026-11-13T01:42:48.818424+00:00",
+  "run": {
+    "id": 43344658563,
+    "html_url": "https://github.com/leemh-dev/dochagjari/actions/runs/43344658563",
+    "head_sha": "3b9a3c505390911089bdd3a2df7490fd312ae7b9",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "jobs": [
+    {
+      "name": "verify",
+      "html_url": "https://github.com/leemh-dev/dochagjari/actions/runs/43344658563/job/131620956954",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-java@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run android-actions/setup-android@v3",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run sdkmanager 'platforms;android-35' 'build-tools;35.0.0'",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run gradle/actions/setup-gradle@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease",
+          "conclusion": "success"
+        },
+        {
+          "name": "Package current version and signing metadata",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run pip install -r server/requirements.txt",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m unittest discover -s server/tests -v",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m unittest discover -s scripts/pleos/tests -v",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run gradle/actions/setup-gradle@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-java@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "android-device",
+      "html_url": "https://github.com/leemh-dev/dochagjari/actions/runs/43344658563/job/131622963699",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-java@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run android-actions/setup-android@v3",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run sdkmanager 'platforms;android-35' 'build-tools;35.0.0'",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run gradle/actions/setup-gradle@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Enable KVM on the dedicated runner",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install local mock-server smoke dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run reactivecircus/android-emulator-runner@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run gradle/actions/setup-gradle@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-java@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 14001506355,
+      "name": "development-apks-and-metadata",
+      "size_in_bytes": 63248720
+    },
+    {
+      "id": 14001348823,
+      "name": "generic-android-api34-device-results",
+      "size_in_bytes": 2149587
+    },
+    {
+      "id": 14000887537,
+      "name": "dochagjari-debug-and-reports",
+      "size_in_bytes": 32497807
+    }
+  ],
+  "archive_download": "Proxy tunnel to productionresultssa7.blob.core.windows.net returned403. Artifact contents not independently downloaded/viewed in this Cloud.",
+  "device_scope": "Generic Android API34 fresh CI AVD; app test stopped state; official facility/USER visit. No Pleos/vehicle/real parking/camera proof."
+}

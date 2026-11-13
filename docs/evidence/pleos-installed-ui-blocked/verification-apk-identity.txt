@@ -1,0 +1,26 @@
+workflow_source_commit=a8c91d2e2d0af9300a9d43287749fbecfee710af
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "dev.leemh.dochagjari",
+  "variantName": "debug",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 2,
+      "versionName": "0.2.0",
+      "outputFile": "app-debug.apk"
+    }
+  ],
+  "elementType": "File",
+  "minSdkVersionForDexing": 34
+}9a9ba9159639efe68c1d074fe6dea1752fcfaa34f404427bc36840c54a9bf107  app/build/outputs/apk/debug/app-debug.apk
+Signer #1 certificate DN: C=US, O=Android, CN=Android Debug
+Signer #1 certificate SHA-256 digest: c165da6778f7e45b33185931ad6a08c659b443fbd7a6ae9afa44e4c34285ade7
+Signer #1 certificate SHA-1 digest: 922e4911f84caef39ce3902c15d697cd7df2be6f
+Signer #1 certificate MD5 digest: acb89bfffd9b27fc70273f20ac9a6bd7

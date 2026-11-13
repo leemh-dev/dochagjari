@@ -1,0 +1,35 @@
+{
+  "run": 43371857767,
+  "head_code": "f959cb9423d4549d06a292b3012b8c7da4dbc925",
+  "artifact": 14013477464,
+  "environment": "General Android API34 dedicated CI AVD",
+  "inputs": "MOCK navigation; explicit TEST entry; not Pleos/real vehicle",
+  "images": [
+    {
+      "file": "26-visit-road-mock.png",
+      "bytes": 115459,
+      "sha256": "b1755243a998c19b801a674bb81f175dc85ea96904b1213be5a15aaa5a20ee03"
+    },
+    {
+      "file": "27-explicit-entry-native-guide.png",
+      "bytes": 115141,
+      "sha256": "44e46e2523d165efcef249463b8789564b599199e42b0fad7b38f8e4e0f4d78f"
+    },
+    {
+      "file": "28-entry-guide-closed.png",
+      "bytes": 106007,
+      "sha256": "4de27f07c71b0de25e100c296ffe86e4064ccdffc0799114a51a05603e5da15e"
+    },
+    {
+      "file": "29-entry-restored-hidden.png",
+      "bytes": 94373,
+      "sha256": "af638291a1dc548c88f7b865d90d52cf3ddd73b9bd75b90bf0390815b28aedc8"
+    },
+    {
+      "file": "18-native-route-animation.png",
+      "bytes": 116630,
+      "sha256": "dacc8991d32457c8e32c451cfcf8c081917dfa10f0d5254473f54bfb5daef0fd",
+      "case": "Same-run manual preview before entry; not proof of automatic playback after entry"
+    }
+  ]
+}

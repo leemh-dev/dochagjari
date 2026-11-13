@@ -1,0 +1,50 @@
+adb shell getprop sys.boot_completed
+1
+
+adb shell am get-current-user
+0
+
+adb shell pm clear --user 0 dev.leemh.dochagjari
+Success
+
+adb shell am instrument --user 0 -w -e restartPhase prepare -e class dev.leemh.dochagjari.ProcessRestartInstrumentedTest#prepareQueuedArrivalAndSavedProfile dev.leemh.dochagjari.test/androidx.test.runner.AndroidJUnitRunner
+
+dev.leemh.dochagjari.ProcessRestartInstrumentedTest:INSTRUMENTATION_STATUS: arrival_process_pid=7392
+INSTRUMENTATION_STATUS: arrival_request_hash=d338db3ddacc5ad9dbf1ae566d79dc188ef09b5ca0af4fa4b4250e05752a59e1
+INSTRUMENTATION_STATUS: observation_run_id=ce82cf2f-3384-46ac-a9c8-d23e524273d4
+INSTRUMENTATION_STATUS: parking_id=d551a3a9-4935-496b-8a53-77884be388b9
+INSTRUMENTATION_STATUS: parking_note_id=9c40f428-155f-417d-b6f4-c2873d191e2a
+INSTRUMENTATION_STATUS: road_request_id=49ecc463-56c9-440f-b609-e07ef6f8f729
+INSTRUMENTATION_STATUS: visit_id=bcb8763b-b259-4a23-84e8-1c41b5084f87
+INSTRUMENTATION_STATUS_CODE: 0
+.
+
+Time: 0.186
+
+OK (1 test)
+
+
+
+adb shell am force-stop --user 0 dev.leemh.dochagjari
+
+adb shell am instrument --user 0 -w -e restartPhase verify -e class dev.leemh.dochagjari.ProcessRestartInstrumentedTest#verifyRestoredArrivalAndProfile dev.leemh.dochagjari.test/androidx.test.runner.AndroidJUnitRunner
+
+dev.leemh.dochagjari.ProcessRestartInstrumentedTest:INSTRUMENTATION_STATUS: arrival_process_pid=7442
+INSTRUMENTATION_STATUS: arrival_request_hash=d338db3ddacc5ad9dbf1ae566d79dc188ef09b5ca0af4fa4b4250e05752a59e1
+INSTRUMENTATION_STATUS: observation_run_id=ce82cf2f-3384-46ac-a9c8-d23e524273d4
+INSTRUMENTATION_STATUS: parking_id=d551a3a9-4935-496b-8a53-77884be388b9
+INSTRUMENTATION_STATUS: parking_note_id=9c40f428-155f-417d-b6f4-c2873d191e2a
+INSTRUMENTATION_STATUS: road_request_id=49ecc463-56c9-440f-b609-e07ef6f8f729
+INSTRUMENTATION_STATUS: visit_id=bcb8763b-b259-4a23-84e8-1c41b5084f87
+INSTRUMENTATION_STATUS_CODE: 0
+.
+
+Time: 0.082
+
+OK (1 test)
+
+
+
+adb shell am force-stop --user 0 dev.leemh.dochagjari
+
+PASS: process restart 7392 -> 7442; unchanged request d338db3ddacc5ad9dbf1ae566d79dc188ef09b5ca0af4fa4b4250e05752a59e1; frozen payload and acknowledged profile restored; no token/provider call; same visit bcb8763b-b259-4a23-84e8-1c41b5084f87/road request 49ecc463-56c9-440f-b609-e07ef6f8f729, same observation ce82cf2f-3384-46ac-a9c8-d23e524273d4 / 2 TEST frames, same parking d551a3a9-4935-496b-8a53-77884be388b9/notes 9c40f428-155f-417d-b6f4-c2873d191e2a, no automatic summary/map/navigation/observation resume

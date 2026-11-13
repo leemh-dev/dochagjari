@@ -1,0 +1,21 @@
+{
+  "run": 43115895691,
+  "source_commit": "472b68d52ddce41690f73c05f3fb3ad9bfd8d653",
+  "artifact": 13899317062,
+  "conclusion": "failure",
+  "normal_notice_input_sent": true,
+  "matching_host_usb_allow_input_sent": true,
+  "guest_dialog_dismissal": "unobserved: post-input screenshot missing in this run",
+  "adb_authorized": false,
+  "transport": {
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "error: device unauthorized.\n[credential diagnostic omitted]\nTry 'adb kill-server' if that seems wrong.\nOtherwise check for a confirmation dialog on your device."
+  },
+  "boot_property_queried": false,
+  "package_activity_queried": false,
+  "installed": false,
+  "native_navigation_or_console_executed": false,
+  "connected_tests_executed": false,
+  "new_followup": "Read-only post-input and final pre-stop screenshots added after this run. No new boot dispatched."
+}

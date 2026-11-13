@@ -1,0 +1,112 @@
+{
+  "run": 43390462215,
+  "artifact": 14022042145,
+  "code": "8ea046a65e69b0c15749683cf979e0df26eae536",
+  "environment": "Generic Android API34 / CI-owned fresh AVD",
+  "counts": {
+    "PASS": 12,
+    "FAIL": 0,
+    "SKIP": 2
+  },
+  "cases": [
+    {
+      "class": "dev.leemh.dochagjari.AppInstrumentedTest",
+      "test": "realFrameAnalysisChangesWithVideoAndReadsPillar",
+      "result": "PASS"
+    },
+    {
+      "class": "dev.leemh.dochagjari.AppInstrumentedTest",
+      "test": "videoInputChangesOccupancyAndDivertsRecommendationInApp",
+      "result": "PASS"
+    },
+    {
+      "class": "dev.leemh.dochagjari.AppInstrumentedTest",
+      "test": "hospitalCompanionAndMissingStepFreeRouteChangeCandidates",
+      "result": "PASS"
+    },
+    {
+      "class": "dev.leemh.dochagjari.AppInstrumentedTest",
+      "test": "savedOptionsAndNotificationJournalSurviveModelRestart",
+      "result": "PASS"
+    },
+    {
+      "class": "dev.leemh.dochagjari.AppInstrumentedTest",
+      "test": "drivingAndUnknownStatesBlockLocationAndProfileChanges",
+      "result": "PASS"
+    },
+    {
+      "class": "dev.leemh.dochagjari.AppInstrumentedTest",
+      "test": "academyModeAndBlockedCandidateChangeDestination",
+      "result": "PASS"
+    },
+    {
+      "class": "dev.leemh.dochagjari.IndoorGuideInstrumentedTest",
+      "test": "nativeRouteMovesPausesChangesPerspectiveAndClosesWithoutLosingVisit",
+      "result": "PASS"
+    },
+    {
+      "class": "dev.leemh.dochagjari.IndoorGuideInstrumentedTest",
+      "test": "movingOrUnknownVehicleStateClosesAndCannotReopenDetailedMap",
+      "result": "PASS"
+    },
+    {
+      "class": "dev.leemh.dochagjari.ProcessRestartInstrumentedTest",
+      "test": "verifyRestoredArrivalAndProfile",
+      "result": "SKIP"
+    },
+    {
+      "class": "dev.leemh.dochagjari.ProcessRestartInstrumentedTest",
+      "test": "prepareQueuedArrivalAndSavedProfile",
+      "result": "SKIP"
+    },
+    {
+      "class": "dev.leemh.dochagjari.SeatRolesInstrumentedTest",
+      "test": "optionalRolesAreDurableAndSkipPreservesVisitAndLegacyOptions",
+      "result": "PASS"
+    },
+    {
+      "class": "dev.leemh.dochagjari.SeatRolesInstrumentedTest",
+      "test": "occupancyNeverChangesRolesAndDrivingBlocksRoleWrites",
+      "result": "PASS"
+    },
+    {
+      "class": "dev.leemh.dochagjari.StoreVisitInstrumentedTest",
+      "test": "storeLookupAndPreparedVisitAreReallyStoredAndSurviveActivityRestart",
+      "result": "PASS"
+    },
+    {
+      "class": "dev.leemh.dochagjari.VisitRoadInstrumentedTest",
+      "test": "roadResultCancelDrivingExplicitEntryAndRestartKeepSameVisit",
+      "result": "PASS"
+    }
+  ],
+  "two_phase_restart": "PASS;7575 ->7626; same visit/road/observation IDs, 2 TEST frames and frozen notification/profile; no source replay",
+  "ui": {
+    "screenshots": 37,
+    "new_stage5_screenshots": 8,
+    "observation_recovery": {
+      "same_visit_id": true,
+      "input": "TEST floor/pillar fixtures and GENERATED video / Android ML Kit",
+      "cases": [
+        "repeated B3/C12 text candidate",
+        "B3/B4 same pillar conflict",
+        "low confidence",
+        "stale",
+        "no sign",
+        "actual generated video"
+      ],
+      "old_pid": "11670",
+      "new_pid": "13133",
+      "stored_frames": 2,
+      "no_automatic_resume": true,
+      "actual_pangyo_pillar_position_lift_verified": false,
+      "parking_confirmed": false
+    }
+  },
+  "http_server_mock": {
+    "success": true,
+    "post_count": 1,
+    "provider_attempts": 0
+  },
+  "camera_pleos_position_verified": false
+}

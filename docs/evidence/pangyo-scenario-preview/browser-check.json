@@ -1,0 +1,18 @@
+{
+  "environment": "Local HTML in Chromium; no Android app modification",
+  "pageErrors": [],
+  "controls": "play, pause, six step buttons, tilt/flat exercised",
+  "frames": 79,
+  "fps": 6,
+  "durationSeconds": 13,
+  "mobileHorizontalOverflow": false,
+  "publicNetworkRequiredForPlayback": false,
+  "limits": "Narrative parking/arrival/return are proposed guidance, not actual driven visit. Official map route only on5F; no verified cab-number or parking-pillar link.",
+  "recordedDurationSeconds": 13.166666666666666,
+  "routePixelAlignment": {
+    "samples": 39,
+    "within3Pixels": 37,
+    "medianDistancePixels": 0.39,
+    "limit": "Visible line comparison only, not field validation"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "saved_at_utc": "2026-11-13T14:32:39.986675+00:00",
+  "scope": "Four new final UX concepts plus an unchanged earlier store reference",
+  "app_version": "0.9.0",
+  "version_code": 9,
+  "app_code": "e2b93baa91ce5bc56fb770fdc65dad08b9992175",
+  "app_changed": false,
+  "images": [
+    {
+      "file": "01-store-reference.png",
+      "scenario": "1. 매장 방문",
+      "width": 1672,
+      "height": 941,
+      "bytes": 1716617,
+      "sha256": "8fc0df065723133b52bfff08e2f56304a33d88a21fe53b1875ec64fd1be0d4cb",
+      "note": "Existing approved style reference; not newly generated this turn",
+      "verification": "AI-generated UX concept; not Android/Pleos execution, official map, positioning, or SDK proof"
+    },
+    {
+      "file": "02-hospital-companion.png",
+      "scenario": "2. 병원 동행",
+      "width": 1672,
+      "height": 941,
+      "bytes": 1730924,
+      "sha256": "8783cb4bb62ac16d43dcadc516c3915bae27b81665806b30f9270f2ae52eb438",
+      "note": "New generated UX concept; fictional hospital; parked state",
+      "verification": "AI-generated UX concept; not Android/Pleos execution, official map, positioning, or SDK proof"
+    },
+    {
+      "file": "03-academy-pickup.png",
+      "scenario": "3. 학교·학원 픽업",
+      "width": 1672,
+      "height": 941,
+      "bytes": 1718302,
+      "sha256": "dc1d2cbf7172b218b869acb71ea7f00e4cb3392f237d3b1a02199298a194398d",
+      "note": "New generated UX concept; fictional academy; blocked pickup point",
+      "verification": "AI-generated UX concept; not Android/Pleos execution, official map, positioning, or SDK proof"
+    },
+    {
+      "file": "04a-station-pickup.png",
+      "scenario": "4A. 역 마중",
+      "width": 1672,
+      "height": 941,
+      "bytes": 1729480,
+      "sha256": "f7e22033e8aba21a08dcedca6cce0b2d68a823678e5df82043949381e00e9cdb",
+      "note": "New generated UX concept; fictional station; planned vehicle/pedestrian routes",
+      "verification": "AI-generated UX concept; not Android/Pleos execution, official map, positioning, or SDK proof"
+    },
+    {
+      "file": "04b-airport-waiting.png",
+      "scenario": "4B. 공항 마중",
+      "width": 1672,
+      "height": 941,
+      "bytes": 1777270,
+      "sha256": "04ad13b7148f98416ec7f61398e32d683a03bb6b79f27aae0957ffaf6d387cc1",
+      "note": "Corrected generated UX concept; blue route ends at waiting parking",
+      "verification": "AI-generated UX concept; not Android/Pleos execution, official map, positioning, or SDK proof"
+    }
+  ],
+  "superseded_airport": {
+    "sha256": "b3c8b3f9fc4e856cadf163297085158ad6b85f40fca7eb430ca3a870ac05701e",
+    "reason": "Initial blue route went from parking toward pickup although primary action was waiting-parking guidance. Replaced with blue route ending at parking.",
+    "retention": "Original retained in workspace generated_images and research folder; final tracked image is 04b-airport-waiting.png"
+  }
+}

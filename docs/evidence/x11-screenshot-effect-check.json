@@ -1,0 +1,230 @@
+{
+  "scope": "Own private host Xvfb; no emulator, ADB or app execution",
+  "display_size": [
+    800,
+    600
+  ],
+  "before": {
+    "readonly": true,
+    "expected_point": [
+      200,
+      150
+    ],
+    "checks": {
+      "pointer": {
+        "returncode": 0,
+        "stdout": "X=200\nY=150\nSCREEN=0\nWINDOW=2097185",
+        "stderr": ""
+      },
+      "display": {
+        "returncode": 0,
+        "stdout": "800 600",
+        "stderr": ""
+      },
+      "focus": {
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "XGetInputFocus returned the focused window of 1. This is likely a bug in the X server.\nX Error of failed request:  BadWindow (invalid Window parameter)\n  Major opcode of failed request:  20 (X_GetProperty)\n  Resource id in failed request:  0x1\n  Serial number of failed request:  20\n  Current serial number in output stream:  20"
+      },
+      "root_tree": {
+        "returncode": 0,
+        "stdout": "{'root_id': 543, 'windows': [{'id': 2097184, 'width': 240, 'height': 120, 'x': 100, 'y': 100, 'classes': ['PointerCheck', 'Xmessage']}, {'id': 2097185, 'width': 240, 'height': 120, 'x': 101, 'y': 101, 'classes': []}, {'id': 2097189, 'width': 230, 'height': 78, 'x': 105, 'y': 105, 'classes': []}, {'id': 2097186, 'width': 51, 'height': 25, 'x': 105, 'y': 190, 'classes': []}]}",
+        "stderr": ""
+      },
+      "target_class": {
+        "returncode": 0,
+        "stdout": "WM_CLASS:  not found.",
+        "stderr": ""
+      },
+      "target_tree": {
+        "returncode": 0,
+        "stdout": "{'root': 543, 'parent': 2097184}",
+        "stderr": ""
+      },
+      "target_geometry": {
+        "returncode": 0,
+        "stdout": "  Absolute upper-left X:  101\n  Absolute upper-left Y:  101\n  Width: 240\n  Height: 120\n  Map State: IsViewable",
+        "stderr": ""
+      }
+    },
+    "pointer": {
+      "X": 200,
+      "Y": 150,
+      "SCREEN": 0,
+      "WINDOW": 2097185
+    },
+    "pointer_coordinates_match": true,
+    "display_size": [
+      800,
+      600
+    ],
+    "focus_window": null,
+    "window_inventory": {
+      "root_id": 543,
+      "windows": [
+        {
+          "id": 2097184,
+          "width": 240,
+          "height": 120,
+          "x": 100,
+          "y": 100,
+          "classes": [
+            "PointerCheck",
+            "Xmessage"
+          ]
+        },
+        {
+          "id": 2097185,
+          "width": 240,
+          "height": 120,
+          "x": 101,
+          "y": 101,
+          "classes": []
+        },
+        {
+          "id": 2097189,
+          "width": 230,
+          "height": 78,
+          "x": 105,
+          "y": 105,
+          "classes": []
+        },
+        {
+          "id": 2097186,
+          "width": 51,
+          "height": 25,
+          "x": 105,
+          "y": 190,
+          "classes": []
+        }
+      ]
+    },
+    "target_class": "WM_CLASS:  not found.",
+    "target_ancestors": {
+      "root": 543,
+      "parent": 2097184
+    },
+    "target_geometry": {
+      "x": 101,
+      "y": 101,
+      "width": 240,
+      "height": 120
+    }
+  },
+  "after_screenshot": {
+    "readonly": true,
+    "expected_point": [
+      200,
+      150
+    ],
+    "checks": {
+      "pointer": {
+        "returncode": 0,
+        "stdout": "X=200\nY=150\nSCREEN=0\nWINDOW=2097185",
+        "stderr": ""
+      },
+      "display": {
+        "returncode": 0,
+        "stdout": "800 600",
+        "stderr": ""
+      },
+      "focus": {
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "XGetInputFocus returned the focused window of 1. This is likely a bug in the X server.\nX Error of failed request:  BadWindow (invalid Window parameter)\n  Major opcode of failed request:  20 (X_GetProperty)\n  Resource id in failed request:  0x1\n  Serial number of failed request:  20\n  Current serial number in output stream:  20"
+      },
+      "root_tree": {
+        "returncode": 0,
+        "stdout": "{'root_id': 543, 'windows': [{'id': 2097184, 'width': 240, 'height': 120, 'x': 100, 'y': 100, 'classes': ['PointerCheck', 'Xmessage']}, {'id': 2097185, 'width': 240, 'height': 120, 'x': 101, 'y': 101, 'classes': []}, {'id': 2097189, 'width': 230, 'height': 78, 'x': 105, 'y': 105, 'classes': []}, {'id': 2097186, 'width': 51, 'height': 25, 'x': 105, 'y': 190, 'classes': []}]}",
+        "stderr": ""
+      },
+      "target_class": {
+        "returncode": 0,
+        "stdout": "WM_CLASS:  not found.",
+        "stderr": ""
+      },
+      "target_tree": {
+        "returncode": 0,
+        "stdout": "{'root': 543, 'parent': 2097184}",
+        "stderr": ""
+      },
+      "target_geometry": {
+        "returncode": 0,
+        "stdout": "  Absolute upper-left X:  101\n  Absolute upper-left Y:  101\n  Width: 240\n  Height: 120\n  Map State: IsViewable",
+        "stderr": ""
+      }
+    },
+    "pointer": {
+      "X": 200,
+      "Y": 150,
+      "SCREEN": 0,
+      "WINDOW": 2097185
+    },
+    "pointer_coordinates_match": true,
+    "display_size": [
+      800,
+      600
+    ],
+    "focus_window": null,
+    "window_inventory": {
+      "root_id": 543,
+      "windows": [
+        {
+          "id": 2097184,
+          "width": 240,
+          "height": 120,
+          "x": 100,
+          "y": 100,
+          "classes": [
+            "PointerCheck",
+            "Xmessage"
+          ]
+        },
+        {
+          "id": 2097185,
+          "width": 240,
+          "height": 120,
+          "x": 101,
+          "y": 101,
+          "classes": []
+        },
+        {
+          "id": 2097189,
+          "width": 230,
+          "height": 78,
+          "x": 105,
+          "y": 105,
+          "classes": []
+        },
+        {
+          "id": 2097186,
+          "width": 51,
+          "height": 25,
+          "x": 105,
+          "y": 190,
+          "classes": []
+        }
+      ]
+    },
+    "target_class": "WM_CLASS:  not found.",
+    "target_ancestors": {
+      "root": 543,
+      "parent": 2097184
+    },
+    "target_geometry": {
+      "x": 101,
+      "y": 101,
+      "width": 240,
+      "height": 120
+    }
+  },
+  "old": {
+    "timed_out": false,
+    "returncode": 0,
+    "seconds": 0.23
+  },
+  "fixed": {
+    "returncode": 0,
+    "seconds": 0.26
+  }
+}

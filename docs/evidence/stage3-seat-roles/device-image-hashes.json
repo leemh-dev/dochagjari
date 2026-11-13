@@ -1,0 +1,29 @@
+{
+  "run": 43366222134,
+  "head_code": "a8e440bd4dd9ee84f318f9b3a1512fe55a13de7f",
+  "artifact": 14010628050,
+  "environment": "General Android API34 dedicated CI AVD",
+  "inputs": "explicit user roles; app test occupancy; not Pleos/real vehicle",
+  "images": [
+    {
+      "file": "22-seat-roles-skipped.png",
+      "bytes": 99844,
+      "sha256": "f25fc3928e69bcaa7f1b82ac77fc799f6e5945c8dafddba981135b43a24bde5c"
+    },
+    {
+      "file": "23-seat-roles-configured.png",
+      "bytes": 99493,
+      "sha256": "fa6cf3916cc6fdc00900f30db9dd8c16dc28e2eac3a0e1a54eed5bda87362ffd"
+    },
+    {
+      "file": "24-seat-occupancy-suggestion.png",
+      "bytes": 93303,
+      "sha256": "6a34c6a78303e5ef7667f1c49d98f530a4fe32d9f629835bcde1538c8d136ae4"
+    },
+    {
+      "file": "25-seat-roles-restarted.png",
+      "bytes": 99073,
+      "sha256": "082a469b1def8c88268fe54b81959a01c0e42c576670882ed11e55cb1a0f5a19"
+    }
+  ]
+}

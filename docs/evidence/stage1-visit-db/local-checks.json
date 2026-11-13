@@ -1,0 +1,22 @@
+{
+  "environment": "Codex Cloud Linux; Java17/Android35; no connected device or KVM",
+  "jvm": {
+    "tests": 41,
+    "failures": 0,
+    "errors": 0
+  },
+  "new_tests": [
+    "ambiguousAliasReturnsAllMatchesRatherThanSilentlyChoosingOne",
+    "offlineAliasLookupKeepsUnknownParkingAndDrawingUnitsSeparate",
+    "alteredSameVersionIsRejectedWithoutDestroyingVisitOrCatalog",
+    "newCatalogImportRetainsOriginalVisitAndOldSnapshot",
+    "closedVisitAndParkingEvidenceSurviveDatabaseReopenWithSameIdentity",
+    "concurrentRepeatedPrepareCreatesOnlyOneVisitAcrossConnections",
+    "unknownDestinationCannotCreateAnOrphanVisit",
+    "repositoryOnlyPublishesSavedVisitAfterSuccessfulWriteAndCanRetry"
+  ],
+  "build": "testDebugUnitTest lintDebug assembleDebug assembleDebugAndroidTest assembleRelease: BUILD SUCCESSFUL in 2m3s",
+  "ci_device": "pending; do not count instrumented tests until executed",
+  "apk_version": "0.3.0/3; development debug/test and unsigned release",
+  "source": "official facility/5F route snapshot; no actual parking or camera trip"
+}

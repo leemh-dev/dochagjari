@@ -1,0 +1,8 @@
+4ec72f6d2b990546866f1ac025ddf0ee24f7a8dd
+package: name='dev.leemh.dochagjari' versionCode='2' versionName='0.2.0' platformBuildVersionName='15' platformBuildVersionCode='35' compileSdkVersion='35' compileSdkVersionCodename='15'
+sdkVersion:'34'
+targetSdkVersion:'34'
+native-code: 'arm64-v8a' 'x86_64'
+20c01cc32fba238f5b4a27bde2e6db231fa8e26d37617b0d50fe7f12ec0c0714  app/build/outputs/apk/debug/app-debug.apk
+1820759f47dd738b75d74a8ea86c60e9054306996dfb6085579ebdcc0dd938df  app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+same_local_debug_signer_sha256=868a8ee5b37eb58711ebf79da06145f6d935aa938b2db59da145aa8c8b33904d

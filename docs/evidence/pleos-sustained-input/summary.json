@@ -1,0 +1,9 @@
+{
+  "run": 43129699644,
+  "artifact": 13904479034,
+  "source": "d6615204dc0ff9f8ae94d690e4b5d956a3156133",
+  "result": "unauthorized after normal 200ms mouse down/up; installation skipped",
+  "visual_review": "USB debugging dialog remains visible in the original post-input screenshot even though OCR reports false. Final desktop image is black; it does not prove successful authorization. Exact cause unconfirmed.",
+  "fix_after_run": "Post-input OCR miss now explicitly means unknown, never confirmed dismissal. No further boot requested.",
+  "scope": "No app install, native navigation, Console, SDK reception or connected tests executed. Later Compose toggle fix900ae4c not included."
+}

@@ -1,0 +1,18 @@
+{
+  "environment": "Codex Cloud;JDK17/Android35;offline/1worker/1536MiB;no connected devices/KVM",
+  "jvm": {
+    "tests": 62,
+    "failures": 0,
+    "errors": 0
+  },
+  "build": "Final JVM/lint/debug/test/unsigned release BUILD SUCCESSFUL in1m43s",
+  "new_unit_tests": 10,
+  "device": "CI43371857767 PASS;12 instrumented passes,2 process-specific skips followed by separate two-phase PASS;29 UI screenshots/explicit entry/hidden restart/HTTP SERVER_MOCK recovery PASS",
+  "research": "Official facility marker, not vehicle entrance",
+  "iterations": [
+    "first implementation2m25s",
+    "single device scenario/helper/state-race guards1m49s",
+    "SDK function return vs uncorrelated callback1m45s",
+    "pinned retry target/displayed stored channel1m43s"
+  ]
+}

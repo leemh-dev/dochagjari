@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="dev.leemh.dochagjari.HttpArrivalTransportTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:30:11" hostname="codex-cloud" time="0.215">
+  <properties />
+  <testcase name="lookup404AndPostUseFrozenPayloadAndParseReceipt" classname="dev.leemh.dochagjari.HttpArrivalTransportTest" time="0.158" />
+  <testcase name="redirectsDoNotForwardTokenAndLegacyReceiptDoesNotBecomeSuccess" classname="dev.leemh.dochagjari.HttpArrivalTransportTest" time="0.056" />
+  </testsuite>

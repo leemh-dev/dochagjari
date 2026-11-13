@@ -1,0 +1,8 @@
+{
+  "environment": "GitHub KVM / official Pleos 2.1.0 API34 x86_64 / separate test userdata",
+  "boot_completed": false,
+  "acceleration": "accel:\n0\nKVM (version 12) is installed and usable.\naccel",
+  "stage": "failed",
+  "archive_bytes": 4087751964,
+  "error": "<urlopen error [Errno 104] Connection reset by peer>"
+}

@@ -1,0 +1,27 @@
+{
+  "source_run": 43358680681,
+  "images": [
+    "20-native-guide-closed.png",
+    "21-native-guide-hidden-restored.png"
+  ],
+  "size": [
+    1280,
+    800
+  ],
+  "comparison_region": [
+    0,
+    24,
+    1280,
+    800
+  ],
+  "difference_bbox": null,
+  "app_region_nonblack_fraction": 1.0,
+  "background_rgb": [
+    9,
+    18,
+    27
+  ],
+  "result": "App content is identical and correctly rendered in both original PNGs. Initial chat image interpretation was wrong; uncommitted experiment reverted.",
+  "final_code": "e573e8ebbd5736259cf3eb48e792074d61f8897c",
+  "final_version": "0.4.0/4"
+}

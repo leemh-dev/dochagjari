@@ -1,0 +1,11 @@
+[
+  {"id":"academy","name":"도착학원 · 가상 시연","entrance":"1층 서쪽 출입구","fictional":true,"points":[
+    {"id":"academy-stop","name":"서쪽 승하차점 (시연 좌표)","kind":"dropoff","latitude":37.48544722,"longitude":127.03636666,"stepFree":"DEMO","doorSide":"right","heightM":4.0,"open":"00:00","close":"00:00","walking":"가상 동선: 서쪽 문까지 30m, 보도 이동"},
+    {"id":"academy-parking","name":"뒤편 주차장 입구 (시연 좌표)","kind":"parking","latitude":37.48615,"longitude":127.03715,"stepFree":"DEMO","doorSide":"both","heightM":2.3,"open":"00:00","close":"00:00","walking":"가상 동선: B1 엘리베이터 → 1층 서쪽 출입구 90m"}
+  ]},
+  {"id":"hospital","name":"도착병원 · 가상 시연","entrance":"본관 1층 보호자 출입구","fictional":true,"points":[
+    {"id":"hospital-stop","name":"본관 동행자 하차점","kind":"dropoff","latitude":37.41275833,"longitude":127.09481944,"stepFree":"DEMO","doorSide":"right","heightM":4.0,"open":"00:00","close":"00:00","walking":"가상 동선: 경사로로 1층 이동. 하차 후 주차 모드에서는 뒤편 주차장으로 계속 안내"},
+    {"id":"hospital-parking","name":"동반 주차 구역 입구","kind":"parking","latitude":37.4134,"longitude":127.0953,"stepFree":"DEMO","doorSide":"both","heightM":2.3,"open":"00:00","close":"00:00","walking":"가상 동선: 넓은 문 여유 구역 → B1 엘리베이터 → 본관 1층"},
+    {"id":"hospital-unknown","name":"별관 주차장 (무단차 미확인)","kind":"parking","latitude":37.4138,"longitude":127.0958,"stepFree":"UNKNOWN","doorSide":"unknown","heightM":2.0,"open":"00:00","close":"00:00","walking":"전체 무단차 경로 미확인"}
+  ]}
+]

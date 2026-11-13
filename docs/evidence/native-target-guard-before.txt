@@ -1,0 +1,15 @@
+test_actual_native_emulator_target_overrides_false_zero_from_xdotool (test_native_target.ActualNativeTargetTest.test_actual_native_emulator_target_overrides_false_zero_from_xdotool) ... FAIL
+test_incomplete_hidden_wrong_class_or_wrong_position_are_not_targets (test_native_target.ActualNativeTargetTest.test_incomplete_hidden_wrong_class_or_wrong_position_are_not_targets) ... ok
+
+======================================================================
+FAIL: test_actual_native_emulator_target_overrides_false_zero_from_xdotool (test_native_target.ActualNativeTargetTest.test_actual_native_emulator_target_overrides_false_zero_from_xdotool)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/dochagjari/scripts/pleos/tests/test_native_target.py", line 17, in test_actual_native_emulator_target_overrides_false_zero_from_xdotool
+    self.assertTrue(input_target_known(context))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.003s
+
+FAILED (failures=1)

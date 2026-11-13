@@ -1,0 +1,9 @@
+{
+  "scope": "Host-only HTTP fixture self-check; not Android or SMS verification",
+  "response_withheld": true,
+  "durable_before_response": true,
+  "server_restart_same_db": true,
+  "get_existing_result": true,
+  "provider_attempts": 0,
+  "success": true
+}

@@ -1,0 +1,17 @@
+{
+  "baseline_app_commit": "3a015154a05e7d2861aea1bc190010962313824c",
+  "compared_head": "d6fa66ff7e17dccf88e8eb70c0528567b5115d36",
+  "paths": [
+    "app",
+    "server",
+    "gradle",
+    "build.gradle.kts",
+    "settings.gradle.kts",
+    "gradle.properties"
+  ],
+  "changed_paths": [],
+  "app_version": "0.2.0",
+  "version_code": 2,
+  "deployment_artifact_id": 13871881801,
+  "scope": "Tracked runtime sources unchanged. CI temporary APK signatures/hashes are separate; this is not a claim of byte-identical CI APKs."
+}

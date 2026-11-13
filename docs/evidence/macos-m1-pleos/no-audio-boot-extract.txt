@@ -1,0 +1,3 @@
+DEBUG   | Physical RAM size: 4096MB
+DEBUG   | CPU Acceleration status: Hypervisor.Framework OS X Version 27.0
+INFO         | Boot completed in 230617 ms

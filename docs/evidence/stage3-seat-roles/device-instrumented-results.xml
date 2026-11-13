@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="dev.leemh.dochagjari.AppInstrumentedTest" tests="13" failures="0" errors="0" skipped="2" time="55.289" timestamp="2026-11-13T04:43:27" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 14" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="realFrameAnalysisChangesWithVideoAndReadsPillar" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="26.753" />
+  <testcase name="videoInputChangesOccupancyAndDivertsRecommendationInApp" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="18.078" />
+  <testcase name="hospitalCompanionAndMissingStepFreeRouteChangeCandidates" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="0.81" />
+  <testcase name="savedOptionsAndNotificationJournalSurviveModelRestart" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="0.682" />
+  <testcase name="drivingAndUnknownStatesBlockLocationAndProfileChanges" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="0.541" />
+  <testcase name="academyModeAndBlockedCandidateChangeDestination" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="0.954" />
+  <testcase name="nativeRouteMovesPausesChangesPerspectiveAndClosesWithoutLosingVisit" classname="dev.leemh.dochagjari.IndoorGuideInstrumentedTest" time="2.266" />
+  <testcase name="movingOrUnknownVehicleStateClosesAndCannotReopenDetailedMap" classname="dev.leemh.dochagjari.IndoorGuideInstrumentedTest" time="0.986" />
+  <testcase name="verifyRestoredArrivalAndProfile" classname="dev.leemh.dochagjari.ProcessRestartInstrumentedTest" time="0.013">
+    <skipped />
+  </testcase>
+  <testcase name="prepareQueuedArrivalAndSavedProfile" classname="dev.leemh.dochagjari.ProcessRestartInstrumentedTest" time="0.031">
+    <skipped />
+  </testcase>
+  <testcase name="optionalRolesAreDurableAndSkipPreservesVisitAndLegacyOptions" classname="dev.leemh.dochagjari.SeatRolesInstrumentedTest" time="1.865" />
+  <testcase name="occupancyNeverChangesRolesAndDrivingBlocksRoleWrites" classname="dev.leemh.dochagjari.SeatRolesInstrumentedTest" time="0.558" />
+  <testcase name="storeLookupAndPreparedVisitAreReallyStoredAndSurviveActivityRestart" classname="dev.leemh.dochagjari.StoreVisitInstrumentedTest" time="0.96" />
+</testsuite>

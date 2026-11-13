@@ -1,0 +1,13 @@
+{
+  "run": 43151137564,
+  "source": "8d12198",
+  "early_artifact": 13913959543,
+  "final_artifact": 13914083961,
+  "scope": "Actual Pleos app first display; vehicle/navigation still test/mock, not native SDK proof",
+  "display": "Only logical0/one physical; Awake; foreground user10; app MainActivity focused and visible in multi-window",
+  "initial_launch": "am start rc0 but Status timeout; first capture shows native map loading; later physical capture shows actual app",
+  "ui": "Tab labels/absolute bounds match visible app; final XML remains arrival page after requested tab input; no SDK invocation confirmed",
+  "hypothesis_rejected": "No evidence that app is on another display; do not change display policy based on prior guess",
+  "connected": "intentionally disabled for this observation-only run",
+  "next": "Current-user scoped install/grant/clear/instrumentation; unique fresh XML, app-root and transition acknowledgement; normal host touchscreen comparison with strict native window/focus/geometry guard"
+}

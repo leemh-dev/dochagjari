@@ -30,7 +30,7 @@ SDK 신청 안내상 Vehicle State와 NaviHelper는 별도 신청 없이 사용�
 - [ ] GPS 신뢰도가 낮거나 네트워크가 끊긴 상태에서 층·구역 안내 확인
 - [ ] 정차 위치 수정 후 휴대폰에서 공유 문구와 링크 확인
 
-현재 검증 상태는 공식 문서와 샘플 소스 확인 단계다. 제품 APK, Pleos AVD 및 실차 연동 결과는 위 체크리스트에 증거와 함께 갱신한다.
+2026-11-11에 도착자리와 공식 샘플 APK 빌드, 추천 단위 테스트와 모의 SMS 서버 검증을 진행했다. 현재 실행 결과와 AVD·실차 검증의 구분은 [구현·검증 기록](08-verification.md)에 정리한다. 빌드 성공만으로 위 기기 체크리스트를 완료 처리하지 않는다.
 
 - [Pleos Emulator 설치](https://document.pleos.ai/docs/connect/guide/getting-started/application-development/setup-connect-sdk-emulator) · [공식 내비 샘플](https://github.com/Pleos-Playground/pleos-sample-navi-app) · [NaviHelper 목적지](https://document.pleos.ai/en/docs/pleos-only/connect-sdk-pleos/NaviHelper/destinations)
 - [SDK 사용 조건](https://document.pleos.ai/docs/pleos-only/create-my-project) · [Vehicle SDK](https://document.pleos.ai/api-reference/connect-sdk-pleos/Vehicle/intro) · [Virtual Console](https://document.pleos.ai/docs/pleos-only/app-test-guide/virtual-console-guide) · [AAOS 좌석 점유](https://developer.android.com/reference/android/car/VehiclePropertyIds#SEAT_OCCUPANCY)

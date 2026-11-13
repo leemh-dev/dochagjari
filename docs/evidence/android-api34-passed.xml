@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="dev.leemh.dochagjari.AppInstrumentedTest" tests="8" failures="0" errors="0" skipped="2" time="46.848" timestamp="2026-11-11T16:01:10" hostname="github-kvm-runner">
+  <properties>
+    <property name="device" value="emulator-5554 - 14" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="realFrameAnalysisChangesWithVideoAndReadsPillar" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="25.407" />
+  <testcase name="videoInputChangesOccupancyAndDivertsRecommendationInApp" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="17.628" />
+  <testcase name="hospitalCompanionAndMissingStepFreeRouteChangeCandidates" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="0.785" />
+  <testcase name="savedOptionsAndNotificationJournalSurviveModelRestart" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="0.629" />
+  <testcase name="drivingAndUnknownStatesBlockLocationAndProfileChanges" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="0.534" />
+  <testcase name="academyModeAndBlockedCandidateChangeDestination" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="0.913" />
+  <testcase name="verifyRestoredArrivalAndProfile" classname="dev.leemh.dochagjari.ProcessRestartInstrumentedTest" time="0.004">
+    <skipped />
+  </testcase>
+  <testcase name="prepareQueuedArrivalAndSavedProfile" classname="dev.leemh.dochagjari.ProcessRestartInstrumentedTest" time="0.021">
+    <skipped />
+  </testcase>
+</testsuite>

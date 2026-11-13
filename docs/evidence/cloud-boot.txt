@@ -1,0 +1,22 @@
+Cloud Pleos diagnostics — 2026-11-11 UTC
+Manual AVD; official Pleos 2.1.0 API 34 x86_64 image; 2560x1440/160dpi/4096MB RAM.
+No /dev/kvm; accel-check: KVM requires a CPU that supports vmx or svm.
+Emulator 37.2.13 / software TCG + SwiftShader:
+Emulator 37:
+[   47.038071] init: Failed to set encryption policy of /data/misc to 260030625f0a2537795500af7ae68ecd v2 modes 1/4 flags 0x2: Directory not empty
+[   47.107787] init: Rebooting into recovery
+Emulator 35.2.10:
+[   67.707711] init: Failed to set encryption policy of /data/misc to b5dd13c3d711ee64814d979731ec9c79 v2 modes 1/4 flags 0x2: Directory not empty
+[   67.792733] init: Rebooting into recovery
+Clean, separately formatted development userdata (SDK images unchanged):
+[  112.729885] init: starting service 'zygote'...
+[  152.950229] init: starting service 'surfaceflinger'...
+[  275.911105] apexd: Native process 'vendor.diagnostic_reporter-hal' is crashing. Attempting a revert
+ADB shell readiness checks (2026-11-11 13:57 UTC):
+init.svc.surfaceflinger: running
+init.svc.zygote: running
+pidof system_server: 1379
+service check package: Service package: not found
+service check activity: Service activity: not found
+sys.boot_completed: empty (1 not observed)
+No APK installation, native destination-pin verification, Virtual Console seat toggle, or Android instrumentation success is claimed.

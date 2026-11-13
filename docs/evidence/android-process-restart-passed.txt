@@ -1,0 +1,37 @@
+adb shell getprop sys.boot_completed
+1
+
+adb shell pm clear dev.leemh.dochagjari
+Success
+
+adb shell am instrument -w -e restartPhase prepare -e class dev.leemh.dochagjari.ProcessRestartInstrumentedTest#prepareQueuedArrivalAndSavedProfile dev.leemh.dochagjari.test/androidx.test.runner.AndroidJUnitRunner
+
+dev.leemh.dochagjari.ProcessRestartInstrumentedTest:INSTRUMENTATION_STATUS: arrival_process_pid=7047
+INSTRUMENTATION_STATUS: arrival_request_hash=cb4f68a9ac22cf9708a0ba8441b2732215a1629cd0b0ecc383e786fbede38104
+INSTRUMENTATION_STATUS_CODE: 0
+.
+
+Time: 0.096
+
+OK (1 test)
+
+
+
+adb shell am force-stop dev.leemh.dochagjari
+
+adb shell am instrument -w -e restartPhase verify -e class dev.leemh.dochagjari.ProcessRestartInstrumentedTest#verifyRestoredArrivalAndProfile dev.leemh.dochagjari.test/androidx.test.runner.AndroidJUnitRunner
+
+dev.leemh.dochagjari.ProcessRestartInstrumentedTest:INSTRUMENTATION_STATUS: arrival_process_pid=7098
+INSTRUMENTATION_STATUS: arrival_request_hash=cb4f68a9ac22cf9708a0ba8441b2732215a1629cd0b0ecc383e786fbede38104
+INSTRUMENTATION_STATUS_CODE: 0
+.
+
+Time: 0.072
+
+OK (1 test)
+
+
+
+adb shell am force-stop dev.leemh.dochagjari
+
+PASS: process restart 7047 -> 7098; unchanged request cb4f68a9ac22cf9708a0ba8441b2732215a1629cd0b0ecc383e786fbede38104; frozen payload and acknowledged profile restored; no token/provider call

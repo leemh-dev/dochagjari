@@ -1,0 +1,37 @@
+{
+  "observed_at_utc": "2026-11-11T20:32:12.756514+00:00",
+  "runs": [
+    {
+      "id": 43095641582,
+      "status": "queued",
+      "conclusion": null,
+      "event": "workflow_dispatch",
+      "head_sha": "a0206437bf5bbeec423ea873b79ee242afc52982",
+      "created_at": "2026-11-11T20:22:20Z",
+      "updated_at": "2026-11-11T20:22:20Z",
+      "job_count": 0
+    },
+    {
+      "id": 43096203840,
+      "status": "queued",
+      "conclusion": null,
+      "event": "pull_request",
+      "head_sha": "fcfbfc0ebf15d99d8df31d62505cda65eeaf867a",
+      "created_at": "2026-11-11T20:27:52Z",
+      "updated_at": "2026-11-11T20:27:52Z",
+      "job_count": 0
+    },
+    {
+      "id": 43096197226,
+      "status": "queued",
+      "conclusion": null,
+      "event": "push",
+      "head_sha": "fcfbfc0ebf15d99d8df31d62505cda65eeaf867a",
+      "created_at": "2026-11-11T20:27:48Z",
+      "updated_at": "2026-11-11T20:27:48Z",
+      "job_count": 0
+    }
+  ],
+  "meaning": "queued/job_count=0 is not a boot or test failure; no new emulator result is established",
+  "queue_cause": "unconfirmed"
+}

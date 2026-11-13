@@ -1,0 +1,192 @@
+{
+  "created_at_utc": "2026-11-13",
+  "status": "planning_only_no_video_rendered",
+  "main_video": {
+    "duration_seconds": 210,
+    "format_proposal": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "container": "mp4",
+      "video_codec": "H.264",
+      "audio_codec": "AAC",
+      "subtitles": "Korean SRT"
+    },
+    "shots": [
+      {
+        "id": "S01",
+        "start_seconds": 0,
+        "end_seconds": 15,
+        "duration_seconds": 15,
+        "status": "planned",
+        "title": "초행 방문의 문제",
+        "mode": "concept",
+        "action": "주차/출입구/승강/매장 동선을 따로 찾는 문제",
+        "assets": []
+      },
+      {
+        "id": "S02",
+        "start_seconds": 15,
+        "end_seconds": 35,
+        "duration_seconds": 20,
+        "status": "planned",
+        "title": "독립 탑승 확인 후 에뜨와 요청",
+        "mode": "concept",
+        "action": "내비와 독립된 이번 탑승 확인3~5초(선택사항) 후 목적지 요청. 센서만으로 아이/혼자 판정하지 않는 UX 컨셉.",
+        "assets": [
+          "docs/ux/scenario-concepts/01-store-reference.png"
+        ],
+        "occupant_context_note": "Multiple presets and active trip context are planning-only; see docs/33-occupant-modes-and-trip-context.md. No new voice/sensor implementation."
+      },
+      {
+        "id": "S03",
+        "start_seconds": 35,
+        "end_seconds": 55,
+        "duration_seconds": 20,
+        "status": "planned",
+        "title": "사전DB와 이동 중 보완",
+        "mode": "concept",
+        "action": "저장자료 우선·AI보완 worker는 미래 UX",
+        "assets": []
+      },
+      {
+        "id": "S04",
+        "start_seconds": 55,
+        "end_seconds": 70,
+        "duration_seconds": 15,
+        "status": "planned",
+        "title": "도로 내비와 명시적 입차",
+        "mode": "concept_or_verified_capture",
+        "action": "순정 내비/도착 콜백/입차의 서로 다른 사건",
+        "assets": [
+          "docs/ux/scenario-concepts/01-store-reference.png"
+        ]
+      },
+      {
+        "id": "S05",
+        "start_seconds": 70,
+        "end_seconds": 100,
+        "duration_seconds": 30,
+        "status": "planned",
+        "title": "카메라 표지와3D주차지도",
+        "mode": "concept",
+        "action": "상단 사진형영상/하단 지도, 문자후보와 현재위치 분리",
+        "assets": [
+          "docs/ux/photo-based-3d/05-camera-and-3d-map.png"
+        ],
+        "asset_notes": "Parking concept is layout reference only. Do not relabel Incheon photo 2F/227 as actual Pangyo camera/location."
+      },
+      {
+        "id": "S06",
+        "start_seconds": 100,
+        "end_seconds": 130,
+        "duration_seconds": 30,
+        "status": "planned",
+        "title": "5층 매장행 파란선",
+        "mode": "concept_or_verified_capture",
+        "action": "5층 개략도/동선미리보기, 미확인 주차승강연결은 추가하지 않음",
+        "assets": [
+          "docs/ux/scenario-concepts/01-store-reference.png",
+          "docs/evidence/android-product-ux/05-animated-floor-complete.png"
+        ]
+      },
+      {
+        "id": "S07",
+        "start_seconds": 130,
+        "end_seconds": 150,
+        "duration_seconds": 20,
+        "status": "planned",
+        "title": "명시적 주차완료·저장·닫기",
+        "mode": "concept_or_verified_capture",
+        "action": "관측중지/저장ACK 뒤 요약/닫기",
+        "assets": [
+          "docs/evidence/android-product-ux/08-parking-saved-unknown.png"
+        ]
+      },
+      {
+        "id": "S08",
+        "start_seconds": 150,
+        "end_seconds": 165,
+        "duration_seconds": 15,
+        "status": "planned",
+        "title": "수동으로 귀환기록 조회",
+        "mode": "concept_or_verified_capture",
+        "action": "저장단서/출처·시각, 측위/복귀선 미확인",
+        "assets": [
+          "docs/evidence/android-product-ux/12-return-manual-clue.png"
+        ]
+      },
+      {
+        "id": "S09",
+        "start_seconds": 165,
+        "end_seconds": 195,
+        "duration_seconds": 30,
+        "status": "planned",
+        "title": "병원·학원·역·공항 확장",
+        "mode": "concept",
+        "action": "같은 문제를 푸는 다른 도착 상황",
+        "assets": [
+          "docs/ux/road-scenario-concepts/02-hospital.png",
+          "docs/ux/road-scenario-concepts/01-academy.png",
+          "docs/ux/road-scenario-concepts/03-station.png",
+          "docs/ux/road-scenario-concepts/04-airport.png"
+        ],
+        "segments": [
+          {
+            "scene": "hospital",
+            "seconds": 10
+          },
+          {
+            "scene": "academy",
+            "seconds": 10
+          },
+          {
+            "scene": "station",
+            "seconds": 5
+          },
+          {
+            "scene": "airport_departure",
+            "seconds": 5
+          }
+        ]
+      },
+      {
+        "id": "S10",
+        "start_seconds": 195,
+        "end_seconds": 210,
+        "duration_seconds": 15,
+        "status": "planned",
+        "title": "실제 구현 수준과 종료",
+        "mode": "evidence_summary",
+        "action": "UX컨셉/일반Android/미확인 실연동 구분",
+        "assets": []
+      }
+    ]
+  },
+  "actual_app_recording": {
+    "target_seconds": 90,
+    "status": "not_recorded_in_this_task",
+    "requirements": [
+      "same APK and visit, preserve unedited original",
+      "Android TEST/MOCK must remain labelled",
+      "Pleos actual capture only after real readiness/installation and SDK/pin observation",
+      "old PNGs are planning references, not new continuous recording"
+    ]
+  },
+  "app_baseline": {
+    "version": "0.9.0",
+    "versionCode": 9,
+    "code_commit": "e2b93baa91ce5bc56fb770fdc65dad08b9992175",
+    "artifact_id": 14033304488,
+    "status": "unchanged"
+  },
+  "official_source_check": {
+    "checked_at_utc": "2026-11-13",
+    "submission": "https://appdevchallenge.auto-hmg.io/guide/submission",
+    "faq": "https://appdevchallenge.auto-hmg.io/faq",
+    "mockups_prototypes_screen_recordings_accepted": true,
+    "source_pages_did_not_specify_video_duration_or_size": true,
+    "proposed_durations_are_not_official_limits": true
+  },
+  "next_action": "15-20 second motion sample, separate from Android implementation"
+}

@@ -1,0 +1,27 @@
+{
+  "run": 43390462215,
+  "artifact": 14021185433,
+  "head_code": "8ea046a65e69b0c15749683cf979e0df26eae536",
+  "ci_build_code": "5894f4388389e9f486362dd46477af56f268e149",
+  "same_tree": "af875b388905631af7c67bf20ce74046e4d7fb25",
+  "version": "0.7.0/7",
+  "checks": [
+    {
+      "kind": "debug",
+      "bytes_sha256_manifest_match": true,
+      "signature_expected": true
+    },
+    {
+      "kind": "androidTest",
+      "bytes_sha256_manifest_match": true,
+      "signature_expected": true
+    },
+    {
+      "kind": "unsigned-release",
+      "bytes_sha256_manifest_match": true,
+      "signature_expected": true
+    }
+  ],
+  "download": "Connected GitHub App file reference; no auth/proxy bypass",
+  "device_apk": "Separate runner rebuild of same source, byte/certificate equality not assumed"
+}

@@ -1,0 +1,16 @@
+{
+  "head_code": "e573e8ebbd5736259cf3eb48e792074d61f8897c",
+  "ci_build_code": "718920494f4761e31aa4ee82947c0ea021ec338b",
+  "tree_sha": "d56e260b794b038fb4f9e9cf086c43b94ba05568",
+  "head_and_pr_merge_tree_equal": true,
+  "workflow_run": "43358680681",
+  "artifact_id": 14006823539,
+  "source": "Connected GitHub App file reference; standard download; no proxy/auth bypass",
+  "checks": {
+    "sha256_all_three": true,
+    "manifest_all_three": true,
+    "debug_and_test_signature_and_certificate": true,
+    "release_unsigned": true
+  },
+  "note": "CLI auth401 and blob403 did not prevent normal connected-GitHub download. Local and CI development keys may differ."
+}

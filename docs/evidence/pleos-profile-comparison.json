@@ -1,0 +1,21 @@
+{
+  "date_utc": "2026-11-11T20:27:44.101888+00:00",
+  "source": "Already downloaded official Pleos 2.1.0 Linux API34 x86_64 image; read-only metadata",
+  "source_properties_ram_mb": 8192,
+  "devices_xml_ram": {
+    "value": 4,
+    "unit": "GiB"
+  },
+  "devices_xml_screen": [
+    2560,
+    1440
+  ],
+  "official_userdata_bytes": 1153433600,
+  "previous_kvm_test": {
+    "ram_mb": 4096,
+    "cores": 2,
+    "gpu": "SwiftShader",
+    "userdata": "Separate blank formatted 2GiB; official SDK images unchanged"
+  },
+  "conclusion": "Official files specify different RAM defaults; no causal conclusion. Factory userdata differs from previous blank test data. No memory or userdata boot comparison executed this turn yet."
+}
