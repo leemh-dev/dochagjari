@@ -4,6 +4,10 @@
 
 [서비스 기획](01-product-plan.md) · [시나리오](02-service-scenarios.md) · [데이터](03-data-plan.md) · [기능](04-feature-design.md) · [Pleos 연동](05-pleos-integration.md) · [MVP와 제출](06-mvp-and-submission.md)
 
+## 2단계와 이동 중 자료 보완
+
+네이티브 지도/파란선·재생/닫기와 사용자 추가 방향인 “이동 중 필요한 근거를 충분히 보완”하는 설계를 [docs/19](19-native-guide-and-enrichment.md)에 반영했다. 저장 DB를 먼저 사용하고 누락/오래된 자료는 백그라운드에서 조사·캐시하는 방향이며, 이번 단계에서 실제 AI 조회 worker를 구현한 것은 아니다. 앱 지도 구현/검사 결과와 기존 웹·호스트·기기 성공을 각각 구분한다.
+
 ## 실제 실행 단계
 
 [docs/18 진행표](18-execution-stages.md)를 기준으로1.DB/방문복원→2.앱지도→3.선택설정→4.내비/입차→5.관측갱신→6.주차/종료/귀환→7.전체검증을진행한다.1단계코드와매장방문탭을구현하고로컬JVM41/lint/세APK빌드가통과했으며수정 후CI43344658563의verify/android-device도통과했다.원본artifact의Cloud다운로드는터널403으로차단돼독립열람하지못했다.신규앱0.3.0/3과기존배포0.2.0/2보관본을구분한다.최신완료증거는docs/08과docs/18을따른다.

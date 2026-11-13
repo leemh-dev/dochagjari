@@ -43,6 +43,11 @@ private val scheme = darkColorScheme(primary = Mint, background = Color(0xFF0912
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri -> if (uri != null) model.analyze(uri) }
     val carPermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { model.selectVehicle(false) }
     MaterialTheme(colorScheme = scheme, typography = Typography(bodyLarge = TextStyle(fontSize = 20.sp), bodyMedium = TextStyle(fontSize = 18.sp), labelLarge = TextStyle(fontSize = 18.sp))) {
+        if (state.showIndoorGuide && state.vehicle.stopped == true) {
+            state.guidance.visit?.let { visit -> state.guidance.visitDestination?.let { destination ->
+                IndoorGuideScreen(destination, visit.catalogVersion, state.vehicle.source.label, model::closeIndoorGuide)
+            } }
+        }
         Surface(Modifier.fillMaxSize(), color = scheme.background) {
             Column(Modifier.padding(horizontal = 24.dp, vertical = 16.dp)) {
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -88,10 +93,11 @@ private val scheme = darkColorScheme(primary = Mint, background = Color(0xFF0912
                                     Text("방문 ID · ${visit.id}", fontSize = 12.sp)
                                     Text("저장 상태 · ${visit.phase} / ${visit.visibility}")
                                     Text("사용 자료 · ${visit.catalogVersion}", fontSize = 12.sp)
+                                    Button(onClick = model::openIndoorGuide, enabled = state.vehicle.stopped == true && guidance.visitDestination != null && !guidance.saving) { Text("5층 동선 보기") }
                                     Text("주차 위치 · ${visit.parking?.pillar ?: "미확인 · 아직 저장하지 않음"}")
                                 }
                             }
-                            Text("지도 애니메이션·내비 전달·입차/관측 연결은 다음 단계입니다. 이 화면은 조회와 방문 저장/복원을 확인합니다.", color = scheme.secondary)
+                            Text("5층 동선은 공식 연결 기준의 개략도에서 재생합니다. 내비 전달·입차/관측 연결은 다음 단계입니다.", color = scheme.secondary)
                         }
 
                         0 -> {

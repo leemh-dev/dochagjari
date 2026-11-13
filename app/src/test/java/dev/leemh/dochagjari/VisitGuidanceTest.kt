@@ -124,4 +124,18 @@ class VisitGuidanceTest {
             runCurrent(); assertEquals(repo.state.value.visit, reopenedRepo.state.value.visit)
         }
     }
+    @Test fun previewVisibilityPersistsWithoutReplacingVisitOrParkingEvidence() = runTest {
+        SqliteGuidanceStorage(app, database()).use { db ->
+            val repo = VisitGuidanceRepository(db, backgroundScope, ::seed)
+            runCurrent(); repo.prepare(id); runCurrent()
+            val before = repo.state.value.visit!!
+            repo.setVisibility(GuideVisibility.HIDDEN); runCurrent()
+            assertEquals(before.copy(visibility = GuideVisibility.HIDDEN), db.currentVisit())
+            val restored = VisitGuidanceRepository(db, backgroundScope, ::seed)
+            runCurrent(); assertEquals(GuideVisibility.HIDDEN, restored.state.value.visit!!.visibility)
+            restored.setVisibility(GuideVisibility.VISIBLE); runCurrent()
+            assertEquals(before, db.currentVisit())
+        }
+    }
+
 }

@@ -147,6 +147,17 @@ def main():
             raise AssertionError('Visit recovery did not run in a new app process')
         report['visit_recovery'] = {'same_visit_id': True, 'old_pid': old_pid, 'new_pid': new_pid,
                                     'source': 'Official facility DB; USER preparation, no vehicle trip/parking executed'}
+        tap('5층 동선 보기'); expect('5층 에뜨와 동선'); capture('17-native-guide-tilted')
+        tap('재생'); time.sleep(1); capture('18-native-route-animation')
+        time.sleep(6)
+        tap('평면 보기'); capture('19-native-guide-flat')
+        tap('닫기'); expect(visit_text); capture('20-native-guide-closed')
+        adb('shell', 'am', 'force-stop', PACKAGE)
+        adb('shell', 'am', 'start', '-W', '-n', PACKAGE + '/.MainActivity')
+        time.sleep(2); tap('매장 방문'); expect(visit_text)
+        expect('저장 상태 · PLANNED / HIDDEN'); capture('21-native-guide-hidden-restored')
+        report['native_map'] = {'renderer': 'Android Compose Canvas/PathMeasure', 'map': 'self-drawn partial schematic using official route coordinates',
+                                'tilted_flat_animation_close_hidden_restore': True, 'positioning': False}
         report['success'] = True
     except Exception as error:
         report['success'] = False

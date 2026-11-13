@@ -1,0 +1,20 @@
+{
+  "environment": "Codex Cloud; existing JDK17/Android35; one worker/heap1536MiB/offline cache",
+  "jvm": {
+    "tests": 45,
+    "failures": 0,
+    "errors": 0
+  },
+  "build": "testDebugUnitTest lintDebug assembleDebug assembleDebugAndroidTest assembleRelease: BUILD SUCCESSFUL in2m9s",
+  "hostRender": "Robolectric native graphics/Android View.draw; not an AVD/Pleos screenshot",
+  "device": "Not yet executed for stage2",
+  "scope": "Native partial floor schematic and official route playback, not current user positioning or parking connection",
+  "hostMotion": {
+    "targetedTest": "passed after full-suite pass",
+    "frames": 25,
+    "timelineStepMillis": 300,
+    "distinctProgressReadings": ">10 asserted",
+    "lastProgress": "100% asserted",
+    "recording": "native View.draw in Robolectric, not emulator screenshot"
+  }
+}

@@ -23,7 +23,7 @@ data class AppState(
     val useServer: Boolean = false, val serverUrl: String = "http://10.0.2.2:8000", val token: String = "", val recipientId: String = "demo",
     val consent: Boolean = false, val error: String = "", val log: List<String> = emptyList(),
     val sensServer: Boolean = false, val delivery: OutboxState = OutboxState(ArrivalRecord()),
-    val profileSave: ProfileState = ProfileState(), val guidance: GuidanceState = GuidanceState()
+    val profileSave: ProfileState = ProfileState(), val guidance: GuidanceState = GuidanceState(), val showIndoorGuide: Boolean = false
 ) { val facility: Facility get() = facilities[facilityIndex] }
 
 class AppModel @JvmOverloads constructor(application: Application, private val services: AppServices = AppServices.get(application)) : AndroidViewModel(application) {
@@ -72,6 +72,17 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
                 recipientId = request?.recipientId ?: s.recipientId)
         }
     }
+    fun openIndoorGuide() {
+        val s = _state.value
+        if (s.vehicle.stopped != true || s.guidance.visit == null || s.guidance.visitDestination == null) return
+        services.guidance?.setVisibility(GuideVisibility.VISIBLE)
+        _state.update { it.copy(showIndoorGuide = true) }
+    }
+    fun closeIndoorGuide() {
+        if (!_state.value.showIndoorGuide) return
+        _state.update { it.copy(showIndoorGuide = false) }
+        services.guidance?.setVisibility(GuideVisibility.HIDDEN)
+    }
     fun searchStore(query: String) { if (_state.value.vehicle.stopped == true) services.guidance?.search(query) }
     fun prepareVisit(destinationId: String) { if (_state.value.vehicle.stopped == true) services.guidance?.prepare(destinationId) }
     fun chooseFacility(index: Int) {
@@ -95,11 +106,13 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
     }
     fun navigate() { _state.value.recommendation.point?.let { navi?.route(it) } }
     fun selectVehicle(test: Boolean) {
+        closeIndoorGuide()
         sourceGeneration++; val generation = sourceGeneration
         vehicleSource?.close(); _state.update { it.copy(testVehicle = test, vehicle = VehicleSnapshot()) }
         val emit: (VehicleSnapshot) -> Unit = { snapshot ->
             viewModelScope.launch {
                 if (generation == sourceGeneration) {
+                    if (snapshot.stopped != true) closeIndoorGuide()
                     val s = _state.value.session
                     _state.update { it.copy(vehicle = snapshot, session = s.copy(stopped = snapshot.stopped == true, confirmed = if (snapshot.stopped == true) s.confirmed else false, source = services.outbox.state.value.record.request?.source ?: snapshot.source)) }
                     maybeNotify()

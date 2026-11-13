@@ -47,4 +47,12 @@ class VisitGuidanceRepository(private val storage: GuidanceStorage, private val 
         val saved = storage.beginOrResume(catalog!!.version, destinationId)
         _state.value = _state.value.copy(visit = saved, visitDestination = storage.destination(saved.catalogVersion, saved.destinationId))
     }
+    fun setVisibility(visibility: GuideVisibility) = action(saving = true) {
+        initialize()
+        val current = requireNotNull(storage.currentVisit()) { "No prepared visit" }
+        val saved = current.copy(visibility = visibility)
+        storage.saveVisit(saved)
+        _state.value = _state.value.copy(visit = saved)
+    }
+
 }
