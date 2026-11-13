@@ -1,0 +1,413 @@
+{
+  "checkedAtUtc": "2026-11-13T00:26:03.266195+00:00",
+  "source": "https://www.ehyundai.com/newPortal/DP/FG/FG000000_V.do?branchCd=B00148000",
+  "environment": "Desktop Chromium; official public map JavaScript, not Android/Pleos app",
+  "floor": "5F",
+  "destination": "에뜨와",
+  "method": "Existing official mapDraw.getRouteOn with recommendation mode and public POI IDs. No manually invented path, no authentication configuration copied.",
+  "routes": [
+    {
+      "start": {
+        "id": "PO-hpuc3mdcR3562",
+        "title": "엘리베이터",
+        "position": {
+          "x": 781.333333333333,
+          "y": 489.6997480315979,
+          "z": 0
+        }
+      },
+      "end": {
+        "id": "PO-AE7oOvIjQ9013",
+        "title": "에뜨와",
+        "position": {
+          "x": 749.1586034077388,
+          "y": 874.1634570817171,
+          "z": 0
+        }
+      },
+      "route": {
+        "locations": [
+          {
+            "position": {
+              "x": 746.750348959626,
+              "y": 516.1456779689606,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-uh95S4mn6x5947",
+            "poiId": "PO-hpuc3mdcR3562",
+            "isDestination": true,
+            "idx": 0,
+            "transCode": null,
+            "distance": 0,
+            "direction": "STRAIGHT",
+            "angle": 0
+          },
+          {
+            "position": {
+              "x": 746.9627713198743,
+              "y": 602.3729753979554,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-_qjMNc-we5274",
+            "poiId": null,
+            "isDestination": false,
+            "idx": 0,
+            "transCode": null,
+            "distance": 862.2755908158057,
+            "direction": "RIGHT",
+            "angle": 90.16695439577195
+          },
+          {
+            "position": {
+              "x": 705.5909923050835,
+              "y": 602.3543418575828,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-aWYMYX9Zh4179",
+            "poiId": "PO-AjPFd4ect5627",
+            "isDestination": false,
+            "idx": 0,
+            "transCode": null,
+            "distance": 413.7178321099424,
+            "direction": "LEFT",
+            "angle": 90.8886018518161
+          },
+          {
+            "position": {
+              "x": 705.8471484303287,
+              "y": 619.363636085827,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-r1UBKGtaM0252",
+            "poiId": null,
+            "isDestination": false,
+            "idx": 0,
+            "transCode": null,
+            "distance": 170.11222945558134,
+            "direction": "RIGHT",
+            "angle": 90.86279626225802
+          },
+          {
+            "position": {
+              "x": 659.9680249751972,
+              "y": 619.3636360858269,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-HjLOYZl7b6641",
+            "poiId": "PO-sdnHtt5U77692",
+            "isDestination": false,
+            "idx": 0,
+            "transCode": null,
+            "distance": 458.7912345513155,
+            "direction": null,
+            "angle": 0
+          },
+          {
+            "position": {
+              "x": 615.6893360591982,
+              "y": 619.3636360858272,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-ARszIW_RZ7753",
+            "poiId": null,
+            "isDestination": false,
+            "idx": 0,
+            "transCode": null,
+            "distance": 901.5781237113049,
+            "direction": "RIGHT",
+            "angle": 90.29625441491883
+          },
+          {
+            "position": {
+              "x": 615.7800443982715,
+              "y": 601.8207458619679,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-fkYFlyyw13314",
+            "poiId": "PO-53ugXCF-S3229",
+            "isDestination": false,
+            "idx": 0,
+            "transCode": null,
+            "distance": 175.43124733329483,
+            "direction": "LEFT",
+            "angle": 91.06506481759138
+          },
+          {
+            "position": {
+              "x": 576.0160616171115,
+              "y": 602.3543418575829,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-Ozq6-7H0V8698",
+            "poiId": null,
+            "isDestination": false,
+            "idx": 0,
+            "transCode": null,
+            "distance": 397.67562803205834,
+            "direction": "LEFT",
+            "angle": 89.23118959732702
+          },
+          {
+            "position": {
+              "x": 576.0160616171115,
+              "y": 701.3772311569937,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-wm8muOoCB5250",
+            "poiId": "PO-C90gm4N1e7645",
+            "isDestination": false,
+            "idx": 0,
+            "transCode": null,
+            "distance": 990.2288929941085,
+            "direction": null,
+            "angle": 0
+          },
+          {
+            "position": {
+              "x": 576.0160616171115,
+              "y": 754.8853406566311,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-8-OvQwrDM0098",
+            "poiId": null,
+            "isDestination": false,
+            "idx": 0,
+            "transCode": null,
+            "distance": 535.0810949963738,
+            "direction": null,
+            "angle": 0
+          },
+          {
+            "position": {
+              "x": 576.0160616171115,
+              "y": 931.1046275592269,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-e3o72FlH61843",
+            "poiId": "PO-XonOu7zRe9809",
+            "isDestination": false,
+            "idx": 0,
+            "transCode": null,
+            "distance": 3287.5028570164395,
+            "direction": "LEFT",
+            "angle": 90
+          },
+          {
+            "position": {
+              "x": 626.9395697422701,
+              "y": 931.1046275592269,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-lqsfyp68c1399",
+            "poiId": "PO-JI69qi50r4276",
+            "isDestination": false,
+            "idx": 0,
+            "transCode": null,
+            "distance": 509.23508125158605,
+            "direction": null,
+            "angle": 0.4374761572268025
+          },
+          {
+            "position": {
+              "x": 684.0193161831737,
+              "y": 931.5404626873412,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-YI-6_Wkr88176",
+            "poiId": "PO-7zmdDeT2N6587",
+            "isDestination": false,
+            "idx": 0,
+            "transCode": null,
+            "distance": 570.8141033661261,
+            "direction": null,
+            "angle": 1.021137488979704
+          },
+          {
+            "position": {
+              "x": 736.644247177821,
+              "y": 931.0043638671302,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-pxY0SGEIq4879",
+            "poiId": "PO-AE7oOvIjQ9013",
+            "isDestination": true,
+            "idx": 0,
+            "transCode": null,
+            "distance": 1606.2821685287317,
+            "direction": "STRAIGHT",
+            "angle": 0
+          }
+        ],
+        "totalDistance": 1606.2821685287317,
+        "totalTime": 16521.7594477241,
+        "pathInfo": [
+          {
+            "position": {
+              "x": 746.750348959626,
+              "y": 516.1456779689606,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-uh95S4mn6x5947",
+            "poiId": "PO-hpuc3mdcR3562",
+            "isDestination": true,
+            "idx": 0,
+            "transCode": null,
+            "distance": 0,
+            "direction": "STRAIGHT",
+            "angle": 0
+          },
+          {
+            "position": {
+              "x": 736.644247177821,
+              "y": 931.0043638671302,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-pxY0SGEIq4879",
+            "poiId": "PO-AE7oOvIjQ9013",
+            "isDestination": true,
+            "idx": 0,
+            "transCode": null,
+            "distance": 1606.2821685287317,
+            "direction": "STRAIGHT",
+            "angle": 0
+          }
+        ]
+      },
+      "distanceUnit": "Unverified native map unit; do not display as meters",
+      "timeUse": "Native model value; not measured walking time or elevator wait"
+    },
+    {
+      "start": {
+        "id": "PO-qMsObl1FM4396",
+        "title": "에스컬레이터",
+        "position": {
+          "x": 802.2070898192031,
+          "y": 1061.5074271523254,
+          "z": 0
+        }
+      },
+      "end": {
+        "id": "PO-AE7oOvIjQ9013",
+        "title": "에뜨와",
+        "position": {
+          "x": 749.1586034077388,
+          "y": 874.1634570817171,
+          "z": 0
+        }
+      },
+      "route": {
+        "locations": [
+          {
+            "position": {
+              "x": 789.8883516510795,
+              "y": 931.1046275592269,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-agmwwyGPE5167",
+            "poiId": "PO-qMsObl1FM4396",
+            "isDestination": true,
+            "idx": 0,
+            "transCode": null,
+            "distance": 0,
+            "direction": "STRAIGHT",
+            "angle": 0
+          },
+          {
+            "position": {
+              "x": 771.2325577512328,
+              "y": 931.1150794923213,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-eMCtg4oIr9902",
+            "poiId": null,
+            "isDestination": false,
+            "idx": 0,
+            "transCode": null,
+            "distance": 186.55796827701096,
+            "direction": null,
+            "angle": 0.215500617284249
+          },
+          {
+            "position": {
+              "x": 736.644247177821,
+              "y": 931.0043638671302,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-pxY0SGEIq4879",
+            "poiId": "PO-AE7oOvIjQ9013",
+            "isDestination": true,
+            "idx": 0,
+            "transCode": null,
+            "distance": 532.4419887618951,
+            "direction": "STRAIGHT",
+            "angle": 0
+          }
+        ],
+        "totalDistance": 532.4419887618951,
+        "totalTime": 5476.546170122349,
+        "pathInfo": [
+          {
+            "position": {
+              "x": 789.8883516510795,
+              "y": 931.1046275592269,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-agmwwyGPE5167",
+            "poiId": "PO-qMsObl1FM4396",
+            "isDestination": true,
+            "idx": 0,
+            "transCode": null,
+            "distance": 0,
+            "direction": "STRAIGHT",
+            "angle": 0
+          },
+          {
+            "position": {
+              "x": 736.644247177821,
+              "y": 931.0043638671302,
+              "z": 0
+            },
+            "floorId": "FL-t4ygotq6w9it4775",
+            "nodeId": "ND-pxY0SGEIq4879",
+            "poiId": "PO-AE7oOvIjQ9013",
+            "isDestination": true,
+            "idx": 0,
+            "transCode": null,
+            "distance": 532.4419887618951,
+            "direction": "STRAIGHT",
+            "angle": 0
+          }
+        ]
+      },
+      "distanceUnit": "Unverified native map unit; do not display as meters",
+      "timeUse": "Native model value; not measured walking time or elevator wait"
+    }
+  ],
+  "limits": [
+    "5F route visualization only; no indoor user positioning or field walk",
+    "No elevator cab number mapping verified",
+    "No parking stall/pillar-to-elevator linkage verified",
+    "No car entrance number or Yangjae road route verified",
+    "Native units/estimated times not reported as measured meters/minutes"
+  ]
+}
