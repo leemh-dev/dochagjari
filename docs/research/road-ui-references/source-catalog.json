@@ -1,0 +1,372 @@
+{
+  "retrieved_at_utc": "2026-11-13T21:28:26.027284+00:00",
+  "image_count": 19,
+  "vehicle_ui": 10,
+  "place_photos": 9,
+  "new_downloads": 17,
+  "reused_originals": 2,
+  "generated_images": 0,
+  "records": [
+    {
+      "id": 1,
+      "file": "bmw-map-sensor.jpg",
+      "group": "차량UI",
+      "title": "BMW 도로 지도·차선·주변 차량 통합",
+      "source_page": "https://www.bmwgroup.com/en/news/general/2026/bmw-maps.html",
+      "image_url": "https://www.bmwgroup.com/content/grpw/websites/bmwgroup_com/de/news/allgemein/2026/bmw-maps/_jcr_content/main/newsarticle/newscontentparsys/horizontalalignment/image.coreimg.82.1280.jpeg/1788946074403/bmw-maps-v1-16-9.jpeg",
+      "date_note": "공식 2026 자료, 촬영일 미확인",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "3D 지도/경로/주변 차량의 결합을 비교. 우리 앱의 지원/API 증거가 아님.",
+      "bytes": 204575,
+      "sha256": "b7cfe9614ea38dc2a16fced15e8f5b10bd0c22c706c07c66a3ae272dc707745a",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 2,
+      "file": "bmw-urban-intersection.jpg",
+      "group": "차량UI",
+      "title": "BMW 실제 도심 도로와 3D 지도 대응",
+      "source_page": "https://www.bmwgroup.com/en/news/general/2026/bmw-maps.html",
+      "image_url": "https://www.bmwgroup.com/en/news/general/2026/bmw-maps/_jcr_content/main/newsarticle/newscontentparsys/horizontalalignment_817223246/image.coreimg.jpeg/1789026499468/bmw-maps-v3-16-9.jpeg",
+      "date_note": "공식 2026 자료, 촬영일 미확인",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "차량 밖 교차로와 지도 관계를 볼 자료. 국내 시설 지형 자료가 아님.",
+      "bytes": 249224,
+      "sha256": "a0df235c8c780277bf7443dbb1d5718e05d018262733b076fa4eb56b17f9d76d",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 3,
+      "file": "bmw-urban-closeup.jpg",
+      "group": "차량UI",
+      "title": "BMW 도심 차선·주변 차량 지도 확대",
+      "source_page": "https://www.bmwgroup.com/en/news/general/2026/bmw-maps.html",
+      "image_url": "https://www.bmwgroup.com/en/news/general/2026/bmw-maps/_jcr_content/main/newsarticle/newscontentparsys/horizontalalignment_1906976356/image.coreimg.jpeg/1789026703630/bmw-maps-v4-16-9.jpeg",
+      "date_note": "공식 2026 자료, 촬영일 미확인",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "지도에서 통로/차량/경로의 대비를 비교.",
+      "bytes": 196725,
+      "sha256": "52dd17ad7e3d1c8a5e02fa6d750bd1bcd8845f5fe1f7969ce657acb8c6a05705",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 4,
+      "file": "bmw-map-assist-split.jpg",
+      "group": "차량UI",
+      "title": "BMW 지도와 운전 보조 표시 분리",
+      "source_page": "https://www.bmwgroup.com/en/news/general/2025/dcas-approval.html",
+      "image_url": "https://www.bmwgroup.com/content/dam/grpw/websites/bmwgroup_com/News/2025/bmw-group-news-ix3-highly-automated-driving-p90623281-16x9.jpg",
+      "date_note": "공식 2025 자료, 촬영일 미확인",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "3D 지도를 센서 주변상황 표시와 구별할 비교 자료.",
+      "bytes": 705342,
+      "sha256": "51d6a9433a9ba27f05ce5349506b5ce7716cc0af0bad338844795a5b0ea93292",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 5,
+      "file": "tesla-fsd-road.jpg",
+      "group": "차량UI",
+      "title": "Tesla FSD 도로·차량 시각화",
+      "source_page": "https://www.notateslaapp.com/tesla-reference/636/all-tesla-fsd-visualizations-and-what-they-mean",
+      "image_url": "https://www.notateslaapp.com/images/news/2021/fsd-beta-v10-3.jpg",
+      "date_note": "과거 버전 화면, 촬영일 미확인",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "보도 매체 화면. 현재 최신 UI/우리 센서 결과가 아님. 지도 도시 모델과 센서 환경 시각화를 구분.",
+      "bytes": 114334,
+      "sha256": "e62158906fd17a0d1f0e87c83887840288d39a2b0a19b654ae852f9cbccdaeed",
+      "dimensions": [
+        1050,
+        674
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 6,
+      "file": "mercedes-3d-map.jpg",
+      "group": "차량UI",
+      "title": "Mercedes MBUX 3D 도시 지도",
+      "source_page": "https://paultan.org/2020/07/09/perincian-mbux-baru-mercedes-benz-s-class-w223-head-up-display-ar-skrin-12-8-inci-baca-pergerakan/w223-mercedes-benz-s-class-my-mbux-video-presentation-57-bm/",
+      "image_url": "https://paultan.org/image/2020/07/W223-Mercedes-Benz-S-Class-My-MBUX-video-presentation-57-BM.jpg",
+      "date_note": "2020 공개 화면",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "보도 매체의 과거 제품 공개 화면. 건물은 지도 객체이며 카메라를3D로 변환한 증거가 아님.",
+      "bytes": 197380,
+      "sha256": "cca06ae998653bfad5c5ce6b3a224ebfefc82dea853513d28dcb8025c178f519",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 7,
+      "file": "hyundai-ar.jpg",
+      "group": "차량UI",
+      "title": "현대 KONA 실제 영상 위 AR 안내",
+      "source_page": "https://www.hyundai.com/jp/kona",
+      "image_url": "https://static.hyundaijapan.com/hmj-fe/static/pip/planb/assets/images/planb/kona/function_001.jpg",
+      "date_note": "공식 제품 페이지, 이미지 촬영일 미확인",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "실제 영상 형태 위 안내표시와 3D 지도 방식 비교. Pleos 빌트인캠 API 지원 증거 아님.",
+      "bytes": 122789,
+      "sha256": "e00370d62e4c116066119e890928052d9ea33069ce577a186e09e374f788e2e2",
+      "dimensions": [
+        2240,
+        1140
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 8,
+      "file": "pleos-layout.jpg",
+      "group": "차량UI",
+      "title": "Pleos 주행 정보/앱/하단 바 구획",
+      "source_page": "https://www.hyundaimotorgroup.com/ko/story/pleos-connect-next-generation-infotainment-system",
+      "image_url": "https://www.hyundaimotorgroup.com/image/upload/asset_library/MDA00000000000078889/67fd590ec8e84fc9bb335c8182be2d53.jpg",
+      "date_note": "2026-04-30 공개",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "공식 설명 이미지. 첫 번째 차량 정보 영역 보존 기준.",
+      "bytes": 120098,
+      "sha256": "c75b793b0b167a4599e41d90264110e54c5985dc2cab7b750db6c02efff2321e",
+      "dimensions": [
+        1216,
+        924
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 9,
+      "file": "pleos-app-panels.jpg",
+      "group": "차량UI",
+      "title": "Pleos 앱 영역과 순정 내비 표시",
+      "source_page": "https://www.hyundaimotorgroup.com/ko/story/pleos-connect-next-generation-infotainment-system",
+      "image_url": "https://www.hyundaimotorgroup.com/image/upload/asset_library/MDA00000000000078891/40b21b2800094f33bf3e7a691fe99826.jpg",
+      "date_note": "2026-04-30 공개",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "공식 설명 이미지. 앱은 주행 정보 화면을 침범하지 않는 구조. 도착자리 실호환 미검증.",
+      "bytes": 78027,
+      "sha256": "c64c2e7fc277f8e0b7f4476a63f9e5ef75ec79f8f1bbeef529c4d73b33265674",
+      "dimensions": [
+        1216,
+        825
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 10,
+      "file": "pleos-navigation.jpg",
+      "group": "차량UI",
+      "title": "Pleos 순정 내비 사용 장면",
+      "source_page": "https://www.hyundaimotorgroup.com/ko/story/pleos-connect-next-generation-infotainment-system",
+      "image_url": "https://www.hyundaimotorgroup.com/image/upload/asset_library/MDA00000000000078906/e234e31da15e4a8c96908f0d2611db12.jpg",
+      "date_note": "2026-04-30 공개",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "기존 두 번째 내비 영역을 유지할 참고. 우리 SDK 실행/핀 확인 결과 아님.",
+      "bytes": 37753,
+      "sha256": "f97ab090775c871ad6a613e91d952d0579d937e52a386acc996270d97238b844",
+      "dimensions": [
+        1216,
+        686
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 11,
+      "file": "hospital-access-road.png",
+      "group": "현장",
+      "title": "분당서울대병원 접근 도로·보도",
+      "source_page": "https://bookspoon.tistory.com/entry/분당서울대병원-장례식장-주차장-주차요금-팁",
+      "image_url": "https://blog.kakaocdn.net/dna/b4203n/btsLFL3pzhz/AAAAAAAAAAAAAAAAAAAAALkTLNlOkZQd5wDbDgUVczeHRrwIgaXvifnFe5Kjc3c-/img.png",
+      "date_note": "2025-01-06 게시, 촬영일 미확인",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "도로·보도·횡단보도/진입로 맥락 참고. 승하차 허용 지점 증거가 아님.",
+      "bytes": 1163149,
+      "sha256": "d1ab2e5d4d469eb1b7eed372a74cae897a35d2dd0112041664c84cf0d47805a0",
+      "dimensions": [
+        800,
+        859
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 12,
+      "file": "hospital-gate-queue.png",
+      "group": "현장",
+      "title": "분당서울대병원 정문 진입·지하 만차 표지",
+      "source_page": "https://bookspoon.tistory.com/entry/분당서울대병원-장례식장-주차장-주차요금-팁",
+      "image_url": "https://blog.kakaocdn.net/dna/na60W/btsLEMa6Shv/AAAAAAAAAAAAAAAAAAAAAP0VLLabz3MH6k7Kt_IWAchAuUXyre4PkMfhIjl1MGhe/img.png",
+      "date_note": "2025-01-06 게시, 촬영일 미확인",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "차량 대기/만차 시 대안 안내를 검토. 현재 만차/교통 상황이 아님.",
+      "bytes": 846064,
+      "sha256": "8c936d48e44d311c528aff33bc39a11dc835731d90ae4fe9a4692fbe0fc98598",
+      "dimensions": [
+        800,
+        768
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 13,
+      "file": "academy-daechi-main.jpg",
+      "group": "현장",
+      "title": "대치동 학부모 픽업 대기·정차금지",
+      "source_page": "https://tv.edaily.co.kr/News/NewsRead?Kind=257&NewsId=01610486642272896",
+      "image_url": "https://image.edaily.co.kr/images/photo/files/NP/S/2025/08/PS25083100449.jpg",
+      "date_note": "2025-08-31 게시, 원문 8월25일 상황",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "분당 아님. 원문이 학부모 픽업을 확인한 보도. 금지 구역의 차량 줄을 추천 정차점으로 사용하지 않음.",
+      "bytes": 139625,
+      "sha256": "fdadbc7df348ee2eb2169573c87fcd456ec7793cc6aef75c8ca58007d40863d7",
+      "dimensions": [
+        670,
+        503
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 14,
+      "file": "academy-daechi-alley.jpg",
+      "group": "현장",
+      "title": "대치동 픽업 차량의 골목 진입",
+      "source_page": "https://tv.edaily.co.kr/News/NewsRead?Kind=257&NewsId=01610486642272896",
+      "image_url": "https://image.edaily.co.kr/images/photo/files/NP/S/2025/08/PS25083100450.jpg",
+      "date_note": "2025-08-31 게시, 원문 8월26일 상황",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "분당 아님. 도로/보행 혼재를 검토할 자료. 골목을 허용 대기 장소로 간주하지 않음.",
+      "bytes": 81454,
+      "sha256": "e5d46e3a675a58581217075af9a7dc8d4cab355ce6e1c2eaafcaa1dcec1a30e4",
+      "dimensions": [
+        670,
+        502
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 15,
+      "file": "bundang-academy-buses.jpg",
+      "group": "현장",
+      "title": "분당 정자·수내 학원가 셔틀 대기",
+      "source_page": "https://www.g-enews.com/article/General-News/2022/07/202207111155332757d6b0ab7f1c_1",
+      "image_url": "https://nimage.g-enews.com/phpwas/restmb_allidxmake.php?idx=999&simg=2022071112160501526d6b0ab7f1c14356737.jpg",
+      "date_note": "2022-07-11 보도, 촬영일 미확인",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": true,
+      "note": "기존 확보 원본 재사용. 학부모 승용차 픽업 사진 아님. 정확한 촬영 지점/정차 허용 미확인.",
+      "bytes": 705304,
+      "sha256": "25b230cda78fc114e2041067ca6d282965fa4d972f727fa012de6f7bf738a7ea",
+      "dimensions": [
+        1000,
+        764
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 16,
+      "file": "jeongja-exit5.jpg",
+      "group": "현장",
+      "title": "정자역5번 출구·보도·도로",
+      "source_page": "https://sajin.com/site/gyeonggi/1/",
+      "image_url": "https://sajin.com/image/gyeonggi/1/9776-2.jpg",
+      "date_note": "게시/촬영일 미확인",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": true,
+      "note": "기존 확보 원본 재사용. 사람 출구 확인과 차량 승차점은 별개. 도로변 정차 허용 미확인.",
+      "bytes": 873796,
+      "sha256": "12f71b310cc4381e83bd4476f7e5c8fd57e5ec8174b997d0826083c4ae2589c0",
+      "dimensions": [
+        1675,
+        1257
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 17,
+      "file": "airport-curb-1.jpg",
+      "group": "현장",
+      "title": "인천공항 T1 출국층 도로변 짐 내림",
+      "source_page": "https://ndolson.com/531769",
+      "image_url": "https://blog.kakaocdn.net/dna/1qKNS/dJMcajnlJFu/AAAAAAAAAAAAAAAAAAAAANzpW6pIugDZoMGl7F26YHyIDoayYDMRoTXIu6-b6niN/img.jpg",
+      "date_note": "2026-02-18 게시, 촬영일 미확인",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "출국 배웅 장면. 입국 마중 위치로 치환하지 않음. 원문의 시간/무료 주차 주장은 공식 대조 없이 적용하지 않음.",
+      "bytes": 702763,
+      "sha256": "4f5eff78d05bea3113d4f578ed0c91de62aec61d7d660ff20156e6ae12927e88",
+      "dimensions": [
+        1034,
+        823
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 18,
+      "file": "airport-curb-2.jpg",
+      "group": "현장",
+      "title": "인천공항 T1 출국층 도로·금지 표지",
+      "source_page": "https://ndolson.com/531769",
+      "image_url": "https://blog.kakaocdn.net/dna/b1KSHt/dJMcadtUkJ3/AAAAAAAAAAAAAAAAAAAAAHQu1mg2M-0grdY_WUYIpk05TR2UJlQ7V4fKpNyB6o32/img.jpg",
+      "date_note": "2026-02-18 게시, 촬영일 미확인",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "차종별 차로/보도와 금지 표지를 검토. 사진 속 번호를 우리 사용자 목적지/허용 구역으로 확정하지 않음.",
+      "bytes": 690641,
+      "sha256": "c1d9a2b47b28eed81a1acb909787329f14f5f9cd6a21a406e64abbac8db9a1d4",
+      "dimensions": [
+        1034,
+        823
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    },
+    {
+      "id": 19,
+      "file": "hospital-asan-restricted.jpg",
+      "group": "현장",
+      "title": "서울아산병원 서관후문 전용 승하차장",
+      "source_page": "https://dailypharm.com/user/news/3802",
+      "image_url": "https://pds.dailypharm.com/news_image/202507/325175_2.jpg",
+      "date_note": "2025-07-22 보도",
+      "capture_date_verified": false,
+      "reused_from_previous_collection": false,
+      "note": "분당서울대병원 아님. 원문상 약국 차량 목적의 별도 구역. 일반 승용차 이용 가능으로 확대하지 않음.",
+      "bytes": 159209,
+      "sha256": "8342db54c5ce5d04126e05006bf1653e342b321aeb954348e88b52bf62fe7503",
+      "dimensions": [
+        1000,
+        658
+      ],
+      "reuse_permission": "Reference only; app/marketing redistribution rights not independently established"
+    }
+  ]
+}
