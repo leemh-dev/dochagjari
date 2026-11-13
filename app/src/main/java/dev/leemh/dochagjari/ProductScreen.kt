@@ -93,7 +93,8 @@ private val ProductColors = lightColorScheme(primary = Color(0xFF17191E), onPrim
                             val parked = v?.parked?.active != null
                             Text(when { parked -> "주차 기록이 있어요"; entered -> "매장까지 이어서"; v?.phase == VisitPhase.ROAD_GUIDANCE -> "도로 안내는 순정 내비에서"; else -> "에뜨와로 갈까요?" }, fontSize = 27.sp, fontWeight = FontWeight.Bold)
                             Text("출발 시나리오 · 현대자동차 양재 사옥", fontSize = 15.sp)
-                            Text(if (state.testNavi) "모의 내비 · 실제 경로/핀 미검증" else "Pleos SDK · 실제 핀은 순정 내비에서 확인", fontSize = 15.sp, color = Blue)
+                            Text("다음 요청 · " + if (state.testNavi) "모의 내비" else "Pleos SDK", fontSize = 15.sp, color = Blue)
+                            v?.journey?.latest?.let { a -> Text(if (a.channel == RoadChannel.MOCK) "저장 요청 · 모의 내비 / 실제 SDK·핀 미검증" else "저장 요청 · Pleos SDK / 실제 핀 별도 확인", fontSize = 15.sp) }
                             if (state.guidance.loading || state.guidance.saving) Text("방문 정보 저장·확인 중…")
                             if (state.guidance.error.isNotBlank()) Text(state.guidance.error, color = MaterialTheme.colorScheme.error)
                             if (v == null) {
@@ -104,7 +105,7 @@ private val ProductColors = lightColorScheme(primary = Color(0xFF17191E), onPrim
                                 val canRequest = !entered && (road == null || road.status in setOf(RoadStatus.PREPARED, RoadStatus.FAILED, RoadStatus.INTERRUPTED, RoadStatus.CANCELLED))
                                 if (canRequest) Button(model::requestVisitRoad, enabled = !state.guidance.saving && !state.roadStarting, modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp)) { Text("내비 안내 시작") }
                                 if (!entered && v.phase == VisitPhase.ROAD_GUIDANCE) {
-                                    Text(if (state.testNavi) "모의 요청 결과는 개발자 도구에서 확인할 수 있어요." else "SDK 결과와 실제 목적지 핀은 별도 확인이 필요해요.", fontSize = 16.sp)
+                                    Text(if (road?.channel == RoadChannel.MOCK) "모의 요청 결과는 개발자 도구에서 확인할 수 있어요." else "SDK 결과와 실제 목적지 핀은 별도 확인이 필요해요.", fontSize = 16.sp)
                                     Text("주차장에 들어온 뒤 정차하고 확인하세요.")
                                     Button({ model.confirmVisitEntry(state.testVehicle) }, enabled = !state.guidance.saving, modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp)) { Text(if (state.testVehicle) "입차 확인 · TEST" else "입차 직접 확인") }
                                 }
