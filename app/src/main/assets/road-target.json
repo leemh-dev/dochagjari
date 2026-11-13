@@ -1,0 +1,11 @@
+{
+  "version": "pangyo-facility-road-20261113-v1",
+  "facilityId": "hyundai-pangyo",
+  "name": "현대백화점 판교점",
+  "address": "경기도 성남시 분당구 판교역로146번길 20",
+  "latitude": 37.3927854,
+  "longitude": 127.1120699,
+  "kind": "FACILITY_POI",
+  "sourceUrl": "https://www.ehyundai.com/newPortal/DP/WC/WC000000_V.do?branchCd=B00148000",
+  "checkedAt": "2026-11-13"
+}

@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-11-13 UTC",
+  "url": "https://www.ehyundai.com/newPortal/DP/WC/WC000000_V.do?branchCd=B00148000",
+  "http_status": 200,
+  "facility": "현대백화점 판교점",
+  "address": "경기도 성남시 분당구 판교역로146번길 20",
+  "coordinate": {
+    "latitude": 37.3927854,
+    "longitude": 127.1120699,
+    "meaning": "Official facility map marker/center, not a verified vehicle entrance"
+  },
+  "excerpts": [
+    "var xPoint = '37.3927854';",
+    "var yPoint = '127.1120699';",
+    "DAUM 빠른길 찾기: 현대백화점 판교점,37.3927854,127.1120699",
+    "주소: 경기도 성남시 분당구 판교역로146번길 20 / 백현동 541",
+    "본관 주차장 이용안내"
+  ],
+  "unverified": [
+    "vehicle entrance gate/coordinate",
+    "parking floor/pillar to elevator mapping",
+    "indoor position",
+    "actual navigation pin"
+  ],
+  "page_sha256": "01eeb505cc3e1aac1e3a89df06a6b92c6dd368e6849534df0a19c435b6a0b7cc",
+  "sanitization": "Only public facility excerpts; third-party script keys and unrelated customer scripts omitted"
+}

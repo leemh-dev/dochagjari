@@ -178,6 +178,15 @@ def main():
         tap('좌석·조건'); expect('사용자 선택: 저장한 역할 사용'); capture('25-seat-roles-restarted')
         report['seat_roles'] = {'source': 'Explicit user selection; app test occupancy only', 'skip_and_configuration': True,
                                 'suggestion_does_not_infer_role': True, 'process_restart': True}
+        tap('매장 방문'); expect(visit_text)
+        tap('시설 목적지로 내비 요청'); expect('모의 내비 계산 완료 · 실제 SDK/핀 미검증'); capture('26-visit-road-mock')
+        tap('입차 테스트 · 실제 감지 아님'); expect('5층 에뜨와 동선'); capture('27-explicit-entry-native-guide')
+        tap('닫기'); expect('저장 상태 · PARKING_GUIDANCE / HIDDEN'); capture('28-entry-guide-closed')
+        adb('shell', 'am', 'force-stop', PACKAGE)
+        adb('shell', 'am', 'start', '-W', '-n', PACKAGE + '/.MainActivity'); time.sleep(2)
+        tap('매장 방문'); expect(visit_text); expect('저장 상태 · PARKING_GUIDANCE / HIDDEN'); capture('29-entry-restored-hidden')
+        report['visit_road_entry'] = {'same_visit_id': True, 'channel': 'MOCK', 'entry': 'explicit TEST', 'native_pin_verified': False,
+                                     'parking_completed': False, 'hidden_after_process_restart': True}
         report['success'] = True
     except Exception as error:
         report['success'] = False

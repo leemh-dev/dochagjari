@@ -93,11 +93,12 @@ private val scheme = darkColorScheme(primary = Mint, background = Color(0xFF0912
                                     Text("방문 ID · ${visit.id}", fontSize = 12.sp)
                                     Text("저장 상태 · ${visit.phase} / ${visit.visibility}")
                                     Text("사용 자료 · ${visit.catalogVersion}", fontSize = 12.sp)
+                                    VisitJourneyPanel(state, model)
                                     Button(onClick = model::openIndoorGuide, enabled = state.vehicle.stopped == true && guidance.visitDestination != null && !guidance.saving) { Text("5층 동선 보기") }
                                     Text("주차 위치 · ${visit.parking?.pillar ?: "미확인 · 아직 저장하지 않음"}")
                                 }
                             }
-                            Text("5층 동선은 공식 연결 기준의 개략도에서 재생합니다. 내비 전달·입차/관측 연결은 다음 단계입니다.", color = scheme.secondary)
+                            Text("5층 동선은 공식 연결 기준의 개략도에서 재생합니다. 내비와 명시적 입차를 같은 방문으로 연결합니다. 연속 관측·실제 측위는 다음 단계입니다.", color = scheme.secondary)
                         }
 
                         0 -> {
@@ -119,7 +120,7 @@ private val scheme = darkColorScheme(primary = Mint, background = Color(0xFF0912
                                     if (point.stepFree == Evidence.UNKNOWN) Text("무단차 전체 경로 미확인", color = Color(0xFFFFCD81))
                                 }
                                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                                    Button(onClick = model::navigate, enabled = state.recommendation.point != null) { Text("내비로 안내") }
+                                    Button(onClick = model::navigate, enabled = state.recommendation.point != null && state.vehicle.stopped == true) { Text("내비로 안내") }
                                     OutlinedButton(onClick = model::blocked, enabled = state.vehicle.stopped == true && state.recommendation.point != null) { Text("이 지점 이용 불가 · 우회") }
                                     TextButton(onClick = model::resetBlocked) { Text("제외 초기화") }
                                 }

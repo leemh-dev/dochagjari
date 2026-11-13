@@ -33,6 +33,8 @@ try:
     assert run("shell", "pm", "clear", "--user",user,package).strip()=="Success", "Active-user test data reset must succeed"
     pids = []
     hashes = []
+    visit_ids = []
+    road_ids = []
     for phase, method in [("prepare", "prepareQueuedArrivalAndSavedProfile"), ("verify", "verifyRestoredArrivalAndProfile")]:
         output = run("shell", "am", "instrument", "--user",user,"-w", "-e", "restartPhase", phase, "-e", "class",
                      package + ".ProcessRestartInstrumentedTest#" + method,
@@ -40,10 +42,13 @@ try:
         assert "OK (1 test)" in output, output
         pids.append(int(re.search(r"arrival_process_pid=(\d+)", output).group(1)))
         hashes.append(re.search(r"arrival_request_hash=([0-9a-f]{64})", output).group(1))
+        visit_ids.append(re.search(r"visit_id=([0-9a-f-]+)", output).group(1))
+        road_ids.append(re.search(r"road_request_id=([0-9a-f-]+)", output).group(1))
         run("shell", "am", "force-stop", "--user",user,package)
     assert pids[0] != pids[1], "Verification must run in a new Android process"
     assert hashes[0] == hashes[1], "Frozen payload must remain identical across process termination"
-    transcript.append(f"PASS: process restart {pids[0]} -> {pids[1]}; unchanged request {hashes[0]}; frozen payload and acknowledged profile restored; no token/provider call")
+    assert visit_ids[0] == visit_ids[1] and road_ids[0] == road_ids[1], "Same visit/request must survive with no automatic handoff replay"
+    transcript.append(f"PASS: process restart {pids[0]} -> {pids[1]}; unchanged request {hashes[0]}; frozen payload and acknowledged profile restored; no token/provider call; same visit {visit_ids[0]}/road request {road_ids[0]}, no auto replay/entry")
 finally:
     target = Path(args.output)
     target.parent.mkdir(parents=True, exist_ok=True)

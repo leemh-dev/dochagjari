@@ -23,6 +23,7 @@ data class AppState(
     val useServer: Boolean = false, val serverUrl: String = "http://10.0.2.2:8000", val token: String = "", val recipientId: String = "demo",
     val consent: Boolean = false, val error: String = "", val log: List<String> = emptyList(),
     val sensServer: Boolean = false, val delivery: OutboxState = OutboxState(ArrivalRecord()),
+    val roadTarget: RoadTarget? = null, val roadStarting: Boolean = false,
     val profileSave: ProfileState = ProfileState(), val guidance: GuidanceState = GuidanceState(), val showIndoorGuide: Boolean = false
 ) { val facility: Facility get() = facilities[facilityIndex] }
 
@@ -31,6 +32,8 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
     private val _state = MutableStateFlow(AppState())
     val state = _state.asStateFlow()
     private var navi: NavigationGateway? = null
+    private var visitRoad: VisitRoadNavigator? = null
+    private var roadGeneration = 0
     private var vehicleSource: VehicleStateSource? = null
     private var testSource: TestVehicleStateSource? = null
     private var sourceGeneration = 0
@@ -39,7 +42,7 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
     private val analyzer by lazy { VideoSceneAnalyzer(app) }
     init {
         val facilities = FacilityParser.parse(app.assets.open("facilities.json").bufferedReader().use { it.readText() })
-        _state.update { it.copy(facilities = facilities) }
+        _state.update { it.copy(facilities = facilities, roadTarget = RoadTarget.parse(org.json.JSONObject(app.assets.open("road-target.json").bufferedReader().use { r -> r.readText() }))) }
         applyOutbox(services.outbox.state.value)
         recompute(); selectVehicle(true); selectNavi(true)
         viewModelScope.launch {
@@ -74,7 +77,7 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
     }
     fun openIndoorGuide() {
         val s = _state.value
-        if (s.vehicle.stopped != true || s.guidance.visit == null || s.guidance.visitDestination == null) return
+        if (s.vehicle.stopped != true || s.guidance.visit == null || s.guidance.visitDestination == null || s.guidance.visit?.phase == VisitPhase.CLOSED) return
         services.guidance?.setVisibility(GuideVisibility.VISIBLE)
         _state.update { it.copy(showIndoorGuide = true) }
     }
@@ -82,6 +85,49 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
         if (!_state.value.showIndoorGuide) return
         _state.update { it.copy(showIndoorGuide = false) }
         services.guidance?.setVisibility(GuideVisibility.HIDDEN)
+    }
+    fun requestVisitRoad() {
+        val s = _state.value; val repo = services.guidance ?: return
+        val visit = s.guidance.visit ?: return; val target = s.roadTarget ?: return
+        if (s.vehicle.stopped != true || s.roadStarting) return
+        val generation = roadGeneration
+        _state.update { it.copy(roadStarting = true, error = "") }
+        viewModelScope.launch {
+            try {
+                val prepared = repo.prepareRoad(visit.id, target, if (s.testNavi) RoadChannel.MOCK else RoadChannel.PLEOS)
+                val claimed = repo.claimRoad(visit.id, prepared.id) ?: return@launch
+                if (generation != roadGeneration || _state.value.vehicle.stopped != true) {
+                    repo.roadEvent(visit.id, claimed.id, RoadStatus.INTERRUPTED, "NOT_DISPATCHED", "저장 후 상태 변경 · 외부 요청하지 않음")
+                    return@launch
+                }
+                visitRoad?.close()
+                if (claimed.channel == RoadChannel.PLEOS) { navi?.close(); navi = null }
+                visitRoad = VisitRoadNavigator(app, claimed) { status, kind, detail ->
+                    if (generation == roadGeneration) repo.roadEvent(visit.id, claimed.id, status, kind, detail)
+                }.also { it.dispatch() }
+            } catch (e: kotlinx.coroutines.CancellationException) { throw e }
+            catch (_: Exception) { _state.update { it.copy(error = "방문 내비 연결 실패 · 저장 상태를 확인하세요") } }
+            finally { _state.update { it.copy(roadStarting = false) } }
+        }
+    }
+    fun cancelVisitRoad() {
+        if (_state.value.vehicle.stopped != true) return
+        roadGeneration++; visitRoad?.close(); visitRoad = null
+        _state.value.guidance.visit?.let { services.guidance?.cancelRoad(it.id) }
+    }
+    fun confirmVisitEntry(test: Boolean, eventId: String = "entry-" + java.util.UUID.randomUUID()) {
+        val s = _state.value; val repo = services.guidance ?: return; val visit = s.guidance.visit ?: return
+        if (s.vehicle.stopped != true || test && !s.testVehicle) return
+        viewModelScope.launch {
+            try {
+                val created = repo.enter(visit.id, eventId, if (test) GuidanceInputSource.TEST else GuidanceInputSource.USER)
+                _state.update { it.copy(guidance = repo.state.value) }
+                if (created) {
+                    if (_state.value.vehicle.stopped == true) openIndoorGuide() else repo.setVisibility(GuideVisibility.HIDDEN)
+                }
+            } catch (e: kotlinx.coroutines.CancellationException) { throw e }
+            catch (_: Exception) { _state.update { it.copy(error = "입차 확인 저장 실패 · 방문 상태를 확인하세요") } }
+        }
     }
     fun searchStore(query: String) { if (_state.value.vehicle.stopped == true) services.guidance?.search(query) }
     fun prepareVisit(destinationId: String) { if (_state.value.vehicle.stopped == true) services.guidance?.prepare(destinationId) }
@@ -100,11 +146,16 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
     fun blocked() { _state.value.recommendation.point?.let { p -> _state.update { it.copy(blocked = it.blocked + p.id) }; recompute() } }
     fun resetBlocked() { _state.update { it.copy(blocked = emptySet()) }; recompute() }
     fun selectNavi(test: Boolean) {
+        roadGeneration++
+        if (visitRoad != null || _state.value.roadStarting) {
+            visitRoad?.close(); visitRoad = null
+            _state.value.guidance.visit?.let { v -> v.journey.latest?.let { a -> services.guidance?.roadEvent(v.id, a.id, RoadStatus.INTERRUPTED, "MODE_CHANGED", "앱 내비 방식 변경 · 순정 내비 종료/핀 상태 미확인") } }
+        }
         navi?.close(); _state.update { it.copy(testNavi = test) }
         val report: (String) -> Unit = { message -> _state.update { it.copy(naviStatus = message) }; log(message) }
         navi = if (test) TestNavigationGateway(report) else PleosNavigationGateway(app, report)
     }
-    fun navigate() { _state.value.recommendation.point?.let { navi?.route(it) } }
+    fun navigate() { if (_state.value.vehicle.stopped == true) { if (navi == null) selectNavi(_state.value.testNavi); _state.value.recommendation.point?.let { navi?.route(it) } } }
     fun selectVehicle(test: Boolean) {
         closeIndoorGuide()
         sourceGeneration++; val generation = sourceGeneration
@@ -198,5 +249,5 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
         val o = Observation(occupancy, if (low) .3f else .95f, System.currentTimeMillis() - if (stale) 60_000 else 0, InputSource.TEST)
         _state.update { it.copy(observations = it.observations + (point.id to o), analysis = "테스트 상태 입력 · 영상 분석 결과 아님: ${o.effective(System.currentTimeMillis())}") }; recompute()
     }
-    override fun onCleared() { sourceGeneration++; navi?.close(); vehicleSource?.close(); super.onCleared() }
+    override fun onCleared() { roadGeneration++; visitRoad?.close(); sourceGeneration++; navi?.close(); vehicleSource?.close(); super.onCleared() }
 }

@@ -17,6 +17,8 @@ class ProcessRestartInstrumentedTest {
     private fun phase(expected: String) = assumeTrue(InstrumentationRegistry.getArguments().getString("restartPhase") == expected)
     private fun report(request: ConfirmedArrival) = InstrumentationRegistry.getInstrumentation().sendStatus(0, Bundle().apply {
         putInt("arrival_process_pid", Process.myPid()); putString("arrival_request_hash", request.fingerprint())
+        val visit = AppServices.get(InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as Application).guidance!!.state.value.visit!!
+        putString("visit_id", visit.id); putString("road_request_id", visit.journey.latest!!.id)
     })
     private val expected = Profile(leftDoor = true, rightDoor = true, stroller = true, wheelchair = true, companion = true, heightM = 2.2, seats = SeatPreferences(SeatSetup.CONFIGURED, SeatAssignment(SeatRole.INFANT, true), SeatAssignment(SeatRole.ADULT)))
     @Test fun prepareQueuedArrivalAndSavedProfile() = runBlocking {
@@ -36,6 +38,12 @@ class ProcessRestartInstrumentedTest {
         assertEquals(DeliveryStatus.QUEUED, model.state.value.session.notificationStatus)
         assertNotNull(model.state.value.session.position)
         assertEquals(DeliveryChannel.SERVER_MOCK, model.state.value.delivery.record.request!!.channel)
+        val guidance = requireNotNull(AppServices.get(app).guidance)
+        withTimeout(10_000) { guidance.state.first { !it.loading } }
+        guidance.prepare("hyundai-pangyo-ettoi")
+        val visit = withTimeout(10_000) { guidance.state.first { it.visit != null && !it.saving } }.visit!!
+        val request = guidance.prepareRoad(visit.id, requireNotNull(model.state.value.roadTarget), RoadChannel.MOCK)
+        assertNotNull(guidance.claimRoad(visit.id, request.id)) // Simulate termination after claim, before external handoff.
         report(model.state.value.delivery.record.request!!)
         instrumentation.runOnMainSync { store.clear() }
     }
@@ -59,6 +67,12 @@ class ProcessRestartInstrumentedTest {
         assertTrue(s.consent)
         assertEquals("", s.token)
         assertFalse(s.delivery.record.serverObserved)
+        val guidance = requireNotNull(AppServices.get(app).guidance)
+        val visit = withTimeout(10_000) { guidance.state.first { !it.loading && it.visit != null } }.visit!!
+        assertEquals(VisitPhase.ROAD_GUIDANCE, visit.phase)
+        assertEquals(RoadStatus.DISPATCHED, visit.journey.latest!!.status)
+        assertTrue(visit.journey.latest!!.events.isEmpty())
+        assertNull(visit.journey.entry); assertFalse(s.showIndoorGuide)
         report(frozen)
         instrumentation.runOnMainSync { assertFalse(model.newSession()); store.clear() }
     }
