@@ -2,9 +2,19 @@
 
 2026-11-13 UTC · 기준: [개발계획](07-development-plan.md)
 
-## 6단계 주차 완료·요약·귀환 — 구현/최종 로컬 검사 중
+## 6단계 주차 완료·요약·귀환 — 일반 Android·MOCK/TEST 검증 통과
 
-앱0.8.0/8. 입차된같은방문에명시주차완료·수동단서/출처·확인시각·SQLite재조회ACK·요약/닫기·귀환/이동재개를연결했다. 관측후보/사용자확인을구분하고위치/승강연결/복귀선을만들지않는다. 기존DB/방문/자료·설정/역할·알림과자동재개없음을유지한다. 최종로컬JVM99/실패0·lint/세APK통과. 새기기/프로세스/집중UI14장은후속CI대기다. 새기기성공으로아직표시하지않는다. [계약](23-parking-summary-and-return.md) · [현재증거](evidence/stage6-parking-return/README.md).
+앱 **0.8.0/8·84acdd3**, [CI43404749340](https://github.com/leemh-dev/dochagjari/actions/runs/43404749340) verify/android-device모두success. 같은입차방문에명시주차완료→관측중지→SQLite재조회ACK→일회성요약/닫기→저장단서귀환을연결했다. 관측후보/USER입력확인/TEST단서와현재위치를구분하고기존DB/schema·자료/방문ID·설정/좌석·알림을보존한다.
+
+원본 **JVM99/실패0/ignored0**(신규17:규칙/실제SQLite12·AppModel5), 서버14/진단35·lint/세APK성공. 실제기기XML **12pass/실패0**, 프로세스전용2skip후별도종료/복원2단계PASS. 확장VisitRoad한시나리오에서8초요약닫기/중복완료재열림없음·관측자동승격없음·TEST/USER단서·연속변경/실제저장재조회·귀환·Activity재시작/주행/이동재개/새완료미확인을확인했다. 쓰기/ACK·재조회실패/동시요청·저장대기중새입력은JVM실제SQLite/주입소스검사이며실제기기디스크장애를실측한것이아니다.
+
+별도프로세스 **7411→7464**에서같은방문/내비요청/관측/주차/단서ID·출처/시각·기존프로필/역할·동일확정알림을복원하고요약/지도/내비/관측자동재개없음을확인했다. UI집중 **14장**(이전37장재실행아님)과 **7528→8964**의새PID/같은방문·수동메모복원도PASS. UI수동입력은검증용manual-demo이고현장확인이아니다. HTTP SERVER_MOCK는같은DB서버재시작/응답보류/빈토큰→같은세션GET200·POST1/공급자0이다.
+
+설치전공통readiness의transport=device/boot1/package·activity found·각rc0/빈stderr를원본으로확인했다. TEST B3/C12를위치로자동확정하지않고완료시단서미확인,수동확인은출처/시각을분리했다. 이동후이전기록/새완료에는단서자동복사없음. 귀환은저장단서조회와5층매장행동선수동열기이며현재위치·주차승강연결/복귀선·거리미확인을유지한다. 요약04는캡처안정을위해자동닫기끄기이며8초닫기는별도실제기기시나리오에서확인했다. 지도02/09는CI동작줄이기재생대기0%로자동재생/복귀선성공이아니다.
+
+[계약](23-parking-summary-and-return.md) · [원본화면/XML/복원·기능별수준](evidence/stage6-parking-return/README.md) · [개발APK artifact14027490674](https://github.com/leemh-dev/dochagjari/actions/runs/43404749340/artifacts/14027490674). 실제배포세파일bytes/SHA256·manifest·개발인증서/미서명을독립대조했고CI임시9a1ede3d/코드84acdd3의tree일치를확인했다. 기기APK는같은소스별도runner재빌드로배포byte/서명동일을가정하지않는다. 기존사용자데이터/이전APK유지,debug/test개발서명·release unsigned다.
+
+실제Pleos SDK/핀·외부카메라/측위·주차장승강연결/복귀경로·실차·실제OS권한철회·새관측OpenDocument/공개영상경로·SENS수락/휴대폰수신·AI자료worker는미검증/미구현이다. 가상병원·모의SMS유지. 다음 **7단계는같은APK연속시연영상/제출증거대조**이며앱마켓출시/출시용서명은범위밖이다.
 
 ## 5단계 같은 방문 관측 — 일반 Android·TEST/생성 영상 검증 통과
 

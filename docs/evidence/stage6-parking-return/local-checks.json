@@ -11,5 +11,5 @@
   "final_jvm": "99 tests PASS48s after adding pending-draft regression; no unnecessary lint/APK repeat",
   "python_compile": "capture_parking_screens.py/process_restart_smoke.py PASS",
   "actionlint": "1.7.7 android.yml PASS",
-  "device": "pending new CI; no Pleos/vehicle/camera success claimed"
+  "device": "CI43404749340 PASS;12 instrumented passes/2 process skips then separate two-phase restart PASS;14 focused UI screens and HTTP SERVER_MOCK PASS"
 }

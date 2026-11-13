@@ -689,3 +689,22 @@
 - 생명주기3건을포함한중간최종JVM97/실패0·lint/세APK2m18s성공. 검토에서쓰기후ACK/재조회유실은이전값롤백으로단정할수없어UI를저장결과미확인으로바꿨다. ACK유실뒤이동한경계도같은과거ID복구/이전기록전환·현재주차/팝업없음으로확인하는4번째생명주기검사를추가했다. 최종98건과빌드는실행중이다. 기존설정/알림/방문·실제동선은보존한다.
 
 - 최종 검토후JVM98/lint/세APK2m21s성공. 저장중새입력을완료로잘못표시하지않는추가검사1건을넣어앱코드변경없이JVM만갱신했고최종원본XML99/실패0/errors0/skip0·48s성공을확인했다. 신규17건(규칙/SQLite12·AppModel5)이다. 새기기는아직대기다. 캡처기는실제IME표시를확인한경우만Back을보내도록보강했다. Python구문/actionlint/diffPASS.
+
+### 6단계 기능 푸시·CI 시작
+
+- 84acdd374521c4df63d82352cc86f03a219213f0을expected_sha ec21ce8/force=false로fast-forward하고파일보존Gitfetch/mixed인덱스동기화/clean을확인했다. PR#1은OPEN/unmerged로유지하며구현/로컬검사·미검증을갱신했다. 새CI43404749340진행중이다.
+- 로컬APK0.8.0/8세파일의실제manifest·bytes/SHA256·개발debug/test동일인증서/unsigned release를기능커밋84acdd3로수집했다. CI/Mac서명과같다고가정하지않는다. 정상Gitfetch로CI임시9a1ede3d9848b2c686a73fb4720dad430226a0aa와기능tree f6ddd1844a84dbe84eaa2bd3d6e8873ce7d6d1bd일치도확인했다. PR실제병합이아니다.
+- 다음7단계프롬프트초안을저장했으며새실제기기/화면/CI결과후상태를최종갱신한다. 기기artifact는job종료후만제공되므로제약/시점을채팅에알렸다.
+
+- CI43404749340 verify success/Gradle5m35s·서버14/진단35를완료원본로그에서확인했다. APKartifact14027490674와report14027027388을정상GitHub앱파일참조로다운로드했다. 실제원본HTML의JVM99/실패0/ignored0과세APKbytes/SHA256·aapt manifest·apksigner개발인증서/미서명을독립대조해모두일치했다. ci-verify/ci-apk-metadata/ci-apk-comparison에기록한다. 기기job131818679615는별도진행중이다.
+
+### 6단계 완료 — 실제 주차/귀환 원본과 새PID 복원
+
+- 84acdd3/CI43404749340 verify/android-device모두success. 기기artifact14028535017(약1.96MB)을정상GitHub앱으로다운로드해원본XML14메서드중12pass/실패0/2skip을확인했다. 확장VisitRoad한시나리오에서8초자동요약닫기/반복완료재열림없음·관측자동승격없음·TEST/USER단서/연속저장·SQLite재조회·귀환/Activity재시작/주행/이동재개·새완료미확인을확인했다. 기존설정/좌석·알림/방문/자료를보존했다.
+- 프로세스전용2메서드는일괄skip후별도준비/종료/새PID7411→7464에서동일방문/road/관측/주차/단서ID·TEST출처/시각·기존프로필/역할·동일확정알림을복원하고모든화면/관측/내비자동재개없음을확인했다. 명시fixture이며실차/카메라활성종료실측이아니다.
+- 집중UI14장성공(이전37장재실행아님). 04주차미확인요약/05TEST입력미저장/06TEST단서저장과08USER검증용메모귀환/10새PID복원/12TEST이동후이전기록원본6장을확보즉시채팅에이미지로표시했다. 04는자동닫기끄기이며8초동작은별도실제기기검사다. 02/09지도는동작줄이기의재생대기0%/매장행개략도이며자동재생/복귀선/측위성공으로표시하지않았다. PNG/XML28개원본/hash/run/코드를보존한다.
+- UI새PID7528→8964에서도같은방문/PARKED·HIDDEN/USER메모manual-demo와화면/관측자동재개없음을확인했다. 메모는정상EditText부모를확인해입력하고실제IME표시를확인한경우만Back을보냈다. 일반Android수동입력시험이며현장확인이아니다.
+- connected/설치직전readiness2개원본은transport=device/boot1/package·activity found·각rc0/빈stderr로통과했다. HTTP SERVER_MOCK도같은DB서버재시작/응답보류/빈토큰→동일세션GET200·POST1/공급자0으로성공했다. 실제SENS/휴대폰수신이아니다.
+- README/docs08/09/12/18/23·증거·PR을갱신한다. 앱0.8.0/8·코드84acdd3/CI임시9a1ede3d/tree f6ddd184와세APK실제hash/개발서명/미서명을기록했고기기APK는동일소스별도runner재빌드라는수준을유지한다. 첫CI에서기본/기기모두통과했으며앱소스를추가변경하지않았다.
+- 실제Pleos/외부카메라/측위·주차승강연결/복귀선·실차·실제OS철회·새관측문서/공개영상경로·SMS수신·AIworker는미검증/미구현. 기존DB/자료/방문/설정/알림·이전APK/사용자데이터를유지하고서버DB삭제/새세션재발송/자동병합없음. 다음7단계는같은APK의전체시연영상/제출증거대조다.
+- 문서/증거만[skip ci]커밋해통과한앱검사를근거없이반복하지않는다. 다음실행프롬프트를파일에저장하고최종채팅에직접제공한다.

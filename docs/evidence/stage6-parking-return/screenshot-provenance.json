@@ -1,0 +1,150 @@
+{
+  "run": 43404749340,
+  "artifact": 14028535017,
+  "head_code": "84acdd374521c4df63d82352cc86f03a219213f0",
+  "ci_build_code": "9a1ede3d9848b2c686a73fb4720dad430226a0aa",
+  "environment": "Generic Android API34 / CI-owned fresh AVD",
+  "inputs": "TEST vehicle/entry/observations/parking; MOCK road; synthetic manual memo",
+  "files": [
+    {
+      "file": "01-start.png",
+      "sha256": "6dcac7d35b1bdf5d33e7d1b2524d68ecab8edf05cddc15b2b5eca50fdbe21e39",
+      "bytes": 97232
+    },
+    {
+      "file": "01-start.xml",
+      "sha256": "d270d7292bb3a32d507101e12ca9563fcddb6fe9de3ee67482864475a261b003",
+      "bytes": 20981
+    },
+    {
+      "file": "02-entry-map.png",
+      "sha256": "bc60b4aa444208df882ff48740130454346aa05bf803ce6ec162c5a456fc986a",
+      "bytes": 110951
+    },
+    {
+      "file": "02-entry-map.xml",
+      "sha256": "643f0779755ba937b2a42cc2927e54526ed8ab118ae8834e6dcdc8a0ac524721",
+      "bytes": 11912
+    },
+    {
+      "file": "03-observation-only.png",
+      "sha256": "862caf11da26ad9faad10d7204782f7aae54ef04967cdb01ba86c87516357e38",
+      "bytes": 107470
+    },
+    {
+      "file": "03-observation-only.xml",
+      "sha256": "95bf92f5ce858ec036368289ef41ea2ff69d65cf5fce30662772ab58e894b507",
+      "bytes": 29383
+    },
+    {
+      "file": "04-unknown-parking-summary.png",
+      "sha256": "03f17153c8f98d523097d9caf8d7f317480b64b05ac46107f3541a656e11b8a7",
+      "bytes": 104705
+    },
+    {
+      "file": "04-unknown-parking-summary.xml",
+      "sha256": "4c2c7aeef8452220ad4d8f7ed0155fa3fd8edd99de94238b70836279453fc12c",
+      "bytes": 9483
+    },
+    {
+      "file": "05-test-draft-unsaved.png",
+      "sha256": "19ef3f1b90adefe4f324999b01ad5bed4315591b673c806878651ff0d4fa8da0",
+      "bytes": 107394
+    },
+    {
+      "file": "05-test-draft-unsaved.xml",
+      "sha256": "826fdd160b74e37addf7ae8e2bd30aee295019e91eeebe1bb11ba116a04cc62a",
+      "bytes": 19261
+    },
+    {
+      "file": "06-test-note-stored.png",
+      "sha256": "9eeb4271744110d7ac2d7c7cf290a97aeb966f729d664c43e9d2c70e17eae9ab",
+      "bytes": 104947
+    },
+    {
+      "file": "06-test-note-stored.xml",
+      "sha256": "1dc680406b9e250333281d2a0ed5848fbc038adf52c40b5e5303a2f87b4d5dfb",
+      "bytes": 19289
+    },
+    {
+      "file": "07-manual-note-stored.png",
+      "sha256": "62708a11f4bcbe459b7a2a381012cf393a5e80237b4eda05d3e13c9d8574a901",
+      "bytes": 100344
+    },
+    {
+      "file": "07-manual-note-stored.xml",
+      "sha256": "d71ad3f6a5c1a1c16bbc0212c524dc24411a5197a17393b43c0ee5afb75ebda2",
+      "bytes": 19243
+    },
+    {
+      "file": "08-return-record.png",
+      "sha256": "d349cdbdf994197e1af4d4581656dff6a803cc05a64e0995193df73b3d36daf7",
+      "bytes": 110056
+    },
+    {
+      "file": "08-return-record.xml",
+      "sha256": "0bc588c7fd4e5bf9e29b77aa2966ef6b708a906ad9237bba0e1611ea06327491",
+      "bytes": 10592
+    },
+    {
+      "file": "09-floor-preview.png",
+      "sha256": "9f43e80704ee21e3804d5e65d05c74ef681a7d9f31dab7df97554a01ad4d70ac",
+      "bytes": 115485
+    },
+    {
+      "file": "09-floor-preview.xml",
+      "sha256": "a86655dc0e9a30ecac1eb8406d487e9ca6d64986059ecbef64911c3488ad2113",
+      "bytes": 11980
+    },
+    {
+      "file": "10-restored-hidden.png",
+      "sha256": "09961d2d7e6c70d6b748eee4b5579c0f4bb08c4fe0639bb7b0e671f8daf95da6",
+      "bytes": 108111
+    },
+    {
+      "file": "10-restored-hidden.xml",
+      "sha256": "4318e5ef6ea20db55af752564a52ce1b56a861ebd8dbb9c65400953856c4103e",
+      "bytes": 17727
+    },
+    {
+      "file": "11-driving-hidden.png",
+      "sha256": "96d9a994c78925192e69747e08dcf62ef6d0842b8634665b6adbb7c592e582fc",
+      "bytes": 115656
+    },
+    {
+      "file": "11-driving-hidden.xml",
+      "sha256": "765996d59443fdef4adc5041902871355a1cda87b69eaad40039e316a697cd54",
+      "bytes": 16894
+    },
+    {
+      "file": "12-previous-record-after-movement.png",
+      "sha256": "96405e453f56003c88296bba407d64d6a150794932d4f1f8486662ff10d67f4e",
+      "bytes": 109831
+    },
+    {
+      "file": "12-previous-record-after-movement.xml",
+      "sha256": "96faddaa67d9ffc35707ff5671991ab3d7c1e6f5e14442d8982a6af954fc021a",
+      "bytes": 19357
+    },
+    {
+      "file": "13-next-parking-unknown.png",
+      "sha256": "d48664873e4267503d839df592bd765aec93a8c6e32284e0fe35a9dad1ce7393",
+      "bytes": 104998
+    },
+    {
+      "file": "13-next-parking-unknown.xml",
+      "sha256": "c076951e1c443dde114508046037b241970ac26d240d027e80a4da305e71fa7b",
+      "bytes": 9483
+    },
+    {
+      "file": "14-explicit-search-idle.png",
+      "sha256": "4d3a4e2658f11f02581612751f9c2dc3323c6924af6fdc7940cfa8352fcffa18",
+      "bytes": 109172
+    },
+    {
+      "file": "14-explicit-search-idle.xml",
+      "sha256": "d9ea5c807e923f986a21d52bebd8bc412a5cf32cf9c21d208f02c705aaeedd5f",
+      "bytes": 17891
+    }
+  ]
+}

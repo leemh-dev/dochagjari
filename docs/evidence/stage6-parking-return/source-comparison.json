@@ -1,0 +1,8 @@
+{
+  "feature_commit": "84acdd374521c4df63d82352cc86f03a219213f0",
+  "ci_pr_merge_commit": "9a1ede3d9848b2c686a73fb4720dad430226a0aa",
+  "feature_tree": "f6ddd1844a84dbe84eaa2bd3d6e8873ce7d6d1bd",
+  "ci_tree": "f6ddd1844a84dbe84eaa2bd3d6e8873ce7d6d1bd",
+  "actually_merged": false,
+  "trees_equal": true
+}
