@@ -676,3 +676,16 @@
 - README/docs08/09/12/18/22·증거·PR을최신수준으로갱신한다. APK는0.7.0/7·코드8ea046a,CI임시5894f438/tree af875b3·세파일실제hash/개발서명/미서명을구분한다. 첫ef3/첫CI실패와metadata는first-*로보존한다. 기기APK는같은소스별도runner재빌드이며배포byte/서명과동일을가정하지않는다.
 - 연결근거없어parking=null·주차층/현재위치·승강연결미확인·기존5층선유지다. 실제Pleos SDK/핀·외부카메라/측위·실차·새관측OpenDocument/공개영상실행/실제OS철회·AI조회worker는미검증/미구현. native강제중단/메모리성능을실측했다고주장하지않는다. 가상병원/모의SMS·기존DB/방문/설정/알림/이전APK보존,자동병합없음.
 - 후속은6단계주차완료·요약/닫기·귀환과7단계같은APK연속시연이다. 다음실행프롬프트를파일과최종채팅에직접제공한다. 이후문서/증거만[skip ci]커밋해같은앱검사를근거없이반복하지않는다.
+
+## 2026-11-13 UTC · 6단계 주차 완료·요약/귀환 착수
+
+- AGENTS/README/docs07~22·5단계원본/metadata와PR#1/최신원격·CI를확인했다. OPEN/head ec21ce8/코드8ea046a·CI43390462215 completed success이다. 로컬은같은feat/android-submission-mvp/clean이며이전검사를새실행으로세지않는다. Cloud runtime skill/현재환경·네트워크정책을확인했고ADB devices -l목록0·KVM없음. 새근거없는부팅·Mac접속/인증우회없음.
+- 앱0.8.0/8. 같은방문의별도parked JSON에명시완료/차량상태출처·수동단서revision/확인시각·이동재개이력을추가했다. SQLite schema1/자료 snapshot·방문ID·road/observation/legacyParkingClue·기존설정/역할·알림을보존한다. OCR후보나과거단서를새확인위치로복사하지않는다.
+- application FIFO저장후currentVisit재조회/전체값일치ACK,중복완료/수정ID멱등성·연속저장/미저장폼구분·동일요청재시도·기록한도시보류를구현했다. 주차완료전관측generation무효화/원자적저널중지. ACK후한번만요약/기본8초닫기·명시귀환·알수없는위치/승강연결/복귀선을유지한다.
+- 닫기/탭이탈/ON_STOP/해제/종료/주행·unknown에서화면/관측중지,재시작자동열기없음을보강했다. stopped=false수신또는명시다시찾기는이전주차에재개출처/시각을남기고같은방문PARKING_GUIDANCE로돌아가되관측/지도/내비를자동시작하지않는다. 저장중이동도ACK후예전기록으로전환하고요약을띄우지않는다.
+- 첫Kotlin compile53s,로컬JVM94/실패0·lint/세APK2m42s성공. 이후저장실패·ACK유실·저장중이동AppModel3건과기기확장·프로세스동일주차/단서복원·집중UI14장을추가한최종검사는진행중이다. 새실제기기성공으로아직표시하지않는다.
+- CI는기존기기회귀/HTTP모의복구를유지하며UI는새주차흐름14장에집중하도록바꿨다. 기존37장을근거없이중복캡처하지않고7단계전체시연에서연속흐름을검증한다. 공통readiness로연결/부팅/package/activity·각rc0을connected/설치직전에재확인하도록추가했다. 새Python구문/actionlint/diff통과. 기존ComposeXML의EditText/label부모관계를읽어필드선택기를구성했으며추정좌표를누르지않는다.
+
+- 생명주기3건을포함한중간최종JVM97/실패0·lint/세APK2m18s성공. 검토에서쓰기후ACK/재조회유실은이전값롤백으로단정할수없어UI를저장결과미확인으로바꿨다. ACK유실뒤이동한경계도같은과거ID복구/이전기록전환·현재주차/팝업없음으로확인하는4번째생명주기검사를추가했다. 최종98건과빌드는실행중이다. 기존설정/알림/방문·실제동선은보존한다.
+
+- 최종 검토후JVM98/lint/세APK2m21s성공. 저장중새입력을완료로잘못표시하지않는추가검사1건을넣어앱코드변경없이JVM만갱신했고최종원본XML99/실패0/errors0/skip0·48s성공을확인했다. 신규17건(규칙/SQLite12·AppModel5)이다. 새기기는아직대기다. 캡처기는실제IME표시를확인한경우만Back을보내도록보강했다. Python구문/actionlint/diffPASS.

@@ -18,7 +18,7 @@ class ProcessRestartInstrumentedTest {
     private fun report(request: ConfirmedArrival) = InstrumentationRegistry.getInstrumentation().sendStatus(0, Bundle().apply {
         putInt("arrival_process_pid", Process.myPid()); putString("arrival_request_hash", request.fingerprint())
         val visit = AppServices.get(InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as Application).guidance!!.state.value.visit!!
-        putString("visit_id", visit.id); putString("road_request_id", visit.journey.latest!!.id); putString("observation_run_id", visit.observation.latest!!.id)
+        putString("visit_id", visit.id); putString("road_request_id", visit.journey.latest!!.id); putString("observation_run_id", visit.observation.latest!!.id); putString("parking_id", visit.parked.active!!.id); putString("parking_note_id", visit.parked.active!!.notes!!.id)
     })
     private val expected = Profile(leftDoor = true, rightDoor = true, stroller = true, wheelchair = true, companion = true, heightM = 2.2, seats = SeatPreferences(SeatSetup.CONFIGURED, SeatAssignment(SeatRole.INFANT, true), SeatAssignment(SeatRole.ADULT)))
     @Test fun prepareQueuedArrivalAndSavedProfile() = runBlocking {
@@ -48,6 +48,8 @@ class ProcessRestartInstrumentedTest {
         val scan = guidance.beginObservation(visit.id, VisitFrameSource.TEST)
         repeat(2) { guidance.appendObservation(visit.id, scan.id, VisitSample(java.util.UUID.randomUUID().toString(), "FLOOR B3 C12", .95, System.currentTimeMillis(), it * 1000L)) }
         withTimeout(10_000) { guidance.state.first { it.visit?.observation?.latest?.samples?.size == 2 && !it.saving } }
+        val parking = guidance.completeParking(visit.id, java.util.UUID.randomUUID().toString(), GuidanceInputSource.TEST, InputSource.TEST, System.currentTimeMillis())
+        guidance.amendParking(visit.id, parking.visit.parked.active!!.id, ParkingRevision(java.util.UUID.randomUUID().toString(), GuidanceInputSource.TEST, System.currentTimeMillis(), ParkingDetails("B3", pillar = "C12", memo = "종료 복원 TEST · 실제 판교점 아님")))
         report(model.state.value.delivery.record.request!!)
         instrumentation.runOnMainSync { store.clear() }
     }
@@ -73,13 +75,16 @@ class ProcessRestartInstrumentedTest {
         assertFalse(s.delivery.record.serverObserved)
         val guidance = requireNotNull(AppServices.get(app).guidance)
         val visit = withTimeout(10_000) { guidance.state.first { !it.loading && it.visit != null } }.visit!!
-        assertEquals(VisitPhase.PARKING_GUIDANCE, visit.phase)
+        assertEquals(VisitPhase.PARKED, visit.phase)
         assertEquals(RoadStatus.DISPATCHED, visit.journey.latest!!.status)
         assertTrue(visit.journey.latest!!.events.isEmpty())
         assertEquals(GuidanceInputSource.TEST, visit.journey.entry!!.source); assertFalse(s.showIndoorGuide)
         assertEquals(VisitFrameSource.TEST, visit.observation.latest!!.source)
-        assertEquals(2, visit.observation.latest!!.samples.size); assertNull(visit.observation.latest!!.stopReason)
+        assertEquals(2, visit.observation.latest!!.samples.size); assertNotNull(visit.observation.latest!!.stopReason)
         assertFalse(s.observingVisit); assertNull(visit.parking)
+        assertNotNull(visit.parked.active); assertEquals(GuidanceInputSource.TEST, visit.parked.active!!.notes!!.source)
+        assertEquals(ParkingDetails("B3", pillar = "C12", memo = "종료 복원 TEST · 실제 판교점 아님"), visit.parked.active!!.notes!!.details)
+        assertNull(s.parkingView); assertEquals(GuideVisibility.HIDDEN, visit.visibility)
         report(frozen)
         instrumentation.runOnMainSync { assertFalse(model.newSession()); store.clear() }
     }

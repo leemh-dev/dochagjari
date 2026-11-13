@@ -81,6 +81,23 @@ class VisitGuidanceRepository(private val storage: GuidanceStorage, private val 
     fun stopObservation(visitId: String, runId: String, reason: String) = action(saving = true) {
         persist(VisitObservationRules.stop(current(visitId), runId, reason))
     }
+    private fun persistParking(v: VisitRecord): VisitRecord {
+        storage.saveVisit(v)
+        val saved = requireNotNull(storage.currentVisit())
+        check(saved == v) { "Parking read-back mismatch" }
+        _state.value = _state.value.copy(visit = saved)
+        return saved
+    }
+    suspend fun completeParking(visitId: String, id: String, source: GuidanceInputSource, vehicleSource: InputSource, at: Long): ParkingCommit = transaction {
+        val result = VisitParkingRules.complete(current(visitId), id, source, vehicleSource, at)
+        result.copy(visit = persistParking(result.visit))
+    }
+    suspend fun amendParking(visitId: String, parkingId: String, revision: ParkingRevision): VisitRecord = transaction {
+        persistParking(VisitParkingRules.amend(current(visitId), parkingId, revision))
+    }
+    suspend fun resumeParking(visitId: String, parkingId: String, source: InputSource, explicit: Boolean, at: Long): VisitRecord = transaction {
+        persistParking(VisitParkingRules.resume(current(visitId), parkingId, source, explicit, at))
+    }
     fun search(query: String) = action {
         initialize()
         _state.value = _state.value.copy(matches = storage.search(catalog!!.version, query))

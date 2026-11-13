@@ -1,0 +1,9 @@
+{
+  "jvm": {
+    "tests": 98,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "build": "JVM/lint/debug/androidTest/unsigned release SUCCESS2m21s; extra in-flight draft test added afterward"
+}

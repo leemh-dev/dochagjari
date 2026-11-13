@@ -6,6 +6,16 @@
 
 개발을 이어갈 때는 [다음 개발 실행 프롬프트](docs/09-next-development-prompt.md)를 사용합니다. [제출 체크리스트](docs/12-submission-checklist.md)에서 남은 실제 확인 항목을 확인합니다. 주요 진행 절차·실패·후속 작업은 [개발 일지](docs/10-development-log.md), 기능별 완료 증거는 [검증 기록](docs/08-verification.md)에 남깁니다.
 
+## 6단계 주차 완료·요약·귀환
+
+입차한 같은 방문에서 정차 중 `직접 주차 완료 · 센서 감지 아님` 또는 `주차 완료 테스트`를 누릅니다. 관측을 중지하고 SQLite 저장값을 다시 읽은 뒤 요약을 엽니다. 기본8초 뒤 요약을 닫고 기록은 유지합니다. 현재 실행에서 자동닫기를 끌 수 있습니다. 완료만으로 층·기둥을 채우지 않습니다.
+
+주차 후 직접 확인한 층/구역/기둥/승강기/메모를 입력하고 `입력한 단서 확인 · 저장`을 누릅니다. 화면 입력과 저장한 기록·출처·확인 시각을 구분합니다. 빈 값은 미확인으로 저장합니다. TEST 채우기는 실제 판교점이 아니며 `비우고 직접 입력` 전까지 TEST 출처를 유지합니다.
+
+`차로 돌아가기 · 저장 단서`는 저장 기록을 엽니다. 주차장 승강 연결·현재 위치가 미확인이므로 복귀 경로/거리·역방향 선을 만들지 않습니다. 5층 지도는 확인된 매장행 동선으로만 수동 열 수 있습니다. 주행 또는 명시적 다시 찾기는 이전 주차 기록을 남기고 같은 방문에서 새 확인을 준비하며, 관측/지도/내비를 자동 재개하지 않습니다. 재시작도 저장 기록만 복원합니다.
+
+앱0.8.0/8 구현/로컬 검사 중이며 새 기기 CI 결과는 후속 기록합니다. [계약](docs/23-parking-summary-and-return.md) · [새 검사/화면/APK](docs/evidence/stage6-parking-return/README.md). 실제 차량 카메라·측위·귀환 연결 검증과 구분합니다.
+
 ## 5단계 입차 후 관측·추천
 
 입차가 기록된 같은 방문에서 `테스트 관측 시작` 또는 `생성 C12 방문 관측`/`생성 빈 방문 관측`/`공개 영상 방문 관측`/`방문 영상 선택`으로 시작합니다. 출처와 원문·분석 시각·클립 시각을 저장하며 반복된 문자 후보를 표시합니다. TEST B3/C12·B4/C12, 낮은 신뢰도·오래됨·표기 없음을 비교할 수 있습니다.
@@ -54,10 +64,10 @@
 - JDK **17**, Android SDK Platform **35**, Build Tools **35.0.0**. 실행 대상은 **API 34 이상**, ARM64 또는 x86_64입니다.
 - Gradle **8.10.2**, AGP **8.8.0**, Kotlin **1.9.22**. Wrapper를 동봉합니다.
 - 공식 SDK: `NaviHelper:3.0.5`, `Vehicle:2.3.2`. Maven: `https://nexus-playground.pleos.ai/repository/maven-releases/`.
-- 현재 개발 버전은 **0.7.0 / versionCode 7**, 코드 **8ea046a**입니다. [새 개발APK/metadata](https://github.com/leemh-dev/dochagjari/actions/runs/43390462215/artifacts/14021185433)의세파일해시/manifest/서명을독립대조했습니다. [CI식별](docs/evidence/stage5-visit-observation/ci-apk-metadata.json)·[로컬식별](docs/evidence/stage5-visit-observation/local-apk-metadata.json)을구분하고기존APK/사용자데이터를유지합니다.
+- 현재 개발 버전은 **0.8.0 / versionCode 8**, 구현/검사 중입니다. 새 코드/APK hash·서명은 [6단계 증거](docs/evidence/stage6-parking-return/README.md)를 따릅니다. 이전0.7.0/7·8ea046a의 [보관APK](https://github.com/leemh-dev/dochagjari/actions/runs/43390462215/artifacts/14021185433)를 새 버전으로 표시하지 않습니다.
 - 1단계0.3.0/3은 [이전 artifact](https://github.com/leemh-dev/dochagjari/actions/runs/43344658563/artifacts/14001506355)로 보관합니다.
 - 이전 **0.2.0 / versionCode 2**의 [개발 APK·기기 테스트 APK·unsigned release 보관 artifact](https://github.com/leemh-dev/dochagjari/actions/runs/43055801516/artifacts/13871881801)의 서명 종류와 SHA-256은 [검증 기록](docs/08-verification.md)에 정리합니다. debug는 개발 서명이고 제출용 서명 APK가 아닙니다.
-- 이전0.2 보관 artifact는 `development-release-assets-and-metadata`, 현재0.6는 `development-apks-and-metadata`입니다. 압축을 풀면 세 APK와 `apk-metadata.json`, `SHA256SUMS`가 있습니다. GitHub 로그인 후 다운로드합니다. runner 개발 서명은 이전 Cloud 서명과 다르므로 **새 테스트 AVD**를 사용합니다. 기존 데이터가 있는 앱을 임의 삭제하지 않습니다. Release 게시 API의 인증 제한과 대체 경로는 [개발 일지](docs/10-development-log.md)에 기록했습니다.
+- 이전0.2 보관 artifact는 `development-release-assets-and-metadata`, 현재 신규버전은 `development-apks-and-metadata`입니다. 압축을 풀면 세 APK와 `apk-metadata.json`, `SHA256SUMS`가 있습니다. GitHub 로그인 후 다운로드합니다. runner 개발 서명은 이전 Cloud 서명과 다르므로 **새 테스트 AVD**를 사용합니다. 기존 데이터가 있는 앱을 임의 삭제하지 않습니다. Release 게시 API의 인증 제한과 대체 경로는 [개발 일지](docs/10-development-log.md)에 기록했습니다.
 - 저장소의 [`apk/dochagjari-debug.apk`](apk/dochagjari-debug.apk)는 **이전 0.1.0 보관본**입니다. 큰 새 바이너리는 CI artifact로 제공해 소스 이력을 불필요하게 늘리지 않습니다.
 
 ```bash

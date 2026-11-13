@@ -99,5 +99,54 @@ class VisitRoadInstrumentedTest {
         assertEquals(original.id, saved.id); assertEquals(original.catalogVersion, saved.catalogVersion)
         assertEquals(GuidanceInputSource.TEST, saved.journey.entry!!.source); assertNull(saved.parking)
         assertEquals(profile, services.profiles.state.value.profile); assertEquals(notification, services.outbox.state.value.record)
+
+        // Stage 6: the same visit, with no automatic promotion of the B3/C12 observations.
+        ui.waitUntil(10_000) { currentModel.state.value.vehicle.stopped == true }
+        ui.runOnIdle { currentModel.confirmParking(true) }
+        ui.waitUntil(10_000) { !currentModel.state.value.parkingSaving && currentModel.state.value.parkingView == ParkingView.SUMMARY }
+        ui.onNodeWithText("주차 저장 완료 · 요약").assertIsDisplayed()
+        val parkingId = repo.state.value.visit!!.parked.active!!.id
+        assertNull(repo.state.value.visit!!.parked.active!!.notes); assertFalse(currentModel.state.value.observingVisit)
+        // Default eight-second automatic close preserves the record and never reopens it.
+        ui.waitUntil(12_000) { currentModel.state.value.parkingView == null }
+        ui.runOnIdle { currentModel.confirmParking(true) }
+        ui.waitUntil(10_000) { !currentModel.state.value.parkingSaving }
+        assertNull(currentModel.state.value.parkingView); assertEquals(1, repo.state.value.visit!!.parked.records.size)
+        ui.runOnIdle { currentModel.fillParkingTestDraft(); currentModel.saveParkingDetails() }
+        ui.waitUntil(10_000) { !currentModel.state.value.parkingSaving && repo.state.value.visit?.parked?.active?.notes?.source == GuidanceInputSource.TEST }
+        ui.runOnIdle {
+            currentModel.clearParkingDraft()
+            currentModel.editParkingDetails(ParkingDetails(floor = "기기 확인 층", memo = "수동 입력 첫번째 · 시연")); currentModel.saveParkingDetails()
+            currentModel.editParkingDetails(ParkingDetails(floor = "기기 확인 층", memo = "수동 입력 두번째 · 시연")); currentModel.saveParkingDetails()
+        }
+        ui.waitUntil(10_000) { !currentModel.state.value.parkingSaving && repo.state.value.visit?.parked?.active?.notes?.details?.memo == "수동 입력 두번째 · 시연" }
+        val readBack = SqliteGuidanceStorage(ui.activity).use { it.currentVisit()!! }
+        assertEquals(parkingId, readBack.parked.active!!.id); assertEquals(3, readBack.parked.active!!.revisions.size)
+        assertEquals(GuidanceInputSource.USER, readBack.parked.active!!.notes!!.source); assertFalse(currentModel.state.value.parkingDraftDirty)
+        assertNull(readBack.parking)
+        ui.runOnIdle { currentModel.openParkingReturn() }
+        ui.onNodeWithText("차로 돌아가기 · 저장 기록").assertIsDisplayed()
+        ui.onNodeWithTag("parking-sheet").assertIsDisplayed()
+        ui.onNodeWithText("귀환 화면 닫기").performClick()
+        ui.activityRule.scenario.recreate()
+        ui.runOnIdle { currentModel = ViewModelProvider(ui.activity)[AppModel::class.java]; assertNull(currentModel.state.value.parkingView) }
+        ui.runOnIdle { currentModel.testStopped(false) }
+        ui.waitUntil(10_000) { repo.state.value.visit?.parked?.latest?.resumed != null && repo.state.value.visit?.phase == VisitPhase.PARKING_GUIDANCE }
+        assertNull(repo.state.value.visit!!.parked.active); assertFalse(repo.state.value.visit!!.parked.latest!!.resumed!!.explicit)
+        assertEquals("수동 입력 두번째 · 시연", repo.state.value.visit!!.parked.latest!!.notes!!.details.memo)
+        ui.runOnIdle { currentModel.confirmParking(true); currentModel.openParkingReturn() }
+        assertNull(currentModel.state.value.parkingView); assertEquals(1, repo.state.value.visit!!.parked.records.size)
+        ui.runOnIdle { currentModel.testStopped(true) }
+        ui.waitUntil(10_000) { currentModel.state.value.vehicle.stopped == true }
+        assertFalse(currentModel.state.value.observingVisit); assertFalse(currentModel.state.value.showIndoorGuide)
+        ui.runOnIdle { currentModel.setParkingSummarySeconds(0); currentModel.confirmParking(true) }
+        ui.waitUntil(10_000) { !currentModel.state.value.parkingSaving && repo.state.value.visit?.parked?.records?.size == 2 }
+        assertNull(repo.state.value.visit!!.parked.active!!.notes)
+        ui.runOnIdle { currentModel.resumeParkingSearch() }
+        ui.waitUntil(10_000) { !currentModel.state.value.parkingSaving && repo.state.value.visit?.parked?.active == null }
+        assertTrue(repo.state.value.visit!!.parked.latest!!.resumed!!.explicit)
+        assertEquals(original.id, repo.state.value.visit!!.id); assertEquals(original.catalogVersion, repo.state.value.visit!!.catalogVersion)
+        assertEquals(profile, services.profiles.state.value.profile); assertEquals(notification, services.outbox.state.value.record)
+
     }
 }

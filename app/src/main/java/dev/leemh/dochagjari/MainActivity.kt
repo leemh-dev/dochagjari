@@ -45,13 +45,14 @@ private val scheme = darkColorScheme(primary = Mint, background = Color(0xFF0912
     val observationOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
     androidx.compose.runtime.DisposableEffect(observationOwner, model) {
         val observer = androidx.lifecycle.LifecycleEventObserver { _, event ->
-            if (event == androidx.lifecycle.Lifecycle.Event.ON_STOP) model.stopVisitObservation("앱 백그라운드/화면 종료")
+            if (event == androidx.lifecycle.Lifecycle.Event.ON_STOP) model.closeIndoorGuide()
         }
         observationOwner.lifecycle.addObserver(observer)
-        onDispose { observationOwner.lifecycle.removeObserver(observer); model.stopVisitObservation("화면 해제") }
+        onDispose { observationOwner.lifecycle.removeObserver(observer); model.closeIndoorGuide() }
     }
     val carPermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { model.selectVehicle(false) }
     MaterialTheme(colorScheme = scheme, typography = Typography(bodyLarge = TextStyle(fontSize = 20.sp), bodyMedium = TextStyle(fontSize = 18.sp), labelLarge = TextStyle(fontSize = 18.sp))) {
+        state.parkingView?.takeIf { state.vehicle.stopped == true }?.let { ParkingSummaryScreen(state, model, it) }
         if (state.showIndoorGuide && state.vehicle.stopped == true) {
             state.guidance.visit?.let { visit -> state.guidance.visitDestination?.let { destination ->
                 IndoorGuideScreen(destination, visit.catalogVersion, state.vehicle.source.label, model::closeIndoorGuide, visit.observation.latest?.let { r -> "${r.source.label} · ${VisitObservationRules.summarize(visit.observation, System.currentTimeMillis()).recommendation}" })
@@ -66,7 +67,7 @@ private val scheme = darkColorScheme(primary = Mint, background = Color(0xFF0912
                 Spacer(Modifier.height(12.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     listOf("도착 안내", "좌석·조건", "영상 탐색", "만남·알림", "연동·테스트", "매장 방문").forEachIndexed { index, name ->
-                        FilterChip(selected = tab == index, onClick = { if (tab == 5 && index != 5) model.stopVisitObservation("방문 화면 종료"); tab = index }, label = { Text(name) })
+                        FilterChip(selected = tab == index, onClick = { if (tab == 5 && index != 5) model.closeIndoorGuide(); tab = index }, label = { Text(name) })
                     }
                 }
                 HorizontalDivider(Modifier.padding(vertical = 8.dp))
@@ -103,9 +104,10 @@ private val scheme = darkColorScheme(primary = Mint, background = Color(0xFF0912
                                     Text("저장 상태 · ${visit.phase} / ${visit.visibility}")
                                     Text("사용 자료 · ${visit.catalogVersion}", fontSize = 12.sp)
                                     VisitJourneyPanel(state, model)
+                                    VisitParkingPanel(state, model)
                                     VisitObservationPanel(state, model) { observationPicker.launch(arrayOf("video/*")) }
                                     Button(onClick = model::openIndoorGuide, enabled = state.vehicle.stopped == true && guidance.visitDestination != null && !guidance.saving) { Text("5층 동선 보기") }
-                                    Text("주차 위치 · ${visit.parking?.pillar ?: "미확인 · 아직 저장하지 않음"}")
+                                    Text("현재 측위 · 미확인 · 관측 문자나 수동 단서는 측위가 아닙니다.")
                                 }
                             }
                             Text("5층 동선은 공식 연결 기준의 개략도에서 재생합니다. 내비와 명시적 입차를 같은 방문으로 연결합니다. 입차 후 출처를 표시한 관측 단서를 저장합니다. 실제 외부 카메라·측위는 미연동입니다.", color = scheme.secondary)

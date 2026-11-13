@@ -36,6 +36,8 @@ try:
     visit_ids = []
     road_ids = []
     observation_ids = []
+    parking_ids = []
+    parking_note_ids = []
     for phase, method in [("prepare", "prepareQueuedArrivalAndSavedProfile"), ("verify", "verifyRestoredArrivalAndProfile")]:
         output = run("shell", "am", "instrument", "--user",user,"-w", "-e", "restartPhase", phase, "-e", "class",
                      package + ".ProcessRestartInstrumentedTest#" + method,
@@ -44,6 +46,8 @@ try:
         pids.append(int(re.search(r"arrival_process_pid=(\d+)", output).group(1)))
         hashes.append(re.search(r"arrival_request_hash=([0-9a-f]{64})", output).group(1))
         visit_ids.append(re.search(r"visit_id=([0-9a-f-]+)", output).group(1))
+        parking_ids.append(re.search(r"parking_id=([0-9a-f-]+)", output).group(1))
+        parking_note_ids.append(re.search(r"parking_note_id=([0-9a-f-]+)", output).group(1))
         observation_ids.append(re.search(r"observation_run_id=([0-9a-f-]+)", output).group(1))
         road_ids.append(re.search(r"road_request_id=([0-9a-f-]+)", output).group(1))
         run("shell", "am", "force-stop", "--user",user,package)
@@ -51,7 +55,8 @@ try:
     assert hashes[0] == hashes[1], "Frozen payload must remain identical across process termination"
     assert visit_ids[0] == visit_ids[1] and road_ids[0] == road_ids[1], "Same visit/request must survive with no automatic handoff replay"
     assert observation_ids[0] == observation_ids[1], "Observation journal must survive without automatic source restart"
-    transcript.append(f"PASS: process restart {pids[0]} -> {pids[1]}; unchanged request {hashes[0]}; frozen payload and acknowledged profile restored; no token/provider call; same visit {visit_ids[0]}/road request {road_ids[0]}, same observation {observation_ids[0]} / 2 TEST frames, no auto replay/observation resume")
+    assert parking_ids[0] == parking_ids[1] and parking_note_ids[0] == parking_note_ids[1], "Same parking completion and manual notes must survive"
+    transcript.append(f"PASS: process restart {pids[0]} -> {pids[1]}; unchanged request {hashes[0]}; frozen payload and acknowledged profile restored; no token/provider call; same visit {visit_ids[0]}/road request {road_ids[0]}, same observation {observation_ids[0]} / 2 TEST frames, same parking {parking_ids[0]}/notes {parking_note_ids[0]}, no automatic summary/map/navigation/observation resume")
 finally:
     target = Path(args.output)
     target.parent.mkdir(parents=True, exist_ok=True)

@@ -13,9 +13,14 @@ import androidx.compose.ui.unit.sp
         Text("주행 중/상태 미확인 · 방문 관측 중지 · 영상/단서 상세 숨김")
         return
     }
+    if (visit.phase != VisitPhase.PARKING_GUIDANCE) {
+        Text("주차 저장 후 관측 중지 · 저장 기록 유지 · 자동 재개 없음")
+        Text("관측 출처 · ${visit.observation.latest?.source?.label ?: "없음"} · 과거 문자를 주차 단서로 자동 확정하지 않습니다.")
+        return
+    }
     val run = visit.observation.latest
     val summary = VisitObservationRules.summarize(visit.observation, System.currentTimeMillis())
-    val enabled = state.vehicle.stopped == true && !state.analyzing && !state.guidance.saving
+    val enabled = state.vehicle.stopped == true && !state.analyzing && !state.guidance.saving && !state.parkingSaving
     Text("방문 관측 · 출처와 단서", fontSize = 22.sp)
     Text("실제 외부 카메라 미연동 · 선택/생성/공개 영상과 테스트 입력", fontSize = 14.sp)
     Text(state.visitObservationMessage)
