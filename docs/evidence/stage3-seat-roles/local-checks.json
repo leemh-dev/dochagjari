@@ -9,7 +9,14 @@
     "unit_lint_debug": "passed in first invocation; AndroidTest smart-cast compilation failed",
     "androidTest_release": "passed after local non-null repository reference fix; BUILD SUCCESSFUL in1m28s"
   },
-  "device": "Not yet run for stage3; not Pleos evidence",
+  "device": {
+    "initial_run": 43364708532,
+    "initial_instrumented_passed": 11,
+    "initial_process_specific_skipped": 2,
+    "initial_separate_process_restart": "PASS",
+    "latest_run": 43366222134,
+    "latest_status": "PASS;11 instrumented passes,2 process-specific skips followed by separate two-phase PASS;25 UI screenshots/role restart/HTTP SERVER_MOCK recovery PASS"
+  },
   "new_tests": [
     "SeatPreferencesTest: explicit choices/occupancy boundaries",
     "ProfileDataStoreTest: legacy migration, shutdown/reopen,unknown role,injected write failure/retry against actual file"

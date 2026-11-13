@@ -593,3 +593,14 @@
 - c98630d 기기CI가진행중일때검토에서SeatRoleSettings의제안이편집profile.seats를직접쓰는것을확인했다. 저장중/실패에도제안문구가'저장선택'이라고할수있는코드경로다. 실제기기실패/실측으로발견한문제와구분한다.
 - 제안은ProfileState의최신revision==savedRevision·SAVED·persisted에있는역할에서만만들도록보강한다. 편집값은별도선택UI에남기고SAVING/ERROR/stale-ack에서는저장제안을숨긴다. 이세경계와정상저장완료제안검사를추가했다. 기능코드변경이므로새검사/빌드후별도수정커밋과새CI를진행한다. 버전은미완성개발0.5.0/5범위에서유지하되코드/hash/서명을분리기록한다.
 - **보강로컬결과:**JVM52/실패0·오류0,lint/debug/test/unsigned release전체2m33s성공. stale-ack검사를실제저장역할이있는경우로강화한후SeatPreferencesTest3건만21s재실행통과했다. 이전CI51건과구분하고새코드의기기/화면은후속CI에서확인한다.
+- 보강수정a8e440b를fast-forward반영해새CI43366222134가시작됐다. 초기c98630d/CI43364708532와별도이며같은버전0.5.0/5안에서도실제코드/hash/인증서metadata를갱신했다. 초기CI APKmetadata는initial-ci-apk-metadata.json으로보존한다. 최신기기결과는아직대기다.
+- **초기코드실제기기완료:**c98630d/CI43364708532 verify/android-device둘다success. artifact14011310449를정상GitHub앱으로실제다운로드해JUnit11pass/2skip·UI25장/역할요약을읽었다. 건너뛰기22·테스트OCCUPIED/왼쪽저장영유아·카시트제안24·재시작25원본을채팅에열었다. 초기이미지3장/요약을initial-c986에보존하고최종a8e440b실행과구분한다.
+- **최신코드기본CI완료:**a8e440b/CI43366222134 verify success. 원본JUnit HTML보고서를실제다운로드해52건/실패0/ignored0을독립읽었다. Gradle4m2s·서버14/진단35도이번실행성공이다. 최신APKartifact14010825928을내려받아세파일hash/manifest/인증서·미서명모두일치확인했다. CI임시병합1550a11/동일tree7583555febf511e0443f0199ee9c7847e9edfa91과head a8e440b관계도실제대조했다. 새기기job은아직대기/진행중이다.
+
+### 3단계 완료 — 최신 실제 기기 원본/저장 복원 확인
+
+- a8e440b/CI43366222134 verify/android-device모두success를실제조회했다. 기기artifact14010628050(약2.9MB)를정상GitHub앱으로다운로드/해제해JUnit XML13메서드중11pass/0failure·프로세스전용2skip을확인했다.별도프로세스준비/종료/새PID(7085→7134)2단계PASS와동일확정요청fingerprint·저장프로필복원을원본로그에서읽었다. 콘솔Finished집계를모두pass로표시하지않는다.
+- 최신22건너뛰기/23역할·카시트선택/24테스트OCCUPIED저장선택제안/25재실행후역할유지의실제PNG4장을확보즉시채팅에서열었다. 원본PNG/XML·출처/SHAJSON·UI전체25장요약을보존했다. 초기c9863장과최신a8e440b4장을명확히분리했다.
+- 실제기기신규2건은저장값재조회/기존6조건·방문/알림요청보존/건너뛰기후지도이용·Activity복원, 점유의역할불변/주행·unknown쓰기차단을확인한다. 프로세스검사는좌우역할/카시트와기존조건을함께확인했다. DataStore옛파일이행/저장직후새store/주입실패·재시도·연속변경·미완료제안차단은단위검사로구분한다.
+- UI25장·방문새PID복원·기존Android영상/점유·C12·우회/기타기능성공. HTTP SERVER_MOCK도응답보류→앱종료/동일DB서버재시작/빈토큰→같은세션GET200·POST1/공급자0으로성공했다. 실제SENS/휴대폰수신/Pleos/실차검증이아니다. 실제Mac이전설치본업그레이드는실행하지않았고기존사용자앱데이터는삭제하지않았다.
+- README/docs08/09/12/18/20·증거·PR을최종갱신한다. 기존0.4/0.3/0.2APK/metadata를유지하고최신0.5.0/5·a8e440b/CI임시병합1550a11·실제hash/서명을별도기록했다. 이후문서/증거만[skip ci]커밋해같은앱코드검사를중복실행하지않는다. 자동병합없음. 다음4단계목적지/내비/입차이며AI조회worker·연속카메라/측위·주차귀환/전체시연은남아있다.

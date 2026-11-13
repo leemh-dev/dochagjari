@@ -1,0 +1,65 @@
+{
+  "environment": "Generic Android API34 KVM / own fresh CI AVD",
+  "channel": "SERVER_MOCK",
+  "real_sms": false,
+  "screenshots": [
+    "01-server-stored-response-withheld.png",
+    "02-request-restored-without-token.png",
+    "03-same-session-server-result-recovered.png"
+  ],
+  "readiness": {
+    "serial": "emulator-5554",
+    "ready": true,
+    "checks": {
+      "transport": {
+        "returncode": 0,
+        "stdout": "device",
+        "stderr": ""
+      },
+      "boot": {
+        "returncode": 0,
+        "stdout": "1",
+        "stderr": ""
+      },
+      "package": {
+        "returncode": 0,
+        "stdout": "Service package: found",
+        "stderr": ""
+      },
+      "activity": {
+        "returncode": 0,
+        "stdout": "Service activity: found",
+        "stderr": ""
+      }
+    },
+    "reason": "Boot and package/activity services verified"
+  },
+  "token_empty_after_restart": true,
+  "success": true,
+  "response_deliberately_withheld": true,
+  "server_restarted_with_same_db": true,
+  "first_pid": "10721",
+  "second_pid": "11385",
+  "session_id": "d96d31ee-c765-401a-9071-fcff55cce864",
+  "request_digest": "19666d5504d3894c1e78d1258a63a6c3e2edf6d7d0cde685d81ef622a8b1dea3",
+  "post_count": 1,
+  "recovery_get_count": 1,
+  "provider_attempts": 0,
+  "event_trace": [
+    {
+      "method": "GET",
+      "path": "/v1/arrivals/d96d31ee-c765-401a-9071-fcff55cce864/demo",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/v1/arrivals",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/arrivals/d96d31ee-c765-401a-9071-fcff55cce864/demo",
+      "status": 200
+    }
+  ]
+}

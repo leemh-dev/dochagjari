@@ -2,6 +2,14 @@
 
 2026-11-13 UTC · 기준: [개발계획](07-development-plan.md)
 
+## 3단계 선택적 좌석 역할 — 로컬/일반 Android 기기 통과
+
+앱 **0.5.0 / 5**, 기능 `c98630d`·최신 저장 완료 제안 수정 `a8e440b`. 역할/카시트·건너뛰기, 기존 파일/6개 이동 조건·방문ID·확정 알림 보존을 구현했다. 점유와 사용자 지정 역할을 분리하며 제안은 최신 SAVED/revision/persisted에서만 만든다.
+
+최신 CI43366222134의 verify/android-device 모두 성공. 원본 보고서 JVM52/실패0, 서버14/진단35·lint/세APK 빌드 통과. 실제 기기11통과·프로세스전용2skip후별도2단계PASS, UI25장/새역할4장·저장값재조회/건너뛰기/종료복원·HTTP 모의복구 성공. 실제 CI APK 세 파일의 hash/manifest/개발인증서·미서명을 독립 대조했다. [설계](20-optional-seat-roles.md) · [원본 화면·보고서·APK 식별](evidence/stage3-seat-roles/README.md).
+
+쓰기 실패는 주입 단위검사이며 실제 기기 디스크 고장 실측이 아니다. 일반 Android/테스트 입력 성공을 Pleos SDK·Console·실차나 실제 SMS 수신으로 표시하지 않는다. 기존 Mac 설치본의 실제 업그레이드는 이번에 실행하지 않았다. 다음은 4단계 목적지/내비/입차다.
+
 ## 2단계 앱 지도 — 로컬/일반 Android 기기 통과
 
 앱0.4.0/4·코드e573e8e에네이티브Canvas/PathMeasure·기울기/회전·파란선·재생/평면전환/닫기를추가했다. 같은방문ID/자료버전·설정/알림을보존하고표시상태를저장한다. 주행/미확인은상세지도를닫는다. JVM45/lint/debug·test·unsigned release통과,중간25프레임호스트Compose검사통과. [로컬검사/APK/호스트화면](evidence/stage2-native-guide/README.md). 호스트렌더는AVD/Pleos화면이아니며CI43358680681 verify/android-device모두통과했다. 실제기기JUnit9통과·프로세스전용2skip후별도2단계PASS,21장캡처/동일방문닫힘복원/실제HTTP모의복구도성공했다. 새기기원본5장을채팅에서직접열었으며APK세파일의hash/manifest/서명을독립대조했다. 공식동선기반개략도/재생점이며현재측위/주차연결/실제카메라성공을의미하지않는다. 주행중자료보완방향은docs/19에설계반영했고실제AI조회worker는미구현이다.

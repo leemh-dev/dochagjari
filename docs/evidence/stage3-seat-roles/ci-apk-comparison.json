@@ -1,0 +1,15 @@
+{
+  "run": 43366222134,
+  "artifact": 14010825928,
+  "head_code": "a8e440bd4dd9ee84f318f9b3a1512fe55a13de7f",
+  "ci_build_code": "1550a11a122b2efd5988824267dd3209a8ee9e2a",
+  "same_tree": "7583555febf511e0443f0199ee9c7847e9edfa91",
+  "version": "0.5.0/5",
+  "checks": {
+    "all_sha256": true,
+    "all_manifests": true,
+    "debug_test_signature_and_certificate": true,
+    "release_unsigned": true
+  },
+  "download": "Connected GitHub App standard file reference; no proxy/auth bypass"
+}

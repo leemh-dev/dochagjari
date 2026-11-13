@@ -1,10 +1,18 @@
 # 도착자리
 
-**목적지 너머, 만날 자리까지.** 방문 매장에 맞는 도착·주차·보행 안내를 연결하는 Kotlin Android 앱을 개발합니다. 현재 판교점 에뜨와 시설 조회·방문 저장·네이티브 동선 재생과 기존 픽업/병원 시연 기능이 있습니다. [11월 15일 개발계획](docs/07-development-plan.md)을 구현 기준으로 사용합니다.
+**목적지 너머, 만날 자리까지.** 방문 매장에 맞는 도착·주차·보행 안내를 연결하는 Kotlin Android 앱을 개발합니다. 현재 판교점 에뜨와 시설 조회·방문 저장·네이티브 동선 재생·선택적 좌석 역할과 기존 픽업/병원 시연 기능이 있습니다. [11월 15일 개발계획](docs/07-development-plan.md)을 구현 기준으로 사용합니다.
 
 가상 학원·병원 각각 한 곳을 동봉합니다. 사람 출입구를 유지하면서 방문 모드·이용 불가·영상 점유에 따라 차량 도착점이 바뀝니다. 순정 내비 좌표의 실제 승하차 허용 여부나 실제 시설 무단차 경로를 검증한 서비스는 아닙니다.
 
 개발을 이어갈 때는 [다음 개발 실행 프롬프트](docs/09-next-development-prompt.md)를 사용합니다. [제출 체크리스트](docs/12-submission-checklist.md)에서 남은 실제 확인 항목을 확인합니다. 주요 진행 절차·실패·후속 작업은 [개발 일지](docs/10-development-log.md), 기능별 완료 증거는 [검증 기록](docs/08-verification.md)에 남깁니다.
+
+## 3단계 선택적 탑승 역할
+
+정차 상태에서 `좌석·조건`을 엽니다. 지원이 확인된 뒷좌석 좌·우에 역할(미지정/성인/어린이/영유아)과 카시트 사용을 선택할 수 있습니다. `건너뛰기 · 설정 없이 안내`는 역할 사용만 중지하고 기존 선택/이동 조건/방문을 지우지 않습니다. 설정하지 않아도 매장 안내를 사용할 수 있습니다.
+
+화면 선택값과 `설정 저장 완료`를 구분합니다. 저장 실패는 `설정 다시 저장`으로 재시도합니다. 점유 신호는 역할을 판별하지 않으며, 저장한 역할 사용+OCCUPIED일 때만 이번 탑승에도 맞는지 확인하라는 제안을 표시합니다. 주행/상태 미확인에는 변경을 막습니다. [설계·보존 규칙](docs/20-optional-seat-roles.md) · [새 검사/APK/실제 화면](docs/evidence/stage3-seat-roles/README.md).
+
+최신 일반 Android CI에서 저장값 재조회·건너뛰기·주행 차단·새 프로세스 역할/기존 조건/알림 복원이 통과했습니다. [실제 앱의 점유 확인 제안 화면](docs/evidence/stage3-seat-roles/24-seat-occupancy-suggestion.png) · [개발 APK/metadata](https://github.com/leemh-dev/dochagjari/actions/runs/43366222134/artifacts/14010825928).
 
 ## 2단계 앱 지도 확인
 
@@ -28,10 +36,10 @@
 - JDK **17**, Android SDK Platform **35**, Build Tools **35.0.0**. 실행 대상은 **API 34 이상**, ARM64 또는 x86_64입니다.
 - Gradle **8.10.2**, AGP **8.8.0**, Kotlin **1.9.22**. Wrapper를 동봉합니다.
 - 공식 SDK: `NaviHelper:3.0.5`, `Vehicle:2.3.2`. Maven: `https://nexus-playground.pleos.ai/repository/maven-releases/`.
-- 현재 개발 버전은 **0.4.0 / versionCode 4**입니다. [신규 CI](https://github.com/leemh-dev/dochagjari/actions/runs/43358680681)의 `development-apks-and-metadata`에서 세 APK·실제 manifest/코드/SHA/서명을 확인합니다. [로컬 식별](docs/evidence/stage2-native-guide/local-apk-metadata.json)과 CI runner의 서명/해시는 다를 수 있습니다.
+- 현재 개발 버전은 **0.5.0 / versionCode 5**입니다. [신규 CI](https://github.com/leemh-dev/dochagjari/actions/runs/43366222134)의 `development-apks-and-metadata`에서 세 APK·실제 manifest/코드/SHA/서명을 확인합니다. [로컬 식별](docs/evidence/stage3-seat-roles/local-apk-metadata.json)과 CI runner의 서명/해시는 다를 수 있습니다.
 - 1단계0.3.0/3은 [이전 artifact](https://github.com/leemh-dev/dochagjari/actions/runs/43344658563/artifacts/14001506355)로 보관합니다.
 - 이전 **0.2.0 / versionCode 2**의 [개발 APK·기기 테스트 APK·unsigned release 보관 artifact](https://github.com/leemh-dev/dochagjari/actions/runs/43055801516/artifacts/13871881801)의 서명 종류와 SHA-256은 [검증 기록](docs/08-verification.md)에 정리합니다. debug는 개발 서명이고 제출용 서명 APK가 아닙니다.
-- 이전0.2 보관 artifact는 `development-release-assets-and-metadata`, 현재0.4는 `development-apks-and-metadata`입니다. 압축을 풀면 세 APK와 `apk-metadata.json`, `SHA256SUMS`가 있습니다. GitHub 로그인 후 다운로드합니다. runner 개발 서명은 이전 Cloud 서명과 다르므로 **새 테스트 AVD**를 사용합니다. 기존 데이터가 있는 앱을 임의 삭제하지 않습니다. Release 게시 API의 인증 제한과 대체 경로는 [개발 일지](docs/10-development-log.md)에 기록했습니다.
+- 이전0.2 보관 artifact는 `development-release-assets-and-metadata`, 현재0.5는 `development-apks-and-metadata`입니다. 압축을 풀면 세 APK와 `apk-metadata.json`, `SHA256SUMS`가 있습니다. GitHub 로그인 후 다운로드합니다. runner 개발 서명은 이전 Cloud 서명과 다르므로 **새 테스트 AVD**를 사용합니다. 기존 데이터가 있는 앱을 임의 삭제하지 않습니다. Release 게시 API의 인증 제한과 대체 경로는 [개발 일지](docs/10-development-log.md)에 기록했습니다.
 - 저장소의 [`apk/dochagjari-debug.apk`](apk/dochagjari-debug.apk)는 **이전 0.1.0 보관본**입니다. 큰 새 바이너리는 CI artifact로 제공해 소스 이력을 불필요하게 늘리지 않습니다.
 
 ```bash
