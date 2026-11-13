@@ -19,7 +19,7 @@ TEST/생성 영상/선택 영상/공개 영상을 구분한다. 실제 외부 �
 
 ## 중지·철회·복원
 
-닫기/관측 중지/방문 탭 이탈/백그라운드 ON_STOP/화면 해제/주행 또는 상태 미확인/입력 소스 변경/ViewModel 종료는 generation을 먼저 무효화한다. 늦게 도착한 native 결과는 저장하지 않는다. 선택 영상의 URI read 권한을 프레임 사이에서 재확인하고 SecurityException이면 중지한다. UI의 '입력 권한 철회 테스트'는 모의 중지이며 실제 OS 권한 철회 성공으로 표시하지 않는다.
+닫기/관측 중지/방문 탭 이탈/백그라운드 ON_STOP/화면 해제/주행 또는 상태 미확인/입력 소스 변경/ViewModel 종료는 generation을 먼저 무효화한다. 늦게 도착한 native 결과는 저장하지 않는다. 앱 cache/files의 canonical 하위 읽기 가능한 file://는 앱 소유 파일로 구분한다. 외부 파일은 picker의 content URI를 사용하며, 선택 문서의 URI read 권한을 프레임 사이에서 재확인하고 SecurityException이면 중지한다. UI의 '입력 권한 철회 테스트'는 모의 중지이며 실제 OS 권한 철회 성공으로 표시하지 않는다.
 
 네이티브 detect/OCR 호출은 진행 중인 한 호출이 끝나거나 OCR 제한시간(15초)에 도달한 뒤 finally에서 retriever/detector/recognizer/bitmap/temp를 해제한다. 즉시 native 강제중단을 보장하지 않는다. 앱 공통 Mutex로 이전 해제 전 새 분석기를 겹쳐 만들지 않는다. 재시작은 저장 단서만 보여주고 입력/카메라를 자동 재개하지 않는다. 강제종료는 종료 사유를 쓸 기회가 없을 수 있어 종료 사유 없는 저널도 자동 재개하지 않는다.
 

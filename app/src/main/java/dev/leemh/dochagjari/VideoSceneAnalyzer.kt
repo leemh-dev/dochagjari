@@ -30,14 +30,25 @@ internal fun modelBitmap(decoded: Bitmap): Bitmap {
     finally { decoded.recycle() }
 }
 
+/** App-owned files need no SAF URI grant. Content documents still require their read grant. */
+internal fun requireVideoReadAccess(context: Context, uri: Uri) {
+    if (uri.scheme == "file") {
+        val file = File(requireNotNull(uri.path)).canonicalFile
+        val privateRoots = listOf(context.cacheDir, context.filesDir).map { it.canonicalFile }
+        if (file.isFile && file.canRead() && privateRoots.any { file.path.startsWith(it.path + File.separator) }) return
+        throw SecurityException("Only app-private file inputs are supported; select external documents through the picker")
+    }
+    if (uri.scheme != "content" || context.checkUriPermission(uri, android.os.Process.myPid(), android.os.Process.myUid(), android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION) != android.content.pm.PackageManager.PERMISSION_GRANTED)
+        throw SecurityException("Selected document read permission missing or revoked")
+}
+
 class VideoSceneAnalyzer(private val context: Context) : SceneAnalyzer, VisitFrameAnalyzer {
     override fun analyze(uri: Uri?, asset: String?, source: InputSource): SceneResult = analyzeInternal(uri, asset, source, { true }, {})
     override fun analyzeVisit(uri: Uri?, asset: String?, source: InputSource, keepGoing: () -> Boolean, onFrame: (SceneFrame) -> Unit): SceneResult = analyzeInternal(uri, asset, source, keepGoing, onFrame)
     private fun analyzeInternal(uri: Uri?, asset: String?, source: InputSource, keepGoing: () -> Boolean, onFrame: (SceneFrame) -> Unit): SceneResult {
         fun checkpoint() {
             if (!keepGoing()) throw kotlinx.coroutines.CancellationException("Visit observation stopped")
-            if (asset == null && uri != null && context.checkUriPermission(uri, android.os.Process.myPid(), android.os.Process.myUid(), android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION) != android.content.pm.PackageManager.PERMISSION_GRANTED)
-                throw SecurityException("Selected document read permission missing or revoked")
+            if (asset == null && uri != null) requireVideoReadAccess(context, uri)
         }
         checkpoint()
         val retriever = MediaMetadataRetriever()

@@ -1,0 +1,9 @@
+{
+  "feature_commit": "ef3f306cb752ae5d1817216faa008b3b756d53d9",
+  "ci_pr_merge_commit": "f6c552e8ae4718e30d15002754e35abca373e394",
+  "feature_tree": "5376de1e0bfe7fe04f8b5c6d22d156c8d4fabff8",
+  "ci_tree": "5376de1e0bfe7fe04f8b5c6d22d156c8d4fabff8",
+  "trees_equal": true,
+  "actually_merged": false,
+  "note": "PR virtual merge ref inspected, no PR merge performed; distribution verify job and device runner rebuild are distinct APKs"
+}

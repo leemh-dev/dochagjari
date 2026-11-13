@@ -639,3 +639,25 @@
 - 기기 스크립트 사전 검토에서 ffprobe로 생성 영상 길이가4.0초임을 확인해 OCR 처리간격2초의 기대 저장프레임을2로 수정했다. CI 실패를 재현한 것이 아니라 실행 전 fixture/기대값 불일치 보정이다. 실제 기기 결과는 후속 CI로 확인한다.
 
 - 최종 로컬 JVM77/실패0·lint/세APK1m56s 통과, 이후 주행 상세 숨김/문구 수정의 lint/세APK 패키징도 통과했다. Python구문/actionlint/diff 성공. 새 CI 기기 검사는 다음 커밋에서 실행한다. 원본 로컬 로그는 stage5-visit-observation에 보존한다.
+
+### 5단계 기능 푸시와 새 CI
+
+- ef3f306cb752ae5d1817216faa008b3b756d53d9를 expected_sha9fb5085/force=false로 fast-forward하고 정상 Git fetch/mixed 인덱스 동기화로 파일 보존/clean을 확인했다. PR#1은 OPEN/unmerged로 유지하고 작업/차단 현황을 갱신했다. 새 CI43388009453 시작, verify 실행 중이다.
+- 로컬 최종 UI 패키징1m29s 성공. 기능커밋ef3f306 기준 실제 manifest0.7.0/7·세APK SHA256·개발 debug/test 동일 인증서와 release 미서명을 수집했다. local-apk-metadata.json/local-SHA256SUMS에 기록하며 CI runner 결과와 혼동하지 않는다. 실제기기CI/새화면은 아직 대기다.
+
+### 새 CI 기본검사 완료 · 실제 기기 준비 중
+
+- CI43388009453 verify success. 원본job로그에서 Gradle4m36s·서버14/진단35 성공을 확인했다. 실제 Android job131762989031 준비 중이다. 배포APKartifact14019243185와보고서14019910987을 정상 GitHub앱 파일 참조로 다운로드/독립 대조 중이다.
+- 실제 Git refs/pull/1/merge를읽어임시f6c552e8ae4718e30d15002754e35abca373e394/기능ef3f306의tree5376de1e0bfe7fe04f8b5c6d22d156c8d4fabff8일치를확인했다. PR을병합한것이아니다. 앱원본화면은기기job종료후만artifact로제공돼대기중이라고채팅에알렸다.
+
+- 정상앱으로다운로드한보고서원본HTML에서JVM77/실패0/ignored0을확인했다. APK세파일 bytes/SHA256·aapt manifest·apksigner인증서/미서명도모두독립일치했다. ci-apk-comparison/metadata/SHA와ci-verify요약에기록한다. 실제기기검사는별도진행중이다.
+
+### 실제 기기 회귀 발견 · 앱 전용 파일과 문서 URI 구분 수정
+
+- CI43388009453 android-device 실패. 원본artifact14019563596 XML14메서드중11pass/1fail/2skip을다운로드해읽었다. 새 VisitRoad의관측/생성C12/닫기/주행시나리오는PASS였지만기존videoInputChanges...에서expected VIDEO / actual GENERATED가실패했다. connected실패로프로세스/화면/HTTP후속은실행안됨이며새화면성공으로표시하지않았다.
+- 실제실패원인은추가URI검사가앱이소유한cache file://입력에도문서grant를요구한회귀다. 소스의SecurityException반환경로와실패결과를대조했다. 앱cache/files canonical하위의읽기가능한파일만직접허용하고외부content문서는계속정상read grant를요구하도록수정했다. 유사prefix외부경로/권한없는content는거부한다. 인증/권한검사를해제하지않는다.
+- 새단위4건(cache/files허용·유사경로거부·미승인content거부)을추가해전체검사/빌드중이다. 실패요약은first-device-failure.json이며수정후새소스CI로회귀와후속화면/복원을확인한다. 기존실패를숨기거나새기기성공으로대체하지않는다.
+
+- URI 단위검사 첫 실행에서 Robolectric 기본 checkUriPermission이 허용을 반환해 미승인 content 기대가 실패했다. 실제 OS 거부를 재현한 것이 아니므로 ContextWrapper로 명시 GRANTED/DENIED를 주입하고 허용/거부 두 경로를 검증하도록 보정했다. 총 신규 경계5건이며 실제 OS 철회와 구분한다.
+
+- 실제 수정후 로컬 JVM82/실패0·lint/debug/test/unsigned release 전체1m50s 성공. 새 소스 커밋/CI로 기기 영상 회귀와 프로세스/화면 후속을 확인한다. 원본 uri-fixed-local.log에 기록한다.

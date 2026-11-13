@@ -1,0 +1,100 @@
+{
+  "run": 43388009453,
+  "feature_commit": "ef3f306cb752ae5d1817216faa008b3b756d53d9",
+  "artifact": 14019563596,
+  "counts": {
+    "pass": 11,
+    "fail": 1,
+    "skip": 2
+  },
+  "cases": [
+    {
+      "class": "dev.leemh.dochagjari.AppInstrumentedTest",
+      "test": "realFrameAnalysisChangesWithVideoAndReadsPillar",
+      "result": "PASS",
+      "failure": null
+    },
+    {
+      "class": "dev.leemh.dochagjari.AppInstrumentedTest",
+      "test": "videoInputChangesOccupancyAndDivertsRecommendationInApp",
+      "result": "FAIL",
+      "failure": null
+    },
+    {
+      "class": "dev.leemh.dochagjari.AppInstrumentedTest",
+      "test": "hospitalCompanionAndMissingStepFreeRouteChangeCandidates",
+      "result": "PASS",
+      "failure": null
+    },
+    {
+      "class": "dev.leemh.dochagjari.AppInstrumentedTest",
+      "test": "savedOptionsAndNotificationJournalSurviveModelRestart",
+      "result": "PASS",
+      "failure": null
+    },
+    {
+      "class": "dev.leemh.dochagjari.AppInstrumentedTest",
+      "test": "drivingAndUnknownStatesBlockLocationAndProfileChanges",
+      "result": "PASS",
+      "failure": null
+    },
+    {
+      "class": "dev.leemh.dochagjari.AppInstrumentedTest",
+      "test": "academyModeAndBlockedCandidateChangeDestination",
+      "result": "PASS",
+      "failure": null
+    },
+    {
+      "class": "dev.leemh.dochagjari.IndoorGuideInstrumentedTest",
+      "test": "nativeRouteMovesPausesChangesPerspectiveAndClosesWithoutLosingVisit",
+      "result": "PASS",
+      "failure": null
+    },
+    {
+      "class": "dev.leemh.dochagjari.IndoorGuideInstrumentedTest",
+      "test": "movingOrUnknownVehicleStateClosesAndCannotReopenDetailedMap",
+      "result": "PASS",
+      "failure": null
+    },
+    {
+      "class": "dev.leemh.dochagjari.ProcessRestartInstrumentedTest",
+      "test": "verifyRestoredArrivalAndProfile",
+      "result": "SKIP",
+      "failure": null
+    },
+    {
+      "class": "dev.leemh.dochagjari.ProcessRestartInstrumentedTest",
+      "test": "prepareQueuedArrivalAndSavedProfile",
+      "result": "SKIP",
+      "failure": null
+    },
+    {
+      "class": "dev.leemh.dochagjari.SeatRolesInstrumentedTest",
+      "test": "optionalRolesAreDurableAndSkipPreservesVisitAndLegacyOptions",
+      "result": "PASS",
+      "failure": null
+    },
+    {
+      "class": "dev.leemh.dochagjari.SeatRolesInstrumentedTest",
+      "test": "occupancyNeverChangesRolesAndDrivingBlocksRoleWrites",
+      "result": "PASS",
+      "failure": null
+    },
+    {
+      "class": "dev.leemh.dochagjari.StoreVisitInstrumentedTest",
+      "test": "storeLookupAndPreparedVisitAreReallyStoredAndSurviveActivityRestart",
+      "result": "PASS",
+      "failure": null
+    },
+    {
+      "class": "dev.leemh.dochagjari.VisitRoadInstrumentedTest",
+      "test": "roadResultCancelDrivingExplicitEntryAndRestartKeepSameVisit",
+      "result": "PASS",
+      "failure": null
+    }
+  ],
+  "screenshots": "not run: connected test failed before capture step",
+  "process_restart": "not run",
+  "cause": "App-private file:// cache input incorrectly subjected to content URI grant check. Legacy selected video left prior GENERATED observation when analysis failed.",
+  "fix": "Canonical readable app cache/files only; external documents still require content URI read grant. No auth/permission bypass."
+}
