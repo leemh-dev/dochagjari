@@ -1,0 +1,256 @@
+{
+  "created_at_utc": "2026-11-13",
+  "new_branch": "feat/arrival-context-ux",
+  "baseline_branch": "feat/android-submission-mvp",
+  "baseline_commit": "f164ec77fbdd651334f946867ab8bd062be5b30e",
+  "app_code": "e2b93baa91ce5bc56fb770fdc65dad08b9992175",
+  "app_version": "0.9.0",
+  "version_code": 9,
+  "app_directory_unchanged_from_app_code": true,
+  "tracked_png_count": 22,
+  "current_reference_count": 6,
+  "records": [
+    {
+      "file": "docs/ux/arrival-v1/01-plan.png",
+      "bytes": 74042,
+      "sha256": "d3a80269b23128f8afe5f3ec1862ca155237eeec30092b92f2eab4337348b041",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/arrival-v1/02-road-handoff.png",
+      "bytes": 94005,
+      "sha256": "3f8132ce942c27b21e17725180fc22f4ac4229e2d88c43e468cf9cc17169ecc7",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/arrival-v1/03-entry-unknown.png",
+      "bytes": 82558,
+      "sha256": "0ffd6f6e1d41e20497864e58ab8bff4745f8206b1e8b32f6ba66a8310682ce90",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/arrival-v1/04-floor-route.png",
+      "bytes": 131584,
+      "sha256": "83cd0fca6708bd8948b1cabc65b3a6e47c2829bf1f726790f0e318d02163f618",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/arrival-v1/04b-floor-complete.png",
+      "bytes": 135250,
+      "sha256": "4cd4b1fea474438da39d1b584ad639415e7c9305b84ecd2db0a2f6dff9e23a6c",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/arrival-v1/05-parking.png",
+      "bytes": 72421,
+      "sha256": "e52b2f4f32ba567a9ec1ceab8f3e7d1bd70b3cb2e0d86c1dd266bd92e6995b1d",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/arrival-v1/06-return.png",
+      "bytes": 79044,
+      "sha256": "730feb5508612c2bc59552bb6227ab5a0b8e1101fad8b5efa96294275e93b3f0",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/arrival-v1/07-driving.png",
+      "bytes": 85239,
+      "sha256": "74b23b733ce72f1f74d7603b8d9c51a24f3a8c1c1ce312d2336c7a8fc167f00b",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/photo-based-3d/01-hospital.png",
+      "bytes": 1712796,
+      "sha256": "8a0939af9ef090ba4187ae3b6bf025a8dfdf39a0d60f404e40ff40e49c45f1e8",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/photo-based-3d/02-academy.png",
+      "bytes": 1642496,
+      "sha256": "66873ddaea2c5546debbc0e25892bcb55dbdb31a42b9ad7166efa8c8cb5a14cb",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/photo-based-3d/03-station.png",
+      "bytes": 1710711,
+      "sha256": "84e8eb7bdcb033ef9ed80ed3066a8750c7e76187d9e957d328243c1a04c93f21",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/photo-based-3d/04-airport.png",
+      "bytes": 1646068,
+      "sha256": "8294ece23bce7ed877857e96deb4ab1c2cb9e464026a7bad16c1ae88353625ff",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/photo-based-3d/05-camera-and-3d-map.png",
+      "bytes": 1854553,
+      "sha256": "e1ba2597c3743f1688daaa2b78f3e7f1d7943691606fb4137315449f649b0cbf",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "current_reference": true,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/road-scenario-concepts/01-academy.png",
+      "bytes": 1858527,
+      "sha256": "668410b38c8ccc62ad51c27a5903d0ca030414a334743e6396affa462f86789f",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "current_reference": true,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/road-scenario-concepts/02-hospital.png",
+      "bytes": 1839834,
+      "sha256": "7f900945aed09684fb96a8220f38cbdba65bfaacf3ae355e0062bd26363d3d4f",
+      "dimensions": [
+        1671,
+        941
+      ],
+      "current_reference": true,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/road-scenario-concepts/03-station.png",
+      "bytes": 1871640,
+      "sha256": "90973fd6c9eba0460827371855e914dc23608482017e94cddf8f5bd9c1fdc2ab",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "current_reference": true,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/road-scenario-concepts/04-airport.png",
+      "bytes": 1843146,
+      "sha256": "dd9136afd39ea24b1419a25f7c82b3f8e704b3c1afbefc76b46470be2d3251d4",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "current_reference": true,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/scenario-concepts/01-store-reference.png",
+      "bytes": 1716617,
+      "sha256": "8fc0df065723133b52bfff08e2f56304a33d88a21fe53b1875ec64fd1be0d4cb",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "current_reference": true,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/scenario-concepts/02-hospital-companion.png",
+      "bytes": 1730924,
+      "sha256": "8783cb4bb62ac16d43dcadc516c3915bae27b81665806b30f9270f2ae52eb438",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/scenario-concepts/03-academy-pickup.png",
+      "bytes": 1718302,
+      "sha256": "dc1d2cbf7172b218b869acb71ea7f00e4cb3392f237d3b1a02199298a194398d",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/scenario-concepts/04a-station-pickup.png",
+      "bytes": 1729480,
+      "sha256": "f7e22033e8aba21a08dcedca6cce0b2d68a823678e5df82043949381e00e9cdb",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    },
+    {
+      "file": "docs/ux/scenario-concepts/04b-airport-waiting.png",
+      "bytes": 1777270,
+      "sha256": "04ad13b7148f98416ec7f61398e32d683a03bb6b79f27aae0957ffaf6d387cc1",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "current_reference": false,
+      "baseline_matches": true
+    }
+  ]
+}

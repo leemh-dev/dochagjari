@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="dev.leemh.dochagjari.AppInstrumentedTest" tests="19" failures="1" errors="0" skipped="4" time="90.106" timestamp="2026-11-14T06:25:30" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 14" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="realFrameAnalysisChangesWithVideoAndReadsPillar" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="28.071" />
+  <testcase name="videoInputChangesOccupancyAndDivertsRecommendationInApp" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="19.879" />
+  <testcase name="hospitalCompanionAndMissingStepFreeRouteChangeCandidates" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="1.397" />
+  <testcase name="savedOptionsAndNotificationJournalSurviveModelRestart" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="1.184" />
+  <testcase name="drivingAndUnknownStatesBlockLocationAndProfileChanges" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="0.79" />
+  <testcase name="academyModeAndBlockedCandidateChangeDestination" classname="dev.leemh.dochagjari.AppInstrumentedTest" time="1.293" />
+  <testcase name="nativeRouteMovesPausesChangesPerspectiveAndClosesWithoutLosingVisit" classname="dev.leemh.dochagjari.IndoorGuideInstrumentedTest" time="3.153" />
+  <testcase name="movingOrUnknownVehicleStateClosesAndCannotReopenDetailedMap" classname="dev.leemh.dochagjari.IndoorGuideInstrumentedTest" time="1.547" />
+  <testcase name="independentPresetsOnceEditCommandAndRecreationUseActualSavedData" classname="dev.leemh.dochagjari.OccupantInstrumentedTest" time="4.713" />
+  <testcase name="verify" classname="dev.leemh.dochagjari.OccupantRestartInstrumentedTest" time="0.044">
+    <skipped />
+  </testcase>
+  <testcase name="prepare" classname="dev.leemh.dochagjari.OccupantRestartInstrumentedTest" time="0.026">
+    <skipped />
+  </testcase>
+  <testcase name="verifyRestoredArrivalAndProfile" classname="dev.leemh.dochagjari.ProcessRestartInstrumentedTest" time="0.028">
+    <skipped />
+  </testcase>
+  <testcase name="prepareQueuedArrivalAndSavedProfile" classname="dev.leemh.dochagjari.ProcessRestartInstrumentedTest" time="0.067">
+    <skipped />
+  </testcase>
+  <testcase name="productMapCloseMovementRecreateKeepPersistedVisitAndSettings" classname="dev.leemh.dochagjari.ProductInstrumentedTest" time="1.364" />
+  <testcase name="scenarioRecommendationsDoNotReplaceStoreVisitOrNotificationAndCloseOnMovement" classname="dev.leemh.dochagjari.ScenarioInstrumentedTest" time="1.046">
+    <failure>java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (Text + EditableText contains '조건에 맞는 후보가 없습니다' (ignoreCase: false))
+at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:359)
+at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+at dev.leemh.dochagjari.ScenarioInstrumentedTest.scenarioRecommendationsDoNotReplaceStoreVisitOrNotificationAndCloseOnMovement(ScenarioInstrumentedTest.kt:28)
+</failure>
+  </testcase>
+  <testcase name="optionalRolesAreDurableAndSkipPreservesVisitAndLegacyOptions" classname="dev.leemh.dochagjari.SeatRolesInstrumentedTest" time="2.56" />
+  <testcase name="occupancyNeverChangesRolesAndDrivingBlocksRoleWrites" classname="dev.leemh.dochagjari.SeatRolesInstrumentedTest" time="0.859" />
+  <testcase name="storeLookupAndPreparedVisitAreReallyStoredAndSurviveActivityRestart" classname="dev.leemh.dochagjari.StoreVisitInstrumentedTest" time="1.26" />
+  <testcase name="roadResultCancelDrivingExplicitEntryAndRestartKeepSameVisit" classname="dev.leemh.dochagjari.VisitRoadInstrumentedTest" time="19.716" />
+</testsuite>

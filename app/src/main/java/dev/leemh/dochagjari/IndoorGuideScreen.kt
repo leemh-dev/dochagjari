@@ -127,6 +127,7 @@ fun IndoorGuideScreen(destination: IndoorDestination, catalogVersion: String, in
 @Composable internal fun FloorCanvas(destination: IndoorDestination, progress: Float, modifier: Modifier) {
     val labelSize = with(LocalDensity.current) { 12.sp.toPx() }
     Canvas(modifier.background(Color.White, RoundedCornerShape(14.dp))) {
+        if (size.width <= 32.dp.toPx() || size.height <= 32.dp.toPx()) return@Canvas
         val projection = FloorProjection(EttoiFloorPlan.bounds, size.width, size.height, 16.dp.toPx())
         fun point(p: FloorPoint): Offset = projection.project(p).let { Offset(it.x, it.y) }
         val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { textAlign = Paint.Align.CENTER; textSize = labelSize; typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL) }

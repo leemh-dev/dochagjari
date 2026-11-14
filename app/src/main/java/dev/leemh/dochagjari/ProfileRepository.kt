@@ -23,18 +23,17 @@ interface ProfileStorage { suspend fun read(): Profile; suspend fun write(profil
 
 class DataStoreProfileStorage(private val store: DataStore<Preferences>) : ProfileStorage {
     companion object {
-        fun create(context: Context, scope: CoroutineScope) = DataStoreProfileStorage(PreferenceDataStoreFactory.create(scope = scope, produceFile = { context.preferencesDataStoreFile("profile") }))
-    }
-    override suspend fun read(): Profile {
-        val p = store.data.first()
-        return Profile(p[booleanPreferencesKey("left")] ?: false, p[booleanPreferencesKey("right")] ?: false,
+        fun createStore(context: Context, scope: CoroutineScope) = PreferenceDataStoreFactory.create(scope = scope, produceFile = { context.preferencesDataStoreFile("profile") })
+        fun create(context: Context, scope: CoroutineScope) = DataStoreProfileStorage(createStore(context, scope))
+        fun decode(p: Preferences): Profile = Profile(p[booleanPreferencesKey("left")] ?: false, p[booleanPreferencesKey("right")] ?: false,
             p[booleanPreferencesKey("stroller")] ?: false, p[booleanPreferencesKey("wheelchair")] ?: false,
             p[booleanPreferencesKey("companion")] ?: false, p[doublePreferencesKey("height")] ?: 1.8,
             SeatPreferences(enumValue(p[stringPreferencesKey("seat_setup")], SeatSetup.NOT_SET),
                 SeatAssignment(enumValue(p[stringPreferencesKey("seat_left_role")], SeatRole.UNSPECIFIED), p[booleanPreferencesKey("seat_left_child_seat")] ?: false),
                 SeatAssignment(enumValue(p[stringPreferencesKey("seat_right_role")], SeatRole.UNSPECIFIED), p[booleanPreferencesKey("seat_right_child_seat")] ?: false)))
+        private inline fun <reified T : Enum<T>> enumValue(raw: String?, fallback: T): T = enumValues<T>().firstOrNull { it.name == raw } ?: fallback
     }
-    private inline fun <reified T : Enum<T>> enumValue(raw: String?, fallback: T): T = enumValues<T>().firstOrNull { it.name == raw } ?: fallback
+    override suspend fun read(): Profile = decode(store.data.first())
     override suspend fun write(profile: Profile) {
         store.edit { p ->
             mapOf("left" to profile.leftDoor, "right" to profile.rightDoor, "stroller" to profile.stroller,

@@ -1,0 +1,22 @@
+{
+  "date_utc": "2026-11-14",
+  "environment": "Cloud JDK17/SDK35/offline Gradle cache",
+  "tasks": [
+    "testDebugUnitTest",
+    "lintDebug",
+    "assembleDebug",
+    "assembleDebugAndroidTest",
+    "assembleRelease"
+  ],
+  "counts": {
+    "tests": 114,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "result": "BUILD SUCCESSFUL",
+  "elapsed": "1m45s",
+  "device_executed": false,
+  "speech_executed": false,
+  "source_note": "UI/integration worktree after data commit16c7615; source commit and packaged APK hashes are recorded after this feature commit"
+}

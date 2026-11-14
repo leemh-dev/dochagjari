@@ -9,13 +9,15 @@ import shutil
 import subprocess
 
 
-def collect(code_commit, output, sdk):
+def collect(code_commit, output, sdk, device_only=False):
     output.mkdir(parents=True, exist_ok=True)
     build_tools = sdk / 'build-tools' / '35.0.0'
     app_version = None
     items = []
-    for kind, source in [('debug', 'debug/app-debug.apk'), ('androidTest', 'androidTest/debug/app-debug-androidTest.apk'),
-                         ('unsigned-release', 'release/app-release-unsigned.apk')]:
+    sources = [('debug', 'debug/app-debug.apk'), ('androidTest', 'androidTest/debug/app-debug-androidTest.apk')]
+    if not device_only:
+        sources.append(('unsigned-release', 'release/app-release-unsigned.apk'))
+    for kind, source in sources:
         apk = Path('app/build/outputs/apk') / source
         badging = subprocess.run([str(build_tools / 'aapt'), 'dump', 'badging', str(apk)], check=True, text=True, capture_output=True).stdout.splitlines()[0]
         identity = dict(re.findall(r"(?:^|\s)(name|versionCode|versionName)='([^']*)'", badging))
@@ -50,6 +52,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--code-commit', required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--device-only', action='store_true', help='Package the exact debug/test outputs used by the device job')
     args = parser.parse_args()
     commit = subprocess.run(['git', 'rev-parse', '--verify', args.code_commit + '^{commit}'], text=True, capture_output=True, check=True).stdout.strip()
-    collect(commit, args.output, Path(os.environ['ANDROID_HOME']))
+    collect(commit, args.output, Path(os.environ['ANDROID_HOME']), args.device_only)

@@ -4,11 +4,13 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.ViewModelProvider
 import org.junit.Assert.*
+import org.junit.rules.RuleChain
 import org.junit.Rule
 import org.junit.Test
 
 class ProductInstrumentedTest {
-    @get:Rule val ui = createAndroidComposeRule<MainActivity>()
+    val ui = createAndroidComposeRule<MainActivity>()
+    @get:Rule val rules: RuleChain = RuleChain.outerRule(ui).around(FailureScreenshot())
     @Test fun productMapCloseMovementRecreateKeepPersistedVisitAndSettings() {
         lateinit var model: AppModel
         ui.runOnIdle { model = ViewModelProvider(ui.activity)[AppModel::class.java] }

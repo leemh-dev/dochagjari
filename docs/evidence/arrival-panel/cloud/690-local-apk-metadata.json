@@ -1,0 +1,46 @@
+{
+  "code_commit": "690706f893562028a67958987d97713125b5f86b",
+  "versionName": "0.11.0",
+  "versionCode": 11,
+  "workflow_run": null,
+  "artifacts": [
+    {
+      "kind": "debug",
+      "file": "dochagjari-0.11.0-debug.apk",
+      "bytes": 80394335,
+      "sha256": "4a6df600acd24f3a52c4dde7823e694b23d88397ca7e4d710385439e6c884660",
+      "manifest": {
+        "name": "dev.leemh.dochagjari",
+        "versionCode": "11",
+        "versionName": "0.11.0"
+      },
+      "signing": "Android development/debug key; compare certificate before installation",
+      "signer_sha256": "b61229c5f3a07137ffaeed88bee261076d2f48363b95321a5e873183e51a4132"
+    },
+    {
+      "kind": "androidTest",
+      "file": "dochagjari-0.11.0-androidTest.apk",
+      "bytes": 2402385,
+      "sha256": "4cbccc9f02b22a47513e47233e01dd4fc7ad7b13e091261de3716b1f221a9ab8",
+      "manifest": {
+        "name": "dev.leemh.dochagjari.test",
+        "versionCode": "",
+        "versionName": ""
+      },
+      "signing": "Android development/debug key; compare certificate before installation",
+      "signer_sha256": "b61229c5f3a07137ffaeed88bee261076d2f48363b95321a5e873183e51a4132"
+    },
+    {
+      "kind": "unsigned-release",
+      "file": "dochagjari-0.11.0-unsigned-release.apk",
+      "bytes": 71392657,
+      "sha256": "9f03807ab4c2a8a26e76a70b4600dbef491d49df1612dc4a03fb1d70ee52ad44",
+      "manifest": {
+        "name": "dev.leemh.dochagjari",
+        "versionCode": "11",
+        "versionName": "0.11.0"
+      },
+      "signing": "unsigned; not installable until signed"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "date_utc": "2026-11-14",
+  "environment": "Cloud JDK17/SDK35",
+  "scope": "new negated-solo regression plus full JVM/lint/debug/test/unsigned-release builds",
+  "before": "new regression failed on original parser",
+  "after": {
+    "tests": 115,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "lint": "pass",
+  "builds": "pass",
+  "elapsed": "50s",
+  "device_execution": "not local; CI required"
+}

@@ -1,0 +1,17 @@
+{
+  "workflow_run": 43563986963,
+  "artifact_id": 14101918590,
+  "head_commit": "d3b66ed5e192422803fa6cf7aa4c896b896706dc",
+  "checked_out_merge_commit": "3cda46b4f77ede85e34aa11da71b35babfd386ef",
+  "connected": {
+    "pass": 14,
+    "skipped_phase_only": 4,
+    "failure": 0
+  },
+  "ui_capture": "3 screenshots, selected child persisted; later TEXT confirmation button not located",
+  "overall": "failure",
+  "hypothesis": "label tap/IME obscures actual editor/control; not yet confirmed",
+  "change": "target actual EditText ancestor, assert typed solo, dismiss IME, capture entered/candidate/failure states",
+  "pleos": false,
+  "stt": false
+}

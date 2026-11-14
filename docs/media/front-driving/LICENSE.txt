@@ -1,0 +1,11 @@
+City Driving 4K: Kraków Poland 2024
+Creator: Relaxing Roads 4K (https://www.youtube.com/@RelaxingRoads4K)
+Source: https://commons.wikimedia.org/wiki/File:City_Driving_4K-_Krak%C3%B3w_Poland_2024.webm
+Original: https://www.youtube.com/watch?v=cpnOJaZlPaI
+License: Creative Commons Attribution 3.0 Unported (CC BY 3.0)
+License deed: https://creativecommons.org/licenses/by/3.0/
+Legal code: https://creativecommons.org/licenses/by/3.0/legalcode
+
+Changes: source seconds 60–80 extracted; audio removed; resized and transcoded to H.264/30fps; resized/padded and composited into the right-hand camera panel with source labels. No endorsement by the creator is implied.
+
+This notice identifies the original work and its license; it is not a replacement for the license legal code linked above.

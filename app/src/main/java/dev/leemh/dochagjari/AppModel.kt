@@ -33,7 +33,8 @@ data class AppState(
     val parkingDraft: ParkingDetails = ParkingDetails(), val parkingDraftSource: GuidanceInputSource = GuidanceInputSource.USER,
     val parkingDraftRevision: Long = 0, val parkingDraftDirty: Boolean = false, val parkingSummarySeconds: Int = 8,
     val roadTarget: RoadTarget? = null, val roadStarting: Boolean = false,
-    val profileSave: ProfileState = ProfileState(), val guidance: GuidanceState = GuidanceState(), val showIndoorGuide: Boolean = false
+    val profileSave: ProfileState = ProfileState(), val guidance: GuidanceState = GuidanceState(), val showIndoorGuide: Boolean = false,
+    val occupants: OccupantState = OccupantState(), val guideTab: ArrivalGuideTab = ArrivalGuideTab.FLOOR
 ) { val facility: Facility get() = facilities[facilityIndex] }
 
 class AppModel @JvmOverloads constructor(application: Application, private val services: AppServices = AppServices.get(application), private val visitFrameAnalyzer: VisitFrameAnalyzer? = null) : AndroidViewModel(application) {
@@ -72,11 +73,28 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
             }
         }
         viewModelScope.launch { services.outbox.state.collect(::applyOutbox) }
+        services.occupants?.let { repository -> viewModelScope.launch {
+            repository.state.collect { saved -> _state.update { it.copy(occupants = saved) }; recompute() }
+        } }
         services.guidance?.let { repository -> viewModelScope.launch { repository.state.collect { saved -> _state.update { it.copy(guidance = saved, parkingSaveMessage = if (parkingSequence == 0L && saved.visit?.parked?.latest != null) "저장 주차 기록 확인 · 자동 재개 없음" else it.parkingSaveMessage) } } } }
         viewModelScope.launch { while (true) { delay(5_000); recompute(); if (_state.value.guidance.visit?.observation?.latest != null) _state.update { it.copy(observationTick = System.currentTimeMillis()) } } }
     }
     private fun log(message: String) { _state.update { it.copy(log = (listOf(message) + it.log).take(24)) }; android.util.Log.i("Dochagjari", message) }
-    private fun recompute() { _state.update { it.copy(recommendation = recommender.recommend(it.facility, it.mode, it.profile, it.blocked, it.observations)) } }
+    private fun recompute() { _state.update { s ->
+        val active = s.occupants.active
+        val effective = active?.needs?.applyTo(s.profile)?.copy(seats = active.seats) ?: s.profile
+        s.copy(recommendation = recommender.recommend(s.facility, s.mode, effective, s.blocked, s.observations))
+    } }
+    fun applyOccupants(preset: OccupantPreset, source: OccupantInput = OccupantInput.PRESET) {
+        if (_state.value.vehicle.stopped == true) services.occupants?.activate(preset, source)
+    }
+    fun saveOccupantPreset(preset: OccupantPreset) {
+        if (_state.value.vehicle.stopped == true) services.occupants?.savePreset(preset)
+    }
+    fun deleteOccupantPreset(id: String) { if (_state.value.vehicle.stopped == true) services.occupants?.deletePreset(id) }
+    fun skipOccupants() { if (_state.value.vehicle.stopped == true) services.occupants?.skip() }
+    fun endOccupantTrip() { if (_state.value.vehicle.stopped == true) services.occupants?.endTrip() }
+    fun retryOccupants() { if (_state.value.vehicle.stopped == true) services.occupants?.retry() }
     private fun applyOutbox(delivery: OutboxState) {
         val record = delivery.record; val request = record.request
         _state.update { s ->
@@ -95,11 +113,12 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
                 recipientId = request?.recipientId ?: s.recipientId)
         }
     }
-    fun openIndoorGuide() {
+    fun openIndoorGuide() = openArrivalGuide(ArrivalGuideTab.FLOOR)
+    fun openArrivalGuide(tab: ArrivalGuideTab = ArrivalGuideTab.PARKING) {
         val s = _state.value
         if (s.vehicle.stopped != true || s.guidance.visit == null || s.guidance.visitDestination == null || s.parkingSaving || s.guidance.visit.phase == VisitPhase.CLOSED) return
         services.guidance?.setVisibility(GuideVisibility.VISIBLE)
-        _state.update { it.copy(showIndoorGuide = true) }
+        _state.update { it.copy(showIndoorGuide = true, guideTab = tab) }
     }
     fun closeIndoorGuide() {
         dismissParkingView()
@@ -145,7 +164,7 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
                 val created = repo.enter(visit.id, eventId, if (test) GuidanceInputSource.TEST else GuidanceInputSource.USER)
                 _state.update { it.copy(guidance = repo.state.value) }
                 if (created) {
-                    if (_state.value.vehicle.stopped == true) openIndoorGuide() else repo.setVisibility(GuideVisibility.HIDDEN)
+                    if (_state.value.vehicle.stopped == true) openArrivalGuide() else repo.setVisibility(GuideVisibility.HIDDEN)
                 }
             } catch (e: kotlinx.coroutines.CancellationException) { throw e }
             catch (_: Exception) { _state.update { it.copy(error = "입차 확인 저장 실패 · 방문 상태를 확인하세요") } }
@@ -320,6 +339,11 @@ class AppModel @JvmOverloads constructor(application: Application, private val s
         navi = if (test) TestNavigationGateway(report) else PleosNavigationGateway(app, report)
     }
     fun navigate() { if (_state.value.vehicle.stopped == true) { if (navi == null) selectNavi(_state.value.testNavi); _state.value.recommendation.point?.let { navi?.route(it) } } }
+    fun previewMockRoute(point: AccessPoint) {
+        val s = _state.value
+        if (s.vehicle.stopped != true || !s.testNavi || s.facilities.none { it.fictional && point in it.points }) return
+        TestNavigationGateway { message -> _state.update { it.copy(naviStatus = message) }; log(message) }.route(point)
+    }
     fun selectVehicle(test: Boolean) {
         closeIndoorGuide()
         sourceGeneration++; val generation = sourceGeneration

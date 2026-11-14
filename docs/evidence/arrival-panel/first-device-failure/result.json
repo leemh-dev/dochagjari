@@ -1,0 +1,11 @@
+{
+  "date_utc": "2026-11-14",
+  "run": 43565179033,
+  "artifact": 14102064708,
+  "source": "b84b467",
+  "result": "failure",
+  "cause": "No-candidate heading and reason rendered identical text twice; Compose expected one node",
+  "fix": "Render reason only for a non-null recommendation; keep the no-candidate heading once",
+  "screens": "not acquired; flow stopped at connected suite before UI capture",
+  "added": "inside-Compose failure screenshot watcher and CI pull before emulator teardown"
+}

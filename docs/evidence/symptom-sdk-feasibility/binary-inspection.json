@@ -1,0 +1,53 @@
+{
+  "artifact": "ai.pleos.playground:Vehicle:2.3.2",
+  "aar_sha256": "e11fdfe498cad3ecc0d5a2a6992b0c4a4d135195f1455018127bc069fd5ef937",
+  "classes_sha256": "0d666ac6be3d645a641b63823b1391bca2fa5a651e2496011370acb3bfab293a",
+  "checks": {
+    "Vehicle": {
+      "returncode": 0
+    },
+    "api.DrivingMode": {
+      "returncode": 0
+    },
+    "api.Odometer": {
+      "returncode": 0
+    },
+    "api.Safety": {
+      "returncode": 0
+    },
+    "api.Tire": {
+      "returncode": 0
+    },
+    "api.Fuel": {
+      "returncode": 0
+    },
+    "api.EvBattery": {
+      "returncode": 0
+    },
+    "api.Brake": {
+      "returncode": 0
+    },
+    "api.Steeringwheel": {
+      "returncode": 1
+    },
+    "api.TurnSignal": {
+      "returncode": 0
+    },
+    "api.HVAC": {
+      "returncode": 0
+    },
+    "api.SteeringWheel": {
+      "returncode": 0
+    },
+    "api.Gear": {
+      "returncode": 0
+    }
+  },
+  "scope": "public API signatures only, no runtime API calls",
+  "notes": [
+    "Initial Steeringwheel spelling returned rc1; corrected to case-sensitive SteeringWheel and inspected successfully.",
+    "Initial bare jar/javap unavailable on PATH; inspection used /workspace/tools/jdk17/bin/javap.",
+    "Web method pages rendered navigation only for some signatures; cached versioned binary used to cross-check permissions.",
+    "STT/TTS versions are documentation findings only; artifacts not downloaded or compiled in this investigation."
+  ]
+}

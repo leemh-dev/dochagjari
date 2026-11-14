@@ -1,0 +1,129 @@
+{
+  "file": "dochagjari-store-arrival-demo.mp4",
+  "bytes": 1838396,
+  "sha256": "83aae6a4fb30caad7b9d8d714962564112354e9604ff8daa4d5df2bb6fff9408",
+  "duration_seconds": 72,
+  "app_code_unchanged": "f0640b00da92409c265cfd5563238e0d972edcaa",
+  "apk_changed": false,
+  "native_pleos_recording": false,
+  "real_oem_camera": false,
+  "ocr_on_new_footage": false,
+  "garage_location_matches_pangyo": false,
+  "garage_map_matches_footage": false,
+  "parked_frame_source": {
+    "file": "docs/media/mall-parking/5972197.mp4",
+    "time_seconds": 5.5,
+    "held_from_demo_second": 36,
+    "camera_off_at_demo_second": 66
+  },
+  "edits": [
+    "real stock garage moving footage",
+    "parking approach staged with 7.5→5.5s reverse playback",
+    "parked moment uses held frame; collapsed thumbnail crops the upper half, not actual recorded vehicle parking proof",
+    "navigation/vehicle state and user touch markers staged",
+    "5F route redrawn from same existing catalog, not new app capture"
+  ],
+  "inputs": [
+    {
+      "file": "docs/ux/photo-based-3d/05-camera-and-3d-map.png",
+      "sha256": "e1ba2597c3743f1688daaa2b78f3e7f1d7943691606fb4137315449f649b0cbf"
+    },
+    {
+      "file": "docs/media/mall-parking/5972195.mp4",
+      "sha256": "4963ae36e1f4610fba0f4158861dac4877af607c0685e8ce2a57da4c8adaf3b6"
+    },
+    {
+      "file": "docs/media/mall-parking/5972197.mp4",
+      "sha256": "ddc7818fa1ee8adf9c76829be6f989b1f707a616b5f4952faa41992650cbd56b"
+    },
+    {
+      "file": "app/src/main/assets/visit-catalog.json",
+      "sha256": "cfef30fb936ef0fb0375193d9d08df788133fd19189c3a587eece3f8da0c3c55"
+    }
+  ],
+  "ffprobe": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 1920,
+        "height": 1080,
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "closed_captions": 0,
+        "film_grain": 0,
+        "has_b_frames": 2,
+        "pix_fmt": "yuv420p",
+        "level": 40,
+        "chroma_location": "left",
+        "field_order": "progressive",
+        "refs": 1,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "30/1",
+        "avg_frame_rate": "30/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 1105920,
+        "duration": "72.000000",
+        "bit_rate": "201305",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "2160",
+        "extradata_size": 46,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.101 libx264"
+        }
+      }
+    ],
+    "format": {
+      "filename": "dochagjari-store-arrival-demo.mp4",
+      "nb_streams": 1,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "72.000000",
+      "size": "1838396",
+      "bit_rate": "204266",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf61.7.103"
+      }
+    }
+  }
+}

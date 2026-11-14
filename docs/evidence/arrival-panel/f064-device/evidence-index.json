@@ -1,0 +1,489 @@
+{
+  "source_commit": "f0640b00da92409c265cfd5563238e0d972edcaa",
+  "version": "0.11.0",
+  "versionCode": 11,
+  "run": 43569033733,
+  "pr_run": 43569041435,
+  "result": "success",
+  "environment": "Generic Android API34 x86_64 / own fresh KVM AVD",
+  "inputs": "TEST vehicle/entry/parking, MOCK navi, TEXT command, generated video, SERVER_MOCK HTTP",
+  "artifacts": {
+    "device_results": 14103609767,
+    "actually_tested_apks": 14104088875,
+    "verify_runner_apks": 14104315679
+  },
+  "counts": {
+    "jvm_pass": 115,
+    "server_pass": 14,
+    "diagnostic_pass": 35,
+    "connected_pass": 15,
+    "connected_fail": 0,
+    "phase_only_skipped_in_connected": 4,
+    "separate_legacy_restart_phases_pass": 2,
+    "separate_occupant_restart_phases_pass": 2,
+    "all_artifact_png": 54,
+    "copied_png": 39
+  },
+  "actual_device_pair_independently_checked": true,
+  "native_pleos": false,
+  "actual_stt": false,
+  "actual_camera": false,
+  "actual_sms": false,
+  "files": {
+    "apk-metadata.json": {
+      "bytes": 1176,
+      "sha256": "a1f83ddb51f3094d54070e89c8e268782be08e8f0d25dd3fa5279e29677434d5"
+    },
+    "SHA256SUMS": {
+      "bytes": 194,
+      "sha256": "156bc43a4a647e17e44ada2d67d3db25b7c887a265c0129b5c39f022e889f9e9"
+    },
+    "pre-install-readiness.json": {
+      "bytes": 522,
+      "sha256": "e64eb6a6211299a8304047b247232d4a2f7ddaa41d01ab4e4bf001af74c7669d"
+    },
+    "process-restart.txt": {
+      "bytes": 2495,
+      "sha256": "fc5b65bdd0fa2690ddd10700c3562912437b933d514a3f333c0e894887d81a1d"
+    },
+    "connected-results.xml": {
+      "bytes": 3294,
+      "sha256": "8ae8be5d1da59102a0accf8c05ee6130355ffe8a4269ec21e23935b0c090025a"
+    },
+    "pre-connected-readiness.json": {
+      "bytes": 522,
+      "sha256": "e64eb6a6211299a8304047b247232d4a2f7ddaa41d01ab4e4bf001af74c7669d"
+    },
+    "product-ux/06f-academy-no-candidate.xml": {
+      "bytes": 12842,
+      "sha256": "a97850793fa5827e915077c980f67ef54bc82d0470db45b2b574bf2380fc5e46"
+    },
+    "product-ux/08-parking-saved-unknown.png": {
+      "bytes": 50045,
+      "sha256": "ae7ee5fa83d0ffed49e120969f9aa01c65b5586f5f32970971520645b55e9c23",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/10-manual-clue-form.png": {
+      "bytes": 55276,
+      "sha256": "57ed403614109a0ff601c4cea4e0c7b16a40739e6933db667587839962005f3a",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/06e-academy-diversion.png": {
+      "bytes": 84983,
+      "sha256": "d38a94996761c8811633bd0d3a734527dc4a1730932007bc5574ed2ce84f89d9",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/09-return-clues-no-fake-line.png": {
+      "bytes": 48248,
+      "sha256": "14a9c74c53c79ce96b1f84c9e14c0b65f85967d0b691b778f87bb71e1ab26a2e",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/06f-academy-no-candidate.png": {
+      "bytes": 80738,
+      "sha256": "a640c04a00770154cc9288834a5dfe359c42e23d217503ffbf784d6a3af2e5d9",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/06c-station.xml": {
+      "bytes": 8013,
+      "sha256": "60af235c74ec89b8addcafbc883fbd566afe26b63c76e5f5a7d3858efb42eccc"
+    },
+    "product-ux/01-product-destination.xml": {
+      "bytes": 14991,
+      "sha256": "2c3452463697f5450ec3ca46e642a5e6919d49fed056bd24ba34e92595f9675f"
+    },
+    "product-ux/07-reduced-motion-static.png": {
+      "bytes": 92478,
+      "sha256": "d6b3eff675d63463a17baa16c48c55de5be24c9005f21abedc0fdfcb46c15423",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/04-animated-floor-early.xml": {
+      "bytes": 14461,
+      "sha256": "3cf660e2bb63a118efb932133773856421bcf6e84cccaa0a8fc52e0c424e4b42"
+    },
+    "product-ux/05-animated-floor-complete.png": {
+      "bytes": 92824,
+      "sha256": "a24c1232b998762c50a53e3be19e4289b1dd15aba94d2a72eeffa5b4008b7967",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/04c-android-generated-c12-candidate.xml": {
+      "bytes": 13485,
+      "sha256": "04577d22d657c7575e47294fa579a7242aa37327a3beee044eb59e5972e06bb1"
+    },
+    "product-ux/arrival-context-demo.mp4": {
+      "bytes": 1736218,
+      "sha256": "c1b31bac03efeb6c17f4454eb476bc87a34a40a0de17a09d7ee8efa5b71183c0"
+    },
+    "product-ux/04a-parking-map.png": {
+      "bytes": 98822,
+      "sha256": "fc47fa13ad0dee2bfddefa6810e09fd3db3fe76b4812a7bec61f97bcb61839a8",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/18-narrow-camera-map.png": {
+      "bytes": 82899,
+      "sha256": "7cddf8fde7e5b3870be3641a6172a8c568b037eec8480a7003ea0bdaa37ed96c",
+      "width": 480,
+      "height": 900
+    },
+    "product-ux/11-manual-clue-save.png": {
+      "bytes": 55994,
+      "sha256": "a8690bc21ac0fd733bd571ee8980097d6841da80bd59d0eec0756288f0bebb6c",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/10-manual-clue-form.xml": {
+      "bytes": 8885,
+      "sha256": "55e5c864cfdc7755dd4e3a0ed76b0862202ac9b3e69a223f1f30ff683fd74494"
+    },
+    "product-ux/14-restored-return.png": {
+      "bytes": 50884,
+      "sha256": "7b256b570a5f2a5e9e8955f2e8170c6aa46a6f12d177aeae804e7640487e48bd",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/08-parking-saved-unknown.xml": {
+      "bytes": 9100,
+      "sha256": "f4644cf46f41a4c8331f268415c72cff45f850d351523c2deb8d580875b4ae2e"
+    },
+    "product-ux/04b-generated-camera-preview.xml": {
+      "bytes": 13452,
+      "sha256": "e9d10b142aeea90c2b759a42c9a8b2082541cba3e46da29790f1f1918213fc22"
+    },
+    "product-ux/16-narrow-app-panel.xml": {
+      "bytes": 16197,
+      "sha256": "1b4ee328685eecfe1cad9cb668270fadbbec7a2e1d6870d99007e25408e82740"
+    },
+    "product-ux/02-visit-ready.xml": {
+      "bytes": 15601,
+      "sha256": "e999db25721145a8ba062cd82406150e2d9dd9911655e97f38676b3336026b93"
+    },
+    "product-ux/03-mock-road-handoff.xml": {
+      "bytes": 16778,
+      "sha256": "e360f2587dece21b4b87b1543db35795990d62284d7d0b49e323441e1b3bccd3"
+    },
+    "product-ux/06a-hospital.png": {
+      "bytes": 80925,
+      "sha256": "372086a28d24d95d41befbeeba20f5a901b9dc059d1354c4727ebb05a39e0042",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/04c-android-generated-c12-candidate.png": {
+      "bytes": 100045,
+      "sha256": "4e45166525f9477b5c7e0b5356623a228e8e104b464c046d454a1770994a9496",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/summary.json": {
+      "bytes": 6671,
+      "sha256": "30595668e105d245e1ff94dd399faeb82b4152826ab2298d74384e282f90d4e1"
+    },
+    "product-ux/06c-station.png": {
+      "bytes": 85538,
+      "sha256": "9dbeb5ee169a4e5e983356a4edbbecfb7d30b410a15a6f17c063349fa1085a3c",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/06a-hospital.xml": {
+      "bytes": 13193,
+      "sha256": "a80fe633b38fc7ff4e0c4525c783f74f823e269ea64c922a480df2ba57ca4cfb"
+    },
+    "product-ux/05-animated-floor-complete.xml": {
+      "bytes": 14462,
+      "sha256": "72438786c4fc07da8888764364e03499c64e70b80d8243d1a09c6f96577ac59d"
+    },
+    "product-ux/19-narrow-floor-route.xml": {
+      "bytes": 13813,
+      "sha256": "d6ea224f4c30f98cd7b3e496c192c67f5a1a80279b39a68c483286f873289e4b"
+    },
+    "product-ux/01-product-destination.png": {
+      "bytes": 125698,
+      "sha256": "d55a22c71b1f9d43ecea31a7adba05968202ec4127e60557983fba7214c71673",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/06d-airport.xml": {
+      "bytes": 8060,
+      "sha256": "ec6a781f07243051d65c971b21da38e00dd79499c7089ccad3a44a61265dd0e9"
+    },
+    "product-ux/06-entry-unknown-connection.png": {
+      "bytes": 132229,
+      "sha256": "01a484a777b2f79649b0dbc2d7a3d9c71065733a57414d6c4eabe737455f333c",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/15-driving-brief.png": {
+      "bytes": 45726,
+      "sha256": "dafd0aa11323081a7146adb16288cc9f1b2d1cb2472ea8aeec458c1f44869a5c",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/06b-academy.xml": {
+      "bytes": 13201,
+      "sha256": "f2baac2ccdb19e35262db75b1b55bdc61aecf2c55513d9aa5b24ce4f8b574c27"
+    },
+    "product-ux/17-narrow-occupant-settings.xml": {
+      "bytes": 16704,
+      "sha256": "d9154cc413448826fb3750b35c7e117c2453f964ecf50cb761fd8e1dd67640c5"
+    },
+    "product-ux/09-return-clues-no-fake-line.xml": {
+      "bytes": 9092,
+      "sha256": "c8a9a3a56052ed087a8b03a0f0659f2be72687617771e2511147a0c2e738ead7"
+    },
+    "product-ux/12-return-manual-clue.xml": {
+      "bytes": 9427,
+      "sha256": "a1045824899d5c53b8bdf470b7a9afed314c94355ba009c1484bbba7b0ea439a"
+    },
+    "product-ux/15-driving-brief.xml": {
+      "bytes": 7243,
+      "sha256": "6b6e8788fb51f87cbb42393cc1e25edd83b1cc46de31881db2681b74bf542c2a"
+    },
+    "product-ux/06-entry-unknown-connection.xml": {
+      "bytes": 17324,
+      "sha256": "16451b7d3d755611a29bb60fc720edf971a80b11846a20eb0629b88027edc60d"
+    },
+    "product-ux/06d-airport.png": {
+      "bytes": 84351,
+      "sha256": "38c859ce79014c6374651c6e2fd26efae3cde09946d78ae2f813168ebf972e30",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/14-restored-return.xml": {
+      "bytes": 9427,
+      "sha256": "a1045824899d5c53b8bdf470b7a9afed314c94355ba009c1484bbba7b0ea439a"
+    },
+    "product-ux/07-reduced-motion-static.xml": {
+      "bytes": 13833,
+      "sha256": "6da2b806dd3048a3e4ab6e26b814fa9632fbd7951049cc48eb71a7605672c697"
+    },
+    "product-ux/04b-generated-camera-preview.png": {
+      "bytes": 97098,
+      "sha256": "fe3304b7f00388de87148275fbe84a7c371458836fc0d18222c1b55da0c45325",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/19-narrow-floor-route.png": {
+      "bytes": 86488,
+      "sha256": "7d52c7121485ef62dceaf00e8d51b1e02590f4858f4294e5b8cba25cc34cd41a",
+      "width": 480,
+      "height": 900
+    },
+    "product-ux/04-animated-floor-early.png": {
+      "bytes": 90645,
+      "sha256": "d9508d4677c10d56442abe1e2c7d0e0663361bfd55f06ecd6af67517d71fec2e",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/screenrecord.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "product-ux/16-narrow-app-panel.png": {
+      "bytes": 78581,
+      "sha256": "0a608c6192caea1d92163e63e2894728234075f35ea5f9abf506acd138c8413a",
+      "width": 480,
+      "height": 900
+    },
+    "product-ux/06b-academy.png": {
+      "bytes": 83820,
+      "sha256": "fa8913bb2a8e841cf593a067d0c9f884666bb8936080ef4bf20337d820ea7021",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/03-mock-road-handoff.png": {
+      "bytes": 140454,
+      "sha256": "9851976a33dfaa1336473c0083551011de2de424f8f81bf2597c15df216883a7",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/18-narrow-camera-map.xml": {
+      "bytes": 13456,
+      "sha256": "617ddfb0227947b045a0de39d001b32ccd1312d1b0e2a053c8fb3e061e0a4838"
+    },
+    "product-ux/12-return-manual-clue.png": {
+      "bytes": 50726,
+      "sha256": "877b3c1481c7fbafa57777d26de1825d55aa172bd29d6865791144783e830368",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/13-restored-home-no-auto-guide.xml": {
+      "bytes": 15336,
+      "sha256": "684d53a162db936e535fc6c004428144615f44a5599dfea5af6483b4279f919f"
+    },
+    "product-ux/06e-academy-diversion.xml": {
+      "bytes": 13222,
+      "sha256": "cf90605a7200adf626a4cd6926c51d6974ea331ba06a6d8bc21d9d199f6e8810"
+    },
+    "product-ux/04a-parking-map.xml": {
+      "bytes": 13450,
+      "sha256": "40cb0736b3fd02d6b7ca10730fb1390cdd24fb0e1740b37bde3bf03ea63c699e"
+    },
+    "product-ux/17-narrow-occupant-settings.png": {
+      "bytes": 57352,
+      "sha256": "e9c4d5b94308e7ca09c7fe25d588f61eb944deead1a4df8d61e421d51d5bbc68",
+      "width": 480,
+      "height": 900
+    },
+    "product-ux/11-manual-clue-save.xml": {
+      "bytes": 9210,
+      "sha256": "ab6f14f640107730e60c9d35739c63e56776a2132d07a02b8ef55f86b74a014d"
+    },
+    "product-ux/13-restored-home-no-auto-guide.png": {
+      "bytes": 125752,
+      "sha256": "98315cb4a8bfe65d0454deb1a4e1d5dac585b4455ea9cdb78fe8fd6a185be697",
+      "width": 1280,
+      "height": 800
+    },
+    "product-ux/02-visit-ready.png": {
+      "bytes": 120900,
+      "sha256": "789ec599b9d837d220b9d94a4da31fdecbe22cf4176581d015e76b2ecdf53d65",
+      "width": 1280,
+      "height": 800
+    },
+    "occupant-context/03b-text-entered.png": {
+      "bytes": 72465,
+      "sha256": "5bfc97e981bdc430b81045564f22a061e345ef07af931c01e185bbc8c99034b1",
+      "width": 1280,
+      "height": 800
+    },
+    "occupant-context/restart-prepare.txt": {
+      "bytes": 818,
+      "sha256": "2285861a8cf5c43ee3de215f70b1bcb45d4dcb11368e46cb6b71d80ad4a21d95"
+    },
+    "occupant-context/03-once-editor.xml": {
+      "bytes": 15950,
+      "sha256": "fa3d16f52da5abb283336de219670eea2c8b08c01c66ff90b84873656b8e68de"
+    },
+    "occupant-context/03b-text-entered.xml": {
+      "bytes": 21745,
+      "sha256": "de0212ad1aae0a18a3ca7ff566da864f1d89dafc8ec4d6ac1305e51c97430608"
+    },
+    "occupant-context/03c-text-candidate.xml": {
+      "bytes": 22388,
+      "sha256": "e5fb2d7c6b0168fb88ec42476d9984f569b85a131a884b9975107096ea39a946"
+    },
+    "occupant-context/occupant-ui.json": {
+      "bytes": 2204,
+      "sha256": "be0a8da433529cd1443ade50fc6e7237178f8b2a41a226b7074c7294177a9c73"
+    },
+    "occupant-context/06-restored-confirmed.png": {
+      "bytes": 77769,
+      "sha256": "73dd09b45502ad56ffac81f8a4b681b2e45c02ea9288ed22ae86e4444283054f",
+      "width": 1280,
+      "height": 800
+    },
+    "occupant-context/04-text-solo-confirmed.png": {
+      "bytes": 76352,
+      "sha256": "911625590a13b03ea2d692bde83c1545aa4b35bfa74f8e3cd8fae8344972cb8b",
+      "width": 1280,
+      "height": 800
+    },
+    "occupant-context/06-restored-confirmed.xml": {
+      "bytes": 20809,
+      "sha256": "01b038f3da614f0c687c8d65c9d160e19b336a885e8e5fb4c8bcc5cac2033efc"
+    },
+    "occupant-context/03-once-editor.png": {
+      "bytes": 52885,
+      "sha256": "ba818ce74a6b35421d998ecd4a9408cac2cafe1b20356d92c6b3c506b30373d9",
+      "width": 1280,
+      "height": 800
+    },
+    "occupant-context/02-child-confirmed.png": {
+      "bytes": 77081,
+      "sha256": "2b576b77db0c085b60c8c9043d13bb687b757e609bd3f34331f20d972082a300",
+      "width": 1280,
+      "height": 800
+    },
+    "occupant-context/02-child-confirmed.xml": {
+      "bytes": 20809,
+      "sha256": "c518b64ff9b0fc39573b1b1127d6c75bdee90d8e17a3f1e720c7727954a2b541"
+    },
+    "occupant-context/05-restored-needs-confirmation.xml": {
+      "bytes": 21818,
+      "sha256": "8ea7e36375f5b826293ee6d5aaab93d632a6105209509ad931032ecc80a8c500"
+    },
+    "occupant-context/01-occupant-presets.png": {
+      "bytes": 73474,
+      "sha256": "3df61750d200aef7997a6bd2dd6a153b9f09a16c34146daf6bbcf1745d3ca431",
+      "width": 1280,
+      "height": 800
+    },
+    "occupant-context/01-occupant-presets.xml": {
+      "bytes": 22060,
+      "sha256": "6f7001b0ea474db8d2a8fff9b44973688a3cb0c5ce0406dbda9384e5bdb41f6f"
+    },
+    "occupant-context/04-text-solo-confirmed.xml": {
+      "bytes": 20802,
+      "sha256": "ea65b470f691e2b2a682372a20c0552709cd4adfb31cb6564713ef38065dfa3c"
+    },
+    "occupant-context/03c-text-candidate.png": {
+      "bytes": 68991,
+      "sha256": "125a96e0190fc13808e68d8f62c9cc5a3e7abf1d0f9297746176d42c05de99a7",
+      "width": 1280,
+      "height": 800
+    },
+    "occupant-context/05-restored-needs-confirmation.png": {
+      "bytes": 80619,
+      "sha256": "a752a51958dabfe02dafad7047dbe6b131971607c693bbd0385ac6d7359ceec3",
+      "width": 1280,
+      "height": 800
+    },
+    "occupant-context/restart-verify.txt": {
+      "bytes": 816,
+      "sha256": "69eb3c22a8250216955cf4580680b5d8d0e840b8cbf34e1bbe161bd4d793e2c4"
+    },
+    "android-server-recovery/03-same-session-server-result-recovered.xml": {
+      "bytes": 16310,
+      "sha256": "e2141172db0f9789c596f572bfd2fb7f5d8f92d8de82f4df51eac3812b394968"
+    },
+    "android-server-recovery/01-server-stored-response-withheld.xml": {
+      "bytes": 18423,
+      "sha256": "1c7ed33d8502e8aa0c49de12d1b785dd5a8c963366d03f609d3b1ace2dd33d12"
+    },
+    "android-server-recovery/02-request-restored-without-token.png": {
+      "bytes": 101760,
+      "sha256": "739ec2199bfe0892bf45a6434882663bd745e3f0f509dddbc37ad3ce5daf9fd5",
+      "width": 1280,
+      "height": 800
+    },
+    "android-server-recovery/summary.json": {
+      "bytes": 1642,
+      "sha256": "8b3992b3f9af436dc8ce7db3d6427d6f74ea5c59a1aedf79201301a271b29765"
+    },
+    "android-server-recovery/02-request-restored-without-token.xml": {
+      "bytes": 18212,
+      "sha256": "4347c1878a3b3a096551768a1ebbf5024ac2b83ae48fe3bb43bdc43bf12d4b19"
+    },
+    "android-server-recovery/03-same-session-server-result-recovered.png": {
+      "bytes": 85555,
+      "sha256": "c2646f6e13772dc5f168121fe28f03778d80e72cde98b8b9df5347f6d5fc2ec4",
+      "width": 1280,
+      "height": 800
+    },
+    "android-server-recovery/01-server-stored-response-withheld.png": {
+      "bytes": 91059,
+      "sha256": "e30cdaf5a48e15f0ecff706a87e1bc1dc5810a51ffb7d9a2b26dfce02331e5b9",
+      "width": 1280,
+      "height": 800
+    },
+    "ci-unit-counts.json": {
+      "bytes": 331,
+      "sha256": "01351ee99c648b12a29c2ff340fa3701305cc61e1778f3532f2d18677bc2c435"
+    },
+    "ci-unit-index.html": {
+      "bytes": 6746,
+      "sha256": "e7c7656b480c1c88f2648fba2b9da1fe033d747c7d5d64ae09f90cf100d79dce"
+    },
+    "archive-inspection.json": {
+      "bytes": 318,
+      "sha256": "66ade14922873dea69b975879fc158a0a8f23844e66b38b7c1860ab3010c84ec"
+    }
+  },
+  "file_scope": "original reports, APK metadata, and CI unit report; excludes README and this index"
+}

@@ -1,0 +1,26 @@
+{
+  "date_utc": "2026-11-14",
+  "full_decode_returncode": 0,
+  "full_decode_stderr": "",
+  "camera_crop": [
+    1259,
+    254,
+    500,
+    216
+  ],
+  "camera_frames": [
+    {
+      "second": 1,
+      "camera_crop_sha256": "299e28670376244747665c3349a0b6bdfb35ceac28fa6d5c6a5aa854f3169be3"
+    },
+    {
+      "second": 10,
+      "camera_crop_sha256": "97b1e26045be806dc192f7d42166bd6b35197393155bff4e8e7aeff461a5b3c5"
+    },
+    {
+      "second": 19,
+      "camera_crop_sha256": "19f0a0f13b4bc8b0895bba2d7797490385038e62228069b279d089f544a82321"
+    }
+  ],
+  "result": "Camera region changes at 1, 10 and 19 seconds, including after the app map freezes at 8 seconds. This is media playback, not camera/OCR integration."
+}

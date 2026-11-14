@@ -1,0 +1,44 @@
+{
+  "date_utc": "2026-11-14",
+  "full_decode": {
+    "returncode": 0,
+    "stderr": ""
+  },
+  "duration_seconds": 72.0,
+  "frames": 2160,
+  "video_dimensions": [
+    1920,
+    1080
+  ],
+  "fps": "30/1",
+  "scenario_contract": "road navigation spans two panels before arrival; floor guidance requires parked; no moving camera after parked; closed camera off",
+  "encoded_pixel_checks": {
+    "moving_camera_18_vs_31_mae": 20.039335250854492,
+    "parked_camera_39_vs_41_mae": 0.0,
+    "parked_thumbnail_47_vs_61_mae": 1.971787452697754,
+    "floor_route_55_vs_61_mae": 0.6037505269050598
+  },
+  "pre_encode_camera_crops": {
+    "39_vs_41": {
+      "identical": true,
+      "sha256": "2a7f57cb4d1001b253a868e1bb0f4756ed938d1ecc797334a9c4345b3cc2a04c"
+    },
+    "47_vs_61": {
+      "identical": true,
+      "sha256": "007b8891d6284ab7bfbb97a355b3fc1850d9a8812c278f5217b58f3072ff1621"
+    }
+  },
+  "thumbnail_lossy_decode_mae_tolerance_8bit": 3,
+  "checks_passed": [
+    "entire72s_decode",
+    "1080p30_2160_frames",
+    "road_service_hidden_storyboard",
+    "floor_after_parked_storyboard",
+    "parked_camera_stable_encoded",
+    "parked_thumbnail_stable_encoded",
+    "map_route_changes_while_parked_encoded",
+    "camera_off_on_close_storyboard"
+  ],
+  "scope": "media validation only; not app/native Pleos/vehicle/OCR verification",
+  "file_sha256": "83aae6a4fb30caad7b9d8d714962564112354e9604ff8daa4d5df2bb6fff9408"
+}

@@ -1,5 +1,13 @@
 # 시연영상 제작 계획
 
+> 2026-11-14 최신 시연: [백화점72초 UX 영상](evidence/demo-video/store-arrival-v2/README.md)으로 **넓은 내비→도착 후3분할→실사 주차장 이동→명시 주차 완료/정차 화면→5층 파란선→닫기**를 연결했다. [시간별 규칙/앱과 차이](40-synchronized-arrival-demo.md). 합성 시연이며 실제 Pleos 통합/새 APK 검증이 아니다. 아래20초 예시는 이전 편집 이력이다.
+
+> 2026-11-14 카메라 표현 수정: [3분할 예상도](evidence/demo-video/three-panel-concept/README.md) 상단을 CC BY3.0 **실제 전방 주행20초**로 교체했다. 하단만 실제 앱 지도다. 영상 편집 변경이며 앱0.11.0/11·f0640b0/APK와 기존 검사 결과는 유지한다. 새 실사 OCR·OEM카메라·실제 Pleos 동시 실행 성공은 아니다. [출처](media/front-driving/README.md).
+
+> 2026-11-14 영상 범위 정정: 기존90초/20초는 앱 단독 기능기록이다. 요청한 **실제 Pleos3분할 대표시연은 미완료**다. [3분할 UX합성 예상도](evidence/demo-video/three-panel-concept/README.md)를 별도 제공하며 실제 통합 성공으로 세지 않는다. [실제 완료 기준39](39-three-panel-demo-gap.md).
+
+> 2026-11-14 최종 갱신: 앱0.11.0/11·f0640b0의 Cloud/일반Android 검사와90초 실행 편집본·20초 연속 모션을 완료했다. [현재 구현/검증37](37-current-implementation.md) · [영상/원본](evidence/demo-video/README.md) · [Mac 인계38](38-mac-pleos-v0.11-handoff.md). 아래 착수 당시 기획/이력과 실제 완료 수준을 구분한다. Mac/Pleos 실연동과 실제STT/외부카메라·실차는 미검증이다.
+
 후속 탑승 설정 결정: [설계33](33-occupant-modes-and-trip-context.md)에 따라 좌석별 구성을 여러 프리셋으로 저장하고 이번 구성은 음성/선택/지원 센서로 확인한다. 이는 내비 목적지 설정과 독립이다. 아래00:15~00:35 장면 안의3~5초를 독립 탑승 확인→목적지 요청 순서로 표현하고, 매번 내비에서 전체 좌석 설정을 요구하지 않는다. 현재는 UX컨셉이며 새 음성/탑승모드 구현 증거는 아니다.
 
 2026-11-13 UTC. [도로변 시안4장](ux/road-scenario-concepts/README.md)과 기존 매장/주차장 시안을 기반으로 한 **제작 계획**이다. 이번 작업에서 영상·새 앱·새 기기 녹화를 제작하지 않았다. 현재 앱0.9.0/9·e2b93ba·기존 APK/데이터/검증은 유지한다.

@@ -1,0 +1,12 @@
+{
+  "artifact": 14103846398,
+  "source": "f0640b00da92409c265cfd5563238e0d972edcaa",
+  "run": 43569033733,
+  "counts": {
+    "tests": 115,
+    "failures": 0,
+    "ignored": 0
+  },
+  "original_file": "reports/tests/testDebugUnitTest/index.html",
+  "html_sha256": "e7c7656b480c1c88f2648fba2b9da1fe033d747c7d5d64ae09f90cf100d79dce"
+}

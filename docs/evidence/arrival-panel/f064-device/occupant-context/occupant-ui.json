@@ -1,0 +1,94 @@
+{
+  "environment": "Generic Android API34 / CI-owned fresh AVD",
+  "inputs": "TEST vehicle; real DataStore; TEXT command, not STT",
+  "source_commit": "f0640b00da92409c265cfd5563238e0d972edcaa",
+  "checks": [
+    {
+      "text": "오늘의 탑승",
+      "result": "visible"
+    },
+    {
+      "text": "설정 저장 완료",
+      "result": "visible"
+    },
+    {
+      "text": "이번 탑승 · 아이 등하원",
+      "result": "visible"
+    },
+    {
+      "text": "이번 탑승만 변경",
+      "result": "visible"
+    },
+    {
+      "field": "occupant-command",
+      "actual_value": "solo",
+      "result": "read back from EditText"
+    },
+    {
+      "text": "설정 저장 완료",
+      "result": "visible"
+    },
+    {
+      "text": "이번 탑승 · 혼자",
+      "result": "visible"
+    },
+    {
+      "text": "지난 구성 · 아이 등하원",
+      "result": "visible"
+    },
+    {
+      "text": "설정 저장 완료",
+      "result": "visible"
+    },
+    {
+      "text": "이번 탑승 · 아이 등하원",
+      "result": "visible"
+    }
+  ],
+  "screenshots": [
+    "01-occupant-presets.png",
+    "02-child-confirmed.png",
+    "03-once-editor.png",
+    "03b-text-entered.png",
+    "03c-text-candidate.png",
+    "04-text-solo-confirmed.png",
+    "05-restored-needs-confirmation.png",
+    "06-restored-confirmed.png"
+  ],
+  "pleos_sdk_verified": false,
+  "actual_speech_verified": false,
+  "readiness": {
+    "serial": "emulator-5554",
+    "ready": true,
+    "checks": {
+      "transport": {
+        "returncode": 0,
+        "stdout": "device",
+        "stderr": ""
+      },
+      "boot": {
+        "returncode": 0,
+        "stdout": "1",
+        "stderr": ""
+      },
+      "package": {
+        "returncode": 0,
+        "stdout": "Service package: found",
+        "stderr": ""
+      },
+      "activity": {
+        "returncode": 0,
+        "stdout": "Service activity: found",
+        "stderr": ""
+      }
+    },
+    "reason": "Boot and package/activity services verified"
+  },
+  "process_restart": {
+    "prepare_pid": 14667,
+    "verify_pid": 14724,
+    "saved_book_profile_visit_outbox_equal": true,
+    "previous_trip_not_automatically_confirmed": true
+  },
+  "success": true
+}

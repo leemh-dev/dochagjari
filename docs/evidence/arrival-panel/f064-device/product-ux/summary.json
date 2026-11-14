@@ -1,0 +1,179 @@
+{
+  "environment": "Generic Android API34 / CI-owned fresh AVD",
+  "inputs": "TEST vehicle and entry/parking; MOCK road; manual-demo synthetic memo",
+  "checks": [
+    {
+      "text": "에뜨와로 갈까요?",
+      "result": "visible"
+    },
+    {
+      "text": "내비 안내 시작",
+      "result": "visible"
+    },
+    {
+      "text": "도로 안내는 순정 내비에서",
+      "result": "visible"
+    },
+    {
+      "text": "주차장 안내",
+      "result": "visible"
+    },
+    {
+      "text": "엘리베이터에서\n에뜨와까지",
+      "result": "visible"
+    },
+    {
+      "text": "매장까지 이어서",
+      "result": "visible"
+    },
+    {
+      "text": "서쪽 승하차점 (시연 좌표)",
+      "result": "visible"
+    },
+    {
+      "text": "뒤편 주차장 입구 (시연 좌표)",
+      "result": "visible"
+    },
+    {
+      "text": "조건에 맞는 후보가 없습니다",
+      "result": "visible"
+    },
+    {
+      "text": "모션 줄이기 · 전체 경로 표시",
+      "result": "visible"
+    },
+    {
+      "text": "탑승 설정",
+      "result": "visible"
+    },
+    {
+      "text": "오늘의 탑승",
+      "result": "visible"
+    },
+    {
+      "text": "주차 기록 저장 완료",
+      "result": "visible"
+    },
+    {
+      "text": "주차층 미확인  ·  기둥 미확인",
+      "result": "visible"
+    },
+    {
+      "text": "manual-demo",
+      "result": "visible"
+    },
+    {
+      "text": "주차 기록이 있어요",
+      "result": "visible"
+    },
+    {
+      "text": "manual-demo",
+      "result": "visible"
+    },
+    {
+      "text": "안전하게 이동하세요",
+      "result": "visible"
+    }
+  ],
+  "screenshots": [
+    "01-product-destination.png",
+    "02-visit-ready.png",
+    "03-mock-road-handoff.png",
+    "04a-parking-map.png",
+    "04b-generated-camera-preview.png",
+    "04c-android-generated-c12-candidate.png",
+    "04-animated-floor-early.png",
+    "05-animated-floor-complete.png",
+    "06-entry-unknown-connection.png",
+    "06a-hospital.png",
+    "06b-academy.png",
+    "06e-academy-diversion.png",
+    "06f-academy-no-candidate.png",
+    "06c-station.png",
+    "06d-airport.png",
+    "07-reduced-motion-static.png",
+    "16-narrow-app-panel.png",
+    "18-narrow-camera-map.png",
+    "19-narrow-floor-route.png",
+    "17-narrow-occupant-settings.png",
+    "08-parking-saved-unknown.png",
+    "09-return-clues-no-fake-line.png",
+    "10-manual-clue-form.png",
+    "11-manual-clue-save.png",
+    "12-return-manual-clue.png",
+    "13-restored-home-no-auto-guide.png",
+    "14-restored-return.png",
+    "15-driving-brief.png"
+  ],
+  "pleos_native_verified": false,
+  "source_commit": "f0640b00da92409c265cfd5563238e0d972edcaa",
+  "readiness": {
+    "serial": "emulator-5554",
+    "ready": true,
+    "checks": {
+      "transport": {
+        "returncode": 0,
+        "stdout": "device",
+        "stderr": ""
+      },
+      "boot": {
+        "returncode": 0,
+        "stdout": "1",
+        "stderr": ""
+      },
+      "package": {
+        "returncode": 0,
+        "stdout": "Service package: found",
+        "stderr": ""
+      },
+      "activity": {
+        "returncode": 0,
+        "stdout": "Service activity: found",
+        "stderr": ""
+      }
+    },
+    "reason": "Boot and package/activity services verified"
+  },
+  "success": true,
+  "old_pid": "10239",
+  "new_pid": "13557",
+  "actual_sdk_pin": false,
+  "current_position_and_return_path_verified": false,
+  "animation": "Actual Compose six-second route; early PNG taken before XML dump, later PNG after delay",
+  "file_sha256": {
+    "18-narrow-camera-map.png": "7cddf8fde7e5b3870be3641a6172a8c568b037eec8480a7003ea0bdaa37ed96c",
+    "13-restored-home-no-auto-guide.png": "98315cb4a8bfe65d0454deb1a4e1d5dac585b4455ea9cdb78fe8fd6a185be697",
+    "06f-academy-no-candidate.png": "a640c04a00770154cc9288834a5dfe359c42e23d217503ffbf784d6a3af2e5d9",
+    "06-entry-unknown-connection.png": "01a484a777b2f79649b0dbc2d7a3d9c71065733a57414d6c4eabe737455f333c",
+    "02-visit-ready.png": "789ec599b9d837d220b9d94a4da31fdecbe22cf4176581d015e76b2ecdf53d65",
+    "06a-hospital.png": "372086a28d24d95d41befbeeba20f5a901b9dc059d1354c4727ebb05a39e0042",
+    "06d-airport.png": "38c859ce79014c6374651c6e2fd26efae3cde09946d78ae2f813168ebf972e30",
+    "09-return-clues-no-fake-line.png": "14a9c74c53c79ce96b1f84c9e14c0b65f85967d0b691b778f87bb71e1ab26a2e",
+    "15-driving-brief.png": "dafd0aa11323081a7146adb16288cc9f1b2d1cb2472ea8aeec458c1f44869a5c",
+    "19-narrow-floor-route.png": "7d52c7121485ef62dceaf00e8d51b1e02590f4858f4294e5b8cba25cc34cd41a",
+    "04c-android-generated-c12-candidate.png": "4e45166525f9477b5c7e0b5356623a228e8e104b464c046d454a1770994a9496",
+    "07-reduced-motion-static.png": "d6b3eff675d63463a17baa16c48c55de5be24c9005f21abedc0fdfcb46c15423",
+    "06c-station.png": "9dbeb5ee169a4e5e983356a4edbbecfb7d30b410a15a6f17c063349fa1085a3c",
+    "04b-generated-camera-preview.png": "fe3304b7f00388de87148275fbe84a7c371458836fc0d18222c1b55da0c45325",
+    "11-manual-clue-save.png": "a8690bc21ac0fd733bd571ee8980097d6841da80bd59d0eec0756288f0bebb6c",
+    "01-product-destination.png": "d55a22c71b1f9d43ecea31a7adba05968202ec4127e60557983fba7214c71673",
+    "05-animated-floor-complete.png": "a24c1232b998762c50a53e3be19e4289b1dd15aba94d2a72eeffa5b4008b7967",
+    "04a-parking-map.png": "fc47fa13ad0dee2bfddefa6810e09fd3db3fe76b4812a7bec61f97bcb61839a8",
+    "17-narrow-occupant-settings.png": "e9c4d5b94308e7ca09c7fe25d588f61eb944deead1a4df8d61e421d51d5bbc68",
+    "08-parking-saved-unknown.png": "ae7ee5fa83d0ffed49e120969f9aa01c65b5586f5f32970971520645b55e9c23",
+    "12-return-manual-clue.png": "877b3c1481c7fbafa57777d26de1825d55aa172bd29d6865791144783e830368",
+    "04-animated-floor-early.png": "d9508d4677c10d56442abe1e2c7d0e0663361bfd55f06ecd6af67517d71fec2e",
+    "10-manual-clue-form.png": "57ed403614109a0ff601c4cea4e0c7b16a40739e6933db667587839962005f3a",
+    "06b-academy.png": "fa8913bb2a8e841cf593a067d0c9f884666bb8936080ef4bf20337d820ea7021",
+    "14-restored-return.png": "7b256b570a5f2a5e9e8955f2e8170c6aa46a6f12d177aeae804e7640487e48bd",
+    "06e-academy-diversion.png": "d38a94996761c8811633bd0d3a734527dc4a1730932007bc5574ed2ce84f89d9",
+    "03-mock-road-handoff.png": "9851976a33dfaa1336473c0083551011de2de424f8f81bf2597c15df216883a7",
+    "16-narrow-app-panel.png": "0a608c6192caea1d92163e63e2894728234075f35ea5f9abf506acd138c8413a"
+  },
+  "recording": {
+    "file": "arrival-context-demo.mp4",
+    "bytes": 1736218,
+    "sha256": "c1b31bac03efeb6c17f4454eb476bc87a34a40a0de17a09d7ee8efa5b71183c0",
+    "kind": "Actual generic Android app screenrecord; TEST/MOCK/generated clip; not native Pleos"
+  }
+}

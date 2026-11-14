@@ -1,0 +1,140 @@
+{
+  "kind": "UX composition only; generated static first/second panels, repacked real Android video crops in third",
+  "app_code_commit": "f0640b00da92409c265cfd5563238e0d972edcaa",
+  "version": "0.11.0/11",
+  "native_pleos_multi_window_verified": false,
+  "live_native_navigation": false,
+  "actual_vehicle_signals": false,
+  "real_camera": false,
+  "app_crops_rearranged_in_editor": true,
+  "reference": {
+    "file": "docs/ux/photo-based-3d/05-camera-and-3d-map.png",
+    "sha256": "e1ba2597c3743f1688daaa2b78f3e7f1d7943691606fb4137315449f649b0cbf",
+    "kind": "Previously approved generated design; not a real native screenshot"
+  },
+  "recording": {
+    "file": "docs/evidence/arrival-panel/f064-device/product-ux/arrival-context-demo.mp4",
+    "sha256": "c1b31bac03efeb6c17f4454eb476bc87a34a40a0de17a09d7ee8efa5b71183c0",
+    "start": 46.5,
+    "motion_seconds": 8,
+    "freeze_seconds": 12,
+    "camera_crop": [
+      560,
+      160,
+      160,
+      106
+    ],
+    "map_crop": [
+      445,
+      350,
+      400,
+      350
+    ]
+  },
+  "labels": {
+    "title": "도착자리 · 3분할 UX 구성 예상도",
+    "scope": "차량/내비: 기존 생성 시안(정지)  |  오른쪽: 실제 Android 앱 영상 재배치  |  Pleos 동시 실행 미검증",
+    "vehicle": "① 차량 정보 · 정지 시안",
+    "navi": "② 순정 내비 영역 · 정지 시안",
+    "app": "③ 도착자리 · 앱 영상 재배치",
+    "app_header": "도착자리",
+    "destination": "5층 에뜨와 · 동선 미리보기",
+    "source": "생성 영상 · 실제 차량 카메라 아님",
+    "candidate": "저장 문자 후보 C12 · 주차층/위치 미확인",
+    "route": "엘리베이터 → 에뜨와 · 경로 재생",
+    "unknown": "승강기 호기·주차장 연결·현재 위치 미확인",
+    "footer": "UX 합성 미리보기 · 첫 두 화면은 실행 내비/차량 신호 아님 · 앱 동작 8초 후 정지 화면 12초"
+  },
+  "file": "dochagjari-three-panel-concept.mp4",
+  "bytes": 503957,
+  "sha256": "1d9b0bb1217781f27cf8af82a81b77f43f37a38043f10c5086c5b96a46195e6f",
+  "ffprobe": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 1920,
+        "height": 1080,
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "closed_captions": 0,
+        "film_grain": 0,
+        "has_b_frames": 2,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "16:9",
+        "pix_fmt": "yuv420p",
+        "level": 40,
+        "color_range": "tv",
+        "color_space": "bt709",
+        "chroma_location": "left",
+        "field_order": "progressive",
+        "refs": 1,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "30/1",
+        "avg_frame_rate": "30/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 307200,
+        "duration": "20.000000",
+        "bit_rate": "198358",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "600",
+        "extradata_size": 50,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.101 libx264"
+        }
+      }
+    ],
+    "format": {
+      "filename": "dochagjari-three-panel-concept.mp4",
+      "nb_streams": 1,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "20.000000",
+      "size": "503957",
+      "bit_rate": "201582",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf61.7.103"
+      }
+    }
+  }
+}

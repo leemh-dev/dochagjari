@@ -1,0 +1,87 @@
+{
+  "created_at_utc": "2026-11-14",
+  "branch": "feat/arrival-context-ux",
+  "pr": 2,
+  "workflow_document": "docs/36-cloud-mac-development-workflow.md",
+  "current_stage": 6,
+  "current_phase": "cloud_generic_android_and_actual_demo_verified_mac_pleos_pending",
+  "app_baseline": {
+    "version": "0.9.0",
+    "versionCode": 9,
+    "code_commit": "e2b93baa91ce5bc56fb770fdc65dad08b9992175"
+  },
+  "mac": {
+    "hardware": "Apple M1, 8GiB RAM",
+    "storage_policy": "external SSD checkout/SDK/AVD/Gradle/cache/temp/evidence",
+    "execution_policy": "single emulator; prefer Cloud-built APK; separate local build from emulator",
+    "historical_evidence": "docs/evidence/macos-m1-pleos/",
+    "historical_result": "prior-version standard ADB suite6/6; memory pressure warning; not new-branch Pleos SDK/STT validation"
+  },
+  "stages": [
+    {
+      "id": 0,
+      "title": "준비",
+      "cloud_status": "complete_preparation_only",
+      "mac_status": "not_checked_for_new_branch",
+      "deliverable": "baseline branch/design/source preservation",
+      "note": "Mac 2026-11-13 old-version success is historical evidence, not this branch verification"
+    },
+    {
+      "id": 1,
+      "title": "다중 프리셋/이번 구성 저장·이행",
+      "cloud_status": "implemented_jvm_and_generic_android_verified",
+      "mac_status": "not_accessible_not_run_for_this_apk"
+    },
+    {
+      "id": 2,
+      "title": "독립 탑승 설정 UI",
+      "cloud_status": "implemented_jvm_and_generic_android_verified",
+      "mac_status": "not_accessible_not_run_for_this_apk"
+    },
+    {
+      "id": 3,
+      "title": "텍스트/TEST와 실제 음성·센서",
+      "cloud_status": "text_test_verified_real_stt_gleo_sdk_not_verified",
+      "mac_status": "not_accessible_not_run_for_this_apk"
+    },
+    {
+      "id": 4,
+      "title": "상단 영상/하단3D지도 패널",
+      "cloud_status": "camera_clip_tilted_map_narrow_wide_verified",
+      "mac_status": "not_accessible_not_run_for_this_apk"
+    },
+    {
+      "id": 5,
+      "title": "같은 방문의 내비·입차·주차·귀환",
+      "cloud_status": "same_visit_store_fixture_hospital_academy_verified_station_airport_concept",
+      "mac_status": "not_accessible_not_run_for_this_apk"
+    },
+    {
+      "id": 6,
+      "title": "회귀/같은APK 녹화·시연",
+      "cloud_status": "app_only_recordings_verified_three_panel_concept_composited_native_demo_pending",
+      "mac_status": "not_accessible_not_run_for_this_apk"
+    }
+  ],
+  "updated_at_utc": "2026-11-14",
+  "current_app": {
+    "version": "0.11.0",
+    "versionCode": 11,
+    "code_commit": "f0640b00da92409c265cfd5563238e0d972edcaa",
+    "actually_tested_metadata": "docs/evidence/arrival-panel/f064-device/apk-metadata.json",
+    "workflow_runs": [
+      43569033733,
+      43569041435
+    ],
+    "tested_apk_artifact": 14104088875,
+    "demo": "docs/evidence/demo-video/README.md"
+  },
+  "demo_scope": {
+    "app_only_generic_android": "verified recordings",
+    "three_panel_concept": "composited reference plus repacked app crops; not native integration",
+    "native_pleos_three_panel_representative_demo": "not completed",
+    "synchronized_shopping_film": "72s UX composition with real mall interior stock, staged parked hold and redrawn 5F route; app/native integration pending",
+    "synchronized_shopping_film_document": "docs/40-synchronized-arrival-demo.md"
+  },
+  "next_deliverable": "Full Pleos vehicle/native-navigation/Dochagjari three-panel recording on Mac"
+}

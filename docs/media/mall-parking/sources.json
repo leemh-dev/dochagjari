@@ -1,0 +1,69 @@
+{
+  "checked_at_utc": "2026-11-14",
+  "selected": [
+    {
+      "id": 5972195,
+      "title": "Empty Mall Parking",
+      "description": "Explore a large empty underground parking area with concrete structure.",
+      "source_page": "https://www.pexels.com/video/empty-mall-parking-5972195/",
+      "author": "gusat silviu",
+      "license": "Pexels License",
+      "license_url": "https://www.pexels.com/license/",
+      "download_url": "https://videos.pexels.com/video-files/5972195/5972195-hd_1280_720_25fps.mp4",
+      "duration": 18,
+      "file": "5972195.mp4",
+      "bytes": 1813247,
+      "sha256": "4963ae36e1f4610fba0f4158861dac4877af607c0685e8ce2a57da4c8adaf3b6",
+      "edits": [
+        "audio removed",
+        "H.264 CRF21 encoding"
+      ],
+      "not_pangyo": true,
+      "not_oem_camera": true,
+      "not_vehicle_parking_proof": true
+    },
+    {
+      "id": 5972197,
+      "title": "An Empty Parking Area",
+      "description": "Explore an empty and spacious indoor parking garage with ample lighting.",
+      "source_page": "https://www.pexels.com/video/an-empty-parking-area-5972197/",
+      "author": "gusat silviu",
+      "license": "Pexels License",
+      "license_url": "https://www.pexels.com/license/",
+      "download_url": "https://videos.pexels.com/video-files/5972197/5972197-hd_1280_720_25fps.mp4",
+      "duration": 9,
+      "file": "5972197.mp4",
+      "bytes": 822363,
+      "sha256": "ddc7818fa1ee8adf9c76829be6f989b1f707a616b5f4952faa41992650cbd56b",
+      "edits": [
+        "audio removed",
+        "H.264 CRF21 encoding"
+      ],
+      "not_pangyo": true,
+      "not_oem_camera": true,
+      "not_vehicle_parking_proof": true
+    }
+  ],
+  "rejected": [
+    {
+      "id": 26929404,
+      "reason": "Motorcycle handlebars and exit direction; not car entry/parking footage"
+    },
+    {
+      "id": 18320892,
+      "reason": "External car passing camera, not onboard view"
+    },
+    {
+      "id": 6028858,
+      "reason": "Static interior with different red pillars; inconsistent with selected yellow garage"
+    },
+    {
+      "source": "Wikimedia parking video search",
+      "reason": "No suitable continuous indoor POV found among queried results"
+    },
+    {
+      "source": "Uppbeat 112592",
+      "reason": "Relevant Korean car POV, but a usable download/license was not obtained; not used"
+    }
+  ]
+}
