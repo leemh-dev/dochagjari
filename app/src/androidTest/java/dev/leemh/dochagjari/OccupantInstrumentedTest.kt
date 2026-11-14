@@ -5,11 +5,13 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
+import org.junit.rules.RuleChain
 import org.junit.Rule
 import org.junit.Test
 
 class OccupantInstrumentedTest {
-    @get:Rule val ui = createAndroidComposeRule<MainActivity>()
+    val ui = createAndroidComposeRule<MainActivity>()
+    @get:Rule val rules: RuleChain = RuleChain.outerRule(ui).around(FailureScreenshot())
     @Test fun independentPresetsOnceEditCommandAndRecreationUseActualSavedData() {
         val services = AppServices.get(ui.activity.application)
         val repo = requireNotNull(services.occupants)

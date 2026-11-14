@@ -43,7 +43,7 @@ import androidx.compose.ui.window.DialogProperties
                         FilterChip(mode == VisitMode.TOGETHER, { mode = VisitMode.TOGETHER }, { Text("함께 주차") })
                     }
                     Text(recommendation.point?.name ?: "조건에 맞는 후보가 없습니다", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                    Text(recommendation.reason, color = CabinMuted, fontSize = 15.sp)
+                    if (recommendation.point != null) Text(recommendation.reason, color = CabinMuted, fontSize = 15.sp)
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         OutlinedButton({ recommendation.point?.let { blocked = blocked + it.id } }, enabled = recommendation.point != null) { Text("이용 불가 · TEST") }
                         OutlinedButton({ blocked = emptySet() }) { Text("후보 다시 보기") }

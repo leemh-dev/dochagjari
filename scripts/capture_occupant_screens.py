@@ -49,7 +49,11 @@ def main():
             if editor is None: raise AssertionError('Command EditText ancestor absent')
         a, b, c, d = ui.box(editor)
         ui.adb('shell', 'input', 'tap', str((a+c)//2), str((b+d)//2)); time.sleep(.5)
-        ui.adb('shell', 'input', 'text', 'solo'); ui.expect('solo'); ui.capture('03b-text-entered')
+        ui.adb('shell', 'input', 'text', 'solo')
+        entered = [n for n in ui.tree().iter('node') if n.attrib.get('class') == 'android.widget.EditText' and n.attrib.get('text') == 'solo' and n.attrib.get('package') == ui.PACKAGE]
+        assert len(entered) == 1, 'Expected solo in the actual app EditText, not keyboard suggestions'
+        ui.report['checks'].append({'field': 'occupant-command', 'actual_value': 'solo', 'result': 'read back from EditText'})
+        ui.capture('03b-text-entered')
         ime = ui.adb('shell', 'dumpsys', 'input_method').decode(errors='replace')
         if re.search(r'(?:mInputShown|mIsInputViewShown)=true', ime):
             ui.adb('shell', 'input', 'keyevent', 'KEYCODE_BACK')

@@ -38,6 +38,16 @@ def main():
         ui.tap('입차 확인 · TEST')
         ui.expect('주차장 안내'); ui.capture('04a-parking-map')
         ui.tap('생성 영상 보기'); time.sleep(1); ui.capture('04b-generated-camera-preview')
+        ui.tap('영상 분석')
+        deadline = time.monotonic() + 90
+        while time.monotonic() < deadline:
+            texts = [n.attrib.get('text', '') for n in ui.tree().iter('node')]
+            if any('관측 입력/저장 실패' in text or '영상 권한 없음' in text for text in texts):
+                raise AssertionError('Panel video analysis failed')
+            if any('C12 후보' in text and '생성 영상 분석' in text for text in texts):
+                ui.capture('04c-android-generated-c12-candidate'); break
+            time.sleep(1)
+        else: raise AssertionError('Generated C12 candidate did not reach the arrival panel')
         ui.tap('5층 동선')
         ui.capture('04-animated-floor-early')
         time.sleep(6.5); ui.capture('05-animated-floor-complete')

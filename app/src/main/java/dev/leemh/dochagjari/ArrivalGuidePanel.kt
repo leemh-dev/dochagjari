@@ -69,6 +69,7 @@ enum class ArrivalGuideTab { PARKING, FLOOR }
                             TextButton({ model.stopVisitObservation("입력 변경"); asset = if (asset == "generated-blocked.mp4") "generated-empty.mp4" else "generated-blocked.mp4"; preview = false }) { Text(if (asset == "generated-blocked.mp4") "빈 영상 선택" else "C12 영상 선택") }
                         } else Text("입차를 확인하면 사전 영상 관측을 시작할 수 있어요.", color = CabinMuted, fontSize = 14.sp)
                     }
+                    if (entered) Text(if (state.observingVisit) "생성 영상 분석 중…" else state.visitObservationMessage, color = CabinMuted, fontSize = 13.sp)
                     Box(Modifier.fillMaxWidth().weight(.52f)) {
                         if (tab == ArrivalGuideTab.FLOOR && supported) {
                             FloorCanvas(d, progress, Modifier.fillMaxSize().graphicsLayer {

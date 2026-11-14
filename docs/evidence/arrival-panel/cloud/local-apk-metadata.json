@@ -1,5 +1,5 @@
 {
-  "code_commit": "b84b4676d16cf0fe84328bec55dc37bd08067782",
+  "code_commit": "27e5a2da3986cda517616e3c50a894b5c1498ff5",
   "versionName": "0.11.0",
   "versionCode": 11,
   "workflow_run": null,
@@ -7,8 +7,8 @@
     {
       "kind": "debug",
       "file": "dochagjari-0.11.0-debug.apk",
-      "bytes": 79273616,
-      "sha256": "18d0650fe88c4d4bbfbcaf6d0f7a7e1c55d37b93f944cffff9078e2d119c1daf",
+      "bytes": 80393823,
+      "sha256": "b2edce66ac65ae8024d7c878a4719f16035fd9555eff926bfbcd2a02fa514894",
       "manifest": {
         "name": "dev.leemh.dochagjari",
         "versionCode": "11",
@@ -20,8 +20,8 @@
     {
       "kind": "androidTest",
       "file": "dochagjari-0.11.0-androidTest.apk",
-      "bytes": 2396213,
-      "sha256": "50f3de43e1a28e79a53e30d50db7ba1e72eeccc3882d0322be8b1324ae0e75c9",
+      "bytes": 2399153,
+      "sha256": "be16a1047ef960c6a9c47c432fce43eb532c4edc9f043220f2f6a11e77464d14",
       "manifest": {
         "name": "dev.leemh.dochagjari.test",
         "versionCode": "",
@@ -34,7 +34,7 @@
       "kind": "unsigned-release",
       "file": "dochagjari-0.11.0-unsigned-release.apk",
       "bytes": 71392657,
-      "sha256": "b19a77e8d1efb821d379c85697101a8f65db9a26b6154458541f96e90f6914a6",
+      "sha256": "8158d81e8f63804f0150387a62baad5c3f35951bc2bc65aba95d44b31e85a8ac",
       "manifest": {
         "name": "dev.leemh.dochagjari",
         "versionCode": "11",
