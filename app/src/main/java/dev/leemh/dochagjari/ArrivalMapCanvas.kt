@@ -1,5 +1,6 @@
 package dev.leemh.dochagjari
 
+import kotlin.math.min
 import android.graphics.Paint
 import android.graphics.Typeface
 import androidx.compose.foundation.Canvas
@@ -24,8 +25,9 @@ enum class ArrivalScene(val label: String) { PARKING("주차장"), HOSPITAL("병
 @Composable fun ArrivalMapCanvas(scene: ArrivalScene, modifier: Modifier = Modifier) {
     val textPx = with(LocalDensity.current) { 14.sp.toPx() }
     Canvas(modifier.background(Color(0xFF172231)).testTag(if (scene == ArrivalScene.PARKING) "arrival-parking-map" else "arrival-road-map")) {
-        val sx = size.width / 1000f; val sy = size.height / 620f
-        withTransform({ scale(sx, sy, pivot = Offset.Zero) }) {
+        val sx = min(size.width / 1000f, size.height / 620f)
+        if (sx <= 0) return@Canvas
+        withTransform({ translate((size.width - 1000f * sx) / 2, (size.height - 620f * sx) / 2); scale(sx, sx, pivot = Offset.Zero) }) {
             val road = Color(0xFF3C4859); val sidewalk = Color(0xFF627184); val line = Color(0xFFD0D9E5)
             val amber = Color(0xFFF7B654); val teal = Color(0xFF5CD5CA)
             val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = android.graphics.Color.WHITE; typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD); textSize = textPx / sx }

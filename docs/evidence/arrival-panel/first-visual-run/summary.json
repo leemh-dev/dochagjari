@@ -1,0 +1,134 @@
+{
+  "environment": "Generic Android API34 / CI-owned fresh AVD",
+  "inputs": "TEST vehicle and entry/parking; MOCK road; manual-demo synthetic memo",
+  "checks": [
+    {
+      "text": "에뜨와로 갈까요?",
+      "result": "visible"
+    },
+    {
+      "text": "내비 안내 시작",
+      "result": "visible"
+    },
+    {
+      "text": "도로 안내는 순정 내비에서",
+      "result": "visible"
+    },
+    {
+      "text": "주차장 안내",
+      "result": "visible"
+    },
+    {
+      "text": "엘리베이터에서\n에뜨와까지",
+      "result": "visible"
+    },
+    {
+      "text": "매장까지 이어서",
+      "result": "visible"
+    },
+    {
+      "text": "서쪽 승하차점 (시연 좌표)",
+      "result": "visible"
+    },
+    {
+      "text": "뒤편 주차장 입구 (시연 좌표)",
+      "result": "visible"
+    },
+    {
+      "text": "조건에 맞는 후보가 없습니다",
+      "result": "visible"
+    },
+    {
+      "text": "모션 줄이기 · 전체 경로 표시",
+      "result": "visible"
+    },
+    {
+      "text": "주차 기록 저장 완료",
+      "result": "visible"
+    },
+    {
+      "text": "주차층 미확인  ·  기둥 미확인",
+      "result": "visible"
+    },
+    {
+      "text": "manual-demo",
+      "result": "visible"
+    },
+    {
+      "text": "주차 기록이 있어요",
+      "result": "visible"
+    },
+    {
+      "text": "manual-demo",
+      "result": "visible"
+    },
+    {
+      "text": "안전하게 이동하세요",
+      "result": "visible"
+    }
+  ],
+  "screenshots": [
+    "01-product-destination.png",
+    "02-visit-ready.png",
+    "03-mock-road-handoff.png",
+    "04a-parking-map.png",
+    "04b-generated-camera-preview.png",
+    "04c-android-generated-c12-candidate.png",
+    "04-animated-floor-early.png",
+    "05-animated-floor-complete.png",
+    "06-entry-unknown-connection.png",
+    "06a-hospital.png",
+    "06b-academy.png",
+    "06e-academy-diversion.png",
+    "06f-academy-no-candidate.png",
+    "06c-station.png",
+    "06d-airport.png",
+    "07-reduced-motion-static.png",
+    "08-parking-saved-unknown.png",
+    "09-return-clues-no-fake-line.png",
+    "10-manual-clue-form.png",
+    "11-manual-clue-save.png",
+    "12-return-manual-clue.png",
+    "13-restored-home-no-auto-guide.png",
+    "14-restored-return.png",
+    "15-driving-brief.png",
+    "failure.png"
+  ],
+  "pleos_native_verified": false,
+  "source_commit": "690706f893562028a67958987d97713125b5f86b",
+  "readiness": {
+    "serial": "emulator-5554",
+    "ready": true,
+    "checks": {
+      "transport": {
+        "returncode": 0,
+        "stdout": "device",
+        "stderr": ""
+      },
+      "boot": {
+        "returncode": 0,
+        "stdout": "1",
+        "stderr": ""
+      },
+      "package": {
+        "returncode": 0,
+        "stdout": "Service package: found",
+        "stderr": ""
+      },
+      "activity": {
+        "returncode": 0,
+        "stdout": "Service activity: found",
+        "stderr": ""
+      }
+    },
+    "reason": "Boot and package/activity services verified"
+  },
+  "success": false,
+  "error": "Visible control not found: 연동·테스트",
+  "recording": {
+    "file": "arrival-context-demo.mp4",
+    "bytes": 1850199,
+    "sha256": "fc95ba9ab1628aaca7c3c1b0ba566fcaa86586a87b7bfdb0221b11bfee8c5314",
+    "kind": "Actual generic Android app screenrecord; TEST/MOCK/generated clip; not native Pleos"
+  }
+}

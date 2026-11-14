@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
@@ -32,8 +33,8 @@ import androidx.compose.ui.window.DialogProperties
                     OutlinedButton(close) { Text("닫기") }
                 }
                 SampleCameraPreview(null, "실제 도로·카메라 입력 미연결", Modifier.fillMaxWidth().weight(.24f))
-                ArrivalMapCanvas(scene, Modifier.fillMaxWidth().weight(.46f).graphicsLayer {
-                    rotationX = 28f; rotationZ = -6f; scaleX = .9f; scaleY = .9f; cameraDistance = 12 * density
+                ArrivalMapCanvas(scene, Modifier.fillMaxWidth().weight(.46f).clipToBounds().graphicsLayer {
+                    rotationX = 18f; rotationZ = -6f; scaleX = .94f; scaleY = .94f; cameraDistance = 2000 * density
                 })
                 Text(if (active != null) "이번 구성 · ${active.name} / 역할은 사용자 확인값" else "탑승 구성 미선택 · 기존 접근성 설정 사용", color = CabinMuted, fontSize = 14.sp)
                 if (recommendation != null) {

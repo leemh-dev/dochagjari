@@ -42,7 +42,7 @@ def main():
         deadline = time.monotonic() + 90
         while time.monotonic() < deadline:
             texts = [n.attrib.get('text', '') for n in ui.tree().iter('node')]
-            if any('관측 입력/저장 실패' in text or '영상 권한 없음' in text for text in texts):
+            if any('관측 입력/저장 실패' in text or '영상 권한 없음' in text or '영상을 확인할 수 없어요' in text for text in texts):
                 raise AssertionError('Panel video analysis failed')
             if any('C12 후보' in text and '생성 영상 분석' in text for text in texts):
                 ui.capture('04c-android-generated-c12-candidate'); break
@@ -63,6 +63,13 @@ def main():
         ui.adb('shell', 'settings', 'put', 'global', 'animator_duration_scale', '0')
         ui.tap('5층 동선 보기'); ui.expect('모션 줄이기 · 전체 경로 표시'); ui.capture('07-reduced-motion-static')
         ui.tap('닫기')
+        # Detailed operations remain disabled while driving. Check narrow layout before driving.
+        ui.adb('shell', 'wm', 'size', '480x900'); time.sleep(1)
+        ui.expect('탑승 설정'); ui.capture('16-narrow-app-panel')
+        ui.tap('주차 지도 보기'); ui.tap('생성 영상 보기'); ui.capture('18-narrow-camera-map')
+        ui.tap('5층 동선'); ui.capture('19-narrow-floor-route'); ui.tap('닫기')
+        ui.tap('탑승 설정'); ui.expect('오늘의 탑승'); ui.capture('17-narrow-occupant-settings'); ui.tap('닫기')
+        ui.adb('shell', 'wm', 'size', '1280x800')
         ui.tap('개발자 도구'); ui.tap('매장 방문'); ui.tap('요약 자동 닫기 끄기'); ui.tap('안내 화면으로 돌아가기')
         ui.tap('주차 완료 · TEST'); ui.expect('주차 기록 저장 완료'); ui.capture('08-parking-saved-unknown')
         ui.tap('닫기'); ui.tap('차로 돌아가기'); ui.expect('주차층 미확인  ·  기둥 미확인'); ui.capture('09-return-clues-no-fake-line')
@@ -86,13 +93,9 @@ def main():
         new_pid = ui.adb('shell', 'pidof', ui.PACKAGE).decode().strip(); assert old_pid and new_pid and old_pid != new_pid
         ui.expect('주차 기록이 있어요'); ui.capture('13-restored-home-no-auto-guide')
         ui.tap('차로 돌아가기'); ui.expect('manual-demo'); ui.capture('14-restored-return')
-        ui.tap('닫기'); ui.tap('개발자 도구'); ui.tap('연동·테스트'); ui.tap('주행')
+        ui.tap('닫기')
+        ui.tap('개발자 도구'); ui.tap('연동·테스트'); ui.tap('주행')
         ui.tap('안내 화면으로 돌아가기'); ui.expect('안전하게 이동하세요'); ui.capture('15-driving-brief')
-        ui.tap('개발자 도구'); ui.tap('연동·테스트'); ui.tap('정차'); ui.tap('안내 화면으로 돌아가기')
-        ui.adb('shell', 'wm', 'size', '480x900'); time.sleep(1)
-        ui.expect('탑승 설정'); ui.capture('16-narrow-app-panel')
-        ui.tap('탑승 설정'); ui.expect('오늘의 탑승'); ui.capture('17-narrow-occupant-settings'); ui.tap('닫기')
-        ui.adb('shell', 'wm', 'size', '1280x800')
         ui.adb('shell', 'settings', 'put', 'global', 'animator_duration_scale', old_scale if old_scale != 'null' else '0')
         ui.report.update(success=True, old_pid=old_pid, new_pid=new_pid, actual_sdk_pin=False,
                          current_position_and_return_path_verified=False,

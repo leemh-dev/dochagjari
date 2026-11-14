@@ -4,6 +4,8 @@ import android.media.MediaPlayer
 import android.view.Surface
 import android.view.TextureView
 import android.graphics.SurfaceTexture
+import android.graphics.Matrix
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,6 +26,17 @@ private class PreviewPlayer {
     fun close() { player?.release(); player = null; surface?.release(); surface = null }
 }
 
+private class AspectPreview(context: Context) : TextureView(context) {
+    private var videoWidth = 0
+    private var videoHeight = 0
+    fun fit(videoWidth: Int = this.videoWidth, videoHeight: Int = this.videoHeight) {
+        this.videoWidth = videoWidth; this.videoHeight = videoHeight
+        if (width <= 0 || height <= 0 || videoWidth <= 0 || videoHeight <= 0) return
+        val fit = minOf(width.toFloat() / videoWidth, height.toFloat() / videoHeight)
+        setTransform(Matrix().apply { setScale(videoWidth * fit / width, videoHeight * fit / height, width / 2f, height / 2f) })
+    }
+}
+
 /** Muted bundled clip only, disposed when the guide closes/stops. Never an OEM camera claim. */
 @Composable fun SampleCameraPreview(asset: String?, badge: String, modifier: Modifier = Modifier) {
     var failed by remember(asset) { mutableStateOf(false) }
@@ -31,7 +44,8 @@ private class PreviewPlayer {
     DisposableEffect(owner) { onDispose { owner.close() } }
     Box(modifier.clip(RoundedCornerShape(16.dp)).background(Color(0xFF0B111C)).testTag("arrival-camera")) {
         if (asset != null && !failed) key(asset) {
-            AndroidView(factory = { context -> TextureView(context).apply {
+            AndroidView(factory = { context -> AspectPreview(context).apply {
+                val preview = this
                 surfaceTextureListener = object : TextureView.SurfaceTextureListener {
                     override fun onSurfaceTextureAvailable(texture: SurfaceTexture, width: Int, height: Int) {
                         runCatching {
@@ -39,13 +53,14 @@ private class PreviewPlayer {
                             owner.player = MediaPlayer().apply {
                                 context.assets.openFd(asset).use { setDataSource(it.fileDescriptor, it.startOffset, it.length) }
                                 setSurface(owner.surface); isLooping = true; setVolume(0f, 0f)
-                                setOnPreparedListener { it.start() }
+                                setOnVideoSizeChangedListener { _, w, h -> preview.fit(w, h) }
+                                setOnPreparedListener { preview.fit(it.videoWidth, it.videoHeight); it.start() }
                                 setOnErrorListener { _, _, _ -> failed = true; owner.close(); true }
                                 prepareAsync()
                             }
                         }.onFailure { failed = true; owner.close() }
                     }
-                    override fun onSurfaceTextureSizeChanged(texture: SurfaceTexture, width: Int, height: Int) = Unit
+                    override fun onSurfaceTextureSizeChanged(texture: SurfaceTexture, width: Int, height: Int) { preview.fit() }
                     override fun onSurfaceTextureUpdated(texture: SurfaceTexture) = Unit
                     override fun onSurfaceTextureDestroyed(texture: SurfaceTexture): Boolean { owner.close(); return true }
                 }
