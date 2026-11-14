@@ -1,5 +1,7 @@
 # 다음 실행 프롬프트 · 시연과 앱의 시간순 동작 맞추기
 
+> 최신 방향 변경: 카메라 의존 개발은 중단했다. [SDK 기반 아이디어 재선정42](42-sdk-first-idea-reset.md)를 먼저 읽는다. 아래 기존 시연 맞춤 구현 프롬프트는 이력이며 새 방향 결정 전 실행하지 않는다.
+
 [최신72초 UX 시연](evidence/demo-video/store-arrival-v2/README.md) · [시간별 화면 규칙40](40-synchronized-arrival-demo.md) · [앱과 차이](evidence/demo-video/store-arrival-v2/app-comparison.md).
 
 ```text
