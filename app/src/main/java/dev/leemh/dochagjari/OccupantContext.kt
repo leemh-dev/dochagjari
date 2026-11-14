@@ -58,7 +58,7 @@ object OccupantCommands {
         val t = text.trim().replace(" ", "")
         if (t.isEmpty() || t.length > 160) return OccupantCommand(emptyList(), "탑승 구성을 짧게 입력해 주세요")
         if (("혼자" in t && ("아이" in t || "가족" in t || "부모" in t)) ||
-            (listOf("안탔", "안타", "없어", "아니", "취소").any { it in t } && "혼자" !in t))
+            listOf("안탔", "안타", "없어", "없는", "아니", "아닌", "아냐", "아닙", "취소", "말고", "빼고", "않").any { it in t })
             return OccupantCommand(emptyList(), "이번 탑승 모드를 직접 선택하거나 더 구체적으로 알려주세요")
         val exact = book.presets.filter { t.contains(it.name.replace(" ", "")) }
         if (exact.isNotEmpty()) return OccupantCommand(exact, "이번 탑승에 적용할 구성을 확인해 주세요")

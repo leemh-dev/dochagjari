@@ -61,4 +61,12 @@ class OccupantContextTest {
         val two = b.copy(presets = b.presets + b.presets[1].copy(id = "child2", name = "아이 왼쪽"))
         assertEquals(2, OccupantCommands.parse("아이랑 탔어", two).candidates.size)
     }
+    @Test fun negatedSoloAndCancelledModeRequireClarification() {
+        val book = OccupantBook.migrate(Profile())
+        for (text in listOf("혼자 아니야", "혼자가 아닌데", "혼자 아냐", "혼자 취소", "혼자 말고", "아이 안 탔어")) {
+            assertTrue("Negative command must not suggest a mode: $text", OccupantCommands.parse(text, book).candidates.isEmpty())
+        }
+        assertEquals(OccupantMode.SOLO, OccupantCommands.parse("오늘 혼자야", book).candidates.single().mode)
+        assertEquals(OccupantMode.SOLO, OccupantCommands.parse("solo", book).candidates.single().mode)
+    }
 }
