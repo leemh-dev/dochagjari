@@ -919,3 +919,8 @@
 - CI verify와android-device는서로다른runner에서debug키를생성하므로같은소스라도verify artifact의APK와실제기기검사/녹화APK의bytes/인증서가다를수있음을확인했다. 기존에는소스동일성만확인할수있었고실제기기APK를따로보관하지않았다.
 - collect_apk_metadata.py에--device-only를추가하고connected검사후같은출력debug/test2개와manifest/SHA256/인증서를별도 `tested-device-apks-and-metadata` artifact로보존한다. 후속화면/녹화도바로그파일을설치한다. Mac에는이쌍을전달하며unsigned release는verify의별도3종산출물로구분한다.
 - 로컬실제2APK를패키징해개수/manifest/동일개발인증서와SHA를대조했다. 기본3종경로도유지한다. 이는기기실행성공이아니며실제기기결과는수정CI에서갱신한다. 검사/녹화와전달APK의동일성확인을위해후속CI가필요하다. 앱의기능/버전은바꾸지않는다.
+
+### 같은 날 · 새PID 증거 전달 경로 검토 보완
+
+- 실제복원단계에진입하기전코드검토에서새테스트의println PID를호스트stdout에서찾도록작성한부분을확인했다. Android의System.out는logcat으로갈수있어호스트의am instrumentstdout수신을보장하지않는다. 이는아직실제실패로재현한것은아니며검토로발견한증거수집위험이다.
+- 기존복원검사의검증된방식처럼Instrumentation.sendStatus Bundle의occupant_process_pid를명시수신하도록맞췄다. 호스트는prepare/verify 각각OK1test/정상instrumentation종료코드/실제PID2개/서로다름을모두확인한다. 실제새PID통과는수정CI에서만기록한다. 앱기능/버전/저장스키마는변경하지않는다.

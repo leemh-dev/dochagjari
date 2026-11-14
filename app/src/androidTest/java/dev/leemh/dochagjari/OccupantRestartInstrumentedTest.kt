@@ -2,6 +2,7 @@ package dev.leemh.dochagjari
 
 import android.app.Application
 import android.os.Process
+import android.os.Bundle
 import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -14,6 +15,9 @@ import java.io.File
 
 /** Host invokes these individually around force-stop on its own new test AVD. */
 class OccupantRestartInstrumentedTest {
+    private fun reportPid() = InstrumentationRegistry.getInstrumentation().sendStatus(0, Bundle().apply {
+        putInt("occupant_process_pid", Process.myPid())
+    })
     @Test fun prepare() = runBlocking {
         assumeTrue(InstrumentationRegistry.getArguments().getString("occupantPhase") == "prepare")
         val app = InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as Application
@@ -28,7 +32,7 @@ class OccupantRestartInstrumentedTest {
             .put("profile", profile).put("visitId", visitId ?: JSONObject.NULL)
             .put("outbox", journal?.request?.fingerprint() ?: JSONObject.NULL)
         File(app.filesDir, "occupant-restart-proof.json").writeText(proof.toString())
-        println("OCCUPANT_PREPARED_PID=${Process.myPid()}")
+        reportPid()
     }
     @Test fun verify() = runBlocking {
         assumeTrue(InstrumentationRegistry.getArguments().getString("occupantPhase") == "verify")
@@ -42,6 +46,6 @@ class OccupantRestartInstrumentedTest {
         assertEquals(proof.getString("profile"), services.profiles.readStoredProfile().toString())
         assertEquals(proof.optString("visitId", "null"), SqliteGuidanceStorage(app).use { it.currentVisit()?.id } ?: "null")
         assertEquals(proof.optString("outbox", "null"), FileArrivalJournal(File(app.filesDir, "arrival/outbox.json")).load()?.request?.fingerprint() ?: "null")
-        println("OCCUPANT_VERIFIED_PID=${Process.myPid()}")
+        reportPid()
     }
 }

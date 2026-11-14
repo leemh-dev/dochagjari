@@ -22,7 +22,7 @@ def phase(name, user):
                     ui.PACKAGE + '.test/androidx.test.runner.AndroidJUnitRunner', timeout=120).decode()
     ui.OUT.joinpath('restart-' + name + '.txt').write_text(output)
     assert re.search(r'OK \(1 test\)', output) and 'FAILURES' not in output and 'INSTRUMENTATION_CODE: -1' in output, output[-1000:]
-    found = re.search(r'OCCUPANT_(?:PREPARED|VERIFIED)_PID=(\d+)', output)
+    found = re.search(r'^INSTRUMENTATION_STATUS: occupant_process_pid=(\d+)\s*$', output, re.M)
     assert found, 'Missing actual process PID'
     return int(found.group(1))
 
