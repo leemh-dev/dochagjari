@@ -1,0 +1,26 @@
+{
+  "date_utc": "2026-11-14",
+  "versionName": "0.11.0",
+  "versionCode": 11,
+  "environment": "Cloud Linux / JDK17 / SDK35 / no connected device / no KVM",
+  "jvm": {
+    "tests": 114,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "lint": "pass",
+  "builds": [
+    "debug",
+    "androidTest",
+    "unsigned-release"
+  ],
+  "device_execution": "pending CI",
+  "mac_pleos": "not accessible; not run",
+  "new_android_test": "scenario independence, alternative/no-candidate, movement dismissal: compiled; not yet executed",
+  "commands": [
+    "./gradlew --offline :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease",
+    "./gradlew --offline :app:assembleDebugAndroidTest :app:lintDebug",
+    "python3 -m py_compile scripts/capture_product_screens.py"
+  ]
+}

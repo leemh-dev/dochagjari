@@ -1,5 +1,20 @@
 # 구현·검증 기록
 
+> 2026-11-14 최신 시연: [백화점72초 UX 영상](evidence/demo-video/store-arrival-v2/README.md)으로 **넓은 내비→도착 후3분할→실사 주차장 이동→명시 주차 완료/정차 화면→5층 파란선→닫기**를 연결했다. [시간별 규칙/앱과 차이](40-synchronized-arrival-demo.md). 합성 시연이며 실제 Pleos 통합/새 APK 검증이 아니다. 아래20초 예시는 이전 편집 이력이다.
+
+> 2026-11-14 카메라 표현 수정: [3분할 예상도](evidence/demo-video/three-panel-concept/README.md) 상단을 CC BY3.0 **실제 전방 주행20초**로 교체했다. 하단만 실제 앱 지도다. 영상 편집 변경이며 앱0.11.0/11·f0640b0/APK와 기존 검사 결과는 유지한다. 새 실사 OCR·OEM카메라·실제 Pleos 동시 실행 성공은 아니다. [출처](media/front-driving/README.md).
+
+> 2026-11-14 영상 범위 정정: 기존90초/20초는 앱 단독 기능기록이다. 요청한 **실제 Pleos3분할 대표시연은 미완료**다. [3분할 UX합성 예상도](evidence/demo-video/three-panel-concept/README.md)를 별도 제공하며 실제 통합 성공으로 세지 않는다. [실제 완료 기준39](39-three-panel-demo-gap.md).
+
+## 2026-11-14 · 0.11.0 최종 Cloud 검증 완료
+
+**앱 0.11.0/11·f0640b0**, [push CI43569033733](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733)와 [PR CI43569041435](https://github.com/leemh-dev/dochagjari/actions/runs/43569041435) 전체 성공. JVM115·서버14·진단35·lint/3빌드, 실제 connected15pass/0fail/4전용skip 후 별도 복원4단계, 원본54장·동일DB HTTP 모의 복구를 확인했다. **90초 편집 시연과20초 연속 모션**도 출력/전체 디코딩/해시 대조를 마쳤다.
+
+[실제 화면·검사 원본](evidence/arrival-panel/f064-device/README.md) · [실제로 검사한 APK 쌍](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733/artifacts/14104088875) · [영상](evidence/demo-video/README.md) · [현재 구현](37-current-implementation.md) · [Mac 인계](38-mac-pleos-v0.11-handoff.md).
+
+일반 Android의 TEST/MOCK/생성 입력 결과다. Mac/Pleos 새버전 배치·SDK 핀/Console·실제 STT/Gleo·외부카메라·실차/현장 동선·실제SMS는 미검증이고, 이동 중 AI 자료 보완 worker는 미구현이다. 병원/학원은 가상 시연, 역/공항은 개념 안내다. debug/test 개발서명·release unsigned이며 앱마켓 출시/출시서명은 범위 밖이다. 기존 PR#1·데이터는 보존하고 자동 병합하지 않았다.
+
+
 2026-11-13 UTC · 기준: [개발계획](07-development-plan.md)
 
 ## 지도 중심 Android UX · 0.9.0/9

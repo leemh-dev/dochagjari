@@ -7,8 +7,8 @@ android {
         applicationId = "dev.leemh.dochagjari"
         minSdk = 34
         targetSdk = 34
-        versionCode = 9
-        versionName = "0.9.0"
+        versionCode = 11
+        versionName = "0.11.0"
         ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

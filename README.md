@@ -1,5 +1,14 @@
 # 도착자리
 
+> 2026-11-14 최신 시연: [백화점72초 UX 영상](docs/evidence/demo-video/store-arrival-v2/README.md)으로 **넓은 내비→도착 후3분할→실사 주차장 이동→명시 주차 완료/정차 화면→5층 파란선→닫기**를 연결했다. [시간별 규칙/앱과 차이](docs/40-synchronized-arrival-demo.md). 합성 시연이며 실제 Pleos 통합/새 APK 검증이 아니다. 아래20초 예시는 이전 편집 이력이다.
+
+**영상 구분:** 기존90초/20초는 앱 단독 기능기록입니다. [새3분할 예상도](docs/evidence/demo-video/three-panel-concept/README.md)는 상단 공개 실사 주행20초·하단 앱 지도를 배치한 UX합성이며 실제 Pleos 동시 실행 증거가 아닙니다. 요청한 실제3분할 대표시연은 [Mac 확인/녹화](docs/39-three-panel-demo-gap.md)가 남아 있습니다.
+
+**현행 구현 완료(Cloud/일반Android): 0.11.0/11·f0640b0**, `feat/arrival-context-ux`/[PR#2](https://github.com/leemh-dev/dochagjari/pull/2). 독립 탑승 모드·이번 구성, 상단 생성영상/하단 기울인 주차·5층 지도, 같은 방문의 주차 저장/귀환을 구현했습니다. [최종 CI](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733) JVM115·서버14·진단35·기기15건과 별도 복원4단계까지 통과했습니다. [실제 화면/검사](docs/evidence/arrival-panel/f064-device/README.md) · [90초 시연/20초 모션](docs/evidence/demo-video/README.md) · [실제 검사 APK](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733/artifacts/14104088875).
+
+Mac/Pleos의 새버전 분할·SDK핀/Console·실제 음성/외부카메라·실차/SMS는 미검증입니다. AI 자료 보완 worker는 미구현이며 현재는 사전DB를 씁니다. [현재 수준](docs/37-current-implementation.md) · [M1/8GB·외장SSD 설치/검사 인계](docs/38-mac-pleos-v0.11-handoff.md). debug/test 개발서명·release unsigned, 앱마켓 출시는 범위 밖입니다. 아래 구버전 실적은 이력으로 구분합니다.
+
+
 **목적지 너머, 만날 자리까지.** 처음 가거나 익숙하지 않은 장소에서 진입·승하차·대기·주차와 실제 방문/만남까지 연결하는 Kotlin Android 앱을 개발합니다. 매장·병원·학교/학원 픽업·역/공항 마중이 대표 시나리오입니다. 현재 판교점 에뜨와 시설 조회·방문 저장·네이티브 동선 재생·선택적 좌석 역할·같은 방문의 관측 단서 저장과 기존 픽업/병원 시연 기능이 있습니다. 역/공항 실제 시설 연동은 아직 검증하지 않았습니다. [11월 15일 개발계획](docs/07-development-plan.md)을 구현 기준으로 사용합니다.
 
 가상 학원·병원 각각 한 곳을 동봉합니다. 사람 출입구를 유지하면서 방문 모드·이용 불가·영상 점유에 따라 차량 도착점이 바뀝니다. 순정 내비 좌표의 실제 승하차 허용 여부나 실제 시설 무단차 경로를 검증한 서비스는 아닙니다.
@@ -7,6 +16,12 @@
 개발을 이어갈 때는 [다음 개발 실행 프롬프트](docs/09-next-development-prompt.md)를 사용합니다. [제출 체크리스트](docs/12-submission-checklist.md)에서 남은 실제 확인 항목을 확인합니다. 주요 진행 절차·실패·후속 작업은 [개발 일지](docs/10-development-log.md), 기능별 완료 증거는 [검증 기록](docs/08-verification.md)에 남깁니다.
 
 ## 현재 우선순위 · 지도 중심 Android UX
+
+[Cloud 개발 ↔ 맥북 Pleos 단계별 절차](docs/36-cloud-mac-development-workflow.md)를 추가했습니다. 각 단계의 Cloud 검사와 Mac 기기 확인을 따로 기록하며, M1/8GB는 외장SSD·AVD한대·Cloud빌드APK 확인을 기본으로 합니다. Mac 미연결 시에도 독립 구현은 계속합니다. 현재는 준비/절차 정리 상태이고 첫 코드는 다중 탑승 저장/이행부터입니다.
+
+**현재 개발 읽기 순서:** [재개 기준34](docs/34-implementation-restart.md) → [독립 탑승 설정33](docs/33-occupant-modes-and-trip-context.md) → [최신UX31](docs/31-road-scenario-ux-concepts.md). [코드 보존/교체 기준35](docs/35-code-retention-and-cleanup.md)에 따라 공통 저장·복구 기반은 유지하고 옛 화면은 대체 구현 후 정리합니다. 아래의 이전 계획/시안 링크는 진행 이력이며 현재 실행 지시는 [단일 다음 프롬프트](docs/09-next-development-prompt.md)를 따릅니다.
+
+**새 개발 브랜치: `feat/arrival-context-ux`**. 기존 최신f164ec7에서 분리해 시안/앱/데이터를 보존했습니다. [새 개발 기준과 순서](docs/34-implementation-restart.md) · [시안PNG22개/최신6개 보존 대조](docs/evidence/implementation-restart/design-baseline.json). 첫 코드 단위는 내비와 독립된 다중 탑승 프리셋/이번 구성의 저장·기존 설정 이행입니다. 기존 PR#1은 유지합니다.
 
 [탑승 설정 후속 방향](docs/33-occupant-modes-and-trip-context.md): 혼자/아이 동반/가족 등 좌석별 구성을 여러 프리셋으로 저장하고, 이번 구성은 음성·선택·지원 센서로 확인하는 **내비와 독립된 설정**으로 설계합니다. 도착 안내는 확인한 조건을 활용합니다. 현재 앱은 단일 좌우 역할 저장이며 새 다중 프리셋/음성 인지는 아직 구현하지 않았습니다.
 
@@ -26,7 +41,7 @@
 
 [설계24](docs/24-navigation-ux-design.md)에 이어 **Android0.9.0/9·e2b93ba**에 [제품 UI](docs/25-android-navigation-ux.md)를 적용했습니다. 목적지 카드→명시 입차→기울인5층 파란선→주차 저장 확인/귀환으로 이어집니다. 선택적 탑승 설정은 상단 설정에서, 기존 기능/UUID·영상/HTTP 진단은 `개발자 도구`에서 확인합니다. 기존 DB/설정/알림과 복구는 유지합니다. [현재 검사·원본 화면·APK](docs/evidence/android-product-ux/README.md).
 
-기본은 모의 내비/TEST 차량입니다. `탑승 설정 → Pleos SDK`는 정상 SDK 목적지 요청을 선택할 뿐 지도 삽입이나 실제 핀 성공을 뜻하지 않습니다. 순정 내비 안내 중 앱을 임의로 덮지 않습니다. 주차장에 들어와 정차한 뒤 명시 입차로 앱의5층 미리보기를 엽니다. 주차층/승강연결·현재 위치·복귀선은 확인되지 않으면 만들지 않습니다.
+기본은 모의 내비/TEST 차량입니다. `개발자 도구 → 연동·테스트 → Pleos SDK`는 정상 SDK 목적지 요청을 선택할 뿐 지도 삽입이나 실제 핀 성공을 뜻하지 않습니다. 순정 내비 안내 중 앱을 임의로 덮지 않습니다. 주차장에 들어와 정차한 뒤 명시 입차로 앱의5층 미리보기를 엽니다. 주차층/승강연결·현재 위치·복귀선은 확인되지 않으면 만들지 않습니다.
 
 실제 Pleos 확인은 Mac 원격/에뮬레이터가 켜진 뒤 아래 기존 readiness/서명대조·새 전용 AVD 절차로 진행합니다. 이번 Cloud는 기기0/KVM없음이고 사용자는 Mac이 꺼져 있다고 확인했으므로 실제 내비를 실행하지 않았습니다. 준비 후 SDK 콜백/실제 핀/입차를 각각 확인하고 같은 앱의5층 화면과 비교합니다. 실제 Pleos 적합성/시스템 내비 통합과 일반 Android 실행 결과를 구분합니다.
 

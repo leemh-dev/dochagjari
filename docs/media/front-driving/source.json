@@ -1,0 +1,36 @@
+{
+  "title": "City Driving 4K: Krakow Poland 2024",
+  "creator": "Relaxing Roads 4K",
+  "creator_url": "https://www.youtube.com/@RelaxingRoads4K",
+  "source_page": "https://commons.wikimedia.org/wiki/File:City_Driving_4K-_Krak%C3%B3w_Poland_2024.webm",
+  "original_source": "https://www.youtube.com/watch?v=cpnOJaZlPaI",
+  "download_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/98/City_Driving_4K-_Krak%C3%B3w_Poland_2024.webm/City_Driving_4K-_Krak%C3%B3w_Poland_2024.webm.360p.mpeg4.mov",
+  "license": "CC BY 3.0",
+  "license_url": "https://creativecommons.org/licenses/by/3.0",
+  "attribution_required": true,
+  "attribution": "Relaxing Roads 4K / CC BY 3.0 / Wikimedia Commons",
+  "source_capture_date": "2024-01-10",
+  "selected_at_utc": "2026-11-14",
+  "edits": {
+    "source_start_seconds": 60,
+    "duration_seconds": 20,
+    "muted": true,
+    "resize_width": 640,
+    "fps": 30,
+    "codec": "H.264",
+    "pixel_format": "yuv420p"
+  },
+  "kind": "real public front-driving footage; prerecorded example, not Pangyo/onboard live input",
+  "file": "front-driving-20s.mp4",
+  "bytes": 6461537,
+  "sha256": "c9547d8190b44c2785408f81036300f2a90d8fc0d1078f74fe8130e539c56f2b",
+  "oem_camera_connected": false,
+  "recognition_executed_on_this_clip": false,
+  "app_apk_contains_this_clip": false,
+  "rejected_candidate": {
+    "title": "Monmouth Mall Exterior Drive-Around, Eatontown, NJ (July 2023)",
+    "creator": "Nightcast Walks",
+    "license": "CC BY 3.0",
+    "reason": "Inspected frames are side-facing; excluded from the front-camera slot"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "source": "690706f",
+  "run": 43566597321,
+  "artifact": 14102483930,
+  "connected": "15pass / 4 phase-only skip / 0fail",
+  "product": "actual generated C12 candidate / route / four scenarios / parking / manual clue / new PID restored / driving lock captured; final narrow phase failed",
+  "recording": "actual90sec / 1850199bytes / sha256 fc95ba9ab1628aaca7c3c1b0ba566fcaa86586a87b7bfdb0221b11bfee8c5314; raw retained in artifact",
+  "driver_failure": "Attempted disabled developer tools while driving; UI safety restriction worked",
+  "visual_issues": "video stretched; floor map tiny/white plane overlapped footer; fixed next",
+  "overall": "failure; not final acceptance",
+  "pleos": false
+}

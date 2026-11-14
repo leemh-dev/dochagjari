@@ -1,5 +1,22 @@
 # 실제 개발 단계와 진행 기록
 
+> 2026-11-14 최신 시연: [백화점72초 UX 영상](evidence/demo-video/store-arrival-v2/README.md)으로 **넓은 내비→도착 후3분할→실사 주차장 이동→명시 주차 완료/정차 화면→5층 파란선→닫기**를 연결했다. [시간별 규칙/앱과 차이](40-synchronized-arrival-demo.md). 합성 시연이며 실제 Pleos 통합/새 APK 검증이 아니다. 아래20초 예시는 이전 편집 이력이다.
+
+> 2026-11-14 영상 범위 정정: 기존90초/20초는 앱 단독 기능기록이다. 요청한 **실제 Pleos3분할 대표시연은 미완료**다. [3분할 UX합성 예상도](evidence/demo-video/three-panel-concept/README.md)를 별도 제공하며 실제 통합 성공으로 세지 않는다. [실제 완료 기준39](39-three-panel-demo-gap.md).
+
+## 2026-11-14 · 0.11.0 최종 Cloud 검증 완료
+
+**앱 0.11.0/11·f0640b0**, [push CI43569033733](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733)와 [PR CI43569041435](https://github.com/leemh-dev/dochagjari/actions/runs/43569041435) 전체 성공. JVM115·서버14·진단35·lint/3빌드, 실제 connected15pass/0fail/4전용skip 후 별도 복원4단계, 원본54장·동일DB HTTP 모의 복구를 확인했다. **90초 편집 시연과20초 연속 모션**도 출력/전체 디코딩/해시 대조를 마쳤다.
+
+[실제 화면·검사 원본](evidence/arrival-panel/f064-device/README.md) · [실제로 검사한 APK 쌍](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733/artifacts/14104088875) · [영상](evidence/demo-video/README.md) · [현재 구현](37-current-implementation.md) · [Mac 인계](38-mac-pleos-v0.11-handoff.md).
+
+일반 Android의 TEST/MOCK/생성 입력 결과다. Mac/Pleos 새버전 배치·SDK 핀/Console·실제 STT/Gleo·외부카메라·실차/현장 동선·실제SMS는 미검증이고, 이동 중 AI 자료 보완 worker는 미구현이다. 병원/학원은 가상 시연, 역/공항은 개념 안내다. debug/test 개발서명·release unsigned이며 앱마켓 출시/출시서명은 범위 밖이다. 기존 PR#1·데이터는 보존하고 자동 병합하지 않았다.
+
+
+[현행 Cloud/Mac 단계표36](36-cloud-mac-development-workflow.md): 새개발1저장/이행→2독립탑승UI→3입력/인지→4지도패널→5방문흐름→6회귀/시연을각각Cloud/Mac상태로나눈다. 아래기존단계실적은과거검증이며새단계완료로승격하지않는다.
+
+[새 개발 브랜치/실행 순서34](34-implementation-restart.md): `feat/arrival-context-ux`에서 다중 탑승 프리셋/이번 구성 저장·이행부터 별도 단위로 개발한다. 기존1~6단계 결과/시안/PR#1은 보존하며 새 방향 구현 완료로 세지 않는다.
+
 [7단계 시연영상 제작 계획](32-demo-video-production-plan.md)을 추가했다. 서비스 본편210초/실제 앱 실행기록 약90초를 제안하며, 첫 제작 작업은15~20초 모션샘플이다. 콘티 수립만 수행했고 새 영상/앱/기기 검증 완료로 세지 않는다.
 
 2026-11-13 UTC · [상세 앱 계획](17-in-app-visit-guidance-plan.md). 첫 시나리오는 양재 사옥→판교점5F 에뜨와→주차 위치/귀환. 단계별 실제 완료 증거를 구분한다.

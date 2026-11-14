@@ -27,10 +27,10 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-private val Paper = Color(0xFFF2F3F5)
+private val Paper = CabinInk
 private val Blue = Color(0xFF246EFF)
-private val ProductColors = lightColorScheme(primary = Color(0xFF17191E), onPrimary = Color.White,
-    background = Paper, surface = Color.White, secondary = Blue, onSurface = Color(0xFF17191E))
+private val ProductColors = darkColorScheme(primary = CabinBlue, onPrimary = Color(0xFF071426),
+    background = Paper, surface = CabinPanel, secondary = Blue, onSurface = Color.White)
 
 /** Product UI shares the existing model and persistence; developer tools remain a separate view. */
 @Composable fun ProductApp(model: AppModel = viewModel()) {
@@ -38,11 +38,12 @@ private val ProductColors = lightColorScheme(primary = Color(0xFF17191E), onPrim
     var developer by rememberSaveable { mutableStateOf(false) }
     var settings by remember { mutableStateOf(false) }
     var editingParking by remember { mutableStateOf(false) }
-    LaunchedEffect(state.vehicle.stopped) { if (state.vehicle.stopped != true) { editingParking = false; settings = false } }
+    var scenario by remember { mutableStateOf<ArrivalScene?>(null) }
+    LaunchedEffect(state.vehicle.stopped) { if (state.vehicle.stopped != true) { editingParking = false; settings = false; scenario = null } }
     var initialTab by rememberSaveable { mutableIntStateOf(0) }
     val owner = LocalLifecycleOwner.current
     DisposableEffect(owner, model) {
-        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_STOP) model.closeIndoorGuide() }
+        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_STOP) { scenario = null; settings = false; model.closeIndoorGuide() } }
         owner.lifecycle.addObserver(observer)
         onDispose { owner.lifecycle.removeObserver(observer); model.closeIndoorGuide() }
     }
@@ -59,13 +60,15 @@ private val ProductColors = lightColorScheme(primary = Color(0xFF17191E), onPrim
         val v = state.guidance.visit
         Surface(Modifier.fillMaxSize().testTag("product-home"), color = Paper) {
             Column(Modifier.safeDrawingPadding().padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                    Column { Text("도착자리", fontSize = 28.sp, fontWeight = FontWeight.Bold); Text("길 안내 다음, 매장까지", color = Color(0xFF616772), fontSize = 15.sp) }
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("${if (stopped) "정차" else if (state.vehicle.stopped == false) "주행 중" else "상태 미확인"} · ${state.vehicle.source.label}", fontSize = 14.sp)
+                BoxWithConstraints(Modifier.fillMaxWidth()) {
+                    @Composable fun title() { Column { Text("도착자리", fontSize = 28.sp, fontWeight = FontWeight.Bold); Text("초행길의 마지막 안내", color = CabinMuted, fontSize = 15.sp) } }
+                    @Composable fun controls() { Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text("${if (stopped) "정차" else if (state.vehicle.stopped == false) "주행 중" else "상태 미확인"} · ${state.vehicle.source.label}", fontSize = 13.sp)
                         TextButton({ settings = true }, enabled = stopped) { Text("탑승 설정") }
                         TextButton({ tools(0) }, enabled = stopped) { Text("개발자 도구") }
-                    }
+                    } }
+                    if (maxWidth < 600.dp) Column { title(); controls() }
+                    else Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) { title(); controls() }
                 }
                 if (!stopped) {
                     ProductCard(Modifier.fillMaxWidth().weight(1f)) {
@@ -77,14 +80,13 @@ private val ProductColors = lightColorScheme(primary = Color(0xFF17191E), onPrim
                     val wide = maxWidth >= 760.dp
                     @Composable fun visual(modifier: Modifier) {
                         ProductCard(modifier) {
-                            Text("HYUNDAI DEPARTMENT STORE", fontSize = 14.sp, color = Color(0xFF68707C))
-                            Spacer(Modifier.weight(1f))
-                            Text(if (v?.parked?.latest != null) "P" else "5F", fontSize = 110.sp, fontWeight = FontWeight.Bold, color = Blue)
-                            Text(if (v?.parked?.latest != null) "주차 기억을 남기고, 가볍게" else "에뜨와", fontSize = 32.sp, fontWeight = FontWeight.Bold)
-                            Text("현대백화점 판교점 · 5층")
-                            Spacer(Modifier.weight(1f))
-                            Text("엘리베이터 → 5층 → 에뜨와", color = Blue)
-                            Text("주차장 연결·현재 위치 미확인", fontSize = 15.sp, color = Color(0xFF68707C))
+                            Text("HYUNDAI DEPARTMENT STORE", fontSize = 14.sp, color = CabinMuted)
+                            Text(if (v?.parked?.latest != null) "주차 기록이 준비됐어요" else "현대백화점 판교점 · 에뜨와", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                            Box(Modifier.fillMaxWidth().weight(1f)) {
+                                ArrivalMapCanvas(ArrivalScene.PARKING, Modifier.fillMaxSize().graphicsLayer { rotationX = 24f; rotationZ = -6f; scaleX = .9f; scaleY = .9f })
+                            }
+                            Text("주차 지도 → 5층 매장 동선", color = CabinBlue, fontSize = 20.sp)
+                            Text("주차장 연결·현재 위치 미확인", fontSize = 15.sp, color = CabinMuted)
                         }
                     }
                     @Composable fun actions(modifier: Modifier) {
@@ -109,6 +111,7 @@ private val ProductColors = lightColorScheme(primary = Color(0xFF17191E), onPrim
                                     Text("주차장에 들어온 뒤 정차하고 확인하세요.")
                                     Button({ model.confirmVisitEntry(state.testVehicle) }, enabled = !state.guidance.saving, modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp)) { Text(if (state.testVehicle) "입차 확인 · TEST" else "입차 직접 확인") }
                                 }
+                                if (entered && !parked) OutlinedButton({ model.openArrivalGuide() }, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) { Text("주차 지도 보기") }
                                 if (!parked) Button(model::openIndoorGuide, enabled = !state.guidance.saving && !state.parkingSaving, modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp)) { Text("5층 동선 보기") }
                                 if (entered && !parked) OutlinedButton({ model.confirmParking(state.testVehicle) }, enabled = !state.parkingSaving && !state.guidance.saving, modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp)) { Text(if (state.testVehicle) "주차 완료 · TEST" else "주차 완료 확인") }
                                 if (v.parked.latest != null) Button(model::openParkingReturn, enabled = !state.parkingSaving, modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp)) { Text("차로 돌아가기") }
@@ -116,81 +119,32 @@ private val ProductColors = lightColorScheme(primary = Color(0xFF17191E), onPrim
                             if (state.parkingSaving) Text("주차 기록 저장·확인 중…")
                             if (state.parkingError.isNotBlank()) { Text(state.parkingError, color = MaterialTheme.colorScheme.error); OutlinedButton(model::retryParkingSave) { Text("저장 다시 시도") } }
                             if (state.error.isNotBlank()) Text(state.error, color = MaterialTheme.colorScheme.error, fontSize = 15.sp)
-                            Text("차량 진입점·기둥·승강기 호기는 아직 확인되지 않았어요.", fontSize = 15.sp, color = Color(0xFF68707C))
+                            Text("차량 진입점·기둥·승강기 호기는 아직 확인되지 않았어요.", fontSize = 15.sp, color = CabinMuted)
                             if (entered) Text("입차 출처 · ${v!!.journey.entry!!.source}", fontSize = 14.sp)
                         }
                     }
                     if (wide) Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) { visual(Modifier.weight(1.8f).fillMaxHeight()); actions(Modifier.weight(1f).fillMaxHeight()) }
                     else Column(verticalArrangement = Arrangement.spacedBy(12.dp)) { visual(Modifier.fillMaxWidth().weight(.8f)); actions(Modifier.fillMaxWidth().weight(1f)) }
                 }
-                Text("시설 대표 목적지로 안내 · 차량용 게이트 좌표 아님", fontSize = 14.sp, color = Color(0xFF68707C))
+                if (stopped) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    listOf(ArrivalScene.HOSPITAL, ArrivalScene.ACADEMY, ArrivalScene.STATION, ArrivalScene.AIRPORT).forEach { scene ->
+                        OutlinedButton({ model.closeIndoorGuide(); scenario = scene }, modifier = Modifier.weight(1f).heightIn(min = 52.dp), contentPadding = PaddingValues(4.dp)) { Text(scene.label, fontSize = 15.sp) }
+                    }
+                }
+                Text("시설 대표 목적지로 안내 · 차량용 게이트 좌표 아님", fontSize = 14.sp, color = CabinMuted)
             }
         }
-        if (stopped && state.showIndoorGuide) state.guidance.visitDestination?.let { d ->
-            ProductFloor(d, state.guidance.visit!!.catalogVersion, state.vehicle.source.label, model::closeIndoorGuide)
-        }
+        if (stopped && state.showIndoorGuide) ArrivalGuidePanel(state, model)
         if (stopped && state.parkingView != null) ProductParking(state, model) { model.dismissParkingView(); model.clearParkingDraft(); editingParking = true }
+        if (stopped) scenario?.let { ScenarioGuidePanel(it, state, model) { scenario = null } }
         if (stopped && settings) ProductSettings(state, model) { settings = false }
         if (stopped && editingParking) ProductParkingEditor(state, model) { editingParking = false }
     }
 }
 
 @Composable private fun ProductCard(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
-    Surface(modifier, shape = RoundedCornerShape(28.dp), color = Color.White) {
-        Column(Modifier.padding(28.dp), verticalArrangement = Arrangement.spacedBy(18.dp), content = content)
-    }
-}
-
-@Composable private fun ProductFloor(d: IndoorDestination, version: String, source: String, close: () -> Unit) {
-    val context = LocalContext.current
-    val reduced = remember { Settings.Global.getFloat(context.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f) == 0f }
-    var progress by remember { mutableFloatStateOf(if (reduced) 1f else 0f) }
-    var playing by remember { mutableStateOf(!reduced) }
-    val density = LocalDensity.current.density
-    val supported = EttoiFloorPlan.supports(version, d)
-    LaunchedEffect(playing, supported) {
-        if (playing && supported) {
-            var previous = withFrameNanos { it }
-            while (progress < 1f) {
-                val now = withFrameNanos { it }
-                progress = (progress + (now - previous).coerceAtMost(200_000_000L) / 6_000_000_000f).coerceAtMost(1f)
-                previous = now
-            }
-            playing = false
-        }
-    }
-    Dialog(close, properties = DialogProperties(usePlatformDefaultWidth = false)) {
-        Surface(Modifier.fillMaxSize().testTag("product-floor"), color = Paper) {
-            Column(Modifier.safeDrawingPadding().padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                    Column { Text("5F  에뜨와", fontSize = 28.sp, fontWeight = FontWeight.Bold); Text("현대백화점 판교점 · $source", fontSize = 14.sp) }
-                    OutlinedButton(close, modifier = Modifier.heightIn(min = 64.dp)) { Text("닫기") }
-                }
-                BoxWithConstraints(Modifier.weight(1f)) {
-                    val wide = maxWidth >= 760.dp
-                    @Composable fun map(modifier: Modifier) {
-                        ProductCard(modifier) {
-                            if (supported) FloorCanvas(d, progress, Modifier.fillMaxSize().graphicsLayer { rotationX = 26f; rotationZ = -8f; scaleX = .88f; scaleY = .88f; cameraDistance = 12 * density }.testTag("product-map"))
-                            else Text("저장된 자료 버전의 지도를 확인할 수 없어요.")
-                        }
-                    }
-                    @Composable fun instructions(modifier: Modifier) {
-                        ProductCard(modifier.verticalScroll(rememberScrollState())) {
-                            Text("엘리베이터에서\n에뜨와까지", fontSize = 28.sp, fontWeight = FontWeight.Bold)
-                            Text("유아휴게실·유아차 대여 쪽에서 옆 복도로 이어집니다.")
-                            Text("공식 동선 기반 개략도", color = Blue, fontSize = 16.sp)
-                            Text("파란 선은 매장행 경로 재생입니다. 현재 위치가 아닙니다.", fontSize = 16.sp)
-                            Text("주차층·승강기 호기·주차장 연결 미확인", fontSize = 16.sp)
-                            if (!reduced && supported) Button({ if (progress >= 1f) progress = 0f; playing = !playing }, modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp)) { Text(if (playing) "일시정지" else "동선 재생") }
-                            if (reduced) Text("모션 줄이기 · 전체 경로 표시", fontSize = 15.sp)
-                        }
-                    }
-                    if (wide) Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) { map(Modifier.weight(2f).fillMaxHeight()); instructions(Modifier.weight(1f).fillMaxHeight()) }
-                    else Column(verticalArrangement = Arrangement.spacedBy(12.dp)) { map(Modifier.fillMaxWidth().weight(1.3f)); instructions(Modifier.fillMaxWidth().weight(1f)) }
-                }
-                Text("5층 일부 · 확인된 매장행 동선 / 복귀선·실시간 측위 아님", fontSize = 14.sp)
-            }
-        }
+    Surface(modifier, shape = RoundedCornerShape(28.dp), color = CabinPanel) {
+        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp), content = content)
     }
 }
 
@@ -247,25 +201,5 @@ private val ProductColors = lightColorScheme(primary = Color(0xFF17191E), onPrim
 }
 
 @Composable private fun ProductSettings(state: AppState, model: AppModel, close: () -> Unit) {
-    Dialog(close, properties = DialogProperties(usePlatformDefaultWidth = false)) {
-        Surface(Modifier.fillMaxSize(), color = Paper) {
-            Column(Modifier.safeDrawingPadding().padding(28.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text("탑승 설정", fontSize = 28.sp, fontWeight = FontWeight.Bold)
-                    OutlinedButton(close, modifier = Modifier.heightIn(min = 64.dp)) { Text("닫기") }
-                }
-                Text(state.profileSave.status.label, color = if (state.profileSave.status == ProfileSaveStatus.ERROR) MaterialTheme.colorScheme.error else Blue)
-                if (state.profileSave.status == ProfileSaveStatus.ERROR) OutlinedButton(model::retryProfile) { Text("설정 저장 다시 시도") }
-                SeatRoleSettings(state.profileSave, state.vehicle.left, state.vehicle.right,
-                    state.profileSave.status != ProfileSaveStatus.LOADING, model::profile)
-                HorizontalDivider()
-                Text("내비 연결 방식", fontSize = 22.sp)
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    FilterChip(state.testNavi, { model.selectNavi(true) }, { Text("모의 내비") })
-                    FilterChip(!state.testNavi, { model.selectNavi(false) }, { Text("Pleos SDK") })
-                }
-                Text("SDK 목적지 요청과 실제 순정 핀은 별도 확인합니다. 실제 연동을 선택해도 입차를 자동 처리하지 않습니다.", fontSize = 15.sp)
-            }
-        }
-    }
+    OccupantSettingsScreen(state, model, close)
 }

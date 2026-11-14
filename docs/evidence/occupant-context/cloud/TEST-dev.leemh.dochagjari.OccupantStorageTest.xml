@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.leemh.dochagjari.OccupantStorageTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-14T05:45:14" hostname="15b7d74466eb" time="0.602">
+  <properties/>
+  <testcase name="futureSchemaIsNotOverwrittenOnRead" classname="dev.leemh.dochagjari.OccupantStorageTest" time="0.383"/>
+  <testcase name="queuedChangesAcknowledgeLatestRevisionAndKeepPresetSnapshotSeparate" classname="dev.leemh.dochagjari.OccupantStorageTest" time="0.068"/>
+  <testcase name="failedActivationKeepsOldDiskAndRetryConfirmsOnlyAfterReadback" classname="dev.leemh.dochagjari.OccupantStorageTest" time="0.028"/>
+  <testcase name="immediateShutdownReopensActualFileButDoesNotClaimFreshConfirmation" classname="dev.leemh.dochagjari.OccupantStorageTest" time="0.043"/>
+  <testcase name="legacyFileMigrationAndUpdatesPreserveAllExistingAndUnrelatedKeys" classname="dev.leemh.dochagjari.OccupantStorageTest" time="0.055"/>
+  <testcase name="skipAndEndDoNotDeletePresetsAndEachNewTripGetsAnIndependentId" classname="dev.leemh.dochagjari.OccupantStorageTest" time="0.025"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -74,13 +74,15 @@ jobs:
             adb shell wm density 160
             mkdir -p app/build/reports
             python3 scripts/pleos/adb_readiness.py --serial emulator-5554 --output app/build/reports/pre-connected-readiness.json
-            ./gradlew :app:connectedDebugAndroidTest
+            ./gradlew :app:connectedDebugAndroidTest || { adb pull /sdcard/Android/data/dev.leemh.dochagjari/files/test-failures app/build/reports/connected-test-failures || true; exit 1; }
+            python3 scripts/collect_apk_metadata.py --code-commit "$GITHUB_SHA" --device-only --output tested-device-assets
             python3 scripts/pleos/adb_readiness.py --serial emulator-5554 --output app/build/reports/pre-install-readiness.json
             adb install -r app/build/outputs/apk/debug/app-debug.apk
             adb install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
             python scripts/process_restart_smoke.py --serial emulator-5554 --reset-test-data
             DOCHAGJARI_FRESH_TEST_AVD=1 python scripts/capture_parking_screens.py
             DOCHAGJARI_FRESH_TEST_AVD=1 python scripts/capture_product_screens.py
+            DOCHAGJARI_FRESH_TEST_AVD=1 python scripts/capture_occupant_screens.py
             DOCHAGJARI_FRESH_TEST_AVD=1 python scripts/android_server_smoke.py
             adb shell am start -W -n dev.leemh.dochagjari/.MainActivity
             adb exec-out screencap -p > app/build/reports/android-app.png
@@ -91,3 +93,10 @@ jobs:
           path: |
             app/build/reports/
             app/build/outputs/androidTest-results/
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tested-device-apks-and-metadata
+          path: tested-device-assets/
+          if-no-files-found: ignore
