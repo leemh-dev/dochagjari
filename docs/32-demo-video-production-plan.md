@@ -1,5 +1,7 @@
 # 시연영상 제작 계획
 
+> 2026-11-14 카메라 표현 수정: [3분할 예상도](evidence/demo-video/three-panel-concept/README.md) 상단을 CC BY3.0 **실제 전방 주행20초**로 교체했다. 하단만 실제 앱 지도다. 영상 편집 변경이며 앱0.11.0/11·f0640b0/APK와 기존 검사 결과는 유지한다. 새 실사 OCR·OEM카메라·실제 Pleos 동시 실행 성공은 아니다. [출처](media/front-driving/README.md).
+
 > 2026-11-14 영상 범위 정정: 기존90초/20초는 앱 단독 기능기록이다. 요청한 **실제 Pleos3분할 대표시연은 미완료**다. [3분할 UX합성 예상도](evidence/demo-video/three-panel-concept/README.md)를 별도 제공하며 실제 통합 성공으로 세지 않는다. [실제 완료 기준39](39-three-panel-demo-gap.md).
 
 > 2026-11-14 최종 갱신: 앱0.11.0/11·f0640b0의 Cloud/일반Android 검사와90초 실행 편집본·20초 연속 모션을 완료했다. [현재 구현/검증37](37-current-implementation.md) · [영상/원본](evidence/demo-video/README.md) · [Mac 인계38](38-mac-pleos-v0.11-handoff.md). 아래 착수 당시 기획/이력과 실제 완료 수준을 구분한다. Mac/Pleos 실연동과 실제STT/외부카메라·실차는 미검증이다.
