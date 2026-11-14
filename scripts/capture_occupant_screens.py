@@ -40,8 +40,20 @@ def main():
         ui.tap('아이 등하원 적용'); ui.expect('설정 저장 완료'); ui.expect('이번 탑승 · 아이 등하원')
         ui.capture('02-child-confirmed')
         ui.tap('이번만 변경'); ui.expect('이번 탑승만 변경'); ui.capture('03-once-editor'); ui.tap('취소')
-        ui.tap('예: 오늘 혼자야 / 아이 오른쪽 뒤에 탔어')
-        ui.adb('shell', 'input', 'text', 'solo'); ui.tap('구성 확인'); ui.tap('혼자 확인 적용')
+        label = '예: 오늘 혼자야 / 아이 오른쪽 뒤에 탔어'
+        ui.find(label)
+        root = ui.tree(); parents = {child: parent for parent in root.iter('node') for child in parent}
+        editor = next(n for n in root.iter('node') if n.attrib.get('text') == label and ui.visible(n))
+        while editor.attrib.get('class') != 'android.widget.EditText':
+            editor = parents.get(editor)
+            if editor is None: raise AssertionError('Command EditText ancestor absent')
+        a, b, c, d = ui.box(editor)
+        ui.adb('shell', 'input', 'tap', str((a+c)//2), str((b+d)//2)); time.sleep(.5)
+        ui.adb('shell', 'input', 'text', 'solo'); ui.expect('solo'); ui.capture('03b-text-entered')
+        ime = ui.adb('shell', 'dumpsys', 'input_method').decode(errors='replace')
+        if re.search(r'(?:mInputShown|mIsInputViewShown)=true', ime):
+            ui.adb('shell', 'input', 'keyevent', 'KEYCODE_BACK')
+        ui.tap('구성 확인'); ui.capture('03c-text-candidate'); ui.tap('혼자 확인 적용')
         ui.expect('설정 저장 완료'); ui.expect('이번 탑승 · 혼자'); ui.capture('04-text-solo-confirmed')
         first_pid = phase('prepare', user)
         ui.adb('shell', 'am', 'force-stop', '--user', user, ui.PACKAGE)
@@ -54,6 +66,11 @@ def main():
         ui.tap('이번에도 같은 구성'); ui.expect('설정 저장 완료'); ui.expect('이번 탑승 · 아이 등하원')
         ui.capture('06-restored-confirmed')
         ui.report['success'] = True
+    except Exception as error:
+        ui.report.update(success=False, error=str(error))
+        try: ui.capture('failure')
+        except Exception: pass
+        raise
     finally:
         ui.OUT.joinpath('occupant-ui.json').write_text(json.dumps(ui.report, ensure_ascii=False, indent=2) + '\n')
 

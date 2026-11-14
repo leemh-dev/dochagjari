@@ -60,7 +60,7 @@ enum class ArrivalGuideTab { PARKING, FLOOR }
                     }
                     val candidate = summary.candidate?.let { listOfNotNull(it.floor, "${it.pillar} 후보").joinToString(" · ") }
                     SampleCameraPreview(if (preview && entered) asset else null,
-                        if (candidate != null) "${visit.observation.latest?.source?.label} · $candidate" else "층·기둥 관측 확인 전",
+                        if (candidate != null) "저장 관측 · ${visit.observation.latest?.source?.label} · $candidate" else "층·기둥 관측 확인 전",
                         Modifier.fillMaxWidth().weight(.28f))
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         if (entered) {

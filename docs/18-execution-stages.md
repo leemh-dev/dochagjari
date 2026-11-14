@@ -1,5 +1,12 @@
 # 실제 개발 단계와 진행 기록
 
+## 2026-11-14 · 탑승 컨텍스트/도착 패널 새 구현
+
+현행 브랜치는 `feat/arrival-context-ux`/[PR#2](https://github.com/leemh-dev/dochagjari/pull/2), 앱0.11.0/11·패널b84b467이다. 다중 프리셋/이번만변경/재시작 재확인과 상단 생성영상·하단 기울인 주차지도/5층선, 병원/학원 가상후보·대안·모의요청을 구현했다. 역/공항은 미확인 승차점이 없는 개념안내다. [최신 단계/실제 검사](37-current-implementation.md).
+
+Cloud JVM114·lint·세APK빌드가 통과했다. 저장단위16c7615의 CI43563142120/43563146137은 전체성공. UI d3b66ed/패널b84b467의 일반Android 실행·원본화면/새PID복원·영상은 CI 진행 중이며 아래 구버전 결과를 새 성공으로 세지 않는다. Mac/Pleos 새버전·실제SDK핀/Console·STT/Gleo·외부카메라·실차·실제SMS 미검증, release unsigned. [로컬 실제 APK 식별](evidence/arrival-panel/cloud/local-apk-metadata.json).
+
+
 [현행 Cloud/Mac 단계표36](36-cloud-mac-development-workflow.md): 새개발1저장/이행→2독립탑승UI→3입력/인지→4지도패널→5방문흐름→6회귀/시연을각각Cloud/Mac상태로나눈다. 아래기존단계실적은과거검증이며새단계완료로승격하지않는다.
 
 [새 개발 브랜치/실행 순서34](34-implementation-restart.md): `feat/arrival-context-ux`에서 다중 탑승 프리셋/이번 구성 저장·이행부터 별도 단위로 개발한다. 기존1~6단계 결과/시안/PR#1은 보존하며 새 방향 구현 완료로 세지 않는다.

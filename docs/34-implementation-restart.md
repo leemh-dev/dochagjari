@@ -1,5 +1,7 @@
 # 새 개발 브랜치 · 탑승 컨텍스트와 도착 UX
 
+> 2026-11-14 구현 갱신: 저장16c7615·설정/명시입력d3b66ed·도착패널b84b467을 구현했다. 앱0.11.0/11, Cloud JVM114·lint·APK3종 성공, 일반Android 실제기기/화면은 최신CI에서 확인 중이며 Mac/Pleos·실제STT·외부카메라는 미검증이다. 아래 최초 기획 문구와 실제 완료 수준을 구분한다. [최신 구현/검증](37-current-implementation.md).
+
 2026-11-13 UTC. 사용자가 개선된 방향의 실개발을 기존 작업과 분리하도록 요청했다. 새 브랜치 **`feat/arrival-context-ux`**를 기존 최신 `f164ec77fbdd651334f946867ab8bd062be5b30e`에서 만들었다. 초기 PR은 `feat/android-submission-mvp`를 base로 하는 Draft로 열어 새 변경만 검토한다. 기존 PR#1/main/기존 브랜치를 병합·초기화·덮어쓰지 않는다.
 
 ## 보존 기준

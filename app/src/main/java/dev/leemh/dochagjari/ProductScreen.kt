@@ -60,13 +60,15 @@ private val ProductColors = darkColorScheme(primary = CabinBlue, onPrimary = Col
         val v = state.guidance.visit
         Surface(Modifier.fillMaxSize().testTag("product-home"), color = Paper) {
             Column(Modifier.safeDrawingPadding().padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                    Column { Text("도착자리", fontSize = 28.sp, fontWeight = FontWeight.Bold); Text("초행길의 마지막 안내", color = CabinMuted, fontSize = 15.sp) }
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("${if (stopped) "정차" else if (state.vehicle.stopped == false) "주행 중" else "상태 미확인"} · ${state.vehicle.source.label}", fontSize = 14.sp)
+                BoxWithConstraints(Modifier.fillMaxWidth()) {
+                    @Composable fun title() { Column { Text("도착자리", fontSize = 28.sp, fontWeight = FontWeight.Bold); Text("초행길의 마지막 안내", color = CabinMuted, fontSize = 15.sp) } }
+                    @Composable fun controls() { Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text("${if (stopped) "정차" else if (state.vehicle.stopped == false) "주행 중" else "상태 미확인"} · ${state.vehicle.source.label}", fontSize = 13.sp)
                         TextButton({ settings = true }, enabled = stopped) { Text("탑승 설정") }
                         TextButton({ tools(0) }, enabled = stopped) { Text("개발자 도구") }
-                    }
+                    } }
+                    if (maxWidth < 600.dp) Column { title(); controls() }
+                    else Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) { title(); controls() }
                 }
                 if (!stopped) {
                     ProductCard(Modifier.fillMaxWidth().weight(1f)) {
@@ -142,7 +144,7 @@ private val ProductColors = darkColorScheme(primary = CabinBlue, onPrimary = Col
 
 @Composable private fun ProductCard(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
     Surface(modifier, shape = RoundedCornerShape(28.dp), color = CabinPanel) {
-        Column(Modifier.padding(28.dp), verticalArrangement = Arrangement.spacedBy(18.dp), content = content)
+        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp), content = content)
     }
 }
 

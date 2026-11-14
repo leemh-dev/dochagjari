@@ -14,11 +14,15 @@ class ScenarioInstrumentedTest {
         ui.runOnIdle { model = ViewModelProvider(ui.activity)[AppModel::class.java]; model.testStopped(true) }
         val services = AppServices.get(ui.activity.application)
         val occupants = requireNotNull(services.occupants)
-        ui.waitUntil(10_000) { !services.guidance!!.state.value.loading && occupants.state.value.status == ProfileSaveStatus.SAVED }
+        ui.waitUntil(10_000) { !services.guidance!!.state.value.loading && occupants.state.value.status == ProfileSaveStatus.SAVED && services.profiles.state.value.status == ProfileSaveStatus.SAVED }
         ui.runOnIdle { model.endOccupantTrip() }
         ui.waitUntil(10_000) { occupants.state.value.status == ProfileSaveStatus.SAVED && occupants.state.value.active == null }
+        val originalProfile = requireNotNull(services.profiles.state.value.persisted)
+        ui.runOnIdle { model.profile(Profile()) }
+        ui.waitUntil(10_000) { services.profiles.state.value.status == ProfileSaveStatus.SAVED && services.profiles.state.value.persisted == Profile() }
         val visit = services.guidance!!.state.value.visit
         val outbox = services.outbox.state.value.record
+        try {
         ui.onNodeWithText("학원 픽업").performClick()
         ui.onNodeWithTag("arrival-road-map").assertIsDisplayed()
         ui.onNodeWithText("서쪽 승하차점 (시연 좌표)").assertIsDisplayed()
@@ -39,5 +43,9 @@ class ScenarioInstrumentedTest {
         ui.onNodeWithTag("scenario-guide").assertDoesNotExist()
         assertEquals(visit, services.guidance!!.state.value.visit)
         assertEquals(outbox, services.outbox.state.value.record)
+        } finally {
+            ui.runOnIdle { model.testStopped(true); model.profile(originalProfile) }
+            ui.waitUntil(10_000) { services.profiles.state.value.status == ProfileSaveStatus.SAVED && services.profiles.state.value.persisted == originalProfile }
+        }
     }
 }

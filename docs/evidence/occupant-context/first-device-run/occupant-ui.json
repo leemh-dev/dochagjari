@@ -1,0 +1,57 @@
+{
+  "environment": "Generic Android API34 / CI-owned fresh AVD",
+  "inputs": "TEST vehicle; real DataStore; TEXT command, not STT",
+  "source_commit": "3cda46b4f77ede85e34aa11da71b35babfd386ef",
+  "checks": [
+    {
+      "text": "오늘의 탑승",
+      "result": "visible"
+    },
+    {
+      "text": "설정 저장 완료",
+      "result": "visible"
+    },
+    {
+      "text": "이번 탑승 · 아이 등하원",
+      "result": "visible"
+    },
+    {
+      "text": "이번 탑승만 변경",
+      "result": "visible"
+    }
+  ],
+  "screenshots": [
+    "01-occupant-presets.png",
+    "02-child-confirmed.png",
+    "03-once-editor.png"
+  ],
+  "pleos_sdk_verified": false,
+  "actual_speech_verified": false,
+  "readiness": {
+    "serial": "emulator-5554",
+    "ready": true,
+    "checks": {
+      "transport": {
+        "returncode": 0,
+        "stdout": "device",
+        "stderr": ""
+      },
+      "boot": {
+        "returncode": 0,
+        "stdout": "1",
+        "stderr": ""
+      },
+      "package": {
+        "returncode": 0,
+        "stdout": "Service package: found",
+        "stderr": ""
+      },
+      "activity": {
+        "returncode": 0,
+        "stdout": "Service activity: found",
+        "stderr": ""
+      }
+    },
+    "reason": "Boot and package/activity services verified"
+  }
+}

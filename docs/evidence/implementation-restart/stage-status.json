@@ -3,8 +3,8 @@
   "branch": "feat/arrival-context-ux",
   "pr": 2,
   "workflow_document": "docs/36-cloud-mac-development-workflow.md",
-  "current_stage": 1,
-  "current_phase": "ready_for_implementation_no_new_code",
+  "current_stage": 6,
+  "current_phase": "implemented_cloud_pass_device_ci_running",
   "app_baseline": {
     "version": "0.9.0",
     "versionCode": 9,
@@ -29,38 +29,45 @@
     {
       "id": 1,
       "title": "다중 프리셋/이번 구성 저장·이행",
-      "cloud_status": "not_started",
-      "mac_status": "not_run"
+      "cloud_status": "implemented_jvm_lint_build_pass_device_ci_pending",
+      "mac_status": "not_connected_not_run"
     },
     {
       "id": 2,
       "title": "독립 탑승 설정 UI",
-      "cloud_status": "not_started",
-      "mac_status": "not_run"
+      "cloud_status": "implemented_jvm_lint_build_pass_device_ci_pending",
+      "mac_status": "not_connected_not_run"
     },
     {
       "id": 3,
       "title": "텍스트/TEST와 실제 음성·센서",
-      "cloud_status": "not_started",
-      "mac_status": "not_run"
+      "cloud_status": "text_test_implemented_real_stt_sdk_not_verified",
+      "mac_status": "not_connected_not_run"
     },
     {
       "id": 4,
       "title": "상단 영상/하단3D지도 패널",
-      "cloud_status": "not_started",
-      "mac_status": "not_run"
+      "cloud_status": "camera_clip_map_implemented_build_pass_device_ci_pending",
+      "mac_status": "not_connected_not_run"
     },
     {
       "id": 5,
       "title": "같은 방문의 내비·입차·주차·귀환",
-      "cloud_status": "not_started",
-      "mac_status": "not_run"
+      "cloud_status": "store_flow_fixture_hospital_academy_implemented_station_airport_concept",
+      "mac_status": "not_connected_not_run"
     },
     {
       "id": 6,
       "title": "회귀/같은APK 녹화·시연",
-      "cloud_status": "not_started",
-      "mac_status": "not_run"
+      "cloud_status": "regression_build_pass_ci_recording_pending",
+      "mac_status": "not_connected_not_run"
     }
-  ]
+  ],
+  "updated_at_utc": "2026-11-14",
+  "current_app": {
+    "version": "0.11.0",
+    "versionCode": 11,
+    "code_commit": "b84b467",
+    "local_metadata": "docs/evidence/arrival-panel/cloud/local-apk-metadata.json"
+  }
 }

@@ -74,7 +74,10 @@ internal val CabinMuted = Color(0xFFBAC8DB)
                         }
                     }
                     Text("저장한 탑승 모드", fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                    save.book.presets.chunked(2).forEach { presets ->
+                    BoxWithConstraints(Modifier.fillMaxWidth()) {
+                    val columns = if (maxWidth < 600.dp) 1 else 2
+                    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    save.book.presets.chunked(columns).forEach { presets ->
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                             presets.forEach { p ->
                                 CabinCard(Modifier.weight(1f).testTag("preset-${p.id}")) {
@@ -86,9 +89,10 @@ internal val CabinMuted = Color(0xFFBAC8DB)
                                     }
                                 }
                             }
-                            if (presets.size == 1) Spacer(Modifier.weight(1f))
+                            if (columns == 2 && presets.size == 1) Spacer(Modifier.weight(1f))
                         }
                     }
+                    } }
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                         OutlinedButton({ once = false; editor = OccupantPreset(UUID.randomUUID().toString(), "", OccupantMode.CUSTOM) }, enabled = enabled && save.book.presets.size < 20) { Text("새 프리셋 추가") }
                         TextButton(model::skipOccupants, enabled = enabled) { Text("탑승 설정 건너뛰기") }

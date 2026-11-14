@@ -1,8 +1,15 @@
 # 11월 15일 제출 준비 체크리스트
 
+## 2026-11-14 · 탑승 컨텍스트/도착 패널 새 구현
+
+현행 브랜치는 `feat/arrival-context-ux`/[PR#2](https://github.com/leemh-dev/dochagjari/pull/2), 앱0.11.0/11·패널b84b467이다. 다중 프리셋/이번만변경/재시작 재확인과 상단 생성영상·하단 기울인 주차지도/5층선, 병원/학원 가상후보·대안·모의요청을 구현했다. 역/공항은 미확인 승차점이 없는 개념안내다. [최신 단계/실제 검사](37-current-implementation.md).
+
+Cloud JVM114·lint·세APK빌드가 통과했다. 저장단위16c7615의 CI43563142120/43563146137은 전체성공. UI d3b66ed/패널b84b467의 일반Android 실행·원본화면/새PID복원·영상은 CI 진행 중이며 아래 구버전 결과를 새 성공으로 세지 않는다. Mac/Pleos 새버전·실제SDK핀/Console·STT/Gleo·외부카메라·실차·실제SMS 미검증, release unsigned. [로컬 실제 APK 식별](evidence/arrival-panel/cloud/local-apk-metadata.json).
+
+
 ## 시연영상 준비 · 계획 단계
 
-[Cloud/Mac 단계별 절차36](36-cloud-mac-development-workflow.md)에 따라 구현/검사와 Pleos 기기 확인을 분리한다. 새 단계의 [현재 상태표](evidence/implementation-restart/stage-status.json)는 준비 완료/첫 저장 구현 전이며, 과거 Mac 성공을 새 단계 통과로 표시하지 않는다. M1/8GB는 외장SSD/AVD한대/Cloud빌드 전달을 기본으로 한다.
+[Cloud/Mac 단계별 절차36](36-cloud-mac-development-workflow.md)에 따라 구현/검사와 Pleos 기기 확인을 분리한다. 새 단계의 [현재 상태표](evidence/implementation-restart/stage-status.json)는 구현/Cloud 검사 후 실제기기·화면 CI 진행 중이며, 과거 Mac 성공을 새 단계 통과로 표시하지 않는다. M1/8GB는 외장SSD/AVD한대/Cloud빌드 전달을 기본으로 한다.
 
 [제작 계획/210초 콘티](32-demo-video-production-plan.md)를 기준으로 서비스 본편과 실제 앱 실행기록을 준비한다. 2026-11-13 공식 안내에서 목업/프로토타입/화면녹화 인정을 재확인했다. 아래는 새 완료 증거가 아닌 남은 작업이다.
 

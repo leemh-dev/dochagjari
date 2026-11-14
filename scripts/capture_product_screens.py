@@ -78,6 +78,11 @@ def main():
         ui.tap('차로 돌아가기'); ui.expect('manual-demo'); ui.capture('14-restored-return')
         ui.tap('닫기'); ui.tap('개발자 도구'); ui.tap('연동·테스트'); ui.tap('주행')
         ui.tap('안내 화면으로 돌아가기'); ui.expect('안전하게 이동하세요'); ui.capture('15-driving-brief')
+        ui.tap('개발자 도구'); ui.tap('연동·테스트'); ui.tap('정차'); ui.tap('안내 화면으로 돌아가기')
+        ui.adb('shell', 'wm', 'size', '480x900'); time.sleep(1)
+        ui.expect('탑승 설정'); ui.capture('16-narrow-app-panel')
+        ui.tap('탑승 설정'); ui.expect('오늘의 탑승'); ui.capture('17-narrow-occupant-settings'); ui.tap('닫기')
+        ui.adb('shell', 'wm', 'size', '1280x800')
         ui.adb('shell', 'settings', 'put', 'global', 'animator_duration_scale', old_scale if old_scale != 'null' else '0')
         ui.report.update(success=True, old_pid=old_pid, new_pid=new_pid, actual_sdk_pin=False,
                          current_position_and_return_path_verified=False,
