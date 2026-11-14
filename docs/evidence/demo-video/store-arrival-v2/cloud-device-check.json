@@ -1,0 +1,18 @@
+{
+  "date_utc": "2026-11-14",
+  "environment": "Cloud Linux",
+  "adb_first_query": {
+    "returncode": 1,
+    "reason": "sandbox socket listener Operation not permitted"
+  },
+  "adb_readonly_query_after_approved_execution": {
+    "returncode": 0,
+    "stdout": "List of devices attached\n\n",
+    "devices": []
+  },
+  "kvm_present": false,
+  "mac_access": "not available to this session",
+  "emulator_boot_attempted": false,
+  "apk_installed": false,
+  "app_checks_rerun": false
+}

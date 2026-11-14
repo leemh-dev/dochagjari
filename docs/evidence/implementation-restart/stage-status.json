@@ -79,7 +79,9 @@
   "demo_scope": {
     "app_only_generic_android": "verified recordings",
     "three_panel_concept": "composited reference plus repacked app crops; not native integration",
-    "native_pleos_three_panel_representative_demo": "not completed"
+    "native_pleos_three_panel_representative_demo": "not completed",
+    "synchronized_shopping_film": "72s UX composition with real mall interior stock, staged parked hold and redrawn 5F route; app/native integration pending",
+    "synchronized_shopping_film_document": "docs/40-synchronized-arrival-demo.md"
   },
   "next_deliverable": "Full Pleos vehicle/native-navigation/Dochagjari three-panel recording on Mac"
 }

@@ -1,5 +1,7 @@
 # 도착자리
 
+> 2026-11-14 최신 시연: [백화점72초 UX 영상](docs/evidence/demo-video/store-arrival-v2/README.md)으로 **넓은 내비→도착 후3분할→실사 주차장 이동→명시 주차 완료/정차 화면→5층 파란선→닫기**를 연결했다. [시간별 규칙/앱과 차이](docs/40-synchronized-arrival-demo.md). 합성 시연이며 실제 Pleos 통합/새 APK 검증이 아니다. 아래20초 예시는 이전 편집 이력이다.
+
 **영상 구분:** 기존90초/20초는 앱 단독 기능기록입니다. [새3분할 예상도](docs/evidence/demo-video/three-panel-concept/README.md)는 상단 공개 실사 주행20초·하단 앱 지도를 배치한 UX합성이며 실제 Pleos 동시 실행 증거가 아닙니다. 요청한 실제3분할 대표시연은 [Mac 확인/녹화](docs/39-three-panel-demo-gap.md)가 남아 있습니다.
 
 **현행 구현 완료(Cloud/일반Android): 0.11.0/11·f0640b0**, `feat/arrival-context-ux`/[PR#2](https://github.com/leemh-dev/dochagjari/pull/2). 독립 탑승 모드·이번 구성, 상단 생성영상/하단 기울인 주차·5층 지도, 같은 방문의 주차 저장/귀환을 구현했습니다. [최종 CI](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733) JVM115·서버14·진단35·기기15건과 별도 복원4단계까지 통과했습니다. [실제 화면/검사](docs/evidence/arrival-panel/f064-device/README.md) · [90초 시연/20초 모션](docs/evidence/demo-video/README.md) · [실제 검사 APK](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733/artifacts/14104088875).

@@ -1,5 +1,7 @@
 # 실제 개발 단계와 진행 기록
 
+> 2026-11-14 최신 시연: [백화점72초 UX 영상](evidence/demo-video/store-arrival-v2/README.md)으로 **넓은 내비→도착 후3분할→실사 주차장 이동→명시 주차 완료/정차 화면→5층 파란선→닫기**를 연결했다. [시간별 규칙/앱과 차이](40-synchronized-arrival-demo.md). 합성 시연이며 실제 Pleos 통합/새 APK 검증이 아니다. 아래20초 예시는 이전 편집 이력이다.
+
 > 2026-11-14 영상 범위 정정: 기존90초/20초는 앱 단독 기능기록이다. 요청한 **실제 Pleos3분할 대표시연은 미완료**다. [3분할 UX합성 예상도](evidence/demo-video/three-panel-concept/README.md)를 별도 제공하며 실제 통합 성공으로 세지 않는다. [실제 완료 기준39](39-three-panel-demo-gap.md).
 
 ## 2026-11-14 · 0.11.0 최종 Cloud 검증 완료
