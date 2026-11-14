@@ -1,5 +1,7 @@
 # 다음 실행 프롬프트 · 시연과 앱의 시간순 동작 맞추기
 
+> 최신 확정 방향은 [43·운전자 교대 시 차량 상태 비교](43-driver-handover-concept.md)다. 사용자 등록/명시 운전자 선택/이전 기록과 현재 상태 비교를1차로 한다. 먼저 개별 SDK API·권한·가용성을 검증하며, 아래 이전 카메라/시연 구현 프롬프트는 실행 지시가 아니다.
+
 > 최신 방향 변경: 카메라 의존 개발은 중단했다. [SDK 기반 아이디어 재선정42](42-sdk-first-idea-reset.md)를 먼저 읽는다. 아래 기존 시연 맞춤 구현 프롬프트는 이력이며 새 방향 결정 전 실행하지 않는다.
 
 [최신72초 UX 시연](evidence/demo-video/store-arrival-v2/README.md) · [시간별 화면 규칙40](40-synchronized-arrival-demo.md) · [앱과 차이](evidence/demo-video/store-arrival-v2/app-comparison.md).
