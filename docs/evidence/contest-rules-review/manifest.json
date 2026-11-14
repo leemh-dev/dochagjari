@@ -1,0 +1,225 @@
+{
+  "checked_date_utc": "2026-11-14",
+  "scope": "18 public pages: FAQ, all five listed notices, all eight guides, home/indices/qna; public DOCX additionally inspected; no email/private inquiry or replay video accessed",
+  "pages": [
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/",
+      "final_url": "https://appdevchallenge.auto-hmg.io/",
+      "status": 200,
+      "bytes": 37980,
+      "sha256": "ddb72f1355e580ab01d62c491af8e03cdb0ad774af2a64b4c67285a6c46fc8ed",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": []
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/faq",
+      "final_url": "https://appdevchallenge.auto-hmg.io/faq",
+      "status": 200,
+      "bytes": 59553,
+      "sha256": "1ae2f6fe3b56d15783c247f7b69efac3a22065aedb816baeff9c29c5343a2e94",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": [
+        "다시보기"
+      ]
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/notice",
+      "final_url": "https://appdevchallenge.auto-hmg.io/notice",
+      "status": 200,
+      "bytes": 19776,
+      "sha256": "341d349f9f7deb19ee0702dfb0d0e5acd0cdcc98bc084137660c527529cfa5e7",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": []
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/guide",
+      "final_url": "https://appdevchallenge.auto-hmg.io/guide",
+      "status": 200,
+      "bytes": 29135,
+      "sha256": "6b66b9e7062a73b149ed8c4bcef749e87c3705a71c30e1b3fbdfac98ab1b6cda",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": []
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/guide/overview",
+      "final_url": "https://appdevchallenge.auto-hmg.io/guide/overview",
+      "status": 200,
+      "bytes": 38873,
+      "sha256": "af79f5be7a44eea1955dc62e767f7e05edbf28515017603c8af1f425a723c4b2",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": []
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/guide/schedule",
+      "final_url": "https://appdevchallenge.auto-hmg.io/guide/schedule",
+      "status": 200,
+      "bytes": 35822,
+      "sha256": "a036c5df9dc14c4ae0e854591ad47d884c69a9b39287c73d8bcaa0c4d66e2a9c",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": [
+        "다시보기",
+        "질의응답"
+      ]
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/guide/shortform",
+      "final_url": "https://appdevchallenge.auto-hmg.io/guide/shortform",
+      "status": 200,
+      "bytes": 51724,
+      "sha256": "096b99408c5514091917832ba8c5a22752d6579c0060652c4fc707ebd7c10a31",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": []
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/guide/submission",
+      "final_url": "https://appdevchallenge.auto-hmg.io/guide/submission",
+      "status": 200,
+      "bytes": 46617,
+      "sha256": "d9a085e3d5159987ef36b87443b0c32ea9b0947b18c36ef250b502187e3b8664",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/downloads/contest-application-consent.docx",
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": []
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/guide/development",
+      "final_url": "https://appdevchallenge.auto-hmg.io/guide/development",
+      "status": 200,
+      "bytes": 38936,
+      "sha256": "31515429f8098cb1e07bf25a7177b7642a5877a59f8736975a2625b53effb46a",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": []
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/guide/judging-awards",
+      "final_url": "https://appdevchallenge.auto-hmg.io/guide/judging-awards",
+      "status": 200,
+      "bytes": 46438,
+      "sha256": "336508f90247ee82eef4e734acc27e1c7c477622bd4d75801900060df0dc7cbe",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": []
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/guide/rules",
+      "final_url": "https://appdevchallenge.auto-hmg.io/guide/rules",
+      "status": 200,
+      "bytes": 33597,
+      "sha256": "b2b910847d890c591f097e311e1c61816738e7868309dab5d49d93c367533a45",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": []
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/guide/help",
+      "final_url": "https://appdevchallenge.auto-hmg.io/guide/help",
+      "status": 200,
+      "bytes": 29598,
+      "sha256": "7c09481a60955a7c9dab47f9744952bf49688f709d4843697b4dee3a770b0df3",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io#qna",
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": []
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/notice/c0a1a000-2026-4923-8000-000000000001",
+      "final_url": "https://appdevchallenge.auto-hmg.io/notice/c0a1a000-2026-4923-8000-000000000001",
+      "status": 200,
+      "bytes": 24492,
+      "sha256": "4f01acf8693ad1e4df8cb32567dddd372e4085981e551fb04a863bb8a1205a72",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": []
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/notice/c0a1a000-2026-4923-8000-000000000005",
+      "final_url": "https://appdevchallenge.auto-hmg.io/notice/c0a1a000-2026-4923-8000-000000000005",
+      "status": 200,
+      "bytes": 20598,
+      "sha256": "4d99c7a0274d160348f864774d450e378ddb4113bac376bfaa580aa8a2ea7c54",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": [
+        "다시보기",
+        "질의응답"
+      ]
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/notice/c0a1a000-2026-4923-8000-000000000006",
+      "final_url": "https://appdevchallenge.auto-hmg.io/notice/c0a1a000-2026-4923-8000-000000000006",
+      "status": 200,
+      "bytes": 29686,
+      "sha256": "6c0783932949e5fb062f65a4a1ac1548347c1ef88af2a91f47dbb877cbbab84e",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": []
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/notice/c0a1a000-2026-4923-8000-000000000007",
+      "final_url": "https://appdevchallenge.auto-hmg.io/notice/c0a1a000-2026-4923-8000-000000000007",
+      "status": 200,
+      "bytes": 23710,
+      "sha256": "627531dd14fcfb366bef08c48ae28f9132d8645f455caed3b24eb03f81132eaa",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": []
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/notice/c0a1a000-2026-4923-8000-000000000008",
+      "final_url": "https://appdevchallenge.auto-hmg.io/notice/c0a1a000-2026-4923-8000-000000000008",
+      "status": 200,
+      "bytes": 23787,
+      "sha256": "7c1cd75ec056d644f92134db23b5fe968061f9a101b8617fb86aa5fccc70a261",
+      "replay_or_attachment_links": [
+        "https://appdevchallenge.auto-hmg.io/qna"
+      ],
+      "keywords_found": [
+        "지원되지",
+        "준비 중",
+        "공개된 SDK",
+        "외부 음성"
+      ]
+    },
+    {
+      "url": "https://appdevchallenge.auto-hmg.io/qna",
+      "status": 200,
+      "bytes": 17159,
+      "sha256": "75b211e8c08d1ee99b9d5f1a680ebf58208c80187309933c505a1dcf1657404e",
+      "finding": "Public inquiry information page; links to FAQ, notices and email; no public question/answer threads"
+    }
+  ],
+  "application": {
+    "url": "https://appdevchallenge.auto-hmg.io/downloads/contest-application-consent.docx",
+    "bytes": 55208,
+    "sha256": "07be893d58b0e96ab7788f0d189d6829f0e59a2cee4bc18cb90ec37eeda2f5fd",
+    "read": "DOCX document.xml text extracted",
+    "camera_mentions": false,
+    "finding": "Development plan asks implementation scope and SDK/API use; no explicit camera allowance found"
+  },
+  "key_notice": "https://appdevchallenge.auto-hmg.io/notice/c0a1a000-2026-4923-8000-000000000008",
+  "replay_result": "Announcement and schedule say replay planned; no actual replay/video URL found in inspected page media/anchor links or targeted search. No replay watched."
+}
