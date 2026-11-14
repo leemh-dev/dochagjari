@@ -4,7 +4,7 @@
   "pr": 2,
   "workflow_document": "docs/36-cloud-mac-development-workflow.md",
   "current_stage": 6,
-  "current_phase": "implemented_cloud_pass_device_ci_running",
+  "current_phase": "cloud_generic_android_and_actual_demo_verified_mac_pleos_pending",
   "app_baseline": {
     "version": "0.9.0",
     "versionCode": 9,
@@ -29,45 +29,51 @@
     {
       "id": 1,
       "title": "다중 프리셋/이번 구성 저장·이행",
-      "cloud_status": "implemented_jvm_lint_build_pass_device_ci_pending",
-      "mac_status": "not_connected_not_run"
+      "cloud_status": "implemented_jvm_and_generic_android_verified",
+      "mac_status": "not_accessible_not_run_for_this_apk"
     },
     {
       "id": 2,
       "title": "독립 탑승 설정 UI",
-      "cloud_status": "implemented_jvm_lint_build_pass_device_ci_pending",
-      "mac_status": "not_connected_not_run"
+      "cloud_status": "implemented_jvm_and_generic_android_verified",
+      "mac_status": "not_accessible_not_run_for_this_apk"
     },
     {
       "id": 3,
       "title": "텍스트/TEST와 실제 음성·센서",
-      "cloud_status": "text_test_implemented_real_stt_sdk_not_verified",
-      "mac_status": "not_connected_not_run"
+      "cloud_status": "text_test_verified_real_stt_gleo_sdk_not_verified",
+      "mac_status": "not_accessible_not_run_for_this_apk"
     },
     {
       "id": 4,
       "title": "상단 영상/하단3D지도 패널",
-      "cloud_status": "camera_clip_map_implemented_build_pass_device_ci_pending",
-      "mac_status": "not_connected_not_run"
+      "cloud_status": "camera_clip_tilted_map_narrow_wide_verified",
+      "mac_status": "not_accessible_not_run_for_this_apk"
     },
     {
       "id": 5,
       "title": "같은 방문의 내비·입차·주차·귀환",
-      "cloud_status": "store_flow_fixture_hospital_academy_implemented_station_airport_concept",
-      "mac_status": "not_connected_not_run"
+      "cloud_status": "same_visit_store_fixture_hospital_academy_verified_station_airport_concept",
+      "mac_status": "not_accessible_not_run_for_this_apk"
     },
     {
       "id": 6,
       "title": "회귀/같은APK 녹화·시연",
-      "cloud_status": "regression_build_pass_ci_recording_pending",
-      "mac_status": "not_connected_not_run"
+      "cloud_status": "regression_and_actual_capture_raw_90s_edit_20s_motion_verified",
+      "mac_status": "not_accessible_not_run_for_this_apk"
     }
   ],
   "updated_at_utc": "2026-11-14",
   "current_app": {
     "version": "0.11.0",
     "versionCode": 11,
-    "code_commit": "b84b467",
-    "local_metadata": "docs/evidence/arrival-panel/cloud/local-apk-metadata.json"
+    "code_commit": "f0640b00da92409c265cfd5563238e0d972edcaa",
+    "actually_tested_metadata": "docs/evidence/arrival-panel/f064-device/apk-metadata.json",
+    "workflow_runs": [
+      43569033733,
+      43569041435
+    ],
+    "tested_apk_artifact": 14104088875,
+    "demo": "docs/evidence/demo-video/README.md"
   }
 }

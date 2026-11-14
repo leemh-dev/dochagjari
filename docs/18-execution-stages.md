@@ -1,10 +1,12 @@
 # 실제 개발 단계와 진행 기록
 
-## 2026-11-14 · 탑승 컨텍스트/도착 패널 새 구현
+## 2026-11-14 · 0.11.0 최종 Cloud 검증 완료
 
-현행 브랜치는 `feat/arrival-context-ux`/[PR#2](https://github.com/leemh-dev/dochagjari/pull/2), 앱0.11.0/11·패널b84b467이다. 다중 프리셋/이번만변경/재시작 재확인과 상단 생성영상·하단 기울인 주차지도/5층선, 병원/학원 가상후보·대안·모의요청을 구현했다. 역/공항은 미확인 승차점이 없는 개념안내다. [최신 단계/실제 검사](37-current-implementation.md).
+**앱 0.11.0/11·f0640b0**, [push CI43569033733](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733)와 [PR CI43569041435](https://github.com/leemh-dev/dochagjari/actions/runs/43569041435) 전체 성공. JVM115·서버14·진단35·lint/3빌드, 실제 connected15pass/0fail/4전용skip 후 별도 복원4단계, 원본54장·동일DB HTTP 모의 복구를 확인했다. **90초 편집 시연과20초 연속 모션**도 출력/전체 디코딩/해시 대조를 마쳤다.
 
-Cloud JVM114·lint·세APK빌드가 통과했다. 저장단위16c7615의 CI43563142120/43563146137은 전체성공. UI d3b66ed/패널b84b467의 일반Android 실행·원본화면/새PID복원·영상은 CI 진행 중이며 아래 구버전 결과를 새 성공으로 세지 않는다. Mac/Pleos 새버전·실제SDK핀/Console·STT/Gleo·외부카메라·실차·실제SMS 미검증, release unsigned. [로컬 실제 APK 식별](evidence/arrival-panel/cloud/local-apk-metadata.json).
+[실제 화면·검사 원본](evidence/arrival-panel/f064-device/README.md) · [실제로 검사한 APK 쌍](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733/artifacts/14104088875) · [영상](evidence/demo-video/README.md) · [현재 구현](37-current-implementation.md) · [Mac 인계](38-mac-pleos-v0.11-handoff.md).
+
+일반 Android의 TEST/MOCK/생성 입력 결과다. Mac/Pleos 새버전 배치·SDK 핀/Console·실제 STT/Gleo·외부카메라·실차/현장 동선·실제SMS는 미검증이고, 이동 중 AI 자료 보완 worker는 미구현이다. 병원/학원은 가상 시연, 역/공항은 개념 안내다. debug/test 개발서명·release unsigned이며 앱마켓 출시/출시서명은 범위 밖이다. 기존 PR#1·데이터는 보존하고 자동 병합하지 않았다.
 
 
 [현행 Cloud/Mac 단계표36](36-cloud-mac-development-workflow.md): 새개발1저장/이행→2독립탑승UI→3입력/인지→4지도패널→5방문흐름→6회귀/시연을각각Cloud/Mac상태로나눈다. 아래기존단계실적은과거검증이며새단계완료로승격하지않는다.

@@ -1,6 +1,8 @@
 # 도착자리
 
-**현행 개발 2026-11-14:** 앱0.11.0/11·`feat/arrival-context-ux`/[PR#2](https://github.com/leemh-dev/dochagjari/pull/2). 목적지와 독립된 탑승모드/이번구성과 상단영상·하단기울인 도착지도를 구현했습니다. Cloud JVM114/lint/세APK 통과, 실제기기 UI/복원/영상은 최신 CI 확인 중입니다. [현재 구현·미검증](docs/37-current-implementation.md) · [Cloud↔Mac 외장SSD 절차](docs/36-cloud-mac-development-workflow.md). 아래0.9/이전기록을 새버전 검증으로 세지 않습니다. 내비 방식은 `개발자 도구 → 연동·테스트`에서 선택하며 탑승설정과 분리했습니다.
+**현행 구현 완료(Cloud/일반Android): 0.11.0/11·f0640b0**, `feat/arrival-context-ux`/[PR#2](https://github.com/leemh-dev/dochagjari/pull/2). 독립 탑승 모드·이번 구성, 상단 생성영상/하단 기울인 주차·5층 지도, 같은 방문의 주차 저장/귀환을 구현했습니다. [최종 CI](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733) JVM115·서버14·진단35·기기15건과 별도 복원4단계까지 통과했습니다. [실제 화면/검사](docs/evidence/arrival-panel/f064-device/README.md) · [90초 시연/20초 모션](docs/evidence/demo-video/README.md) · [실제 검사 APK](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733/artifacts/14104088875).
+
+Mac/Pleos의 새버전 분할·SDK핀/Console·실제 음성/외부카메라·실차/SMS는 미검증입니다. AI 자료 보완 worker는 미구현이며 현재는 사전DB를 씁니다. [현재 수준](docs/37-current-implementation.md) · [M1/8GB·외장SSD 설치/검사 인계](docs/38-mac-pleos-v0.11-handoff.md). debug/test 개발서명·release unsigned, 앱마켓 출시는 범위 밖입니다. 아래 구버전 실적은 이력으로 구분합니다.
 
 
 **목적지 너머, 만날 자리까지.** 처음 가거나 익숙하지 않은 장소에서 진입·승하차·대기·주차와 실제 방문/만남까지 연결하는 Kotlin Android 앱을 개발합니다. 매장·병원·학교/학원 픽업·역/공항 마중이 대표 시나리오입니다. 현재 판교점 에뜨와 시설 조회·방문 저장·네이티브 동선 재생·선택적 좌석 역할·같은 방문의 관측 단서 저장과 기존 픽업/병원 시연 기능이 있습니다. 역/공항 실제 시설 연동은 아직 검증하지 않았습니다. [11월 15일 개발계획](docs/07-development-plan.md)을 구현 기준으로 사용합니다.

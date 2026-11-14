@@ -1,0 +1,9 @@
+{
+  "date_utc": "2026-11-14",
+  "code_commit": "f0640b00da92409c265cfd5563238e0d972edcaa",
+  "run": 43569033733,
+  "artifact": 14104315679,
+  "independent_download_check": "all3 archive files SHA256 match; debug/test signatures match declared public certificate; release verify fails as unsigned",
+  "scope": "verify runner artifacts, not the actual device pair",
+  "device_result": "pending"
+}

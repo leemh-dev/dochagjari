@@ -1,0 +1,10 @@
+{
+  "code_commit": "f0640b00da92409c265cfd5563238e0d972edcaa",
+  "artifact": 14104088875,
+  "apk_sha256": "b704d03bda46491fd6d6a7f86ccb0e85cd4d33cc40ec7439ac24d6a57de7ddf4",
+  "native_abis_present": [
+    "arm64-v8a",
+    "x86_64"
+  ],
+  "scope": "archive compatibility inspection; not an actual M1/Pleos execution"
+}

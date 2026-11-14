@@ -1,0 +1,294 @@
+{
+  "code_commit": "f0640b00da92409c265cfd5563238e0d972edcaa",
+  "version": "0.11.0",
+  "versionCode": 11,
+  "kind": "Edited actual generic Android captures; still montage plus real eight-second app motion cut",
+  "native_pleos": false,
+  "actual_camera": false,
+  "actual_speech": false,
+  "file": "dochagjari-android-demo.mp4",
+  "bytes": 843095,
+  "sha256": "5b59c5169e3cb59124ce9065469ddd6e9c6db1df32755ca903df2238171f33cd",
+  "sources": [
+    {
+      "input": "product-ux/01-product-destination.png",
+      "seconds": 6,
+      "sha256": "d55a22c71b1f9d43ecea31a7adba05968202ec4127e60557983fba7214c71673",
+      "caption": "도착자리 · 낯선 곳에 도착한 다음의 안내",
+      "kind": "actual Android still capture"
+    },
+    {
+      "input": "occupant-context/02-child-confirmed.png",
+      "seconds": 8,
+      "sha256": "2b576b77db0c085b60c8c9043d13bb687b757e609bd3f34331f20d972082a300",
+      "caption": "오늘의 탑승을 선택해요 · 목적지와 독립된 설정",
+      "kind": "actual Android still capture"
+    },
+    {
+      "input": "product-ux/02-visit-ready.png",
+      "seconds": 8,
+      "sha256": "789ec599b9d837d220b9d94a4da31fdecbe22cf4176581d015e76b2ecdf53d65",
+      "caption": "저장한 자료로 에뜨와 판교점 방문을 준비해요",
+      "kind": "actual Android still capture"
+    },
+    {
+      "input": "product-ux/03-mock-road-handoff.png",
+      "seconds": 8,
+      "sha256": "9851976a33dfaa1336473c0083551011de2de424f8f81bf2597c15df216883a7",
+      "caption": "도로 내비로 요청을 전달해요 · 이번 실행은 MOCK",
+      "kind": "actual Android still capture"
+    },
+    {
+      "input": "product-ux/04a-parking-map.png",
+      "seconds": 8,
+      "sha256": "fc47fa13ad0dee2bfddefa6810e09fd3db3fe76b4812a7bec61f97bcb61839a8",
+      "caption": "정차 후 입차를 명시 확인 · 주차 지도는 배치 예시",
+      "kind": "actual Android still capture"
+    },
+    {
+      "input": "product-ux/04c-android-generated-c12-candidate.png",
+      "seconds": 6,
+      "sha256": "4e45166525f9477b5c7e0b5356623a228e8e104b464c046d454a1770994a9496",
+      "caption": "생성 영상의 C12 문자 후보 · 실제 위치 확정 아님",
+      "kind": "actual Android still capture"
+    },
+    {
+      "input": "product-ux/arrival-context-demo.mp4",
+      "seconds": 8,
+      "sha256": "c1b31bac03efeb6c17f4454eb476bc87a34a40a0de17a09d7ee8efa5b71183c0",
+      "caption": "5층 엘리베이터에서 에뜨와까지 · 실제 앱 경로 재생",
+      "kind": "actual Android screenrecord cut",
+      "start": 46.5
+    },
+    {
+      "input": "product-ux/08-parking-saved-unknown.png",
+      "seconds": 8,
+      "sha256": "ae7ee5fa83d0ffed49e120969f9aa01c65b5586f5f32970971520645b55e9c23",
+      "caption": "주차 완료 · 관측을 중지하고 저장 결과를 확인해요",
+      "kind": "actual Android still capture"
+    },
+    {
+      "input": "product-ux/12-return-manual-clue.png",
+      "seconds": 8,
+      "sha256": "877b3c1481c7fbafa57777d26de1825d55aa172bd29d6865791144783e830368",
+      "caption": "돌아갈 때는 직접 보완한 저장 단서를 확인해요",
+      "kind": "actual Android still capture"
+    },
+    {
+      "input": "product-ux/06a-hospital.png",
+      "seconds": 6,
+      "sha256": "372086a28d24d95d41befbeeba20f5a901b9dc059d1354c4727ebb05a39e0042",
+      "caption": "병원 동행 · 사용자 조건에 맞춘 가상 후보",
+      "kind": "actual Android still capture"
+    },
+    {
+      "input": "product-ux/06e-academy-diversion.png",
+      "seconds": 6,
+      "sha256": "d38a94996761c8811633bd0d3a734527dc4a1730932007bc5574ed2ce84f89d9",
+      "caption": "학원 픽업 · 이용 불가 후보를 제외하고 대안을 확인해요",
+      "kind": "actual Android still capture"
+    },
+    {
+      "input": "product-ux/15-driving-brief.png",
+      "seconds": 6,
+      "sha256": "dafd0aa11323081a7146adb16288cc9f1b2d1cb2472ea8aeec458c1f44869a5c",
+      "caption": "주행 중에는 상세 조작을 제한하고 자동 재개하지 않아요",
+      "kind": "actual Android still capture"
+    },
+    {
+      "input": "product-ux/13-restored-home-no-auto-guide.png",
+      "seconds": 4,
+      "sha256": "98315cb4a8bfe65d0454deb1a4e1d5dac585b4455ea9cdb78fe8fd6a185be697",
+      "caption": "구현 범위와 실제 연동을 구분한 도착 안내 프로토타입",
+      "kind": "actual Android still capture"
+    }
+  ],
+  "ffprobe": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 1920,
+        "height": 1080,
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "closed_captions": 0,
+        "film_grain": 0,
+        "has_b_frames": 2,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "16:9",
+        "pix_fmt": "yuv420p",
+        "level": 40,
+        "color_range": "tv",
+        "color_transfer": "iec61966-2-1",
+        "color_primaries": "bt709",
+        "chroma_location": "left",
+        "field_order": "progressive",
+        "refs": 1,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "30/1",
+        "avg_frame_rate": "30/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 1382400,
+        "duration": "90.000000",
+        "bit_rate": "71988",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "2700",
+        "extradata_size": 49,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.101 libx264"
+        }
+      }
+    ],
+    "format": {
+      "filename": "dochagjari-android-demo.mp4",
+      "nb_streams": 1,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "90.000000",
+      "size": "843095",
+      "bit_rate": "74941",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf61.7.103"
+      }
+    }
+  },
+  "motion_sample": {
+    "file": "dochagjari-motion-sample.mp4",
+    "start_in_original": 40.5,
+    "kind": "Continuous twenty-second cut of the actual Android recording",
+    "bytes": 216748,
+    "sha256": "96919966ea09c0c498181d5170fb2882c7a7d4036312bba93a3c976eab67b4b7",
+    "ffprobe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "High",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 1920,
+          "height": 1080,
+          "coded_width": 1920,
+          "coded_height": 1080,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 2,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "16:9",
+          "pix_fmt": "yuv420p",
+          "level": 40,
+          "color_range": "tv",
+          "color_space": "bt709",
+          "color_transfer": "bt709",
+          "color_primaries": "bt709",
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "refs": 1,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "30/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 307200,
+          "duration": "20.000000",
+          "bit_rate": "83467",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "600",
+          "extradata_size": 49,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "eng",
+            "handler_name": "VideoHandle",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        }
+      ],
+      "format": {
+        "filename": "dochagjari-motion-sample.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "20.000000",
+        "size": "216748",
+        "bit_rate": "86699",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    }
+  }
+}

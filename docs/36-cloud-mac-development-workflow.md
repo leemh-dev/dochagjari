@@ -1,5 +1,7 @@
 # Cloud 개발과 Mac Pleos 검증 · 단계별 실행
 
+> 2026-11-14 최종 갱신: 앱0.11.0/11·f0640b0의 Cloud/일반Android 검사와90초 실행 편집본·20초 연속 모션을 완료했다. [현재 구현/검증37](37-current-implementation.md) · [영상/원본](evidence/demo-video/README.md) · [Mac 인계38](38-mac-pleos-v0.11-handoff.md). 아래 착수 당시 기획/이력과 실제 완료 수준을 구분한다. Mac/Pleos 실연동과 실제STT/외부카메라·실차는 미검증이다.
+
 2026-11-14 UTC. 사용자가 Cloud 개발과 맥북 에뮬레이터 확인을 개발 단계마다 구분하도록 요청했다. 현행 브랜치 `feat/arrival-context-ux`/Draft PR#2, 기능 설계는 docs33/31, 실행 순서는 docs34를 따른다. 이번에는 절차/프롬프트를 정리했으며 새 앱 구현·Mac 접속·에뮬레이터 실행·검사를 수행하지 않았다.
 
 ## 준비 상태

@@ -1,22 +1,25 @@
 # 11월 15일 제출 준비 체크리스트
 
-## 2026-11-14 · 탑승 컨텍스트/도착 패널 새 구현
+## 2026-11-14 · 0.11.0 최종 Cloud 검증 완료
 
-현행 브랜치는 `feat/arrival-context-ux`/[PR#2](https://github.com/leemh-dev/dochagjari/pull/2), 앱0.11.0/11·패널b84b467이다. 다중 프리셋/이번만변경/재시작 재확인과 상단 생성영상·하단 기울인 주차지도/5층선, 병원/학원 가상후보·대안·모의요청을 구현했다. 역/공항은 미확인 승차점이 없는 개념안내다. [최신 단계/실제 검사](37-current-implementation.md).
+**앱 0.11.0/11·f0640b0**, [push CI43569033733](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733)와 [PR CI43569041435](https://github.com/leemh-dev/dochagjari/actions/runs/43569041435) 전체 성공. JVM115·서버14·진단35·lint/3빌드, 실제 connected15pass/0fail/4전용skip 후 별도 복원4단계, 원본54장·동일DB HTTP 모의 복구를 확인했다. **90초 편집 시연과20초 연속 모션**도 출력/전체 디코딩/해시 대조를 마쳤다.
 
-Cloud JVM114·lint·세APK빌드가 통과했다. 저장단위16c7615의 CI43563142120/43563146137은 전체성공. UI d3b66ed/패널b84b467의 일반Android 실행·원본화면/새PID복원·영상은 CI 진행 중이며 아래 구버전 결과를 새 성공으로 세지 않는다. Mac/Pleos 새버전·실제SDK핀/Console·STT/Gleo·외부카메라·실차·실제SMS 미검증, release unsigned. [로컬 실제 APK 식별](evidence/arrival-panel/cloud/local-apk-metadata.json).
+[실제 화면·검사 원본](evidence/arrival-panel/f064-device/README.md) · [실제로 검사한 APK 쌍](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733/artifacts/14104088875) · [영상](evidence/demo-video/README.md) · [현재 구현](37-current-implementation.md) · [Mac 인계](38-mac-pleos-v0.11-handoff.md).
+
+일반 Android의 TEST/MOCK/생성 입력 결과다. Mac/Pleos 새버전 배치·SDK 핀/Console·실제 STT/Gleo·외부카메라·실차/현장 동선·실제SMS는 미검증이고, 이동 중 AI 자료 보완 worker는 미구현이다. 병원/학원은 가상 시연, 역/공항은 개념 안내다. debug/test 개발서명·release unsigned이며 앱마켓 출시/출시서명은 범위 밖이다. 기존 PR#1·데이터는 보존하고 자동 병합하지 않았다.
 
 
-## 시연영상 준비 · 계획 단계
+## 시연영상 준비 · 산출물과 남은 작업
 
-[Cloud/Mac 단계별 절차36](36-cloud-mac-development-workflow.md)에 따라 구현/검사와 Pleos 기기 확인을 분리한다. 새 단계의 [현재 상태표](evidence/implementation-restart/stage-status.json)는 구현/Cloud 검사 후 실제기기·화면 CI 진행 중이며, 과거 Mac 성공을 새 단계 통과로 표시하지 않는다. M1/8GB는 외장SSD/AVD한대/Cloud빌드 전달을 기본으로 한다.
+[Cloud/Mac 단계별 절차36](36-cloud-mac-development-workflow.md)에 따라 구현/검사와 Pleos 기기 확인을 분리한다. 새 단계의 [현재 상태표](evidence/implementation-restart/stage-status.json)는 Cloud 구현·일반Android 검사·실제 앱 영상 완료/Mac 별도 확인 대기이며, 과거 Mac 성공을 새 단계 통과로 표시하지 않는다. M1/8GB는 외장SSD/AVD한대/Cloud빌드 전달을 기본으로 한다.
 
 [제작 계획/210초 콘티](32-demo-video-production-plan.md)를 기준으로 서비스 본편과 실제 앱 실행기록을 준비한다. 2026-11-13 공식 안내에서 목업/프로토타입/화면녹화 인정을 재확인했다. 아래는 새 완료 증거가 아닌 남은 작업이다.
 
-- [ ] 핵심15~20초 모션샘플 검토와 장면별 자료/사용조건 확정.
-- [ ] 같은 APK/방문의 새 실행 원본 녹화·환경/TEST/MOCK/코드 식별.
-- [ ] 컨셉 본편/실제 실행기록을 구분해 편집·자막·음성·최종MP4 재생 확인.
-- [ ] SDK/핀·카메라·SMS·AI보완의 실제 수준과 영상/나레이션 주장 대조.
+- [x] 실제 앱20초 연속 모션 샘플·생성 입력/글꼴 출처와 파일 식별.
+- [x] 같은 APK의 실제 원본 녹화·환경/TEST/MOCK/코드·해시 식별.
+- [x] 실제 앱90초 편집본/20초 샘플·한국어 자막·최종 MP4 디코딩/프레임 확인(나레이션 없음).
+- [ ] 제안된210초 UX컨셉 본편 제작 여부·최종 제출 양식 결정.
+- [x] 실제 앱 영상의 SDK/핀·카메라·SMS·AI보완 미검증/미구현 표시와 주장 대조.
 - [ ] 영상 길이/용량/제출방식 최신 안내와 링크/최종파일 해시 대조.
 
 ## 현행 UX 게이트
