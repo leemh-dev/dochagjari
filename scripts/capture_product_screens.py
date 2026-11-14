@@ -3,6 +3,7 @@ import hashlib
 import json
 import os
 import re
+import subprocess
 from pathlib import Path
 import time
 import capture_app_screens as ui
@@ -11,10 +12,13 @@ ui.OUT = Path('app/build/reports/product-ux')
 ui.OUT.mkdir(parents=True, exist_ok=True)
 ui.report = {'environment': 'Generic Android API34 / CI-owned fresh AVD',
              'inputs': 'TEST vehicle and entry/parking; MOCK road; manual-demo synthetic memo',
-             'checks': [], 'screenshots': [], 'pleos_native_verified': False}
+             'checks': [], 'screenshots': [], 'pleos_native_verified': False,
+             'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()}
 
 
 def main():
+    recording = None
+    recording_log = None
     try:
         if os.environ.get('GITHUB_ACTIONS') != 'true' or os.environ.get('DOCHAGJARI_FRESH_TEST_AVD') != '1':
             raise RuntimeError('Refusing reset outside owned fresh CI AVD')
@@ -23,6 +27,8 @@ def main():
         user = ui.adb('shell', 'am', 'get-current-user').decode().strip(); assert user.isdigit()
         assert ui.adb('shell', 'pm', 'clear', '--user', user, ui.PACKAGE).decode().strip() == 'Success'
         ui.adb('shell', 'am', 'start', '--user', user, '-W', '-n', ui.PACKAGE + '/.MainActivity'); time.sleep(2)
+        recording_log = ui.OUT.joinpath('screenrecord.log').open('wb')
+        recording = subprocess.Popen([ui.ADB, '-s', ui.SERIAL, 'shell', 'screenrecord', '--bit-rate', '3000000', '--time-limit', '90', '/sdcard/arrival-context-demo.mp4'], stdout=recording_log, stderr=subprocess.STDOUT)
         ui.expect('에뜨와로 갈까요?'); ui.capture('01-product-destination')
         ui.tap('방문 준비'); ui.expect('내비 안내 시작'); ui.capture('02-visit-ready')
         ui.tap('내비 안내 시작'); ui.expect('도로 안내는 순정 내비에서'); ui.capture('03-mock-road-handoff')
@@ -30,10 +36,20 @@ def main():
         old_scale = ui.adb('shell', 'settings', 'get', 'global', 'animator_duration_scale').decode().strip()
         ui.adb('shell', 'settings', 'put', 'global', 'animator_duration_scale', '1')
         ui.tap('입차 확인 · TEST')
+        ui.expect('주차장 안내'); ui.capture('04a-parking-map')
+        ui.tap('생성 영상 보기'); time.sleep(1); ui.capture('04b-generated-camera-preview')
+        ui.tap('5층 동선')
         ui.capture('04-animated-floor-early')
         time.sleep(6.5); ui.capture('05-animated-floor-complete')
         ui.expect('엘리베이터에서\n에뜨와까지')
         ui.tap('닫기'); ui.expect('매장까지 이어서'); ui.capture('06-entry-unknown-connection')
+        for label, name in [('병원 동행', '06a-hospital'), ('학원 픽업', '06b-academy'), ('정자역 마중', '06c-station'), ('공항 배웅', '06d-airport')]:
+            ui.tap(label); ui.capture(name)
+            if label == '학원 픽업':
+                ui.expect('서쪽 승하차점 (시연 좌표)'); ui.tap('이용 불가 · TEST')
+                ui.expect('뒤편 주차장 입구 (시연 좌표)'); ui.capture('06e-academy-diversion')
+                ui.tap('이용 불가 · TEST'); ui.expect('조건에 맞는 후보가 없습니다'); ui.capture('06f-academy-no-candidate')
+            ui.tap('닫기')
         ui.adb('shell', 'settings', 'put', 'global', 'animator_duration_scale', '0')
         ui.tap('5층 동선 보기'); ui.expect('모션 줄이기 · 전체 경로 표시'); ui.capture('07-reduced-motion-static')
         ui.tap('닫기')
@@ -73,6 +89,21 @@ def main():
         except Exception: pass
         raise
     finally:
+        if recording is not None:
+            try:
+                recording.wait(timeout=100)
+                if recording.returncode != 0:
+                    raise RuntimeError('Android screenrecord failed')
+                ui.adb('pull', '/sdcard/arrival-context-demo.mp4', str(ui.OUT / 'arrival-context-demo.mp4'))
+                video = ui.OUT / 'arrival-context-demo.mp4'
+                assert video.stat().st_size > 10000
+                ui.report['recording'] = {'file': video.name, 'bytes': video.stat().st_size,
+                    'sha256': hashlib.sha256(video.read_bytes()).hexdigest(),
+                    'kind': 'Actual generic Android app screenrecord; TEST/MOCK/generated clip; not native Pleos'}
+            except Exception as error:
+                ui.report['recording_error'] = str(error)
+            finally:
+                recording_log.close()
         ui.OUT.joinpath('summary.json').write_text(json.dumps(ui.report, ensure_ascii=False, indent=2) + '\n')
 
 
