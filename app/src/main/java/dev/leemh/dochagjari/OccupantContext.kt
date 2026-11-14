@@ -63,10 +63,10 @@ object OccupantCommands {
         val exact = book.presets.filter { t.contains(it.name.replace(" ", "")) }
         if (exact.isNotEmpty()) return OccupantCommand(exact, "이번 탑승에 적용할 구성을 확인해 주세요")
         val mode = when {
-            "혼자" in t || "나홀로" in t -> OccupantMode.SOLO
-            "아이" in t || "아기" in t || "등하원" in t -> OccupantMode.CHILD
-            "가족" in t -> OccupantMode.FAMILY
-            "부모" in t || "동행" in t -> OccupantMode.SUPPORT
+            "혼자" in t || "나홀로" in t || t.lowercase() in listOf("solo", "alone") -> OccupantMode.SOLO
+            "아이" in t || "아기" in t || "등하원" in t || t.lowercase() == "child" -> OccupantMode.CHILD
+            "가족" in t || t.lowercase() == "family" -> OccupantMode.FAMILY
+            "부모" in t || "동행" in t || t.lowercase() == "support" -> OccupantMode.SUPPORT
             else -> null
         }
         val matched = book.presets.filter { it.mode == mode }

@@ -247,25 +247,5 @@ private val ProductColors = lightColorScheme(primary = Color(0xFF17191E), onPrim
 }
 
 @Composable private fun ProductSettings(state: AppState, model: AppModel, close: () -> Unit) {
-    Dialog(close, properties = DialogProperties(usePlatformDefaultWidth = false)) {
-        Surface(Modifier.fillMaxSize(), color = Paper) {
-            Column(Modifier.safeDrawingPadding().padding(28.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text("탑승 설정", fontSize = 28.sp, fontWeight = FontWeight.Bold)
-                    OutlinedButton(close, modifier = Modifier.heightIn(min = 64.dp)) { Text("닫기") }
-                }
-                Text(state.profileSave.status.label, color = if (state.profileSave.status == ProfileSaveStatus.ERROR) MaterialTheme.colorScheme.error else Blue)
-                if (state.profileSave.status == ProfileSaveStatus.ERROR) OutlinedButton(model::retryProfile) { Text("설정 저장 다시 시도") }
-                SeatRoleSettings(state.profileSave, state.vehicle.left, state.vehicle.right,
-                    state.profileSave.status != ProfileSaveStatus.LOADING, model::profile)
-                HorizontalDivider()
-                Text("내비 연결 방식", fontSize = 22.sp)
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    FilterChip(state.testNavi, { model.selectNavi(true) }, { Text("모의 내비") })
-                    FilterChip(!state.testNavi, { model.selectNavi(false) }, { Text("Pleos SDK") })
-                }
-                Text("SDK 목적지 요청과 실제 순정 핀은 별도 확인합니다. 실제 연동을 선택해도 입차를 자동 처리하지 않습니다.", fontSize = 15.sp)
-            }
-        }
-    }
+    OccupantSettingsScreen(state, model, close)
 }
