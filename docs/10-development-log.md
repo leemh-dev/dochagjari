@@ -913,3 +913,9 @@
 - 수정후 로컬 lint·debug/test/release빌드성공29초. 추천로직/저장스키마변경이아니므로이미통과한JVM을추가로반복하지않았고후속CI가전체회귀를수행한다.
 
 - 최종패널추가검사: 생성영상분석의 진행/실패 문구를앱에표시하고, 새패널에서직접 `영상 분석`→저장된 생성C12후보를기다려PNG를남기도록검사를연결했다. 기존 분석기 성공을 새 패널버튼 성공으로 대신하지 않는다. 로컬 lint/세빌드22초성공. 입력값 검증은 키보드추천문구가아닌앱EditText의solo를재조회한다. 실제성공은수정후CI에서확인한다.
+
+### 같은 날 · 실제 기기 실행 APK와 전달 산출물 동일성
+
+- CI verify와android-device는서로다른runner에서debug키를생성하므로같은소스라도verify artifact의APK와실제기기검사/녹화APK의bytes/인증서가다를수있음을확인했다. 기존에는소스동일성만확인할수있었고실제기기APK를따로보관하지않았다.
+- collect_apk_metadata.py에--device-only를추가하고connected검사후같은출력debug/test2개와manifest/SHA256/인증서를별도 `tested-device-apks-and-metadata` artifact로보존한다. 후속화면/녹화도바로그파일을설치한다. Mac에는이쌍을전달하며unsigned release는verify의별도3종산출물로구분한다.
+- 로컬실제2APK를패키징해개수/manifest/동일개발인증서와SHA를대조했다. 기본3종경로도유지한다. 이는기기실행성공이아니며실제기기결과는수정CI에서갱신한다. 검사/녹화와전달APK의동일성확인을위해후속CI가필요하다. 앱의기능/버전은바꾸지않는다.

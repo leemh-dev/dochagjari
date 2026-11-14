@@ -75,6 +75,7 @@ jobs:
             mkdir -p app/build/reports
             python3 scripts/pleos/adb_readiness.py --serial emulator-5554 --output app/build/reports/pre-connected-readiness.json
             ./gradlew :app:connectedDebugAndroidTest || { adb pull /sdcard/Android/data/dev.leemh.dochagjari/files/test-failures app/build/reports/connected-test-failures || true; exit 1; }
+            python3 scripts/collect_apk_metadata.py --code-commit "$GITHUB_SHA" --device-only --output tested-device-assets
             python3 scripts/pleos/adb_readiness.py --serial emulator-5554 --output app/build/reports/pre-install-readiness.json
             adb install -r app/build/outputs/apk/debug/app-debug.apk
             adb install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
@@ -92,3 +93,10 @@ jobs:
           path: |
             app/build/reports/
             app/build/outputs/androidTest-results/
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tested-device-apks-and-metadata
+          path: tested-device-assets/
+          if-no-files-found: ignore
