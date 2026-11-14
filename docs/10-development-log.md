@@ -1014,3 +1014,15 @@
 ## 2026-11-14 UTC · 현대/Pleos 제공 여부로 비교기준 수정
 
 사용자는타사유사서비스가아닌현대제공여부를요청했다.현대공식도메인으로Gleo현행설명서/실제OTA배포/PleosID/기존표준5W음성메모/리모트케어를조회했다. [후보별재판정47](47-hyundai-only-voice-comparison.md).5번음성맥락검색/내비는Pleos중복확인,1/3/4/6동일완결기능은미확인,2는자동진단과음성증상보고를분리했다.타사서비스만으로1번등을현대중복으로배제한판단을정정했다.기존차종녹음기능을Pleos지원으로승격하지않았고공식자료미발견을기능부존재로단정하지않았다.코드/APK/영상변경·실기기사용없음.
+
+
+## 2026-11-14 UTC · 음성2번 증상노트 고도화/SDK 현실성 조사
+
+- 요청/범위: 사용자는정비증상음성기록과차량상태스냅샷후보의기획/제공API분석을요청했다. [계획48](48-voice-symptom-recorder-plan.md)에원문→시각있는관측→사용자확인→반복묶기→정비용요약,목표고객/효용가설/UX/저장/Cloud-Mac단계0~4를작성했다. 구현이나새방향최종채택으로표시하지않는다.
+- 최신원격: PR#2 open/draft·head feat/arrival-context-ux·befd5d3를API로확인했다. 기존PR#1/앱/사용자데이터를보존했다. 앱기준0.11.0/11·f0640b0이며이문서커밋은새APK가아니다.
+- 조사/환경: Cloud Linux의기존Vehicle2.3.2 Gradle AAR→Python zipfile로classes.jar추출→JDK17 javap와javap -v. Vehicle/11도메인공개서명rc0,선정28메서드/권한과AAR/classesSHA256를 [정적증거](evidence/symptom-sdk-feasibility/README.md)에기록했다. bare jar/javap PATH부재는명시JDK경로/zipfile로해결했고Steeringwheel오기는SteeringWheel로수정했다.
+- 공식문서: STT3.3.1의ON_DEVICE는네트워크/서버앱등록불필요,STT_SERVICE,request/stop과PCM sendAudio/completeAudioSend를확인했다. PCM시험은마이크성공과구분한다. TTS/Gleo AppSchema/Vehicle개별권한/현대리모트케어도대조했다. 추측한STT URL열람실패후공식링크start-and-stop으로확인했고일부Vehicle웹상세의서명미렌더는버전명확한AAR로보완했다.
+- 실제발견/제약: Tire.getTirePressure와관련callback은PRIVATE_CAR_SAFETY,통합Safety경고capability/event도PRIVATE다. 개별Safety getter CAR_SAFETY와SteeringWheel조향각/Gear/Odometer CAR_DRIVE를분리했다. getLowTirePressure는Float여서경고boolean으로가정하지않았다. 권한우회/전체경고연속수신/정밀진단/카메라는계획핵심에서제외했다.
+- 검증수준: 정적API/권한조사와문서일관성만확인한다. STT/TTS새바이너리다운로드/컴파일·새앱빌드/테스트·ADB/부팅/마이크/SDK서비스호출·실차·정비사인터뷰는실행하지않았다. 이전검사를이번통과로세지않는다. 현재manifest에신규음성/도메인권한이없고기능이아직구현되지않았음을명시했다.
+- 남은작업: 사용자의개발요청후단계0의작은공식STT/Vehicle실행검증. ON_DEVICE최종텍스트+주행거리+관련공개상태를실제수신하고,그다음저장/복원·상담카드/내보내기·Gleo순서로진행한다. 정비소효용은가설이며인터뷰로검증한다. 문서/증거를기능단위커밋·푸시·PR#2에기록하며자동병합하지않는다.
+- 문서검사실제결과: 신규상대링크누락0,증거JSON파싱성공,선정메서드28개일치,실제AAR/classesSHA256재대조일치,git diff --check통과. 앱검사수로집계하지않는다.

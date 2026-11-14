@@ -1,0 +1,230 @@
+{
+  "inspected_at_utc": "2026-11-14T20:56:00.673843+00:00",
+  "scope": "javap -v static signatures and RequiresPermission annotations; no runtime calls or new APK",
+  "methods": [
+    {
+      "class": "api.Tire",
+      "method": "checkLowTirePressureCapabilities",
+      "permissions": [
+        "pleos.car.permission.CAR_SAFETY"
+      ],
+      "signature": "public abstract void checkLowTirePressureCapabilities(kotlin.jvm.functions.Function2<? super ai.pleos.playground.vehicle.api.model.capability.CapabilityConfig, ? super java.util.List<ai.pleos.playground.vehicle.api.model.area.WheelArea>, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.Tire",
+      "method": "getLowTirePressure",
+      "permissions": [
+        "pleos.car.permission.CAR_SAFETY"
+      ],
+      "signature": "public abstract void getLowTirePressure(ai.pleos.playground.vehicle.api.model.area.WheelArea, kotlin.jvm.functions.Function1<? super java.lang.Float, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.Tire",
+      "method": "checkTirePressureCapabilities",
+      "permissions": [
+        "pleos.car.permission.PRIVATE_CAR_SAFETY"
+      ],
+      "signature": "public abstract void checkTirePressureCapabilities(kotlin.jvm.functions.Function2<? super ai.pleos.playground.vehicle.api.model.capability.CapabilityConfig, ? super java.util.List<ai.pleos.playground.vehicle.api.model.area.WheelArea>, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.Tire",
+      "method": "getTirePressure",
+      "permissions": [
+        "pleos.car.permission.PRIVATE_CAR_SAFETY"
+      ],
+      "signature": "public abstract void getTirePressure(ai.pleos.playground.vehicle.api.model.area.WheelArea, kotlin.jvm.functions.Function1<? super java.lang.Float, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.Tire",
+      "method": "registerTirePressure",
+      "permissions": [
+        "pleos.car.permission.PRIVATE_CAR_SAFETY"
+      ],
+      "signature": "public abstract void registerTirePressure(ai.pleos.playground.vehicle.api.model.area.WheelArea, ai.pleos.playground.vehicle.listener.TirePressureListener);"
+    },
+    {
+      "class": "api.Safety",
+      "method": "checkTelltalesCapabilities",
+      "permissions": [
+        "pleos.car.permission.PRIVATE_CAR_SAFETY"
+      ],
+      "signature": "public abstract void checkTelltalesCapabilities(kotlin.jvm.functions.Function1<? super ai.pleos.playground.vehicle.api.model.capability.CapabilityConfig, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.Safety",
+      "method": "getEngineOilLevelState",
+      "permissions": [
+        "pleos.car.permission.CAR_SAFETY"
+      ],
+      "signature": "public abstract void getEngineOilLevelState(kotlin.jvm.functions.Function1<? super ai.pleos.playground.vehicle.constant.control.OilLevelState, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.Safety",
+      "method": "getBrakeFluidLevelState",
+      "permissions": [
+        "pleos.car.permission.CAR_SAFETY"
+      ],
+      "signature": "public abstract void getBrakeFluidLevelState(kotlin.jvm.functions.Function1<? super ai.pleos.playground.vehicle.constant.control.OilLevelState, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.Safety",
+      "method": "getTelltalesInfo",
+      "permissions": [
+        "pleos.car.permission.CAR_SAFETY"
+      ],
+      "signature": "public abstract void getTelltalesInfo(kotlin.jvm.functions.Function1<? super ai.pleos.playground.vehicle.api.model.telltale.Telltales, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.Safety",
+      "method": "registerBrakeFluidLevelState",
+      "permissions": [
+        "pleos.car.permission.CAR_SAFETY"
+      ],
+      "signature": "public abstract void registerBrakeFluidLevelState(ai.pleos.playground.vehicle.listener.OilLevelStateListener);"
+    },
+    {
+      "class": "api.Safety",
+      "method": "registerTelltales",
+      "permissions": [
+        "pleos.car.permission.PRIVATE_CAR_SAFETY"
+      ],
+      "signature": "public abstract void registerTelltales(ai.pleos.playground.vehicle.listener.TelltaleInfoListener);"
+    },
+    {
+      "class": "api.Odometer",
+      "method": "checkCurrentDistanceDrivenCapabilities",
+      "permissions": [
+        "pleos.car.permission.CAR_DRIVE"
+      ],
+      "signature": "public abstract void checkCurrentDistanceDrivenCapabilities(kotlin.jvm.functions.Function1<? super ai.pleos.playground.vehicle.api.model.capability.CapabilityConfig, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.Odometer",
+      "method": "getCurrentDistanceDriven",
+      "permissions": [
+        "pleos.car.permission.CAR_DRIVE"
+      ],
+      "signature": "public abstract void getCurrentDistanceDriven(kotlin.jvm.functions.Function1<? super java.lang.Float, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.Odometer",
+      "method": "registerDistanceDriven",
+      "permissions": [
+        "pleos.car.permission.CAR_DRIVE"
+      ],
+      "signature": "public abstract void registerDistanceDriven(ai.pleos.playground.vehicle.listener.DistanceDrivenListener);"
+    },
+    {
+      "class": "api.Gear",
+      "method": "getCurrentGearSelectionState",
+      "permissions": [
+        "pleos.car.permission.CAR_DRIVE"
+      ],
+      "signature": "public abstract void getCurrentGearSelectionState(kotlin.jvm.functions.Function1<? super ai.pleos.playground.vehicle.constant.control.VehicleGear, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.Gear",
+      "method": "registerGearSelection",
+      "permissions": [
+        "pleos.car.permission.CAR_DRIVE"
+      ],
+      "signature": "public abstract void registerGearSelection(ai.pleos.playground.vehicle.listener.GearSelectionListener);"
+    },
+    {
+      "class": "api.SteeringWheel",
+      "method": "checkSteeringWheelAngleCapabilities",
+      "permissions": [
+        "pleos.car.permission.CAR_DRIVE"
+      ],
+      "signature": "public abstract void checkSteeringWheelAngleCapabilities(kotlin.jvm.functions.Function2<? super ai.pleos.playground.vehicle.api.model.capability.CapabilityConfig, ? super ai.pleos.playground.vehicle.api.model.capability.AreaBounds<java.lang.Float>, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.SteeringWheel",
+      "method": "getCurrentSteeringWheelAngle",
+      "permissions": [
+        "pleos.car.permission.CAR_DRIVE"
+      ],
+      "signature": "public abstract void getCurrentSteeringWheelAngle(kotlin.jvm.functions.Function1<? super java.lang.Float, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.SteeringWheel",
+      "method": "registerSteeringWheelAngle",
+      "permissions": [
+        "pleos.car.permission.CAR_DRIVE"
+      ],
+      "signature": "public abstract void registerSteeringWheelAngle(ai.pleos.playground.vehicle.listener.SteeringWheelAngleListener);"
+    },
+    {
+      "class": "api.Brake",
+      "method": "getCurrentBrakePedalStatus",
+      "permissions": [
+        "pleos.car.permission.CAR_DRIVE"
+      ],
+      "signature": "public abstract void getCurrentBrakePedalStatus(kotlin.jvm.functions.Function1<? super java.lang.Boolean, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.Brake",
+      "method": "registerBrakePedalStatus",
+      "permissions": [
+        "pleos.car.permission.CAR_DRIVE"
+      ],
+      "signature": "public abstract void registerBrakePedalStatus(ai.pleos.playground.vehicle.listener.BrakePedalStatusListener);"
+    },
+    {
+      "class": "api.HVAC",
+      "method": "checkHvacAcCapabilities",
+      "permissions": [
+        "pleos.car.permission.CAR_CLIMATE"
+      ],
+      "signature": "public abstract void checkHvacAcCapabilities(kotlin.jvm.functions.Function1<? super java.util.List<ai.pleos.playground.vehicle.api.model.area.SeatArea>, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.HVAC",
+      "method": "checkHvacAcCapabilities",
+      "permissions": [
+        "pleos.car.permission.CAR_CLIMATE"
+      ],
+      "signature": "public abstract void checkHvacAcCapabilities(kotlin.jvm.functions.Function2<? super ai.pleos.playground.vehicle.api.model.capability.CapabilityConfig, ? super java.util.List<ai.pleos.playground.vehicle.api.model.area.SeatArea>, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.HVAC",
+      "method": "getHvacAcState",
+      "permissions": [
+        "pleos.car.permission.CAR_CLIMATE"
+      ],
+      "signature": "public abstract void getHvacAcState(ai.pleos.playground.vehicle.api.model.area.SeatArea, kotlin.jvm.functions.Function1<? super java.lang.Boolean, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.HVAC",
+      "method": "getHvacFanSpeed",
+      "permissions": [
+        "pleos.car.permission.CAR_CLIMATE"
+      ],
+      "signature": "public abstract void getHvacFanSpeed(ai.pleos.playground.vehicle.api.model.area.SeatArea, kotlin.jvm.functions.Function1<? super java.lang.Integer, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.HVAC",
+      "method": "registerHvacAcState",
+      "permissions": [
+        "pleos.car.permission.CAR_CLIMATE"
+      ],
+      "signature": "public abstract void registerHvacAcState(ai.pleos.playground.vehicle.api.model.area.SeatArea, ai.pleos.playground.vehicle.listener.HvacAcStateListener);"
+    },
+    {
+      "class": "api.EvBattery",
+      "method": "getEvBatteryStateOfCharge",
+      "permissions": [
+        "pleos.car.permission.CAR_ENERGY"
+      ],
+      "signature": "public abstract void getEvBatteryStateOfCharge(kotlin.jvm.functions.Function1<? super java.lang.Integer, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    },
+    {
+      "class": "api.Fuel",
+      "method": "getFuelPercent",
+      "permissions": [
+        "pleos.car.permission.CAR_ENERGY"
+      ],
+      "signature": "public abstract void getFuelPercent(kotlin.jvm.functions.Function1<? super java.lang.Integer, kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Exception, kotlin.Unit>);"
+    }
+  ]
+}
