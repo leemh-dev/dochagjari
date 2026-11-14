@@ -1,0 +1,66 @@
+{
+  "created_at_utc": "2026-11-14",
+  "branch": "feat/arrival-context-ux",
+  "pr": 2,
+  "workflow_document": "docs/36-cloud-mac-development-workflow.md",
+  "current_stage": 1,
+  "current_phase": "ready_for_implementation_no_new_code",
+  "app_baseline": {
+    "version": "0.9.0",
+    "versionCode": 9,
+    "code_commit": "e2b93baa91ce5bc56fb770fdc65dad08b9992175"
+  },
+  "mac": {
+    "hardware": "Apple M1, 8GiB RAM",
+    "storage_policy": "external SSD checkout/SDK/AVD/Gradle/cache/temp/evidence",
+    "execution_policy": "single emulator; prefer Cloud-built APK; separate local build from emulator",
+    "historical_evidence": "docs/evidence/macos-m1-pleos/",
+    "historical_result": "prior-version standard ADB suite6/6; memory pressure warning; not new-branch Pleos SDK/STT validation"
+  },
+  "stages": [
+    {
+      "id": 0,
+      "title": "준비",
+      "cloud_status": "complete_preparation_only",
+      "mac_status": "not_checked_for_new_branch",
+      "deliverable": "baseline branch/design/source preservation",
+      "note": "Mac 2026-11-13 old-version success is historical evidence, not this branch verification"
+    },
+    {
+      "id": 1,
+      "title": "다중 프리셋/이번 구성 저장·이행",
+      "cloud_status": "not_started",
+      "mac_status": "not_run"
+    },
+    {
+      "id": 2,
+      "title": "독립 탑승 설정 UI",
+      "cloud_status": "not_started",
+      "mac_status": "not_run"
+    },
+    {
+      "id": 3,
+      "title": "텍스트/TEST와 실제 음성·센서",
+      "cloud_status": "not_started",
+      "mac_status": "not_run"
+    },
+    {
+      "id": 4,
+      "title": "상단 영상/하단3D지도 패널",
+      "cloud_status": "not_started",
+      "mac_status": "not_run"
+    },
+    {
+      "id": 5,
+      "title": "같은 방문의 내비·입차·주차·귀환",
+      "cloud_status": "not_started",
+      "mac_status": "not_run"
+    },
+    {
+      "id": 6,
+      "title": "회귀/같은APK 녹화·시연",
+      "cloud_status": "not_started",
+      "mac_status": "not_run"
+    }
+  ]
+}

@@ -8,6 +8,8 @@
 
 ## 현재 우선순위 · 지도 중심 Android UX
 
+[Cloud 개발 ↔ 맥북 Pleos 단계별 절차](docs/36-cloud-mac-development-workflow.md)를 추가했습니다. 각 단계의 Cloud 검사와 Mac 기기 확인을 따로 기록하며, M1/8GB는 외장SSD·AVD한대·Cloud빌드APK 확인을 기본으로 합니다. Mac 미연결 시에도 독립 구현은 계속합니다. 현재는 준비/절차 정리 상태이고 첫 코드는 다중 탑승 저장/이행부터입니다.
+
 **현재 개발 읽기 순서:** [재개 기준34](docs/34-implementation-restart.md) → [독립 탑승 설정33](docs/33-occupant-modes-and-trip-context.md) → [최신UX31](docs/31-road-scenario-ux-concepts.md). [코드 보존/교체 기준35](docs/35-code-retention-and-cleanup.md)에 따라 공통 저장·복구 기반은 유지하고 옛 화면은 대체 구현 후 정리합니다. 아래의 이전 계획/시안 링크는 진행 이력이며 현재 실행 지시는 [단일 다음 프롬프트](docs/09-next-development-prompt.md)를 따릅니다.
 
 **새 개발 브랜치: `feat/arrival-context-ux`**. 기존 최신f164ec7에서 분리해 시안/앱/데이터를 보존했습니다. [새 개발 기준과 순서](docs/34-implementation-restart.md) · [시안PNG22개/최신6개 보존 대조](docs/evidence/implementation-restart/design-baseline.json). 첫 코드 단위는 내비와 독립된 다중 탑승 프리셋/이번 구성의 저장·기존 설정 이행입니다. 기존 PR#1은 유지합니다.

@@ -2,6 +2,7 @@
 
 - 제출 범위와 완료 기준은 `docs/07-development-plan.md`를 우선한다. 현재 상태는 `docs/08-verification.md`, 다음 작업은 `docs/09-next-development-prompt.md`를 읽는다.
 - 현행 실개발은 `feat/arrival-context-ux`/PR #2다. `docs/34-implementation-restart.md`→`docs/33-occupant-modes-and-trip-context.md`→`docs/31-road-scenario-ux-concepts.md`를 현재 기능/UX 기준으로 읽고, 영상은 docs32·코드 정리는 docs35를 따른다. 과거 단계별 기획/다음 작업은 이행·검증 이력이며 최신 설계를 덮어쓰지 않는다. 기존 코드 삭제는 호출/저장/검사 연결과 대체 구현을 먼저 확인한다.
+- 각 개발 단위는 `docs/36-cloud-mac-development-workflow.md`에 따라 Cloud 구현/검사와 Mac Pleos 확인 상태를 따로 보고한다. Mac M1/8GB는 외장SSD·AVD한대·Cloud빌드 전달을 기본으로 하고 미연결이면 독립 Cloud개발을 계속한다. 과거Mac성공/일반Android검사를 새Pleos성공으로 세지 않는다. 현재단계/차단/다음과 확보즉시 실제화면을 공유한다.
 - 주요 조사·구현·검증·실패·해결·차단 절차를 `docs/10-development-log.md`에 지속적으로 기록한다. 날짜, 환경·명령, 실제 결과, 증거·커밋, 후속 작업을 남긴다. 코드 검토에서 추정한 문제와 실제로 재현한 문제를 구분한다.
 - 기능 단위로 커밋·푸시하고 사용자가 요청한 PR에 변경·검증·제약과 문서 링크를 갱신한다. 관련 없는 변경을 덮어쓰거나 요청 없이 PR을 병합하지 않는다.
 - 빌드 성공, 테스트 APK 생성, 기기 테스트 실행, SDK 요청, 순정 내비 핀, Virtual Console 조작, 앱 이벤트 수신, 실차 검증을 구분한다. 호스트 Tesseract 결과를 Android ML Kit 성공으로 기록하지 않는다.

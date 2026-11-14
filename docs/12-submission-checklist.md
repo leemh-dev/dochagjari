@@ -2,6 +2,8 @@
 
 ## 시연영상 준비 · 계획 단계
 
+[Cloud/Mac 단계별 절차36](36-cloud-mac-development-workflow.md)에 따라 구현/검사와 Pleos 기기 확인을 분리한다. 새 단계의 [현재 상태표](evidence/implementation-restart/stage-status.json)는 준비 완료/첫 저장 구현 전이며, 과거 Mac 성공을 새 단계 통과로 표시하지 않는다. M1/8GB는 외장SSD/AVD한대/Cloud빌드 전달을 기본으로 한다.
+
 [제작 계획/210초 콘티](32-demo-video-production-plan.md)를 기준으로 서비스 본편과 실제 앱 실행기록을 준비한다. 2026-11-13 공식 안내에서 목업/프로토타입/화면녹화 인정을 재확인했다. 아래는 새 완료 증거가 아닌 남은 작업이다.
 
 - [ ] 핵심15~20초 모션샘플 검토와 장면별 자료/사용조건 확정.
