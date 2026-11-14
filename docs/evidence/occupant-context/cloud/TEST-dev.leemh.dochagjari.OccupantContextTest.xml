@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.leemh.dochagjari.OccupantContextTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-14T05:45:11" hostname="15b7d74466eb" time="3.731">
+  <properties/>
+  <testcase name="noSensorObservationClaimsAChildIdentityOrSoloTrip" classname="dev.leemh.dochagjari.OccupantContextTest" time="3.332"/>
+  <testcase name="explicitChildSideChangesOnlyThatSeatAndNotThePreset" classname="dev.leemh.dochagjari.OccupantContextTest" time="0.107"/>
+  <testcase name="serializationRetainsTripSnapshotEvenAfterItsPresetWasDeleted" classname="dev.leemh.dochagjari.OccupantContextTest" time="0.089"/>
+  <testcase name="ambiguousNegativeAndUnrelatedCommandsDoNotChooseAMode" classname="dev.leemh.dochagjari.OccupantContextTest" time="0.045"/>
+  <testcase name="futureOrMalformedDataIsRejectedRatherThanReset" classname="dev.leemh.dochagjari.OccupantContextTest" time="0.046"/>
+  <testcase name="selectingAndEditingThisTripDoesNotMutateSavedPresetOrTripId" classname="dev.leemh.dochagjari.OccupantContextTest" time="0.039"/>
+  <testcase name="migrationPreservesSkippedRolesAndMobilityWithoutStartingTrip" classname="dev.leemh.dochagjari.OccupantContextTest" time="0.034"/>
+  <testcase name="matchingMultipleChildPresetsRequiresUserChoice" classname="dev.leemh.dochagjari.OccupantContextTest" time="0.034"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

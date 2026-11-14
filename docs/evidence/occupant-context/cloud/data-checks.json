@@ -1,0 +1,25 @@
+{
+  "date_utc": "2026-11-14",
+  "environment": "Cloud JDK17/SDK35, Gradle offline cache",
+  "command": ":app:testDebugUnitTest --tests '*Occupant*Test'",
+  "result": "passed",
+  "suites": [
+    {
+      "name": "dev.leemh.dochagjari.OccupantContextTest",
+      "tests": "8",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.leemh.dochagjari.OccupantStorageTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "app_version": "0.10.0/10",
+  "device_executed": false,
+  "apk_packaged_in_this_local_check": false
+}
