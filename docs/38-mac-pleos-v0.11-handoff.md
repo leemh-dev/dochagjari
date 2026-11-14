@@ -1,5 +1,7 @@
 # Mac Pleos 인계 · 0.11.0/11
 
+> 2026-11-14 영상 범위 정정: 기존90초/20초는 앱 단독 기능기록이다. 요청한 **실제 Pleos3분할 대표시연은 미완료**다. [3분할 UX합성 예상도](evidence/demo-video/three-panel-concept/README.md)를 별도 제공하며 실제 통합 성공으로 세지 않는다. [실제 완료 기준39](39-three-panel-demo-gap.md).
+
 2026-11-14 UTC. Cloud 구현과 일반 Android 검증을 마쳤다. 다음 단계는 **같은 APK의 Mac Pleos 배치·실제 SDK 확인**이다. 이 세션에는 Mac 접속 경로가 없어 실행하지 않았다. 과거 M1 검사 성공을 이번 버전 성공으로 세지 않는다.
 
 ## 전달할 파일

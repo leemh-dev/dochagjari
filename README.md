@@ -1,5 +1,7 @@
 # 도착자리
 
+**영상 구분:** 기존90초/20초는 앱 단독 기능기록입니다. [새3분할 예상도](docs/evidence/demo-video/three-panel-concept/README.md)는 UX합성이며 실제 Pleos 동시 실행 증거가 아닙니다. 요청한 실제3분할 대표시연은 [Mac 확인/녹화](docs/39-three-panel-demo-gap.md)가 남아 있습니다.
+
 **현행 구현 완료(Cloud/일반Android): 0.11.0/11·f0640b0**, `feat/arrival-context-ux`/[PR#2](https://github.com/leemh-dev/dochagjari/pull/2). 독립 탑승 모드·이번 구성, 상단 생성영상/하단 기울인 주차·5층 지도, 같은 방문의 주차 저장/귀환을 구현했습니다. [최종 CI](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733) JVM115·서버14·진단35·기기15건과 별도 복원4단계까지 통과했습니다. [실제 화면/검사](docs/evidence/arrival-panel/f064-device/README.md) · [90초 시연/20초 모션](docs/evidence/demo-video/README.md) · [실제 검사 APK](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733/artifacts/14104088875).
 
 Mac/Pleos의 새버전 분할·SDK핀/Console·실제 음성/외부카메라·실차/SMS는 미검증입니다. AI 자료 보완 worker는 미구현이며 현재는 사전DB를 씁니다. [현재 수준](docs/37-current-implementation.md) · [M1/8GB·외장SSD 설치/검사 인계](docs/38-mac-pleos-v0.11-handoff.md). debug/test 개발서명·release unsigned, 앱마켓 출시는 범위 밖입니다. 아래 구버전 실적은 이력으로 구분합니다.

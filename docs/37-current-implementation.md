@@ -1,5 +1,7 @@
 # 현행 구현 · 0.11.0/11
 
+> 2026-11-14 영상 범위 정정: 기존90초/20초는 앱 단독 기능기록이다. 요청한 **실제 Pleos3분할 대표시연은 미완료**다. [3분할 UX합성 예상도](evidence/demo-video/three-panel-concept/README.md)를 별도 제공하며 실제 통합 성공으로 세지 않는다. [실제 완료 기준39](39-three-panel-demo-gap.md).
+
 2026-11-14 UTC. `feat/arrival-context-ux`, [PR#2](https://github.com/leemh-dev/dochagjari/pull/2). **Cloud 구현·일반Android 검사·실제 앱 시연 영상까지 완료했다.** Mac/Pleos 새버전 실연동은 이 세션에서 접근하지 못해 미검증이다. 기존 PR#1·앱 데이터·시안은 보존하고 자동병합하지 않았다.
 
 ## 실제 산출물과 검사

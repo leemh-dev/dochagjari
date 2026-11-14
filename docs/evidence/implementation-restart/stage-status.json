@@ -59,7 +59,7 @@
     {
       "id": 6,
       "title": "회귀/같은APK 녹화·시연",
-      "cloud_status": "regression_and_actual_capture_raw_90s_edit_20s_motion_verified",
+      "cloud_status": "app_only_recordings_verified_three_panel_concept_composited_native_demo_pending",
       "mac_status": "not_accessible_not_run_for_this_apk"
     }
   ],
@@ -75,5 +75,11 @@
     ],
     "tested_apk_artifact": 14104088875,
     "demo": "docs/evidence/demo-video/README.md"
-  }
+  },
+  "demo_scope": {
+    "app_only_generic_android": "verified recordings",
+    "three_panel_concept": "composited reference plus repacked app crops; not native integration",
+    "native_pleos_three_panel_representative_demo": "not completed"
+  },
+  "next_deliverable": "Full Pleos vehicle/native-navigation/Dochagjari three-panel recording on Mac"
 }

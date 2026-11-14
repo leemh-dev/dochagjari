@@ -1,5 +1,7 @@
 # 실제 개발 단계와 진행 기록
 
+> 2026-11-14 영상 범위 정정: 기존90초/20초는 앱 단독 기능기록이다. 요청한 **실제 Pleos3분할 대표시연은 미완료**다. [3분할 UX합성 예상도](evidence/demo-video/three-panel-concept/README.md)를 별도 제공하며 실제 통합 성공으로 세지 않는다. [실제 완료 기준39](39-three-panel-demo-gap.md).
+
 ## 2026-11-14 · 0.11.0 최종 Cloud 검증 완료
 
 **앱 0.11.0/11·f0640b0**, [push CI43569033733](https://github.com/leemh-dev/dochagjari/actions/runs/43569033733)와 [PR CI43569041435](https://github.com/leemh-dev/dochagjari/actions/runs/43569041435) 전체 성공. JVM115·서버14·진단35·lint/3빌드, 실제 connected15pass/0fail/4전용skip 후 별도 복원4단계, 원본54장·동일DB HTTP 모의 복구를 확인했다. **90초 편집 시연과20초 연속 모션**도 출력/전체 디코딩/해시 대조를 마쳤다.
